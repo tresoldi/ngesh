@@ -33,10 +33,7 @@ def __extant(tree):
     ]
 
 
-# TODO: there is an infinitesimal possibility that this might get stuck in
-# a loop, fix it
 # TODO: remove repeated, maybe also with semi-vowels
-# TODO: /h/ only at the beginning of after vowels (i.e not after consoannts)
 # TODO: turn into a generator?
 def random_labels(size=1, seed=None):
     """
@@ -55,25 +52,39 @@ def random_labels(size=1, seed=None):
         The list of unique labels.
     """
 
-    # Set up the basic data
+    # Set up the basic data: sounds by sound classes, too complex
+    # clusters, and syllable patterns
     sounds = {
         'C' : [c for c in 'bpdtfvszrlgkmnh'],
         'V' : [v for v in 'aeiou'],
     }
-
+    complex_clusters = ['bp', 'sz', 'zs', 'dl', 'gk', 'kg']
     patterns = ['V', 'CV', 'CV', 'CVC']
 
-    # Initialize the RNG
-    random.seed(seed)
-
-    # Collect data until enough labels have been found
-    ret = []
-    while True:
-        # draw a random number of syllables
-        syllables = []
+    # These functions are nested so we inherit the scope without having
+    # to pass `sounds`, `patterns`, etc. back and forth.
+    def gen_syl(min_syl, max_syl):
+        """
+        Internal function for generating a random syllable.
+        
+        Parameters
+        ----------
+        
+        min_syl : int
+            The minimum number of syllables.
+        max_syl : int
+            The maximum number of syllables.
+            
+        Returns
+        -------
+        
+        syllables : list of strings
+            A list of strings, each with one random syllable.
+        """
 
         # Map each syllable to random sounds
-        for _ in range(random.randint(2, 4)):
+        syllables = []
+        for _ in range(random.randint(min_syl, max_syl)):
             syllable = ''.join([
                 random.choice(sounds[sound_class])
                 for sound_class in random.choice(patterns)
@@ -81,34 +92,90 @@ def random_labels(size=1, seed=None):
 
             syllables.append(syllable)
 
-        # Build the string and add it if not used yet
-        label = ''.join(syllables).capitalize()
-        if label not in ret:
-            ret.append(label)
+        return syllables
 
-        # Check if we have enough data
-        if len(ret) == size:
-            break
+    def clean_label(label):
+        """
+        Returns a cleaned version of a label.
+        
+        This basically takes care of generating a more readable random
+        label, removing harder to read geminates, treating "h" differently,
+        etc. It is also used to guarantee that all labels will be
+        capitalized.
+        """
+        
+        # We "uncapitalize" label, as it might have been capitalized before
+        # and having everything in lowercase makes the code easier to follow.
+        label = label.lower()
+        
+        # Remove all "h" next to another consonant (including "h" itself),
+        # making sure we only have "h" in intervocalic position or at the
+        # beginning of the word (increases readability)
+        label = label.replace('hh', '')
+        for cons in sounds['C']:
+            label = label.replace(cons + 'h', cons)
+            label = label.replace('h' + cons, cons)
+
+        # Remove too complex clusters by selecting one random sound
+        for cluster in complex_clusters:
+            if cluster in label:
+                label = label.replace(cluster, cluster[random.randint(0, 1)]) 
+
+        # Remove geminated vowels
+        for vowel in sounds['V']:
+            label = label.replace(vowel + vowel, vowel)
+        
+        # Replace initial "i" with "wi" -- this makes reading labels easier
+        # in most typefaces.
+        if label.startswith("i"):
+            label = "w" + label
+        
+        return label.capitalize()
+
+    # Initialize the RNG
+    random.seed(seed)
+
+    # Iterate until enough unique labels have been collected
+    ret_labels = []
+    for _ in range(size):
+        # Generate a random capitalized label with 2 to 3 syllables.
+        syllables = gen_syl(2, 3)
+        label = clean_label(''.join(syllables))
+
+        # Append more syllables if necessary, one at a time, until an unique
+        # name is generated.
+        while True:
+            if label not in ret_labels:
+                break
+                
+            label = clean_label(label + gen_syl(1, 1)[0])
+
+        # Collect the generated label.
+        ret_labels.append(label)
 
     # Return the list of labels
-    return ret
+    return ret_labels
+
 
 # TODO: add species model
-def label_tree(tree, prefix='L', human=False, seed=None):
+def label_tree(tree, model, seed=None):
     """
-    Labels the nodes of a tree in an enumerating or linguistic way.
+    Labels the nodes of a tree according to a model.
 
     Linguistic labels are unique names generated in a way intended to be
-    readable. Enumerating labels are, as expected, a plain enumeration.
-    The `tree` object is changed in place (no return).
+    readable.
+    
+    Please note that the `tree` object is changed in place (no return).
 
     Parameters
     ----------
 
-    prefix: str
-        The prefix string in case of enumerating labels. Defaults to "L".
-    human : bool
-        Whether to use or not random linguistic labels. Defaults to False.
+    tree: ete3 tree object
+        The tree whose nodes will be labeled.
+    model : str
+        A string indicating which model for label generation should be
+        used. Possible values are "enum" (for enumerated labels), "human"
+        (for random single names), and "bio" (for random biological names).
     seed : value
         An optional seed for the random number generator, only used in case
         of linguistic labels. Defaults to None.
@@ -117,8 +184,9 @@ def label_tree(tree, prefix='L', human=False, seed=None):
     # Cache the leaves, so we can also obtain their number
     leaves = tree.get_leaves()
 
-    # Add enumerating or linguistic labels
-    if human:
+    if model == 'bio':
+        print("WARNING: bio label generation not implemented, skipping.")
+    elif model == 'human':
         for leaf_node, name in zip(leaves, random_labels(len(leaves), seed)):
             leaf_node.name = name
     else:
@@ -132,21 +200,21 @@ def label_tree(tree, prefix='L', human=False, seed=None):
         for leaf_idx, leaf_node in enumerate(leaves):
             leaf_node.name = pattern % (leaf_idx+1)
 
-# TODO: note on hard polytomies
+
 def __gen_tree(birth, death, min_leaves, max_time, labels, lam, prune, seed):
     """
     Internal function for tree generation.
     
     This is an internal function for the tree generation, whose main
-    difference to `gen_tree()`, the one offered to the user, is that it
+    difference to `gen_tree()`, the one exposed to the user, is that it
     does not guarantee that a tree will be generated, as the parameters and
     the random sampling might lead to dead-ends where all the leaves in
     a tree are extinct before any or all the stopping criteria are met.
     
     As an internal function, it does not set default values to the arguments
     and does not perform any checking on the values. Information on the
-    arguments, which have the same names and properties, are given in the
-    documentation for `gen_tree()`.
+    arguments, which have the same variable names and properties, are given
+    in the documentation for `gen_tree()`.
     """
 
     # Compute the overall event rate (birth plus death), from which the
@@ -161,7 +229,7 @@ def __gen_tree(birth, death, min_leaves, max_time, labels, lam, prune, seed):
     # Initialize the RNG
     random.seed(seed)
 
-    # Create the tree root as a node. As the root is at first set as
+    # Create the tree root as a node. Given that the root is at first set as
     # non-extinct and with a branch length of 0.0, it will be immediately
     # subject to either a speciation or extinction event. 
     tree = Tree()
@@ -183,12 +251,13 @@ def __gen_tree(birth, death, min_leaves, max_time, labels, lam, prune, seed):
         # combined event probability.
         event_time = random.expovariate(len(leaf_nodes) * event_rate)
 
-        # Update the total evolution time, rescaling `event_time` if needed
-        # (cases when we would overshoot the maximum alloted time)
-        if max_time and (total_time + event_time) > max_time:
-            event_time = max_time - total_time
-
+        # Update the total evolution time. If a maximum alloted time
+        # `max_time` is provided and we overshoot it, break the loop
+        # without implementing the event (as, by the random event time, it
+        # would take place *after* our maximum time, in the future).
         total_time += event_time
+        if max_time and total_time > max_time:
+            break
 
         # Select a random node among the extant ones and set it as extinct
         # before simulating either a birth or death event; the type of
@@ -200,8 +269,9 @@ def __gen_tree(birth, death, min_leaves, max_time, labels, lam, prune, seed):
         if random.random() <= birth:
             # The event will be a birth (i.e., speciation one), with at least
             # two children (the number is increased by a random sample from a
-            # Poisson distribution using the `lam` parameter). The distance
-            # of the children is here first set to zero, and will be
+            # Poisson distribution using the `lam` parameter, so that
+            # hard politomies are possible). The distance
+            # of the children is here initially set to zero, and will be
             # increased by `event_time` in the loop below, along with all
             # other extant nodes.
             for _ in range(2 + np.random.poisson(lam)):
@@ -211,11 +281,12 @@ def __gen_tree(birth, death, min_leaves, max_time, labels, lam, prune, seed):
                 
                 node.add_child(child_node)
 
-        # Extract the list of extant nodes now that we might have new children
-        # and that the randomly selected node went extinct (easier than
-        # manipulating the list). From the updated list, we will extend
-        # the branch length of all extant leaves (including any new
-        # children) by the `event_time` computed above.
+        # (Re)Extract the list of extant nodes, now that we might have new
+        # children and that the randomly selected node went extinct
+        # (easier than directly manipulating the Python list). From the
+        # updated list, we will extend the branch length of all extant leaves
+        # (thus including any new children) by the `event_time` computed
+        # above.
         leaf_nodes = __extant(tree) 
         for leaf in leaf_nodes:
             new_leaf_dist = leaf.dist + event_time
@@ -224,8 +295,9 @@ def __gen_tree(birth, death, min_leaves, max_time, labels, lam, prune, seed):
         # If the event above was a death event, we might be in the undesirable
         # situation where all lineages went extinct before we
         # could finish the random generation according to the
-        # user-requested parameters. A solution could
-        # be to recursively call the function, with the same
+        # user-requested parameters, so that one or both stopping criteria
+        # cannot be satisfied. A solution could
+        # be to recursively call this function, with the same
         # parameters, until a valid tree is found, but this is not
         # optimal (nor elegant) and might get us stuck in a
         # loop if we don't keep track of the number of iterations
@@ -233,7 +305,7 @@ def __gen_tree(birth, death, min_leaves, max_time, labels, lam, prune, seed):
         # user-provided random seed). In face of that,
         # it is preferable to be explicit about the problem by
         # returning a None value, with the user (or a wrapper
-        # function) in charge of taking care that the desired
+        # function) being in charge of asserting that the desired
         # number of random trees is collected (even if it is only one).
         if len(leaf_nodes) == 0:
             tree = None
@@ -254,11 +326,14 @@ def __gen_tree(birth, death, min_leaves, max_time, labels, lam, prune, seed):
 
     # Label the tree before returning it, if it was provided
     # TODO: fix
-    if tree:
-        label_tree(tree, human=True, seed=seed)
+    if labels and tree:
+        label_tree(tree, labels, seed=seed)
 
     return tree
 
+
+# TODO: note about *minimum* leaves
+# TODO: note on hard polytomies
 # TODO: note on unpossible generation
 # TODO: check if `labels` is good.
 # TODO: move to lambda (birth) and mu (death); specify they are constant
