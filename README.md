@@ -14,6 +14,7 @@ In detail with ngesh:
 
 * trees are returned either as strings in Newick representation or as
 Python's [ETE](http://etetoolkit.org/) tree objects
+* trees include random branch-lengths
 * trees can be generated from user-specified seeds, so that the
 generation can be reproduced
 * trees can be generated according to user-provided birth and death ratios
@@ -91,6 +92,17 @@ be used on-line as a wrapper to T-Rex above
 identifiers or protein accessions can be used for the same purpose
 
 (add reference bibliography)
+
+## TODO
+
+* Add stoping criterion of total number of nodes (in complement to the number of
+*extant* nodes currently available)
+* Rewrite the random label generators into actual Python generators
+* Better implementation of the scientific name generator, exporting the function
+and guaranteeing there are no duplicates
+* Import the text generators from Enki or similar methods
+* Consider replacing `expovariate` with an actual random Poisson sampling, or
+allow multiple models
 
 ## References
 
