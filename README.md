@@ -68,6 +68,8 @@ A number of on-line tools are also available at the time of writing:
 
 * [T-Rex (Tree and reticulogram REConstruction](http://www.trex.uqam.ca/index.php?action=randomtreegenerator&project=trex)
 at the Université du Québec à Montréal (UQAM)
+* [Anvi'o Server](https://anvi-server.org/meren/random_phylogenetic_tree_w500_nodes) can
+be used on-line as a wrapper to T-Rex above
 * [phyloT](https://phylot.biobyte.de/), which by randomly sampling taxonomic names,
 identifiers or protein accessions can be used for the same purpose
 
