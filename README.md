@@ -6,7 +6,7 @@ during the development or debugging of phylogenetic methods. The generation of
 random phylogenetic trees also goes by the name of "simulation methods for phylogenetic
 trees" or just "simulating phylogenetic trees".
 
-In detaili with ngesh:
+In detail with ngesh:
 
 * trees are returned either as strings in Newick representation or as
 Python's [ETE](http://etetoolkit.org/) tree objects
@@ -23,7 +23,13 @@ can be randomly drawn from a user-defined Poisson process
 random human-readable names, or random biological names following the
 binomial nomenclature standard.
 
-In its simplest usage...
+## Installation
+
+(lorem ipsum)
+
+## How to use
+
+(lorem ipsum)
 
 ## How does ngesh work?
 
