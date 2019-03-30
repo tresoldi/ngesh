@@ -41,6 +41,7 @@ def _extant(tree):
 # a loop, fix it
 # TODO: remove repeated, maybe also with semi-vowels
 # TODO: /h/ only at the beginning of after vowels (i.e not after consoannts)
+# TODO: turn into a generator?
 def random_labels(size=1, seed=None):
     """
     Returns a list of unique random pronounceable labels.
