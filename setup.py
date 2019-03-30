@@ -21,8 +21,11 @@ setup(
     classifiers=[
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3",
+        "Operating System :: OS Independent",
+        "Topic :: Software Development :: Libraries",
     ],
     packages=["ngesh"],
+    keywords=["random phylogenetic tree", "phylogenetics"],
     include_package_data=True,
     install_requires=[
         "ete3",
