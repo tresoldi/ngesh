@@ -36,4 +36,6 @@ setup(
             "ngesh=ngesh.__main__:main",
         ]
     },
+    test_suite='tests',
+    tests_require=[],
 )
