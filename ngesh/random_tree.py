@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
-# TODO: at least three leaves
-# TODO guarantee unique species names
-
 """
 Random Phylogenetic Tree Generator.
 
@@ -450,6 +447,12 @@ def __gen_tree(birth, death, min_leaves, max_time, labels, lam, prune, seed):
 
         if max_time and total_time >= max_time:
             break
+
+    # In some cases we might end up with technically valid trees composed
+    # only of the root. We make sure at least one speciation event took
+    # place, returning `None` as failure in other cases.
+    if len(__extant(tree)) <= 2:
+        tree = None
 
     # Prune the tree, removing extinct leaves, if requested and if a
     # tree was found. Remember that the ete3 `prune()` method takes a list
