@@ -42,8 +42,8 @@ readable (if not pronounceable) as possible.
 
 Technically it is just a name, but it was derived from one of the Sumerian words
 for "tree", [ĝeš](http://psd.museum.upenn.edu/epsd/epsd/e2052.html), albeit
-with an uncommon transcription. The name comes from the library being part
-of a larger system for simulating language evolution and benchmarking
+with an uncommon transcription. The name comes from the library once being
+a module of a larger system for simulating language evolution and benchmarking
 related tools, called [Enki](https://en.wikipedia.org/wiki/Enki) after the
 Sumerian god of (among many other things) language and mischief.
 
@@ -71,4 +71,12 @@ at the Université du Québec à Montréal (UQAM)
 * [phylot](https://phylot.biobyte.de/), which by randomly sampling taxonomic names,
 identifiers or protein accessions can be used for the same purpose
 
+## Author
 
+Tiago Tresoldi <tresoldi@shh.mpg.de>
+
+The author was supported by the 
+[ERC Grant #715618](https://cordis.europa.eu/project/rcn/206320/factsheet/en)
+for the project [CALC](http://calc.digling.org)
+(Computer-Assisted Language Comparison: Reconciling Computational and Classical
+Approaches in Historical Linguistics).
