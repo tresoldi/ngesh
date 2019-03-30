@@ -8,10 +8,6 @@ This script provides function to generate random phylogenetic trees in
 a Yule (birth only) or Birth-Death model, setting different generation
 parameters and limiting the tree in terms of number of leaves and/or
 evolution time.
-
-The implementation is based on the code and instructions originally
-provided by `mrnouthahi` at
-https://mrnoutahi.com/2017/12/05/How-to-simulate-a-tree/.
 """
 
 # Import Python standard libraries
@@ -22,7 +18,7 @@ import random
 import numpy as np
 from ete3 import Tree
 
-def _extant(tree):
+def __extant(tree):
     """
     Internal function returning a list of non-extinct leaves in a tree.
     """
@@ -97,7 +93,7 @@ def random_labels(size=1, seed=None):
     # Return the list of labels
     return ret
 
-# TODO: add species model?
+# TODO: add species model
 def label_tree(tree, prefix='L', human=False, seed=None):
     """
     Labels the nodes of a tree in an enumerating or linguistic way.
@@ -136,93 +132,69 @@ def label_tree(tree, prefix='L', human=False, seed=None):
         for leaf_idx, leaf_node in enumerate(leaves):
             leaf_node.name = pattern % (leaf_idx+1)
 
-
-# TODO: add prune param
-def gen_tree(birth, death, min_leaves=None, max_time=None,
-         human_labels=False, seed=None, lam=0, prune=False):
+# TODO: note on hard polytomies
+def __gen_tree(birth, death, min_leaves, max_time, labels, lam, prune, seed):
     """
-    Returns a random Birth-Death tree.    
-
-    At least one stopping criterion must be informed, with the tree being
-    returned when the either is met.
-
-    Parameters
-    ----------
-
-    birth : float
-        The birth rate for the generated tree.
-    death : float
-        The death rate for the generated tree. Must be explicitly set to zero
-        for Yule model (i.e., birth only).
-    num_leaves : int
-        A stopping criterion with the desired number of leaves. Defaults to
-        None.
-    max_time : float
-        A stopping criterion with the maximum allowed time for evolution.
-        Defaults to None.
-    human_labels : bool
-        Whether to use or not random linguistic labels. Defaults to False.
-    seed : value
-        An optional seed for the random number generator. Defaults to None.
-    lam : float
-        The expectation of interval for sampling a Poisson distribution
-        during speciation, with a minimum of two descendants. Should be used
-        if more than two descendants are to be allowed. Defaults to zero,
-        meaning that all speciation events will have two and only two
-        descendents.
-
-    Returns
-    -------
-
-    tree : ete3 tree
-        The tree randomly generated according to the parameters.
+    Internal function for tree generation.
+    
+    This is an internal function for the tree generation, whose main
+    difference to `gen_tree()`, the one offered to the user, is that it
+    does not guarantee that a tree will be generated, as the parameters and
+    the random sampling might lead to dead-ends where all the leaves in
+    a tree are extinct before any or all the stopping criteria are met.
+    
+    As an internal function, it does not set default values to the arguments
+    and does not perform any checking on the values. Information on the
+    arguments, which have the same names and properties, are given in the
+    documentation for `gen_tree()`.
     """
-
-    # Confirm that at least one stopping condition was provided
-    if not (min_leaves or max_time):
-        raise ValueError('At least one stopping criterion is required.')
 
     # Compute the overall event rate (birth plus death), from which the
     # random expovariate will be drawn. `birth` is here normalized in range
     # [0..1] so that we can directly compare with the results of
     # random.random() and decide if the event is a birth or a death.
-    # `death` does not need to be normalized, as it is not used anymore. 
+    # `death` does not need to be normalized, as it is not used anymore (the
+    # only check, below, is `random.random() <= birth`).
     event_rate = birth + death
     birth = birth / event_rate
 
     # Initialize the RNG
     random.seed(seed)
 
-    # Create the tree root as a node and sets its branch length to 0.0.
-    # The root is at first set to non-extinct with our custom "extinct"
-    # feature.
+    # Create the tree root as a node. As the root is at first set as
+    # non-extinct and with a branch length of 0.0, it will be immediately
+    # subject to either a speciation or extinction event. 
     tree = Tree()
     tree.dist = 0.0
     tree.extinct = False
 
-    # Repeat until an acceptable tree is generated; `total_time`, of which
-    # we keep track in case `max_time` is provided, is the total time of
-    # evolution that, in this case of a Yule tree, is the
-    # uniform distance of all leaves at any given moment.
+    # Iterate until an acceptable tree is generated (breaking the loop with
+    # a tree) or all leaves go extinct (breaking the loop with `tree` as None).
+    # `total_time`, of which we keep track in case `max_time` is provided,
+    # is the total evolution time (sum of branch lengths) from the root to the
+    # extant nodes.
     total_time = 0.0
     while True:
-        # Get the list of extant species/languages
-        leaf_nodes = _extant(tree)
+        # Get the list of extant leaves
+        leaf_nodes = __extant(tree)
 
-        # Compute a random expovariate event time before the next speciation
-        # from the number of leaves and the provided birth rate
-        event_time = random.expovariate(len(leaf_nodes) / birth)
+        # Compute the event time before the next birth/death event from a
+        # random exporaviate reflecting the number of extant leaves and the
+        # combined event probability.
+        event_time = random.expovariate(len(leaf_nodes) * event_rate)
 
         # Update the total evolution time, rescaling `event_time` if needed
+        # (cases when we would overshoot the maximum alloted time)
         if max_time and (total_time + event_time) > max_time:
             event_time = max_time - total_time
 
         total_time += event_time
 
-        # Draw a random node among the extant ones, and set it as extinct,
-        # optionally (depending of the value of random.random(), which is
-        # compared to `birth` as already normalized in relation to
-        # `event_rate`.
+        # Select a random node among the extant ones and set it as extinct
+        # before simulating either a birth or death event; the type of
+        # event is decided based on the comparison of the result of a
+        # `random.random()` call with `birth` (here already normalized in
+        # relation to `event_rate`)
         node = random.choice(leaf_nodes)
         node.extinct = True
         if random.random() <= birth:
@@ -241,14 +213,13 @@ def gen_tree(birth, death, min_leaves=None, max_time=None,
 
         # Extract the list of extant nodes now that we might have new children
         # and that the randomly selected node went extinct (easier than
-        # manipulating the list). From the updated list, we will update
-        # ("extend") the branch length of all extant leaves by the
-        # `event_time` computed above.
-        leaf_nodes = _extant(tree) 
+        # manipulating the list). From the updated list, we will extend
+        # the branch length of all extant leaves (including any new
+        # children) by the `event_time` computed above.
+        leaf_nodes = __extant(tree) 
         for leaf in leaf_nodes:
-            if leaf != node:
-                new_leaf_dist = leaf.dist + event_time
-                leaf.dist = min(new_leaf_dist, (max_time or new_leaf_dist))
+            new_leaf_dist = leaf.dist + event_time
+            leaf.dist = min(new_leaf_dist, (max_time or new_leaf_dist))
 
         # If the event above was a death event, we might be in the undesirable
         # situation where all lineages went extinct before we
@@ -276,19 +247,68 @@ def gen_tree(birth, death, min_leaves=None, max_time=None,
             break
 
     # Prune the tree, removing extinct leaves, if requested and if a
-    # tree was found
+    # tree was found. Remember that the ete3 `prune()` method takes a list
+    # of the nodes that will be kept, removing the other ones.
     if prune and tree:
-        tree.prune(_extant(tree))
+        tree.prune(__extant(tree))
 
     # Label the tree before returning it, if it was provided
+    # TODO: fix
     if tree:
-        label_tree(tree, human=human_labels, seed=seed)
+        label_tree(tree, human=True, seed=seed)
 
     return tree
 
+# TODO: note on unpossible generation
+# TODO: check if `labels` is good.
+# TODO: move to lambda (birth) and mu (death); specify they are constant
+# TODO: should move from expovariate to poisson?
+# TODO: note that there is no guarantee all trees will be different, of course
+def gen_tree(birth, death, min_leaves=None, max_time=None,
+         labels=False, lam=0.0, prune=False, seed=None):
+    """
+    Returns a random phylogenetic tree.    
 
-def gen_tree_safe(birth, death, min_leaves=None, max_time=None,
-         human_labels=False, seed=None, lam=0, prune=False):
+    At least one stopping criterion must be informed, with the tree being
+    returned when the either is met.
+
+    Parameters
+    ----------
+
+    birth : float
+        The birth rate for the generated tree.
+    death : float
+        The death rate for the generated tree. Must be explicitly set to zero
+        for Yule model (i.e., birth only).
+    num_leaves : int
+        A stopping criterion with the desired number of leaves. Defaults to
+        None.
+    max_time : float
+        A stopping criterion with the maximum allowed time for evolution.
+        Defaults to None.
+    labels : str or None
+        The model to be used for generating random labels, either
+        "enum" (for enumerated labels), "human" (for random single names),
+        "bio" (for random biological names" or None. Defaults to "enum".
+    seed : value
+        An optional seed for the random number generator. Defaults to None.
+    lam : float
+        The expectation of interval for sampling a Poisson distribution
+        during speciation, with a minimum of two descendants. Should be used
+        if more than two descendants are to be allowed. Defaults to zero,
+        meaning that all speciation events will have two and only two
+        descendents.
+    prune : bool
+        A flag indicating whether any non-extant leaves should be pruned from
+        the tree before it is returned.
+
+    Returns
+    -------
+
+    tree : ete3 tree
+        The tree randomly generated according to the parameters.
+    """
+         
     max_attempts = 10000
 
     cur_attempt = 0
@@ -307,31 +327,11 @@ def gen_tree_safe(birth, death, min_leaves=None, max_time=None,
         random.seed(seed)
         seed = random.random()
 
-        tree = gen_tree(birth, death, min_leaves, max_time,
-                    human_labels, seed, lam, prune)
+        tree = __gen_tree(birth, death, min_leaves, max_time,
+                    labels, lam, prune, seed)
 
+        # TODO: if notree
         if tree:
             break
 
     return tree
-
-
-
-if __name__ == '__main__':
-#    for i in range(2):
-#        yuletree = birth_only(1.0, min_leaves=10, human=True)
-#        yuletree = birth_only(1.0, max_time=3)
-
-    for i in range(2):
-#        print("leaves")
-#        bdtree = mine(1.0, 0.5, min_leaves=10, human=True)
-#        if bdtree:
-#            bdtree.show()
-            
-        bdtree = gen_tree_safe(1.0, 0.5, max_time=3, human_labels=True)
-        if bdtree:
-            bdtree.show()
-
-    #print(dir(yuletree))
-    #print(dir(bdtree))
-    #bdtree.show()
