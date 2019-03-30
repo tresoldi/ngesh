@@ -19,6 +19,9 @@ import random
 import numpy as np
 from ete3 import Tree
 
+# Define the maximum number of tries for generation
+__MAX_ATTEMPTS = 3000
+
 # Define data for random label generation: sound classes, too complex
 # clusters, and syllable patterns
 __SOUNDS = {
@@ -118,7 +121,6 @@ def __clean_label(label):
     return label.capitalize()
 
 
-# TODO: turn into a generator?
 def random_labels(size=1, seed=None):
     """
     Returns a list of unique random pronounceable labels.
@@ -161,7 +163,6 @@ def random_labels(size=1, seed=None):
     return ret_labels
 
 
-# TODO: turn into a gneerator?
 # Please note that this library was originally relying on the more
 # complex word-generator implemented in Enki, with better results and better
 # code. Still, it was fun to take a break from serious work and work in
@@ -262,7 +263,8 @@ def random_species(size=1, seed=None):
 
     # If the label is short, add a random suffix
     labels = [
-        label + random.choice(['r', 'r', 'l']) + random.choice(__SOUNDS['V']) + 's'
+        '%s%s%s' % (label, random.choice(['r', 'r', 'l']),
+                    random.choice(__SOUNDS['V']) + 's')
         if len(label) < 5
         else label
         for label in labels]
@@ -331,7 +333,7 @@ def label_tree(tree, model, seed=None):
             leaf_node.name = pattern % (leaf_idx+1)
 
 
-def __gen_tree(birth, death, min_leaves, max_time, labels, lam, prune, seed):
+def __gen_tree(l, mu, min_leaves, max_time, labels, lam, prune, seed):
     """
     Internal function for tree generation.
     
@@ -353,8 +355,8 @@ def __gen_tree(birth, death, min_leaves, max_time, labels, lam, prune, seed):
     # random.random() and decide if the event is a birth or a death.
     # `death` does not need to be normalized, as it is not used anymore (the
     # only check, below, is `random.random() <= birth`).
-    event_rate = birth + death
-    birth = birth / event_rate
+    event_rate = l + mu
+    birth = l / event_rate
 
     # Initialize the RNG
     random.seed(seed)
@@ -451,7 +453,7 @@ def __gen_tree(birth, death, min_leaves, max_time, labels, lam, prune, seed):
     # In some cases we might end up with technically valid trees composed
     # only of the root. We make sure at least one speciation event took
     # place, returning `None` as failure in other cases.
-    if len(__extant(tree)) <= 2:
+    if tree and len(__extant(tree)) <= 2:
         tree = None
 
     # Prune the tree, removing extinct leaves, if requested and if a
@@ -468,32 +470,35 @@ def __gen_tree(birth, death, min_leaves, max_time, labels, lam, prune, seed):
     return tree
 
 
-# TODO: note about *minimum* leaves
-# TODO: note on hard polytomies
-# TODO: note on unpossible generation
-# TODO: check if `labels` is good.
-# TODO: move to lambda (birth) and mu (death); specify they are constant
-# TODO: should move from expovariate to poisson?
-# TODO: note that there is no guarantee all trees will be different, of course
-def gen_tree(birth, death, min_leaves=None, max_time=None,
-         labels=False, lam=0.0, prune=False, seed=None):
+def gen_tree(l, mu, min_leaves=None, max_time=None,
+             labels=False, lam=0.0, prune=False, seed=None):
     """
     Returns a random phylogenetic tree.    
 
     At least one stopping criterion must be informed, with the tree being
     returned when the either is met.
 
+    This function wraps the internal `__gen_tree()` function which cannot
+    guarantee that a valid tree will be generated given the user
+    parameters and the random sampling. It will try as many times as
+    necessary to provide a valid (and reproducible, given a `seed`) tree,
+    within the limits of an internal parameter for maximum number of
+    attempts.
+
     Parameters
     ----------
 
-    birth : float
-        The birth rate for the generated tree.
-    death : float
+    l : float
+        The birth rate (lambda) for the generated tree.
+    mu : float
         The death rate for the generated tree. Must be explicitly set to zero
         for Yule model (i.e., birth only).
     num_leaves : int
-        A stopping criterion with the desired number of leaves. Defaults to
-        None.
+        A stopping criterion with the minimum number of extant leaves.
+        The generated tree will have at least the number of requested
+        extant leaves (possibly more, as the last speciation event might
+        produce more leaves than the minimum specified.
+        Defaults to None.
     max_time : float
         A stopping criterion with the maximum allowed time for evolution.
         Defaults to None.
@@ -519,29 +524,40 @@ def gen_tree(birth, death, min_leaves=None, max_time=None,
     tree : ete3 tree
         The tree randomly generated according to the parameters.
     """
-         
-    max_attempts = 10000
 
+    # Confirm that at least one stopping condition was provided
+    if not (min_leaves or max_time):
+        raise ValueError('At least one stopping criterion is required.')
+
+    # Confirm that a valid `labels` was passed
+    if labels not in ["enum", "human", "bio", None]:
+        raise ValueError("Invalid label model provided ('%s')" % labels)
+
+    # Generate the random tree
     cur_attempt = 0
-    tree = None
     while True:
-        # Update the current attempt and drop out if maximum was reached
-        # In the extremely unlikely event we were not able to generate a tree, let's
-        # fail explicitly
+        # Update the current attempt and drop out if maximum was reached.
+        # In the extremely unlikely event we were not able to generate a tree,
+        # after all these iterations (probably due to the user parameters),
+        # we fail explicitly.
         cur_attempt += 1
-        if cur_attempt == max_attempts:
-            raise RuntimeError("Unable to generate a valid birth-death tree.")
+        if cur_attempt == __MAX_ATTEMPTS:
+            raise RuntimeError("Unable to generate a valid tree.")
 
-        # Generate a new seed -- if a seed was provided and it fails (no
-        # tree generation), there is no point in trying with the same number;
-        # this way, we feed a different but predictable seed each time
+        # Seed the RNG with the current seed (which, in the first run, will
+        # either be the one provided by the user or `None`) and extract a
+        # new seed for future iterations if needed (if the provided seed fails,
+        # in case of no tree generation, there is no point in trying the
+        # feed again).
         random.seed(seed)
         seed = random.random()
 
-        tree = __gen_tree(birth, death, min_leaves, max_time,
-                    labels, lam, prune, seed)
+        # Ask for a new tree
+        tree = __gen_tree(l, mu, min_leaves, max_time, labels, lam, prune, seed)
 
-        # TODO: if notree
+        # Break out of the loop if a valid tree was found, as in most of the
+        # cases; if no tree could be generated, `__gen_tree()` will return
+        # `None`.
         if tree:
             break
 
