@@ -6,7 +6,7 @@ during the development or debugging of phylogenetic methods. The generation of
 random phylogenetic trees also goes by the name of "simulation methods for phylogenetic
 trees" or just "simulating phylogenetic trees".
 
-In detail:
+In detaili with ngesh:
 
 * trees are returned either as strings in Newick representation or as
 Python's [ETE](http://etetoolkit.org/) tree objects
@@ -18,7 +18,7 @@ generation can be reproduced
 * speciation events default to two descendants, but the number of descendants
 can be randomly drawn from a user-defined Poisson process
 * trees can be limited in terms of number of extant leaves, evolution time
-(in relation to the birth death parameters), or both
+(as related to the birth and death parameters), or both
 * nodes can optionally receive unique labels, either sequential ones,
 random human-readable names, or random biological names following the
 binomial nomenclature standard.
@@ -30,12 +30,12 @@ In its simplest usage...
 For each tree, an `event_rate` is computed from the sum of the `birth` and
 `death` rates. At each iteration, which takes places after an
 random expovariant time from the `event_rate`, one of the extant nodes is
-selected for an "event", randomly either a birth or a death from the
-proportion of their rates. All other extant leaves have their distances
-ipdated with the event time.
+selected for an "event": either a birth or a death from the
+proportion of each rate. All other extant leaves have their distances
+updated with the event time.
 
 The random labels follow the expected methods for random text generation
-from a set of patterns, taking care to make names as universally
+from a set of patterns, taking care to generate names as universally
 readable (if not pronounceable) as possible.
 
 ## What does "ngesh" mean?
@@ -47,7 +47,7 @@ a module of a larger system for simulating language evolution and benchmarking
 related tools, called [Enki](https://en.wikipedia.org/wiki/Enki) after the
 Sumerian god of (among many other things) language and mischief.
 
-The intended pronountiation, as in the most accepted reconstructions, is /ŋeʃ/. 
+The intended pronounciation, as in the most accepted reconstructions, is /ŋeʃ/. 
 But don't strees over it: it is just a unique name.
 
 ## Alternatives
@@ -68,14 +68,16 @@ A number of on-line tools are also available at the time of writing:
 
 * [T-Rex (Tree and reticulogram REConstruction](http://www.trex.uqam.ca/index.php?action=randomtreegenerator&project=trex)
 at the Université du Québec à Montréal (UQAM)
-* [phylot](https://phylot.biobyte.de/), which by randomly sampling taxonomic names,
+* [phyloT](https://phylot.biobyte.de/), which by randomly sampling taxonomic names,
 identifiers or protein accessions can be used for the same purpose
+
+(add reference bibliography)
 
 ## Author
 
-Tiago Tresoldi <tresoldi@shh.mpg.de>
+Tiago Tresoldi (tresoldi@shh.mpg.de)
 
-The author was supported by the 
+The author was supported during development by the 
 [ERC Grant #715618](https://cordis.europa.eu/project/rcn/206320/factsheet/en)
 for the project [CALC](http://calc.digling.org)
 (Computer-Assisted Language Comparison: Reconciling Computational and Classical
