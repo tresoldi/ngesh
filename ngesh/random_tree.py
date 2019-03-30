@@ -53,18 +53,18 @@ def __extant(tree):
 def __gen_syl(min_syl, max_syl):
     """
     Internal function for generating a random syllable.
-        
+
     Parameters
     ----------
-        
+
     min_syl : int
         The minimum number of syllables.
     max_syl : int
         The maximum number of syllables.
-            
+
     Returns
     -------
-        
+
     syllables : list of strings
         A list of strings, each with one random syllable.
     """
@@ -78,24 +78,24 @@ def __gen_syl(min_syl, max_syl):
         ])
 
         syllables.append(syllable)
-    
+
     return syllables
 
 
 def __clean_label(label):
     """
     Returns a cleaned version of a label.
-        
+
     This basically takes care of generating a more readable random
     label, removing harder to read geminates, treating "h" differently,
     etc. It is also used to guarantee that all labels will be
     capitalized.
     """
-        
+
     # We "uncapitalize" label, as it might have been capitalized before
     # and having everything in lowercase makes the code easier to follow.
     label = label.lower()
-        
+
     # Remove all "h" next to another consonant (including "h" itself),
     # making sure we only have "h" in intervocalic position or at the
     # beginning of the word (increases readability)
@@ -107,17 +107,17 @@ def __clean_label(label):
     # Remove too complex clusters by selecting one random sound
     for cluster in __COMPLEX_CLUSTERS:
         if cluster in label:
-            label = label.replace(cluster, cluster[random.randint(0, 1)]) 
+            label = label.replace(cluster, cluster[random.randint(0, 1)])
 
     # Remove geminated vowels
     for vowel in __SOUNDS['V']:
         label = label.replace(vowel + vowel, vowel)
-        
+
     # Replace initial "i" with "wi" -- this makes reading labels easier
     # in most typefaces.
     if label.startswith("i"):
         label = "w" + label
-        
+
     return label.capitalize()
 
 
@@ -153,7 +153,7 @@ def random_labels(size=1, seed=None):
         while True:
             if label not in ret_labels:
                 break
-                
+
             label = __clean_label(label + __gen_syl(1, 1)[0])
 
         # Collect the generated label.
@@ -190,7 +190,7 @@ def random_species(size=1, seed=None):
     # the first half of the list will be the genera,
     # the second the epithets (they will be combined later, with
     # capitalization, etc.)
-    labels = [label.lower() for label in random_labels(size*2, seed)] 
+    labels = [label.lower() for label in random_labels(size*2, seed)]
 
     # Remove all the "h" in the original labels, as they are intended to be
     # IPA /h/ and not aspiration
@@ -212,7 +212,7 @@ def random_species(size=1, seed=None):
         label + "s" if (label.endswith("u") or label.endswith("e"))
         else label
         for label in labels]
-        
+
     # If a label ends in "i", it will end in "is" 75% of the time, otherwise
     # in "ii"
     labels = [
@@ -255,7 +255,7 @@ def random_species(size=1, seed=None):
             for vowel2 in __SOUNDS['V']:
                 source = vowel1 + cons + vowel2
                 target = vowel1 + cons + cons + vowel2
-            
+
                 labels = [
                     label.replace(source, target) if random.random() < 0.4
                     else label
@@ -285,7 +285,7 @@ def label_tree(tree, model, seed=None):
 
     Linguistic labels are unique names generated in a way intended to be
     readable.
-    
+
     Please note that the `tree` object is changed in place (no return).
 
     Parameters
@@ -313,7 +313,7 @@ def label_tree(tree, model, seed=None):
         # enumerations to make sure there are no anynomous nodes.
         species = list(set(random_species(len(leaves), seed)))
         species += ['L%i' % i for i in range(len(leaves) - len(species))]
-        
+
         for leaf_node, name in zip(leaves, species):
             leaf_node.name = name
 
@@ -324,25 +324,23 @@ def label_tree(tree, model, seed=None):
     else:
         # Build the pattern for the label, including the computation of the
         # number of padding zeros needed
-        pattern = '%s%%0%ii' % (
-            prefix,
-            1 + math.floor(math.log10(len(leaves))))
+        pattern = 'L%%0%ii' % (1 + math.floor(math.log10(len(leaves))))
 
         # Label all leaves first
         for leaf_idx, leaf_node in enumerate(leaves):
             leaf_node.name = pattern % (leaf_idx+1)
 
 
-def __gen_tree(l, mu, min_leaves, max_time, labels, lam, prune, seed):
+def __gen_tree(birth, death, min_leaves, max_time, labels, lam, prune, seed):
     """
     Internal function for tree generation.
-    
+
     This is an internal function for the tree generation, whose main
     difference to `gen_tree()`, the one exposed to the user, is that it
     does not guarantee that a tree will be generated, as the parameters and
     the random sampling might lead to dead-ends where all the leaves in
     a tree are extinct before any or all the stopping criteria are met.
-    
+
     As an internal function, it does not set default values to the arguments
     and does not perform any checking on the values. Information on the
     arguments, which have the same variable names and properties, are given
@@ -355,15 +353,15 @@ def __gen_tree(l, mu, min_leaves, max_time, labels, lam, prune, seed):
     # random.random() and decide if the event is a birth or a death.
     # `death` does not need to be normalized, as it is not used anymore (the
     # only check, below, is `random.random() <= birth`).
-    event_rate = l + mu
-    birth = l / event_rate
+    event_rate = birth + death
+    birth = birth / event_rate
 
     # Initialize the RNG
     random.seed(seed)
 
     # Create the tree root as a node. Given that the root is at first set as
     # non-extinct and with a branch length of 0.0, it will be immediately
-    # subject to either a speciation or extinction event. 
+    # subject to either a speciation or extinction event.
     tree = Tree()
     tree.dist = 0.0
     tree.extinct = False
@@ -410,7 +408,7 @@ def __gen_tree(l, mu, min_leaves, max_time, labels, lam, prune, seed):
                 child_node = Tree()
                 child_node.dist = 0
                 child_node.extinct = False
-                
+
                 node.add_child(child_node)
 
         # (Re)Extract the list of extant nodes, now that we might have new
@@ -419,7 +417,7 @@ def __gen_tree(l, mu, min_leaves, max_time, labels, lam, prune, seed):
         # updated list, we will extend the branch length of all extant leaves
         # (thus including any new children) by the `event_time` computed
         # above.
-        leaf_nodes = __extant(tree) 
+        leaf_nodes = __extant(tree)
         for leaf in leaf_nodes:
             new_leaf_dist = leaf.dist + event_time
             leaf.dist = min(new_leaf_dist, (max_time or new_leaf_dist))
@@ -439,7 +437,7 @@ def __gen_tree(l, mu, min_leaves, max_time, labels, lam, prune, seed):
         # returning a None value, with the user (or a wrapper
         # function) being in charge of asserting that the desired
         # number of random trees is collected (even if it is only one).
-        if len(leaf_nodes) == 0:
+        if not leaf_nodes:
             tree = None
             break
 
@@ -463,17 +461,16 @@ def __gen_tree(l, mu, min_leaves, max_time, labels, lam, prune, seed):
         tree.prune(__extant(tree))
 
     # Label the tree before returning it, if it was provided
-    # TODO: fix
     if labels and tree:
         label_tree(tree, labels, seed=seed)
 
     return tree
 
 
-def gen_tree(l, mu, min_leaves=None, max_time=None,
+def gen_tree(birth, death, min_leaves=None, max_time=None,
              labels=False, lam=0.0, prune=False, seed=None):
     """
-    Returns a random phylogenetic tree.    
+    Returns a random phylogenetic tree.
 
     At least one stopping criterion must be informed, with the tree being
     returned when the either is met.
@@ -488,11 +485,11 @@ def gen_tree(l, mu, min_leaves=None, max_time=None,
     Parameters
     ----------
 
-    l : float
+    birth : float
         The birth rate (lambda) for the generated tree.
-    mu : float
-        The death rate for the generated tree. Must be explicitly set to zero
-        for Yule model (i.e., birth only).
+    death : float
+        The death rate (mu) for the generated tree. Must be explicitly set
+        to zero for Yule model (i.e., birth only).
     num_leaves : int
         A stopping criterion with the minimum number of extant leaves.
         The generated tree will have at least the number of requested
@@ -553,7 +550,8 @@ def gen_tree(l, mu, min_leaves=None, max_time=None,
         seed = random.random()
 
         # Ask for a new tree
-        tree = __gen_tree(l, mu, min_leaves, max_time, labels, lam, prune, seed)
+        tree = __gen_tree(birth, death, min_leaves, max_time, labels,
+                          lam, prune, seed)
 
         # Break out of the loop if a valid tree was found, as in most of the
         # cases; if no tree could be generated, `__gen_tree()` will return
