@@ -468,7 +468,7 @@ def __gen_tree(birth, death, min_leaves, max_time, labels, lam, prune, seed):
 
 
 def gen_tree(birth, death, min_leaves=None, max_time=None,
-             labels=False, lam=0.0, prune=False, seed=None):
+             labels="enum", lam=0.0, prune=False, seed=None):
     """
     Returns a random phylogenetic tree.
 
