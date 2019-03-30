@@ -6,6 +6,10 @@ during the development or debugging of phylogenetic methods. The generation of
 random phylogenetic trees also goes by the name of "simulation methods for phylogenetic
 trees" or just "simulating phylogenetic trees".
 
+*Please note that this is both a work in progress and a library intended
+to be simple, for complex methods see the bibliography and the alternatives
+here listed*
+
 In detail with ngesh:
 
 * trees are returned either as strings in Newick representation or as
@@ -21,13 +25,17 @@ can be randomly drawn from a user-defined Poisson process
 (as related to the birth and death parameters), or both
 * nodes can optionally receive unique labels, either sequential ones,
 random human-readable names, or random biological names following the
-binomial nomenclature standard.
+binomial nomenclature standard
 
 ## Installation
 
 (lorem ipsum)
 
 ## How to use
+
+(lorem ipsum)
+
+## How to cite
 
 (lorem ipsum)
 
@@ -72,6 +80,8 @@ is provided by Marc-Rolland Noutahi on the blog post
 
 A number of on-line tools are also available at the time of writing:
 
+https://lukejharmon.github.io/pcm/chapter10_birthdeath/#ref-Stadler2011-xu
+
 * [T-Rex (Tree and reticulogram REConstruction](http://www.trex.uqam.ca/index.php?action=randomtreegenerator&project=trex)
 at the Université du Québec à Montréal (UQAM)
 * [Anvi'o Server](https://anvi-server.org/meren/random_phylogenetic_tree_w500_nodes) can
@@ -80,6 +90,10 @@ be used on-line as a wrapper to T-Rex above
 identifiers or protein accessions can be used for the same purpose
 
 (add reference bibliography)
+
+## References
+
+https://lukejharmon.github.io/pcm/chapter10_birthdeath/
 
 ## Author
 
