@@ -20,7 +20,8 @@ generation can be reproduced
 * the death ratio can be set to zero
 * non-extant leaves can be pruned
 * speciation events default to two descendants, but the number of descendants
-can be randomly drawn from a user-defined Poisson process
+can be randomly drawn from a user-defined Poisson process (so that it
+is possible to model hard politomies)
 * trees can be limited in terms of number of extant leaves, evolution time
 (as related to the birth and death parameters), or both
 * nodes can optionally receive unique labels, either sequential ones,
