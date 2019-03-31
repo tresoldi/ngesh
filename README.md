@@ -240,4 +240,5 @@ The author was supported during development by the
 [ERC Grant #715618](https://cordis.europa.eu/project/rcn/206320/factsheet/en)
 for the project [CALC](http://calc.digling.org)
 (Computer-Assisted Language Comparison: Reconciling Computational and Classical
-Approaches in Historical Linguistics).
+Approaches in Historical Linguistics), led by
+[Johann-Mattis List](http://www.lingulist.de)
