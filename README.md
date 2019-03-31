@@ -1,5 +1,9 @@
 # Ngesh, a tool for simulating random phylogenetic trees
 
+[![Build Status](https://travis-ci.org/tresoldi/ngesh.svg?branch=master)](https://travis-ci.org/tresoldi/ngesh)
+[![codecov](https://codecov.io/gh/tresoldi/ngesh/branch/master/graph/badge.svg)](https://codecov.io/gh/tresoldi/ngesh)
+[![PyPI](https://img.shields.io/pypi/v/ngesh.svg)](https://pypi.org/project/ngesh)
+
 `ngesh` is a Python library for simulating random phylogenetic trees and related data.
 It is intended for benchmarking phylogenetic methods and for providing dummy trees
 during the development or debugging of phylogenetic methods. The generation of
