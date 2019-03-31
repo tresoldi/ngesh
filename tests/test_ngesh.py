@@ -15,7 +15,7 @@ class TestNgesh(unittest.TestCase):
     """
     Class for `ngesh` tests.
     """
-    
+
     # We first test generations, just to see if no exception is thrown, etc.
     # For all tests, we use the same parameters of birth rate as 1.0
     # and death rate as 0.5.
@@ -23,7 +23,7 @@ class TestNgesh(unittest.TestCase):
         """
         Tests tree generation with minimum leaf number stop criterion.
         """
-        
+
         ngesh.gen_tree(1.0, 0.5, min_leaves=5)
 
 
@@ -35,24 +35,85 @@ class TestNgesh(unittest.TestCase):
         ngesh.gen_tree(1.0, 0.5, max_time=2.5)
 
 
+    def test_generation_yule_model(self):
+        """
+        Tests tree generation in a birth-only model.
+        """
+        
+        ngesh.gen_tree(1.0, 0.0, max_time=2.5)
+
+
+    def test_generation_labelling(self):
+        """
+        Tests tree generation with all the label models.
+        """
+        
+        ngesh.gen_tree(1.0, 0.5, max_time=2.5, labels="enum")
+        ngesh.gen_tree(1.0, 0.5, max_time=2.5, labels="human")
+        ngesh.gen_tree(1.0, 0.5, max_time=2.5, labels="bio")
+        ngesh.gen_tree(1.0, 0.5, max_time=2.5, labels=None)
+
+
+    def test_generation_pruning(self):
+        """
+        Tests tree generation with pruning in a birth-death model.
+        """
+        
+        ngesh.gen_tree(1.0, 0.5, max_time=5.0, prune=True)
+
+
+    def test_generation_polytemy(self):
+        """
+        Tests tree generation with hard politemy.
+        """
+        
+        ngesh.gen_tree(1.0, 0.5, min_leaves=25, lam=2.5)
+
+
+    def test_generation_seed_no_label(self):
+        """
+        Test equality of trees generated with the same seed, no label.
+        """
+        
+        # No label
+        t1 = ngesh.gen_tree(1.0, 0.5, max_time=3.0, labels=None, seed=1234) 
+        t2 = ngesh.gen_tree(1.0, 0.5, max_time=3.0, labels=None, seed=1234) 
+        assert t1.write() == t2.write()
+
+
+    def test_generation_seed_enum_label(self):
+        """
+        Test equality of trees generated with the same seed, enum label.
+        """
+
+        # Enumerating label
+        t1 = ngesh.gen_tree(1.0, 0.5, max_time=3.0, labels="enum", seed=1234) 
+        t2 = ngesh.gen_tree(1.0, 0.5, max_time=3.0, labels="enum", seed=1234) 
+        assert t1.write() == t2.write()
+
+
+    def test_generation_seed_human_label(self):
+        """
+        Test equality of trees generated with the same seed, human label.
+        """
+
+        # Enumerating label
+        t1 = ngesh.gen_tree(1.0, 0.5, max_time=3.0, labels="human", seed=1234) 
+        t2 = ngesh.gen_tree(1.0, 0.5, max_time=3.0, labels="human", seed=1234) 
+        assert t1.write() == t2.write()
+
+
+    def test_generation_seed_bio_label(self):
+        """
+        Test equality of trees generated with the same seed, bio label.
+        """
+
+        # Enumerating label
+        t1 = ngesh.gen_tree(1.0, 0.5, max_time=3.0, labels="bio", seed=1234) 
+        t2 = ngesh.gen_tree(1.0, 0.5, max_time=3.0, labels="bio", seed=1234) 
+        assert t1.write() == t2.write()
+
+
 if __name__ == "__main__":
     import sys
     sys.exit(unittest.main())
-    
-#    for i in range(2):
-#        yuletree = birth_only(1.0, min_leaves=10, human=True)
-#        yuletree = birth_only(1.0, max_time=3)
-
-#    for i in range(2):
-#        print("leaves")
-#        bdtree = mine(1.0, 0.5, min_leaves=10, human=True)
-#        if bdtree:
-#            bdtree.show()
-            
-#        bdtree = gen_tree(1.0, 0.5, max_time=3, human_labels=True)
-#        if bdtree:
-#            bdtree.show()
-
-    #print(dir(yuletree))
-    #print(dir(bdtree))
-    #bdtree.show()

@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # encoding: utf-8
 
 """
@@ -30,7 +29,7 @@ __SOUNDS = {
 }
 __COMPLEX_CLUSTERS = [
     'pb', 'bp', 'sz', 'zs', 'dl', 'gk', 'kg', 'bd', 'db', 'zp',
-    'pv', 'pf',
+    'pv', 'pf', 'sr'
 ]
 __PATTERNS = ['V', 'CV', 'CV', 'CVC']
 

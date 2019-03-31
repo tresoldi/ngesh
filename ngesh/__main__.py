@@ -1,11 +1,17 @@
 # __main__.py
 
+import random
+
 import ngesh
 
 def main():
-    print("ngesh main")
-    bdtree = ngesh.gen_tree_safe(1.0, 0.5, max_time=3, human_labels=True)
-    print(bdtree)
+    # We make sure the death rate is less than the birth one.
+    l = random.random()
+    mu = random.random() * l * 0.9
+
+    tree = ngesh.gen_tree(l, mu, max_time=4.0, labels="bio")
+    print(tree.write())
+
 
 if __name__ == "__main__":
     main()
