@@ -136,7 +136,7 @@ reproducibility.
 If you use `ngesh`, please cite it as:
 
 > Tresoldi, Tiago (2019). Ngesh, a tool for simulating random phylogenetic trees.
-Version 0.1. Jena. Available at: https://github.com/tresoldi/ngesh
+Version 0.1.1. Jena. Available at: https://github.com/tresoldi/ngesh
 
 In BibTeX:
 

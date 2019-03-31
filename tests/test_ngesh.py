@@ -39,7 +39,7 @@ class TestNgesh(unittest.TestCase):
         """
         Tests tree generation in a birth-only model.
         """
-        
+
         ngesh.gen_tree(1.0, 0.0, max_time=2.5)
 
 
