@@ -1,6 +1,6 @@
-# ngesh
+# Ngesh, a tool for simulating random phylogenetic trees
 
-`ngesh` is a Python library for generating random phylogenetic trees and related data.
+`ngesh` is a Python library for simulating random phylogenetic trees and related data.
 It is intended for benchmarking phylogenetic methods and for providing dummy trees
 during the development or debugging of phylogenetic methods. The generation of
 random phylogenetic trees also goes by the name of "simulation methods for phylogenetic
@@ -10,7 +10,7 @@ trees" or just "simulating phylogenetic trees".
 to be simple, for complex methods see the bibliography and the alternatives
 here listed*
 
-In detail with ngesh:
+In detail, with ngesh:
 
 * trees are returned either as strings in Newick representation or as
 Python's [ETE](http://etetoolkit.org/) tree objects
@@ -31,15 +31,116 @@ binomial nomenclature standard
 
 ## Installation
 
-(lorem ipsum)
+In any standard Python environment, `ngesh` can be installed with:
+
+```
+pip install ngesh
+```
+
+The `pip` installation will also fetch the dependencies `ete3` and
+`numpy`, in necessarily.
 
 ## How to use
 
-(lorem ipsum)
+You can test your installation from the command line with the `ngesh` command, which
+will return a random small birth-death tree in Newick format:
+
+```
+$ ngesh
+(Saorus getes:1.31562,((Voces earas:1.07567,(Dallao spettus:0.703609,Sburas wioris:0.703609)1:0.372063)1:0.464667,(Zurbaza ceglaces:0.527431,(Amduo vizoris:0.345862,Uras wiurus:0.345862)1:0.18551)1:1.00897)1:2.1707);
+
+```
+
+More complex illustrations can also be executed from the command line. If you have
+PyQt5 installed (which is listed as a dependency), the following code will pop up
+the ETE Tree Viewer on a random tree:
+
+```
+python3 -c "import ngesh ; ngesh.display_random_tree()"
+```
+
+![random tree](doc/tree001.png)
+
+The package is designed to be used a library. The main function is the `gen_tree()` function,
+which will return an ETE tree object, which can be printed either in ASCII art or
+as a Newick tree.
+
+```
+$ ipython3
+
+In [1]: import ngesh                                                                                            
+
+In [2]: tree = ngesh.gen_tree(1.0, 0.5, max_time=3.0, labels="human")                                           
+
+In [3]: print(tree)                                                                                             
+
+                  /-Gupe
+               /-|
+            /-|   \-Ui
+           |  |
+         /-|   \-Otevze
+        |  |
+        |  |   /-Tio
+        |   \-|
+      /-|      \-Giludi
+     |  |
+     |  |      /-Kea
+     |  |   /-|
+     |  |  |   \-Puke
+     |   \-|
+     |     |   /-Feigat
+   /-|     |  |
+  |  |      \-|      /-Magma
+  |  |        |   /-|
+  |  |         \-|   \-Hepti
+--|  |           |
+  |  |            \-Uhodu
+  |  |
+  |   \-Ramumi
+  |
+   \-Gibu
+
+In [4]: print(tree.write())                                                                                     
+((((((Gupe:0.221592,Ui:0.221592)1:0.274564,Otevze:0.130366)1:0.208385,(Tio:0.114998,Giludi:0.102135)1:0.589543)1:0.979981,((Kea:0.223773,Puke:0.901625)1:0.115261,(Feigat:0.944765,((Magma:0.541031,Hepti:0.541031)1:0.120214,Uhodu:0.661245)1:0.28352)1:0.0721207)1:0.667637)1:0.119319,Ramumi:1.24512)1:1.03792,Gibu:0.663448);
+```
+
+The full documentation for the `gen_tree()` function is available in its docstring (which
+can be visualized with `print(ngesh.gen_tree.__doc__)` or
+[directly in the source code](https://github.com/tresoldi/ngesh/blob/master/ngesh/random_tree.py).
+The most important parameters are:
+
+* `birth`, the birth rate (i.e., lambda)
+* `death`, the death rate (i.e., mu)
+* `num_leaves` and `max_time`, which are stopping parameters indicating the
+minimum number of extant leaves or the maximum evolutionary time
+* `label`, which indicates which kind of random labels should be given to
+the nodes (`None`, `"enum"` for a simple enumeration, `"human"` for randomly
+generated names, and `"bio"` for randomly generated specie names)
+
+Other parameters allow to tweak the birth-process, allowing polytomies, prune the
+tree for extinct lineages, and a seed for the random generator that guarantees
+reproducibility.
 
 ## How to cite
 
-(lorem ipsum)
+If you use `ngesh`, please cite it as:
+
+> Tresoldi, Tiago (2019). Ngesh, a tool for simulating random phylogenetic trees.
+Version 0.1. Jena. Available at: https://github.com/tresoldi/ngesh
+
+In BibTeX:
+
+```
+@misc{Tresoldi2019ngesh,
+  author = {Tresoldi, Tiago},
+  title = {Ngesh, a tool for simulating random phylogenetic trees. Version 0.1},
+  howpublished = {\url{https://github.com/tresoldi/ngesh}},
+  address = {Jena},
+  year = {2019}
+}
+```
+
+We will obtain a DOI upon first public release.
 
 ## How does ngesh work?
 
@@ -70,7 +171,7 @@ But don't strees over it: it is just a unique name.
 
 There are many tools for simulating phylogenetic processes in order to obtain
 random phylogenetic trees. The most complete is probably the R package
-[`TreeSim`](https://cran.r-project.org/web/packages/TreeSim/index.html)
+[`TreeSim`](https://CRAN.R-project.org/package=TreeSim)
 by Tanja Stadler, which includes many flexible tree simulation functions. In
 R, one can also use the `rtree` function from `ape` and the
 `birthdeath.tree` from `geiger`, as well as manually randomizing taxon
@@ -82,16 +183,12 @@ is provided by Marc-Rolland Noutahi on the blog post
 
 A number of on-line tools are also available at the time of writing:
 
-https://lukejharmon.github.io/pcm/chapter10_birthdeath/#ref-Stadler2011-xu
-
 * [T-Rex (Tree and reticulogram REConstruction](http://www.trex.uqam.ca/index.php?action=randomtreegenerator&project=trex)
 at the Université du Québec à Montréal (UQAM)
 * [Anvi'o Server](https://anvi-server.org/meren/random_phylogenetic_tree_w500_nodes) can
 be used on-line as a wrapper to T-Rex above
 * [phyloT](https://phylot.biobyte.de/), which by randomly sampling taxonomic names,
 identifiers or protein accessions can be used for the same purpose
-
-(add reference bibliography)
 
 ## TODO
 
@@ -103,10 +200,27 @@ and guaranteeing there are no duplicates
 * Import the text generators from Enki or similar methods
 * Consider replacing `expovariate` with an actual random Poisson sampling, or
 allow multiple models
+* Build a simple website and link to automatically generated documentation
+
+## Gallery
+
+![random tree](doc/tree001.png)
+![random tree](doc/tree002.png)
+![random tree](doc/tree003.png)
 
 ## References
 
-https://lukejharmon.github.io/pcm/chapter10_birthdeath/
+* Bailey, N. T. J. (1964). *The elements of stochastic processes with applications to the natural sciences*. John Wiley & Sons.
+
+* Foote, M., J. P. Hunter, C. M. Janis, and J. J. Sepkoski Jr. (1999). *Evolutionary and preservational constraints on origins of biologic groups: Divergence times of eutherian mammals*. Science 283:1310–1314.
+
+* Harmon, Luke J (2019). *Phylogenetic Comparative Methods -- learning from trees*.
+Available at: [https://lukejharmon.github.io/pcm/chapter10_birthdeath/](https://lukejharmon.github.io/pcm/chapter10_birthdeath/). Access date: 2019-03-31.
+
+* Noutahi, Marc-Rolland (2017). *How to simulate a phylogenetic tree? (part 1)*. Available at:
+[https://mrnoutahi.com/2017/12/05/How-to-simulate-a-tree/](https://mrnoutahi.com/2017/12/05/How-to-simulate-a-tree/). Access date: 2019-03-31
+
+* Stadler, Tanja (2011). *Simulating Trees with a Fixed Number of Extant Species*. Systematic Biology 60.5:676-684. DOI: [https://doi.org/10.1093/sysbio/syr029](https://doi.org/10.1093/sysbio/syr029)
 
 ## Author
 
