@@ -69,7 +69,7 @@ the ETE Tree Viewer on a random tree:
 python3 -c "import ngesh ; ngesh.display_random_tree()"
 ```
 
-![random tree](doc/tree001.png)
+![random tree](https://raw.githubusercontent.com/tresoldi/ngesh/master/doc/tree001.png)
 
 The package is designed to be used a library. The main function is the `gen_tree()` function,
 which will return an ETE tree object, which can be printed either in ASCII art or
@@ -214,9 +214,9 @@ allow multiple models
 
 ## Gallery
 
-![random tree](doc/tree001.png)
-![random tree](doc/tree002.png)
-![random tree](doc/tree003.png)
+![random tree](https://raw.githubusercontent.com/tresoldi/ngesh/master/doc/tree001.png)
+![random tree](https://raw.githubusercontent.com/tresoldi/ngesh/master/doc/tree002.png)
+![random tree](https://raw.githubusercontent.com/tresoldi/ngesh/master/doc/tree003.png)
 
 ## References
 
