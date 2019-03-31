@@ -3,6 +3,8 @@
 [![Build Status](https://travis-ci.org/tresoldi/ngesh.svg?branch=master)](https://travis-ci.org/tresoldi/ngesh)
 [![codecov](https://codecov.io/gh/tresoldi/ngesh/branch/master/graph/badge.svg)](https://codecov.io/gh/tresoldi/ngesh)
 [![PyPI](https://img.shields.io/pypi/v/ngesh.svg)](https://pypi.org/project/ngesh)
+[![DOI](https://zenodo.org/badge/178537103.svg)](https://zenodo.org/badge/latestdoi/178537103)
+
 
 `ngesh` is a Python library for simulating random phylogenetic trees and related data.
 It is intended for benchmarking phylogenetic methods and for providing dummy trees
@@ -147,14 +149,13 @@ In BibTeX:
 ```
 @misc{Tresoldi2019ngesh,
   author = {Tresoldi, Tiago},
-  title = {Ngesh, a tool for simulating random phylogenetic trees. Version 0.1},
+  title = {Ngesh, a tool for simulating random phylogenetic trees. Version 0.1.2},
   howpublished = {\url{https://github.com/tresoldi/ngesh}},
   address = {Jena},
-  year = {2019}
+  year = {2019},
+  doi = {10.5281/zenodo.2619311},
 }
 ```
-
-We will obtain a DOI upon first public release.
 
 ## How does ngesh work?
 
