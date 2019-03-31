@@ -14,20 +14,27 @@ In detail, with ngesh:
 
 * trees are returned either as strings in Newick representation or as
 Python's [ETE](http://etetoolkit.org/) tree objects
-* trees include random branch-lengths
-* trees can be generated from user-specified seeds, so that the
-generation can be reproduced
-* trees can be generated according to user-provided birth and death ratios
-* the death ratio can be set to zero
-* non-extant leaves can be pruned
+* trees will also have random branch-lengths, which you can remove if
+are only interested in the topology
+* trees can be generated from user-provided seeds, so that the random
+generation can be reproduced across executions (while it cannot be
+guaranteed due to many technical reasons, the execution should be
+reproducible *also* in different machines and different version of
+Python)
+* trees can be generated according to user-provided birth and death ratios (and
+the death ratio can be set to zero, resulting in a birth-only tree)
+* non-extant leaves can be pruned from birth-death trees
 * speciation events default to two descendants, but the number of descendants
 can be randomly drawn from a user-defined Poisson process (so that it
 is possible to model hard politomies)
 * trees can be limited in terms of number of extant leaves, evolution time
 (as related to the birth and death parameters), or both
-* nodes can optionally receive unique labels, either sequential ones,
-random human-readable names, or random biological names following the
-binomial nomenclature standard
+* nodes can optionally receive unique labels, either sequential ones
+(like "L01", "L02", and "L03"),
+random human-readable names (like "Sume", "Fekobir", and "Tukok"),
+or random biological names approximating the
+binomial nomenclature standard (like "Sburas wioris", "Zurbata ceglaces",
+and "Spellis spusso")
 
 ## Installation
 
@@ -38,17 +45,20 @@ pip install ngesh
 ```
 
 The `pip` installation will also fetch the dependencies `ete3` and
-`numpy`, in necessarily.
+`numpy`, if necessary.
 
 ## How to use
 
 You can test your installation from the command line with the `ngesh` command, which
-will return a random small birth-death tree in Newick format:
+will return a different random small birth-death tree in Newick format each time it
+is called:
 
 ```
 $ ngesh
 (Saorus getes:1.31562,((Voces earas:1.07567,(Dallao spettus:0.703609,Sburas wioris:0.703609)1:0.372063)1:0.464667,(Zurbaza ceglaces:0.527431,(Amduo vizoris:0.345862,Uras wiurus:0.345862)1:0.18551)1:1.00897)1:2.1707);
 
+$ ngesh
+((Ollio zavis:0.698453,(Spectuo sicui:0.596731,((Ronis mivulis:0.0431014,Vaporus conomattas:0.0431014)1:0.413634,Rizarus urrus:0.456735)1:0.139996)1:0.101722)1:3.17827,(Deses mepus:2.22061,(Ovegpuves wiumoras:1.88469,(Easas ecdebus:0.201891,Muggas lupas:0.201891)1:1.6828)1:0.335918)1:1.65611);
 ```
 
 More complex illustrations can also be executed from the command line. If you have
@@ -145,7 +155,7 @@ We will obtain a DOI upon first public release.
 ## How does ngesh work?
 
 For each tree, an `event_rate` is computed from the sum of the `birth` and
-`death` rates. At each iteration, which takes places after an
+`death` rates. At each iteration, which takes place after an
 random expovariant time from the `event_rate`, one of the extant nodes is
 selected for an "event": either a birth or a death from the
 proportion of each rate. All other extant leaves have their distances
@@ -157,7 +167,7 @@ readable (if not pronounceable) as possible.
 
 ## What does "ngesh" mean?
 
-Technically it is just a name, but it was derived from one of the Sumerian words
+Technically it is just an unique name, but it was derived from one of the Sumerian words
 for "tree", [ĝeš](http://psd.museum.upenn.edu/epsd/epsd/e2052.html), albeit
 with an uncommon transcription. The name comes from the library once being
 a module of a larger system for simulating language evolution and benchmarking
@@ -173,11 +183,11 @@ There are many tools for simulating phylogenetic processes in order to obtain
 random phylogenetic trees. The most complete is probably the R package
 [`TreeSim`](https://CRAN.R-project.org/package=TreeSim)
 by Tanja Stadler, which includes many flexible tree simulation functions. In
-R, one can also use the `rtree` function from `ape` and the
-`birthdeath.tree` from `geiger`, as well as manually randomizing taxon
+R, one can also use the `rtree()` function from package `ape` and the
+`birthdeath.tree()` one from package `geiger`, as well as manually randomizing taxon
 placement in cladograms.
 
-In Python, some code similar to ngesh and which served as initial inspiration
+In Python, some code similar to `ngesh` and which served as initial inspiration
 is provided by Marc-Rolland Noutahi on the blog post
 [How to simulate a phylogenetic tree ? (part 1)](https://mrnoutahi.com/2017/12/05/How-to-simulate-a-tree/).
 
