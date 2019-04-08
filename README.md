@@ -216,6 +216,9 @@ and guaranteeing there are no duplicates
 * Consider replacing `expovariate` with an actual random Poisson sampling, or
 allow multiple models
 * Build a simple website and link to automatically generated documentation
+(possibly with Sphinx)
+* Allow generation of characters with different parameters
+* Allow to set many parameters from the command line `ngesh` command
 
 ## Gallery
 
