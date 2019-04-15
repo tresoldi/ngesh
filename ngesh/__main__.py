@@ -1,7 +1,12 @@
+#!/usr/bin/env python3
+# encoding: utf-8
+#
 # __main__.py
 
+# Import Python standard libraries
 import random
 
+# Import our library 
 import ngesh
 
 def main():
@@ -9,9 +14,13 @@ def main():
     l = random.random()
     mu = random.random() * l * 0.9
 
-    tree = ngesh.gen_tree(l, mu, max_time=4.0, labels="bio")
+    tree = ngesh.gen_tree(l, mu, max_time=4.0, labels="human")
     print(tree.write())
 
+    import sys
+    print(sys.argv)
 
 if __name__ == "__main__":
     main()
+    
+
