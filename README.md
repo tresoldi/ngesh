@@ -224,6 +224,25 @@ trees (or, at least, to the Indo-European one)
 in Newick format are known to be missing)
 * Add command-line option to write both an output and the reference tree file,
 or the tree-file as a comment to the output
+* Allow parallel evolution of characters with some parameter
+* Rewrite functions with too many arguments to accept a dictionary of
+parameters, also making defaults clearer
+* Implement independent parameter for exponential correction in random
+character generation also for borrowing: currently, the correction of the
+probability of a character being borrowed is the same of it mutating
+* Implement more models for generation of random characters, especially
+those from genetics; a General Time Reversable model with a proportion of
+invariable sites and a gamma-shaped distribution of rates
+across sites is the prime candidate.
+* Allow excluding non extant taxa from borrowing events (at least in
+non-linguistic simulations)
+* Implement additional HGT simulations where more than one state
+is borrowed from a "power" taxon in the same event (analogous
+to cultural influence in linguistics).
+* Guarantee, perhaps by meaning of a parameter, that borrowing events will
+always result in altered states, as it is currently possible (especially
+considering that we favor borrowing from closer taxa), that the even will
+borrow an equal state.
 
 ## Gallery
 
