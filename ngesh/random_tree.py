@@ -378,7 +378,7 @@ def add_characters(tree, num_characters, k, th, k_hgt=None, th_hgt=None, e=1.0):
     # TODO: should the borrowing probability be a scale of the birth one as
     # here? i.e., the most common, the less likely to be borrowed
     if not k_hgt:
-        k_hgt = k
+        k_hgt = 1.5 * k
     if not th_hgt:
         th_hgt = th
         

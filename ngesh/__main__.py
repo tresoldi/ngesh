@@ -13,26 +13,43 @@ import sys
 import ngesh
 
 def generate_tree(args):
+    # Generate the random tree
     tree = ngesh.gen_tree(args.birth, args.death,
         min_leaves = args.min_leaves,
         max_time = args.max_time,
         labels = args.labels,
         seed = args.seed
         )
+        
+    # Add characters if requested
+    if args.num_chars:
+        print("calling add chars")
+        tree = ngesh.add_characters(tree,
+            args.num_chars,
+            args.k_mut,
+            args.th_mut,
+            args.k_hgt,
+            args.th_hgt,
+            args.e_mut)
 
     return tree
 
 
+# TODO: allow no labels
 def parse_arguments():
     # Specify the defaults for the options: these are overridden, in order,
     # by the configuration file and by the command line arguments        
     options = {
-        "labels" : "human",
-        "max_time" : None,
-        "min_leaves" : 10,
-        "seed" : None,
-        "birth" : 1.0,
-        "output" : "newick",
+        "labels" :      "human",
+        "max_time" :    None,
+        "min_leaves" :  10,
+        "seed" :        None,
+        "birth" :       1.0,
+        "output" :      "newick",
+        "num_chars" :   0,
+        "k_mut" :       5.0,
+        "th_mut" :      1.0,
+        "e_mut" :       1.05,
     }
         
     # Parse any configuration speification first. Note that `add_help` is
@@ -67,26 +84,44 @@ def parse_arguments():
         
     parser.add_argument("-b", "--birth",
         type=float,
-        help="Specify the birth rate (l, defaults to 1.0)")
+        help="Set birth rate (l, default 1.0)")
     parser.add_argument("-d", "--death",
         type=float,
-        help="Specify the death rate (mu, default to half the birth-rate)")    
+        help="Set death rate (mu, default 0.5 * `birth-rate`)")    
     parser.add_argument("-t", "--max_time",
         type=float,
-        help="Specify the maximum time stopping criterion")  
+        help="Set maximum time stopping criterion")  
     parser.add_argument("-l", "--min_leaves",
         type=float,
-        help="Specify the minimum leaf number stopping criterion (defaults to 10)")
+        help="Set minimum leaf number stopping criterion (defaults 10)")
     parser.add_argument("-x", "--labels",
         type=str,
-        help='Specify the model for text generation (defaults to "human")')
+        help='Set text generation model (defaults "human")')
     parser.add_argument("-r", "--seed",
         type=str,
-        help='Specify a string as the RNG seed')  
+        help='Set RNG seed string')  
+    parser.add_argument("-n", "--num_chars",
+        type=int,
+        help='Set random character number (default 0)')  
+    parser.add_argument("--k_mut",
+        type=float,
+        help='Set character mutation gamma `k` parameter (default 5.0)')  
+    parser.add_argument("--th_mut",
+        type=float,
+        help='Set character mutation gamma `theta` parameter (default 1.0)')  
+    parser.add_argument("--e_mut",
+        type=float,
+        help='Set character mutation `e` parameter (default 1.05)')  
+    parser.add_argument("--k_hgt",
+        type=float,
+        help='Set character HGT gamma `k` parameter (default 1.5 * `k_mut`)')  
+    parser.add_argument("--th_hgt",
+        type=float,
+        help='Set character HGT gamma `theta` parameter (default `th_mut`)')  
     parser.add_argument("-o", "--output",
         type=str,
         choices=["newick", "ascii", "nexus"],
-        help='Specify the output type ("newick", "ascii", or "nexus")')
+        help='Set output type (default "newick")')
         
     parser.set_defaults(**options)
     
