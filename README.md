@@ -208,7 +208,7 @@ identifiers or protein accessions can be used for the same purpose
 ## TODO
 
 * Add stoping criterion of total number of nodes (in complement to the number of
-*extant* nodes currently available)
+*extant* nodes, currently available)
 * Rewrite the random label generators into actual Python generators
 * Better implementation of the scientific name generator, exporting the function
 and guaranteeing there are no duplicates
@@ -217,8 +217,8 @@ and guaranteeing there are no duplicates
 allow multiple models
 * Build a simple website and link to automatically generated documentation
 (possibly with Sphinx)
-* Allow generation of characters with different parameters
 * Allow to set many parameters from the command line `ngesh` command
+* Add BEASTling output
 
 ## Gallery
 
