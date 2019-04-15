@@ -7,6 +7,37 @@ Module with auxiliary function for text generation.
 # Import Python standard libraries
 import itertools
 
+def tree2wordlist(tree):
+    """
+    Returns a string with the representation of a tree in wordlist format.
+    """
+
+    # The number of characters for each taxon; it will be set when the
+    # first taxon data is read.
+    num_chars = None
+
+    # Buffer for the data to be returned
+    buf = ['Language_ID,Feature_ID,Value']
+
+    # Iterate over all leaves
+    for leave in tree.get_leaves():
+        # Get the number of characters if necessary
+        if not num_chars:
+            num_chars = len(leave.chars)
+            
+        # Iterate over all characters of the current leave
+        rows = [
+            [leave.name, 'feature_%i' % idx, str(leave.chars[idx])]
+            for idx in range(num_chars)
+        ]
+        
+        # Add all rows as comma-separated strings to the buffer
+        [buf.append(','.join(row)) for row in rows]
+    
+    # Join the buffer and return it
+    return '\n'.join(buf)
+
+
 # TODO: only working with binary data, but this must be changed at
 # character level which is the only supported so far
 def tree2nexus(tree):

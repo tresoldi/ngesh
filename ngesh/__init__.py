@@ -9,7 +9,7 @@ import random
 
 # Build the namespace
 from ngesh.random_tree import gen_tree, add_characters
-from ngesh.output import tree2nexus
+from ngesh.output import tree2nexus, tree2wordlist
 
 # Generates and displays a random tree
 def display_random_tree():

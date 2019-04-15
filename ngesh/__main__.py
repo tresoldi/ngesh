@@ -23,7 +23,6 @@ def generate_tree(args):
         
     # Add characters if requested
     if args.num_chars:
-        print("calling add chars")
         tree = ngesh.add_characters(tree,
             args.num_chars,
             args.k_mut,
@@ -120,7 +119,7 @@ def parse_arguments():
         help='Set character HGT gamma `theta` parameter (default `th_mut`)')  
     parser.add_argument("-o", "--output",
         type=str,
-        choices=["newick", "ascii", "nexus"],
+        choices=["newick", "ascii", "nexus", "wl"],
         help='Set output type (default "newick")')
         
     parser.set_defaults(**options)
@@ -148,6 +147,8 @@ def main():
         print(tree)
     elif args.output == 'nexus':
         print(ngesh.tree2nexus(tree))
+    elif args.output == 'wl':
+        print(ngesh.tree2wordlist(tree))
 
 
 if __name__ == "__main__":
