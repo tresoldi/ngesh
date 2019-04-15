@@ -11,9 +11,30 @@ Tests for the `ngesh` package.
 import unittest
 import ngesh
 
-class TestNgesh(unittest.TestCase):
+class TestTextGen(unittest.TestCase):
     """
-    Class for `ngesh` tests.
+    Class for `ngesh` tests related to textual generation.
+    """
+
+    # We run each generation twice with a seed, checking if it is
+    # reproducible
+    def test_label_gen(self):
+        seq1 = ngesh.textgen.random_labels(size=5, seed=42)
+        seq2 = ngesh.textgen.random_labels(size=5, seed=42)
+        
+        assert tuple(seq1) == tuple(seq2)
+
+
+    def test_species_gen(self):
+        seq1 = ngesh.textgen.random_species(size=5, seed=42)
+        seq2 = ngesh.textgen.random_species(size=5, seed=42)
+        
+        assert tuple(seq1) == tuple(seq2)
+
+
+class TestTree(unittest.TestCase):
+    """
+    Class for `ngesh` tests related to tree generation.
     """
 
     # We first test generations, just to see if no exception is thrown, etc.
