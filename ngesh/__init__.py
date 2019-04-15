@@ -8,7 +8,7 @@ __email__ = "tresoldi@shh.mpg.de"
 import random
 
 # Build the namespace
-from ngesh.random_tree import gen_tree, random_labels
+from ngesh.random_tree import gen_tree, add_characters, random_labels
 
 # Generates and displays a random tree
 def display_random_tree():

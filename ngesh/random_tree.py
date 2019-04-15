@@ -12,6 +12,7 @@ evolution time.
 # Import Python standard libraries
 import itertools
 import math
+from operator import itemgetter
 import random
 
 # Import 3rd party libraries
@@ -320,4 +321,190 @@ def gen_tree(birth, death, min_leaves=None, max_time=None,
         if tree:
             break
 
+    return tree
+    
+
+# TODO: explain parameter `e`.
+# TODO: allow parallel evolution, at least with a parameter
+def add_characters(tree, num_characters, k, th, k_hgt=None, th_hgt=None, e=1.0):
+    """
+    Add random characters to the nodes of a tree.
+    
+    Characters are added according to parameters of gamma distributions
+    which are related to the length of each branch. The two possible
+    events are mutation (assumed to be always to a new character, i.e., no
+    parallel evolution) and horizontal gene transfer. No pertubation,
+    such as the simulation of errors in sequencing/data collection, is
+    performed by this function.
+    
+    Parameters
+    ----------
+    
+    tree: ete3
+        The ete3 tree to which characters will be added. Any previous
+        characters will be overridden.
+    num_characters: int
+        The number of characters for each taxa.
+    k : float
+        The k parameter for the gamma distribution related to mutation
+        events.
+    th : float
+        The theta parameter for the gamma distribution related to mutation
+        events.
+    k_hgt : float
+        The k parameter for the gamma distirbution related to horizontal
+        gene transfer events. Defaults to the value of `k`.
+    th_hgt : float
+        The theta parameter for the gamma distribution related to horizontal
+        gene transfer events. Defaults to the value of `th`.
+    e : float
+        The exponent for correction of mutation probability of each
+        character. Defaults to 1.0 (no correction).
+        
+    Returns
+    -------
+    tree : ete3
+        The provided tree, with random characters added.
+    """
+    
+    # cache a range with the number of characters, for some speed up
+    char_range = list(range(num_characters))
+    
+    # build the k vector per character, with the correction
+    k_vec = [k/(e**idx) for idx in char_range]
+    
+    # build the k vector per character for horizontal gene transfer
+    # TODO: should be independent parameters?
+    # TODO: should the borrowing probability be a scale of the birth one as
+    # here? i.e., the most common, the less likely to be borrowed
+    if not k_hgt:
+        k_hgt = k
+    if not th_hgt:
+        th_hgt = th
+        
+    k_hgt_vec = [k/(e**idx) for idx in char_range]
+    
+    # When simulating the character evolution, we need to traverse the tree
+    # in chronological order, so that when then characters for each taxon
+    # are compiled/simulated, all the characters from chronologically
+    # anterior taxa are already available (allowing to model processes such
+    # as horizontal gene transfer, etc.). In order to do so, and later
+    # facilitating the selection of nodes for some processes, we compile
+    # a dictionary of distances from root for all nodes in the tree,
+    # sorting them in ascending order for the tree traversal.
+    root_dists = {
+        node : node.get_distance(tree)
+        for node in tree.traverse("preorder")
+    }
+    
+    sorted_nodes = [
+        node for node, dist in
+        sorted(root_dists.items(), key=itemgetter(1))
+    ]
+
+    # Traverse the tree from the root, adding characters to all
+    # nodes (i.e., not only leaves); `states` is the number of states
+    # currently used at each point, so we know which number to use in
+    # case of a mutation event.
+    states = num_characters
+    for node in sorted_nodes:
+        # Obtain the characters from the immediate ancestor; if there is no
+        # immediate ancestor we are at the root, when we default to one
+        # different state for each character (copying from the already
+        # compiled `char_range` list -- a copy is not strictly needed,
+        # but is a best practice here). 
+        ancestors = node.get_ancestors()
+        if not ancestors:
+            node.chars = char_range[:]
+            continue
+            
+        # In case there are ancestors, we start by making a copy of the
+        # states of the immediate ancestor to `chars`; the list can be
+        # manipulated during the loop, and will only be attributed to the
+        # node at the end.
+        chars = ancestors[0].chars[:]
+
+        # We build an array indicating whether each character should be
+        # changed (a mutation), based on the comparison of a randomly
+        # drawn number of a gamma distribution to the distance of the
+        # current node to its immediate ancestor; the same is performed to
+        # a borrowing (i.e., horizontal/lateral gene transfer). While
+        # different logics could be taken here, this more explicit approach
+        # makes debugging and coding of different methods easier. Also
+        # note that, as we might have individual `k` parameters due to
+        # the exponential correction, we cannot just ask for an array/list
+        # of random numbers, but need to iterate one by one.
+        # TODO: Implement more models, especially those from genetics; a
+        #       General Time Reversable model with a proportion of
+        #       invariable sites and a gamma-shaped distribution of rates
+        #       across sites is the prime candidate.
+        mutation_event = [
+            np.random.gamma(k_vec[i], th) < node.dist
+            for i in char_range    
+        ]
+
+        hgt_event = [
+            np.random.gamma(k_hgt_vec[i], th_hgt) < node.dist
+            for i in char_range
+        ]
+    
+        # Mutate characters according to `mutation_event`.
+        for idx, mutation in enumerate(mutation_event):
+            if mutation:
+                chars[idx] = states
+                states += 1
+
+        # For HGT simulation, we first obtain a list of all donors, taxa
+        # which can potentially be source for the borrowing
+        # (those whose root distance is less to or equal to that of the
+        # current taxon, less the current taxon itself), and compute the
+        # distance form the current node to each donor (so we can favor
+        # closer taxa in the borrowing).
+        # TODO: Implement addition HGT simulations where more than one state
+        #       is borrowed from a "power" taxon in the same event (analogous
+        #       to cultural influence in linguistics).
+        # TODO: Allow excluding non extant taxa.
+        pot_source = [
+            donor
+            for donor, donor_dist in root_dists.items()
+            if donor_dist <= node.dist
+            and donor != node
+        ]
+        
+        # Compute the probability of each donor, inversely proportional to
+        # the current distance (thus the (min+max)-i).
+        # TODO: Allow a non-linear correction for the probabilities in
+        #       `donor_prob`.
+        donor_prob = np.array([
+            node.get_distance(donor) for donor in pot_source
+        ])
+        donor_prob = (min(donor_prob)+max(donor_prob)) - donor_prob
+
+        # Select a random donor for each character, which will be used
+        # only if an hgt event is set for the character. While this logic
+        # might seem inefficient (we could draw just those characters to
+        # be replace), it leaves the code in place for future planned
+        # developments.
+        # Note that the probability for `np.random.choice()` (used here as
+        # `random.choice()` from the standard library is not available in
+        # Python 3.5) needs to normalized in range [0,1].
+        donor_nodes = np.random.choice(
+            pot_source, num_characters,
+            p = donor_prob / sum(donor_prob)
+            )
+
+        # Mutate characters by performing a horizontal gene transfer
+        # according to `hgt_event`.
+        # TODO: This does *not* guarantee that the character will be
+        #       different, as the borrowed item might be equal to the
+        #       current one (especially considering that we favor
+        #       borrowing from closer taxa). This should be made clearer,
+        #       or set with some attribute otherwise.
+        for idx, hgt, donor_node in zip(char_range, hgt_event, donor_nodes):
+            if hgt:
+                chars[idx] = donor_node.chars[idx]
+       
+        # Set the new characters.
+        node.chars = chars
+            
     return tree
