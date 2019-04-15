@@ -188,8 +188,18 @@ class TestCharacters(unittest.TestCase):
             tree = Tree(newick)
             tree = ngesh.add_characters(tree, NUM_CONCEPTS, k, th, z)
             
-            #buf = tree2nexus(tree)
-            #print(buf)    
+class TestOutput(unittest.TestCase):
+    """
+    Class for `ngesh` tests related to output generation.
+    """
+    
+    def test_tree2nexus(self):
+        # We test the generatio with characters
+        for newick in _TREES:
+            tree = Tree(newick)
+            tree = ngesh.add_characters(tree, 100, 4.0, 1.0, 1.05)
+            buf = ngesh.tree2nexus(tree)
+  
 
 if __name__ == "__main__":
     import sys
