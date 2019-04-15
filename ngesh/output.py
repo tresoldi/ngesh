@@ -26,8 +26,15 @@ def tree2nexus(tree):
         A string with the full representation of the tree in NEXUS format.
     """
 
-    # Collect all taxa and their characters
-    data = {leaf.name:leaf.chars for leaf in tree.get_leaves()}
+    # Collect all taxa and their characters, provided the characters
+    # exist
+    # TODO: Write a better output if there are no characters, or fail?
+    try:
+        data = {leaf.name:leaf.chars for leaf in tree.get_leaves()}
+        missing_chars = False
+    except AttributeError:
+        data = {leaf.name:[] for leaf in tree.get_leaves()}
+        missing_chars = True
 
     # Collect the number of states used per concept in the entire tree.
     concept_states = [
@@ -58,6 +65,10 @@ def tree2nexus(tree):
     
     # Build the buffer string holding the entire NEXUS file.
     buf = ["#NEXUS", ""]
+    
+    if missing_chars:
+        buf.append("[WARNING: characters missing from tree]\n")
+    
     buf.append("begin data;")
     buf.append("  dimensions ntax=%i nchar=%i;" % \
         (len(bin_strings), len(list(bin_strings.values())[0])))

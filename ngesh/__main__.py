@@ -13,9 +13,6 @@ import sys
 import ngesh
 
 def generate_tree(args):
-    # check arguments from the command line: at least one stopping
-    # criterion, maybe death less than birth, etc.
-
     tree = ngesh.gen_tree(args.birth, args.death,
         min_leaves = args.min_leaves,
         max_time = args.max_time,
@@ -23,7 +20,7 @@ def generate_tree(args):
         seed = args.seed
         )
 
-    return tree.write()
+    return tree
 
 
 def parse_arguments():
@@ -32,8 +29,10 @@ def parse_arguments():
     options = {
         "labels" : "human",
         "max_time" : None,
-        "num_leaves" : None,
+        "min_leaves" : 10,
         "seed" : None,
+        "birth" : 1.0,
+        "output" : "newick",
     }
         
     # Parse any configuration speification first. Note that `add_help` is
@@ -68,7 +67,7 @@ def parse_arguments():
         
     parser.add_argument("-b", "--birth",
         type=float,
-        help="Specify the birth rate (l)")
+        help="Specify the birth rate (l, defaults to 1.0)")
     parser.add_argument("-d", "--death",
         type=float,
         help="Specify the death rate (mu, default to half the birth-rate)")    
@@ -77,13 +76,17 @@ def parse_arguments():
         help="Specify the maximum time stopping criterion")  
     parser.add_argument("-l", "--min_leaves",
         type=float,
-        help="Specify the minimum leaf number stopping criterion")
+        help="Specify the minimum leaf number stopping criterion (defaults to 10)")
     parser.add_argument("-x", "--labels",
         type=str,
         help='Specify the model for text generation (defaults to "human")')
     parser.add_argument("-r", "--seed",
         type=str,
         help='Specify a string as the RNG seed')  
+    parser.add_argument("-o", "--output",
+        type=str,
+        choices=["newick", "ascii", "nexus"],
+        help='Specify the output type ("newick", "ascii", or "nexus")')
         
     parser.set_defaults(**options)
     
@@ -103,8 +106,14 @@ def main():
     # Generate the tree
     tree = generate_tree(args)
 
+    # Output the tree according to the requested format
+    if args.output == 'newick':
+        print(tree.write())
+    elif args.output == 'ascii':
+        print(tree)
+    elif args.output == 'nexus':
+        print(ngesh.tree2nexus(tree))
 
-    print(tree)
 
 if __name__ == "__main__":
     main()
