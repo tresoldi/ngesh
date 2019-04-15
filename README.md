@@ -217,8 +217,13 @@ and guaranteeing there are no duplicates
 allow multiple models
 * Build a simple website and link to automatically generated documentation
 (possibly with Sphinx)
-* Allow to set many parameters from the command line `ngesh` command
-* Add BEASTling output
+* Allow generation of unlabelled trees from the command-line
+* Look for default parameters that are more closely related to linguistic
+trees (or, at least, to the Indo-European one)
+* Check if all command-line outputs are complete (for example, characters
+in Newick format are known to be missing)
+* Add command-line option to write both an output and the reference tree file,
+or the tree-file as a comment to the output
 
 ## Gallery
 
@@ -249,4 +254,4 @@ The author was supported during development by the
 for the project [CALC](http://calc.digling.org)
 (Computer-Assisted Language Comparison: Reconciling Computational and Classical
 Approaches in Historical Linguistics), led by
-[Johann-Mattis List](http://www.lingulist.de)
+[Johann-Mattis List](http://www.lingulist.de).
