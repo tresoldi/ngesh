@@ -252,7 +252,7 @@ def gen_tree(birth, death, min_leaves=None, max_time=None,
     death : float
         The death rate (mu) for the generated tree. Must be explicitly set
         to zero for Yule model (i.e., birth only).
-    num_leaves : int
+    min_leaves : int
         A stopping criterion with the minimum number of extant leaves.
         The generated tree will have at least the number of requested
         extant leaves (possibly more, as the last speciation event might
