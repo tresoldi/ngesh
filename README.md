@@ -321,7 +321,9 @@ $ ngesh -c examples/example_ngesh.conf --seed jena --output newick > examples/ex
 
 The results are not excellent given the limits we set for quick demonstration,
 but it still capture major information and subgroupings (as clearer by
-the radial layout below). For an analysis of
+the radial layout below) -- manual data exploration show that at least some
+of the errors, including the group in the first split, are due to horizontal
+gene transfer. For an analysis of
 the inference performance we would need to improve the parameters above
 and repeat the analysis on a range of random trees, including studying the
 log of character changes (including borrowings) involved in this particular
@@ -401,7 +403,8 @@ identifiers or protein accessions can be used for the same purpose
     * Check if all outputs are complete (e.g., characters are currently
       missing in the Newick format)
     * Add a command-line option (or a new tool) that allows to write the
-      output to one file and the reference tree to a second one
+      output to one file and the reference tree to a second one (possibly
+      with the log of character evolution)
     * Check for alternatives for the exponential correction of a character
       resistance to mutation (e.g. Zipf law), including separating mutation
       and borrowing rates
