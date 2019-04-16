@@ -1,7 +1,5 @@
 # Ngesh, simulation of random phylogenetic trees with characters
 
-!!! FIX IMAGE LINKS WHEN RELEASING!
-
 [![Build Status](https://travis-ci.org/tresoldi/ngesh.svg?branch=master)](https://travis-ci.org/tresoldi/ngesh)
 [![codecov](https://codecov.io/gh/tresoldi/ngesh/branch/master/graph/badge.svg)](https://codecov.io/gh/tresoldi/ngesh)
 [![PyPI](https://img.shields.io/pypi/v/ngesh.svg)](https://pypi.org/project/ngesh)
@@ -311,13 +309,13 @@ and plot the results with `figtree` (or, again, similar software).
 Let's plot our summary tree and compare the results with the
 actual topology (which we can regenerate with the earlier seed).
 
-![summary tree](https://raw.githubusercontent.com/tresoldi/ngesh/version0.2/doc/summary.nex.png)
+![summary tree](https://raw.githubusercontent.com/tresoldi/ngesh/master/doc/summary.nex.png)
 
 ```
 $ ngesh -c examples/example_ngesh.conf --seed jena --output newick > examples/example.nw
 ```
 
-![original tree](https://raw.githubusercontent.com/tresoldi/ngesh/version0.2/doc/example.nw.png)
+![original tree](https://raw.githubusercontent.com/tresoldi/ngesh/master/doc/example.nw.png)
 
 The results are not excellent given the limits we set for quick demonstration,
 but it still capture major information and subgroupings (as clearer by
@@ -329,7 +327,7 @@ and repeat the analysis on a range of random trees, including studying the
 log of character changes (including borrowings) involved in this particular
 random tree.
 
-![summary tree radial](https://raw.githubusercontent.com/tresoldi/ngesh/version0.2/doc/summary.nex2.png)
+![summary tree radial](https://raw.githubusercontent.com/tresoldi/ngesh/master/doc/summary.nex2.png)
 
 *TODO: Compare trees (Robinson-Foulds symmetric difference?)*
 
