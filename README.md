@@ -279,12 +279,14 @@ Dotare,feature_8,8
 ```
 
 We can now use a minimal BEASTling configuration and generate an XML
-input for BEAST2. The results are not expected to perfect, as we will use
-a shorter chain length to make it faster and a model which is different
-from the assumptions used for generation (besides the default parameters for
-horizontal gene transfer are a bit too aggressive). The biggest issue will
-be assuming a Yule tree when the generation includes extinction events,
-so this can be assumed as an experiment of the perfomance in such situation.
+input for BEAST2. Let's assume we want to test how well our pipeline
+performs when assuming a Yule tree when the data actually includes
+extinct taxa. The results here presented are not expected to perfect,
+as we will use
+a short chain length to make it faster and a model which is different
+from the assumptions used for generation (besides the fact of the
+default parameters for
+horizontal gene transfer being a bit too aggressive).
 
 ```
 $ cat examples/example_beastling.conf 
