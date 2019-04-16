@@ -282,7 +282,9 @@ We can now use a minimal BEASTling configuration and generate an XML
 input for BEAST2. The results are not expected to perfect, as we will use
 a shorter chain length to make it faster and a model which is different
 from the assumptions used for generation (besides the default parameters for
-horizontal gene transfer are a bit too aggressive).
+horizontal gene transfer are a bit too aggressive). The biggest issue will
+be assuming a Yule tree when the generation includes extinction events,
+so this can be assumed as an experiment of the perfomance in such situation.
 
 ```
 $ cat examples/example_beastling.conf 
@@ -310,64 +312,18 @@ actual topology (which we can regenerate with the earlier seed).
 ![summary tree](https://raw.githubusercontent.com/tresoldi/ngesh/version0.2/doc/summary.nex.png)
 
 ```
-$ ngesh -c examples/example_ngesh.conf --seed jena --output ascii
-
-            /-Dotare
-         /-|
-        |  |   /-Moffev
-        |   \-|
-      /-|      \-Wikuo
-     |  |
-     |  |      /-Roasi
-     |  |   /-|
-   /-|   \-|   \-Sietu
-  |  |     |
-  |  |      \-Biva
-  |  |
-  |   \-Unia
-  |
-  |                  /-Ovo
-  |               /-|
-  |              |  |   /-Epum
-  |            /-|   \-|
-  |           |  |      \-Huke
-  |         /-|  |
---|        |  |   \-Pepea
-  |      /-|  |
-  |     |  |   \-Podefo
-  |     |  |
-  |     |   \-Sie
-  |     |
-  |   /-|         /-Eo
-  |  |  |      /-|
-  |  |  |     |   \-Vigsoa
-  |  |  |   /-|
-  |  |  |  |  |   /-Fevege
-  |  |  |  |   \-|
-  |  |   \-|      \-Eu
-   \-|     |
-     |     |   /-Vado
-     |      \-|
-     |         \-Gelebo
-     |
-     |   /-Dogdozo
-     |  |
-     |  |   /-Voa
-      \-|  |
-        |  |            /-Giole
-        |  |         /-|
-         \-|      /-|   \-Wikebi
-           |     |  |
-           |   /-|   \-Edo
-           |  |  |
-            \-|   \-Deze
-              |
-               \-Vudrusa
-
+$ ngesh -c examples/example_ngesh.conf --seed jena --output newick > examples/example.nw
 ```
 
-The results are good enough, capturing the major information and subgroupings.
-This is even clearer if we make a radial layout:
+![original tree](https://raw.githubusercontent.com/tresoldi/ngesh/version0.2/doc/example.nw.png)
+
+The results are not excellent given the limits we set for quick demonstration,
+but it still capture major information and subgroupings (as clearer by
+the radial layout below). For an analysis of
+the inference performance we would need to improve the parameters above
+and repeat the analysis on a range of random trees, including studying the
+log of character changes (including borrowings) involved in this particular
+random tree.
 
 ![summary tree radial](https://raw.githubusercontent.com/tresoldi/ngesh/version0.2/doc/summary.nex2.png)
 

@@ -1,0 +1,22 @@
+<itsabeastystatewerein version='2.0' sample='500000'>
+<statenode id='Tree.t:beastlingTree'>(((((((((0:0.026993315451711124,18:0.026993315451711124)40:0.002049227299812266,16:0.02904254275152339)38:0.012655893732206713,(12:0.028779419185073415,25:0.028779419185073415)34:0.012919017298656688)48:8.037318971172019E-4,3:0.042502168380847305)42:0.0031626654609894916,19:0.0456648338418368)28:0.008938171938547873,(((((1:0.028458172783886997,4:0.028458172783886997)41:0.007403143427587303,24:0.0358613162114743)27:0.0020348527887361634,10:0.037896169000210464)47:0.008172203044362898,23:0.04606837204457336)44:0.004829438460124159,(2:0.03249713706508352,22:0.03249713706508352)26:0.018400673439614004)30:0.003705195275687148)46:0.0016298462449388096,(((5:0.04720754804558986,21:0.04720754804558986)37:0.007070362682964099,(9:0.02746626172925703,20:0.02746626172925703)31:0.02681164899929693)39:2.491695689790657E-4,(7:0.028868826249713632,8:0.028868826249713632)36:0.025658254047819393)33:0.0017057717277904547)35:0.007765705430571299,(((6:0.031204823476863715,11:0.031204823476863715)45:0.0062739474244761576,13:0.03747877090133987)43:0.01737849810467225,(14:0.03533719148937229,15:0.03533719148937229)32:0.019520077516639832)29:0.009141288449882656)49:7.570350329769993E-4,17:0.06475559248887178)50:0.0</statenode>
+<statenode id='birthRate.t:beastlingTree'>birthRate.t:beastlingTree[1 1] (-Infinity,Infinity): 34.98110853671563 </statenode>
+<statenode id='clockRate.c:default'>clockRate.c:default[1 1] (0.0,1000.0): 1.0 </statenode>
+<statenode id='example:covarion_alpha.s'>example:covarion_alpha.s[1 1] (1.0E-4,1.0): 0.5065672103384319 </statenode>
+<statenode id='example:covarion_s.s'>example:covarion_s.s[1 1] (1.0E-4,Infinity): 0.0015047609069815595 </statenode>
+</itsabeastystatewerein>
+<!--
+{"operators":[
+{"id":"SubtreeSlide.t:beastlingTree","p":0.2911405017069014,"accept":1018,"reject":92806,"acceptFC":993,"rejectFC":87619,"rejectIv":44228,"rejectOp":44228},
+{"id":"narrow.t:beastlingTree","p":"NaN","accept":23388,"reject":70670,"acceptFC":21982,"rejectFC":66853,"rejectIv":0,"rejectOp":0},
+{"id":"wide.t:beastlingTree","p":"NaN","accept":155,"reject":18556,"acceptFC":143,"rejectFC":17576,"rejectIv":9500,"rejectOp":9500},
+{"id":"WilsonBalding.t:beastlingTree","p":"NaN","accept":148,"reject":18487,"acceptFC":129,"rejectFC":17465,"rejectIv":2719,"rejectOp":2719},
+{"id":"UniformOperator.t:beastlingTree","p":"NaN","accept":75227,"reject":111759,"acceptFC":71011,"rejectFC":105611,"rejectIv":0,"rejectOp":0},
+{"id":"treeScaler.t:beastlingTree","p":0.6581798363322104,"accept":2956,"reject":16013,"acceptFC":2858,"rejectFC":15071,"rejectIv":0,"rejectOp":0},
+{"id":"treeRootScaler.t:beastlingTree","p":0.6598651041850382,"accept":1971,"reject":16728,"acceptFC":1895,"rejectFC":15740,"rejectIv":5968,"rejectOp":5968},
+{"id":"UpDown","p":0.6180939936446419,"accept":2717,"reject":16097,"acceptFC":2611,"rejectFC":15194,"rejectIv":0,"rejectOp":0},
+{"id":"YuleBirthRateScaler.t:beastlingTree","p":0.34483522217225043,"accept":4803,"reject":13810,"acceptFC":4416,"rejectFC":13197,"rejectIv":0,"rejectOp":0},
+{"id":"example:covarion_alpha_scaler.s","p":0.2562484938683843,"accept":1410,"reject":4810,"acceptFC":1240,"rejectFC":4662,"rejectIv":2594,"rejectOp":2594},
+{"id":"example:covarion_s_scaler.s","p":0.23279653045030252,"accept":2349,"reject":4123,"acceptFC":2161,"rejectFC":3953,"rejectIv":36,"rejectOp":36}
+]}
+-->
