@@ -84,11 +84,11 @@ as a Newick tree.
 ```
 $ ipython3
 
-In [1]: import ngesh                                                                                            
+In [1]: import ngesh
 
-In [2]: tree = ngesh.gen_tree(1.0, 0.5, max_time=3.0, labels="human")                                           
+In [2]: tree = ngesh.gen_tree(1.0, 0.5, max_time=3.0, labels="human")
 
-In [3]: print(tree)                                                                                             
+In [3]: print(tree)
 
                   /-Gupe
                /-|
@@ -116,7 +116,7 @@ In [3]: print(tree)
   |
    \-Gibu
 
-In [4]: print(tree.write())                                                                                     
+In [4]: print(tree.write())
 ((((((Gupe:0.221592,Ui:0.221592)1:0.274564,Otevze:0.130366)1:0.208385,(Tio:0.114998,Giludi:0.102135)1:0.589543)1:0.979981,((Kea:0.223773,Puke:0.901625)1:0.115261,(Feigat:0.944765,((Magma:0.541031,Hepti:0.541031)1:0.120214,Uhodu:0.661245)1:0.28352)1:0.0721207)1:0.667637)1:0.119319,Ramumi:1.24512)1:1.03792,Gibu:0.663448);
 ```
 
@@ -142,14 +142,14 @@ reproducibility.
 If you use `ngesh`, please cite it as:
 
 > Tresoldi, Tiago (2019). Ngesh, a tool for simulating random phylogenetic trees.
-Version 0.1.1. Jena. Available at: https://github.com/tresoldi/ngesh
+Version 0.2. Jena. Available at: https://github.com/tresoldi/ngesh
 
 In BibTeX:
 
 ```
 @misc{Tresoldi2019ngesh,
   author = {Tresoldi, Tiago},
-  title = {Ngesh, a tool for simulating random phylogenetic trees. Version 0.1.2},
+  title = {Ngesh, a tool for simulating random phylogenetic trees. Version 0.2},
   howpublished = {\url{https://github.com/tresoldi/ngesh}},
   address = {Jena},
   year = {2019},
