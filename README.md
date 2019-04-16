@@ -234,6 +234,147 @@ Gegme      101011101110101
 end;
 ```
 
+### Integrating with other software
+
+Integration is easy due to the various export functions. For example, it
+is possible to generate random trees with characters for which we know
+all details on evolution and parameters, and generate Nexus files that
+can be fed to phylogenetic software such as
+[MrBayes](http://nbisweden.github.io/MrBayes/) or
+[BEAST2](https://www.beast2.org/)
+to either check how they perform or
+how good is our generation in terms of real data.
+
+Let's simulate phylogenetic data for an analysis using BEAST2 through
+[BEASTling](https://github.com/lmaurits/BEASTling). We start with
+a birth-death tree (lambda=0.9, mu=0.3), with at least 15 leaves, and 100
+characters whose evolution is modelled with the default parameters
+and a string seed `"jena"` for reproducibility; the tree data is exported
+in `"wordlist"` format:
+
+```
+$ cat examples/example_ngesh.conf 
+[Config]
+labels=human
+birth=0.9
+death=0.3
+output=nexus
+min_leaves=15
+num_chars=100
+
+$ ngesh -c examples/example.conf --seed jena > examples/example.csv
+
+$ head examples/example.csv 
+Language_ID,Feature_ID,Value
+Dotare,feature_0,0
+Dotare,feature_1,1
+Dotare,feature_2,2
+Dotare,feature_3,3
+Dotare,feature_4,4
+Dotare,feature_5,5
+Dotare,feature_6,6
+Dotare,feature_7,7
+Dotare,feature_8,8
+```
+
+We can now use a minimal BEASTling configuration and generate an XML
+input for BEAST2. The results are not expected to perfect, as we will use
+a shorter chain length to make it faster and a model which is different
+from the assumptions used for generation (besides the default parameters for
+horizontal gene transfer are a bit too aggressive).
+
+```
+$ cat examples/example_beastling.conf 
+[admin]
+basename=example
+[MCMC]
+chainlength=500000
+[model example]
+model=covarion
+data=example.csv
+
+$ beastling example_beastling.conf 
+
+$ beast example.xml 
+```
+
+We can proceed normally here: use BEAST2's `treeannotator` (or similar
+software) to generate a summary tree,
+which we store in `examples/summary.nex`,
+and plot the results with `figtree` (or, again, similar software).
+
+Let's plot our summary tree and compare the results with the
+actual topology (which we can regenerate with the earlier seed).
+
+![summary tree](https://raw.githubusercontent.com/tresoldi/ngesh/master/doc/summary.nex.png)
+
+```
+$ ngesh -c examples/example_ngesh.conf --seed jena --output ascii
+
+            /-Dotare
+         /-|
+        |  |   /-Moffev
+        |   \-|
+      /-|      \-Wikuo
+     |  |
+     |  |      /-Roasi
+     |  |   /-|
+   /-|   \-|   \-Sietu
+  |  |     |
+  |  |      \-Biva
+  |  |
+  |   \-Unia
+  |
+  |                  /-Ovo
+  |               /-|
+  |              |  |   /-Epum
+  |            /-|   \-|
+  |           |  |      \-Huke
+  |         /-|  |
+--|        |  |   \-Pepea
+  |      /-|  |
+  |     |  |   \-Podefo
+  |     |  |
+  |     |   \-Sie
+  |     |
+  |   /-|         /-Eo
+  |  |  |      /-|
+  |  |  |     |   \-Vigsoa
+  |  |  |   /-|
+  |  |  |  |  |   /-Fevege
+  |  |  |  |   \-|
+  |  |   \-|      \-Eu
+   \-|     |
+     |     |   /-Vado
+     |      \-|
+     |         \-Gelebo
+     |
+     |   /-Dogdozo
+     |  |
+     |  |   /-Voa
+      \-|  |
+        |  |            /-Giole
+        |  |         /-|
+         \-|      /-|   \-Wikebi
+           |     |  |
+           |   /-|   \-Edo
+           |  |  |
+            \-|   \-Deze
+              |
+               \-Vudrusa
+
+```
+
+The results are good enough, capturing the major information and subgroupings.
+This is even clearer if we make a radial layout:
+
+![summary tree radial](https://raw.githubusercontent.com/tresoldi/ngesh/master/doc/summary.nex2.png)
+
+*TODO: Compare trees (Robinson-Foulds symmetric difference?)*
+
+The files used and generated in this example
+can be found in the `/examples` directory.
+
 ## Parameters for tree generation
 
 The parameters for tree generation, as also given by `ngesh -h`, are:
@@ -307,13 +448,14 @@ identifiers or protein accessions can be used for the same purpose
       and borrowing rates
     * Allow to exclude non extant taxa from horizontal gene transfer
       events
+    * Add stopping criterion on the global number of nodes (in complement
+      to the number of *extant* nodes, currently implemented), either absolute
+      or as a range
 
 * Longer-term
     * Simulation of data problems (incomplete sampling, errors in
       sequencing/cognate judgment, etc.)
     * Variable birth/death ratios
-    * Add stopping criterion on the global number of nodes (in complement
-      to the number of *extant* nodes, currently implemented)
     * Rewrite the random text generation functions, possibly as actual
       Python generators
     * Consider replacing or complementing `expovariate()` in birth/death
