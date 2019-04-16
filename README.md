@@ -243,6 +243,8 @@ to cultural influence in linguistics).
 always result in altered states, as it is currently possible (especially
 considering that we favor borrowing from closer taxa), that the even will
 borrow an equal state.
+* Implement simulation of characters for other datatypes (currently only
+standard binary presence/absence)
 
 ## Gallery
 
