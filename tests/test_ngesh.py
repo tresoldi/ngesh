@@ -51,26 +51,6 @@ _TREES = [
 ]
 
 
-class TestTextGen(unittest.TestCase):
-    """
-    Class for `ngesh` tests related to textual generation.
-    """
-
-    # We run each generation twice with a seed, checking if it is
-    # reproducible
-    def test_label_gen(self):
-        seq1 = ngesh.textgen.random_labels(size=5, seed=42)
-        seq2 = ngesh.textgen.random_labels(size=5, seed=42)
-
-        assert tuple(seq1) == tuple(seq2)
-
-    def test_species_gen(self):
-        seq1 = ngesh.textgen.random_species(size=5, seed=42)
-        seq2 = ngesh.textgen.random_species(size=5, seed=42)
-
-        assert tuple(seq1) == tuple(seq2)
-
-
 class TestTree(unittest.TestCase):
     """
     Class for `ngesh` tests related to tree generation.
@@ -84,8 +64,9 @@ class TestTree(unittest.TestCase):
         Tests tree generation with minimum leaf number stop criterion.
         """
 
+        tree = ngesh.gen_tree(1.0, 0.5, min_leaves=5, seed="myseed")
         assert (
-            ngesh.gen_tree(1.0, 0.5, min_leaves=5, seed="myseed").write()
+            tree.write()
             == "(L1:2.19578,(((L2:1.62092,(L3:0.15995,L4:0.15995)1:1.46097)1:0.327325,L5:1.94825)1:2.23317,L6:4.18142)1:2.49625);"
         )
 
@@ -94,8 +75,9 @@ class TestTree(unittest.TestCase):
         Tests tree generation with maximum_time stop criterion.
         """
 
+        tree = ngesh.gen_tree(1.0, 0.5, max_time=2.5, seed="myseed")
         assert (
-            ngesh.gen_tree(1.0, 0.5, max_time=2.5, seed="myseed").write()
+            tree.write()
             == "(L1:0.473217,(L2:1.81353,(L3:0.57295,L4:0.57295)1:1.24058)1:0.50789);"
         )
 
@@ -104,10 +86,8 @@ class TestTree(unittest.TestCase):
         Tests tree generation in a birth-only model.
         """
 
-        assert (
-            ngesh.gen_tree(1.0, 0.0, max_time=2.5, seed="myseed").write()
-            == "((L1:1.05875,L2:1.05875)1:0.881094,L3:1.93984);"
-        )
+        tree = ngesh.gen_tree(1.0, 0.0, max_time=2.5, seed="myseed")
+        assert tree.write() == "((L1:1.05875,L2:1.05875)1:0.881094,L3:1.93984);"
 
     def test_generation_labelling(self):
         """

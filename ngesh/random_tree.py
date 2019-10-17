@@ -19,7 +19,8 @@ import numpy as np
 from ete3 import Tree
 
 # Import other modules from this library
-from ngesh.textgen import random_labels, random_species
+# from ngesh.textgen import random_labels, random_species
+from abzu.textgen import random_labels, random_species
 
 # Define the maximum number of tries for generation
 __MAX_ATTEMPTS = 3000
@@ -69,7 +70,7 @@ def label_tree(tree, model, seed=None):
         # The execution would not fail as we are using `zip()`, only items
         # would be unnamed, but we are manually adding missing labels as
         # enumerations to make sure there are no anynomous nodes.
-        species = list(set(random_species(len(leaves), seed)))
+        species = sorted(set(random_species(len(leaves), seed)))
         species += ["L%i" % i for i in range(len(leaves) - len(species))]
 
         for leaf_node, name in zip(leaves, species):
