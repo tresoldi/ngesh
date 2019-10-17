@@ -34,10 +34,7 @@ def __extant(tree):
     # 'extinct' field is not part of ETE3 defaults, but we use here in
     # order to easily differentiate between alive and extinct leaves in
     # Birth-Death models.
-    return [
-        leave for leave in tree.get_leaves()
-        if leave.extinct is False
-    ]
+    return [leave for leave in tree.get_leaves() if leave.extinct is False]
 
 
 def label_tree(tree, model, seed=None):
@@ -66,30 +63,30 @@ def label_tree(tree, model, seed=None):
     # Cache the leaves, so we can also obtain their number
     leaves = tree.get_leaves()
 
-    if model == 'bio':
+    if model == "bio":
         # As we are using a simple model with replacements, even if
         # extremely unlikely, we might have repeated items in the labels.
         # The execution would not fail as we are using `zip()`, only items
         # would be unnamed, but we are manually adding missing labels as
         # enumerations to make sure there are no anynomous nodes.
         species = list(set(random_species(len(leaves), seed)))
-        species += ['L%i' % i for i in range(len(leaves) - len(species))]
+        species += ["L%i" % i for i in range(len(leaves) - len(species))]
 
         for leaf_node, name in zip(leaves, species):
             leaf_node.name = name
 
-    elif model == 'human':
+    elif model == "human":
         for leaf_node, name in zip(leaves, random_labels(len(leaves), seed)):
             leaf_node.name = name
 
     else:
         # Build the pattern for the label, including the computation of the
         # number of padding zeros needed
-        pattern = 'L%%0%ii' % (1 + math.floor(math.log10(len(leaves))))
+        pattern = "L%%0%ii" % (1 + math.floor(math.log10(len(leaves))))
 
         # Label all leaves first
         for leaf_idx, leaf_node in enumerate(leaves):
-            leaf_node.name = pattern % (leaf_idx+1)
+            leaf_node.name = pattern % (leaf_idx + 1)
 
 
 def __gen_tree(birth, death, min_leaves, max_time, labels, lam, prune, seed):
@@ -228,8 +225,16 @@ def __gen_tree(birth, death, min_leaves, max_time, labels, lam, prune, seed):
     return tree
 
 
-def gen_tree(birth, death, min_leaves=None, max_time=None,
-             labels="enum", lam=0.0, prune=False, seed=None):
+def gen_tree(
+    birth,
+    death,
+    min_leaves=None,
+    max_time=None,
+    labels="enum",
+    lam=0.0,
+    prune=False,
+    seed=None,
+):
     """
     Returns a random phylogenetic tree.
 
@@ -285,7 +290,7 @@ def gen_tree(birth, death, min_leaves=None, max_time=None,
 
     # Confirm that at least one stopping condition was provided
     if not (min_leaves or max_time):
-        raise ValueError('At least one stopping criterion is required.')
+        raise ValueError("At least one stopping criterion is required.")
 
     # Confirm that a valid `labels` was passed
     if labels not in ["enum", "human", "bio", None]:
@@ -311,8 +316,7 @@ def gen_tree(birth, death, min_leaves=None, max_time=None,
         seed = random.random()
 
         # Ask for a new tree
-        tree = __gen_tree(birth, death, min_leaves, max_time, labels,
-                          lam, prune, seed)
+        tree = __gen_tree(birth, death, min_leaves, max_time, labels, lam, prune, seed)
 
         # Break out of the loop if a valid tree was found, as in most of the
         # cases; if no tree could be generated, `__gen_tree()` will return
@@ -368,7 +372,7 @@ def add_characters(tree, num_characters, k, th, k_hgt=None, th_hgt=None, e=1.0):
     char_range = list(range(num_characters))
 
     # build the k vector per character, with the correction
-    k_vec = [k/(e**idx) for idx in char_range]
+    k_vec = [k / (e ** idx) for idx in char_range]
 
     # build the k vector per character for horizontal gene transfer
     if not k_hgt:
@@ -376,7 +380,7 @@ def add_characters(tree, num_characters, k, th, k_hgt=None, th_hgt=None, e=1.0):
     if not th_hgt:
         th_hgt = th
 
-    k_hgt_vec = [k/(e**idx) for idx in char_range]
+    k_hgt_vec = [k / (e ** idx) for idx in char_range]
 
     # When simulating the character evolution, we need to traverse the tree
     # in chronological order, so that when then characters for each taxon
@@ -386,14 +390,10 @@ def add_characters(tree, num_characters, k, th, k_hgt=None, th_hgt=None, e=1.0):
     # facilitating the selection of nodes for some processes, we compile
     # a dictionary of distances from root for all nodes in the tree,
     # sorting them in ascending order for the tree traversal.
-    root_dists = {
-        node : node.get_distance(tree)
-        for node in tree.traverse("preorder")
-    }
+    root_dists = {node: node.get_distance(tree) for node in tree.traverse("preorder")}
 
     sorted_nodes = [
-        node for node, dist in
-        sorted(root_dists.items(), key=itemgetter(1))
+        node for node, dist in sorted(root_dists.items(), key=itemgetter(1))
     ]
 
     # Traverse the tree from the root, adding characters to all
@@ -428,14 +428,10 @@ def add_characters(tree, num_characters, k, th, k_hgt=None, th_hgt=None, e=1.0):
         # note that, as we might have individual `k` parameters due to
         # the exponential correction, we cannot just ask for an array/list
         # of random numbers, but need to iterate one by one.
-        mutation_event = [
-            np.random.gamma(k_vec[i], th) < node.dist
-            for i in char_range
-        ]
+        mutation_event = [np.random.gamma(k_vec[i], th) < node.dist for i in char_range]
 
         hgt_event = [
-            np.random.gamma(k_hgt_vec[i], th_hgt) < node.dist
-            for i in char_range
+            np.random.gamma(k_hgt_vec[i], th_hgt) < node.dist for i in char_range
         ]
 
         # Mutate characters according to `mutation_event`.
@@ -453,17 +449,14 @@ def add_characters(tree, num_characters, k, th, k_hgt=None, th_hgt=None, e=1.0):
         pot_source = [
             donor
             for donor, donor_dist in root_dists.items()
-            if donor_dist <= node.dist
-            and donor != node
+            if donor_dist <= node.dist and donor != node
         ]
 
         # Compute the probability of each donor, inversely proportional to
         # the current distance (thus the (min+max)-i). For the time being,
         # only a linear distibution of the probabilities is allowed.
-        donor_prob = np.array([
-            node.get_distance(donor) for donor in pot_source
-        ])
-        donor_prob = (min(donor_prob)+max(donor_prob)) - donor_prob
+        donor_prob = np.array([node.get_distance(donor) for donor in pot_source])
+        donor_prob = (min(donor_prob) + max(donor_prob)) - donor_prob
 
         # Select a random donor for each character, which will be used
         # only if an hgt event is set for the character. While this logic
@@ -474,9 +467,8 @@ def add_characters(tree, num_characters, k, th, k_hgt=None, th_hgt=None, e=1.0):
         # `random.choice()` from the standard library is not available in
         # Python 3.5) needs to normalized in range [0,1].
         donor_nodes = np.random.choice(
-            pot_source, num_characters,
-            p=(donor_prob / sum(donor_prob))
-            )
+            pot_source, num_characters, p=(donor_prob / sum(donor_prob))
+        )
 
         # Mutate characters by performing a horizontal gene transfer
         # according to `hgt_event`.

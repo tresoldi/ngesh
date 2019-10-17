@@ -174,7 +174,7 @@ will pop up the ETE Tree Viewer on a random tree:
 python3 -c "import ngesh ; ngesh.display_random_tree()"
 ```
 
-![random tree](https://raw.githubusercontent.com/tresoldi/ngesh/master/doc/tree001.png)
+![random tree](https://raw.githubusercontent.com/tresoldi/ngesh/master/doc/tree001.png){width=100%}
 
 The main functions for generation are `gen_tree()`, which returns a random
 tree topology, and `add_characters()`, which simulates character evolution
@@ -309,13 +309,13 @@ and plot the results with `figtree` (or, again, similar software).
 Let's plot our summary tree and compare the results with the
 actual topology (which we can regenerate with the earlier seed).
 
-![summary tree](https://raw.githubusercontent.com/tresoldi/ngesh/master/doc/summary.nex.png)
+![summary tree](https://raw.githubusercontent.com/tresoldi/ngesh/master/doc/summary.nex.png){width=100%}
 
 ```
 $ ngesh -c examples/example_ngesh.conf --seed jena --output newick > examples/example.nw
 ```
 
-![original tree](https://raw.githubusercontent.com/tresoldi/ngesh/master/doc/example.nw.png)
+![original tree](https://raw.githubusercontent.com/tresoldi/ngesh/master/doc/example.nw.png){width=100%}
 
 The results are not excellent given the limits we set for quick demonstration,
 but it still capture major information and subgroupings (as clearer by
@@ -327,7 +327,7 @@ and repeat the analysis on a range of random trees, including studying the
 log of character changes (including borrowings) involved in this particular
 random tree.
 
-![summary tree radial](https://raw.githubusercontent.com/tresoldi/ngesh/master/doc/summary.nex2.png)
+![summary tree radial](https://raw.githubusercontent.com/tresoldi/ngesh/master/doc/summary.nex2.png){width=100%}
 
 *TODO: Compare trees (Robinson-Foulds symmetric difference?)*
 
@@ -440,9 +440,9 @@ identifiers or protein accessions can be used for the same purpose
 
 ## Gallery
 
-![random tree](https://raw.githubusercontent.com/tresoldi/ngesh/master/doc/tree001.png)
-![random tree](https://raw.githubusercontent.com/tresoldi/ngesh/master/doc/tree002.png)
-![random tree](https://raw.githubusercontent.com/tresoldi/ngesh/master/doc/tree003.png)
+![random tree](https://raw.githubusercontent.com/tresoldi/ngesh/master/doc/tree001.png){width=100%}
+![random tree](https://raw.githubusercontent.com/tresoldi/ngesh/master/doc/tree002.png){width=100%}
+![random tree](https://raw.githubusercontent.com/tresoldi/ngesh/master/doc/tree003.png){width=100%}
 
 ## How to cite
 

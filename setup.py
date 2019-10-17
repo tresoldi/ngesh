@@ -27,15 +27,8 @@ setup(
     packages=["ngesh"],
     keywords=["random phylogenetic tree", "phylogenetics"],
     include_package_data=True,
-    install_requires=[
-        "ete3",
-        "numpy"
-    ],
-    entry_points={
-        "console_scripts": [
-            "ngesh=ngesh.__main__:main",
-        ]
-    },
-    test_suite='tests',
+    install_requires=["ete3", "numpy", "sys"],
+    entry_points={"console_scripts": ["ngesh=ngesh.__main__:main"]},
+    test_suite="tests",
     tests_require=[],
 )

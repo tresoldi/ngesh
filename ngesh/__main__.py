@@ -14,6 +14,7 @@ import configparser
 # Import our library
 import ngesh
 
+
 def new_tree(args):
     """
     Generates and returns a new tree.
@@ -35,21 +36,26 @@ def new_tree(args):
     """
 
     # Generate the random tree
-    tree = ngesh.gen_tree(args.birth, args.death,
-                          min_leaves=args.min_leaves,
-                          max_time=args.max_time,
-                          labels=args.labels,
-                          seed=args.seed)
+    tree = ngesh.gen_tree(
+        args.birth,
+        args.death,
+        min_leaves=args.min_leaves,
+        max_time=args.max_time,
+        labels=args.labels,
+        seed=args.seed,
+    )
 
     # Add characters if requested
     if args.num_chars:
-        tree = ngesh.add_characters(tree,
-                                    args.num_chars,
-                                    args.k_mut,
-                                    args.th_mut,
-                                    args.k_hgt,
-                                    args.th_hgt,
-                                    args.e_mut)
+        tree = ngesh.add_characters(
+            tree,
+            args.num_chars,
+            args.k_mut,
+            args.th_mut,
+            args.k_hgt,
+            args.th_hgt,
+            args.e_mut,
+        )
 
     return tree
 
@@ -72,16 +78,16 @@ def parse_arguments():
     # Specify the defaults for the options: these are overridden, in order,
     # by the configuration file and by the command line arguments
     options = {
-        "labels" :      "human",
-        "max_time" :    None,
-        "min_leaves" :  10,
-        "seed" :        None,
-        "birth" :       1.0,
-        "output" :      "newick",
-        "num_chars" :   0,
-        "k_mut" :       5.0,
-        "th_mut" :      1.0,
-        "e_mut" :       1.05,
+        "labels": "human",
+        "max_time": None,
+        "min_leaves": 10,
+        "seed": None,
+        "birth": 1.0,
+        "output": "newick",
+        "num_chars": 0,
+        "k_mut": 5.0,
+        "th_mut": 1.0,
+        "e_mut": 1.05,
     }
 
     # Parse any configuration speification first. Note that `add_help` is
@@ -91,11 +97,11 @@ def parse_arguments():
     conf_parser = argparse.ArgumentParser(
         description=__doc__,
         formatter_class=argparse.RawDescriptionHelpFormatter,
-        add_help=False
-        )
-    conf_parser.add_argument("-c", "--conf_file",
-        help="Specify config file",
-        metavar="FILE")
+        add_help=False,
+    )
+    conf_parser.add_argument(
+        "-c", "--conf_file", help="Specify config file", metavar="FILE"
+    )
 
     # Parse with `conf_parser`, looking for a configuration file; default
     # options will be those in `defaults` overridden by any value
@@ -110,37 +116,65 @@ def parse_arguments():
     # the options of `config_parser` are inherited through `parents`,
     # and defaults are set from `options` at the end of the new argument
     # creation.
-    parser = argparse.ArgumentParser(
-        parents=[conf_parser]
-        )
-        
-    parser.add_argument("-b", "--birth", type=float,
-        help="Set birth rate (l, default 1.0)")
-    parser.add_argument("-d", "--death", type=float,
-        help="Set death rate (mu, default 0.5 * `birth-rate`)")    
-    parser.add_argument("-t", "--max_time", type=float,
-        help="Set maximum time stopping criterion")  
-    parser.add_argument("-l", "--min_leaves", type=float,
-        help="Set minimum leaf number stopping criterion (defaults 10)")
-    parser.add_argument("-x", "--labels", type=str,
-        help='Set text generation model (defaults "human")')
-    parser.add_argument("-r", "--seed", type=str,
-        help='Set RNG seed string')  
-    parser.add_argument("-n", "--num_chars", type=int,
-        help='Set random character number (default 0)')  
-    parser.add_argument("--k_mut", type=float,
-        help='Set character mutation gamma `k` parameter (default 5.0)')  
-    parser.add_argument("--th_mut", type=float,
-        help='Set character mutation gamma `theta` parameter (default 1.0)')  
-    parser.add_argument("--e_mut", type=float,
-        help='Set character mutation `e` parameter (default 1.05)')  
-    parser.add_argument("--k_hgt", type=float,
-        help='Set character HGT gamma `k` parameter (default 1.5 * `k_mut`)')  
-    parser.add_argument("--th_hgt", type=float,
-        help='Set character HGT gamma `theta` parameter (default `th_mut`)')  
-    parser.add_argument("-o", "--output", type=str,
+    parser = argparse.ArgumentParser(parents=[conf_parser])
+
+    parser.add_argument(
+        "-b", "--birth", type=float, help="Set birth rate (l, default 1.0)"
+    )
+    parser.add_argument(
+        "-d",
+        "--death",
+        type=float,
+        help="Set death rate (mu, default 0.5 * `birth-rate`)",
+    )
+    parser.add_argument(
+        "-t", "--max_time", type=float, help="Set maximum time stopping criterion"
+    )
+    parser.add_argument(
+        "-l",
+        "--min_leaves",
+        type=float,
+        help="Set minimum leaf number stopping criterion (defaults 10)",
+    )
+    parser.add_argument(
+        "-x", "--labels", type=str, help='Set text generation model (defaults "human")'
+    )
+    parser.add_argument("-r", "--seed", type=str, help="Set RNG seed string")
+    parser.add_argument(
+        "-n", "--num_chars", type=int, help="Set random character number (default 0)"
+    )
+    parser.add_argument(
+        "--k_mut",
+        type=float,
+        help="Set character mutation gamma `k` parameter (default 5.0)",
+    )
+    parser.add_argument(
+        "--th_mut",
+        type=float,
+        help="Set character mutation gamma `theta` parameter (default 1.0)",
+    )
+    parser.add_argument(
+        "--e_mut",
+        type=float,
+        help="Set character mutation `e` parameter (default 1.05)",
+    )
+    parser.add_argument(
+        "--k_hgt",
+        type=float,
+        help="Set character HGT gamma `k` parameter (default 1.5 * `k_mut`)",
+    )
+    parser.add_argument(
+        "--th_hgt",
+        type=float,
+        help="Set character HGT gamma `theta` parameter (default `th_mut`)",
+    )
+    parser.add_argument(
+        "-o",
+        "--output",
+        type=str,
         choices=["newick", "ascii", "nexus", "wl"],
-        help='Set output type (default "newick")')
+        help='Set output type (default "newick")',
+    )
 
     parser.set_defaults(**options)
 
@@ -165,13 +199,13 @@ def main():
     tree = new_tree(args)
 
     # Output the tree according to the requested format
-    if args.output == 'newick':
+    if args.output == "newick":
         print(tree.write())
-    elif args.output == 'ascii':
+    elif args.output == "ascii":
         print(tree)
-    elif args.output == 'nexus':
+    elif args.output == "nexus":
         print(ngesh.tree2nexus(tree))
-    elif args.output == 'wl':
+    elif args.output == "wl":
         print(ngesh.tree2wordlist(tree))
 
 

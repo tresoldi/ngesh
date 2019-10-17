@@ -10,16 +10,21 @@ Tests for the `ngesh` package.
 
 # Import third-party libraries
 from ete3 import Tree
+import logging
 import unittest
+import sys
 
 # Import the library being tested
 import ngesh
+
+# Setup the logger
+logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
+LOGGER = logging.getLogger("TestLog")
 
 # Some pre-generated newick trees for testing
 _TREES = [
     "(((Nucroto zolos:0.339415,Coddopus zoggaus:0.339415)1:2.29301,Aporos "
     "oiasis:2.63243)1:0.511706,Spetitis mubvoppis:3.14413);",
-    
     "((((Ataba eolus:0.274414,Dasoros audus:0.274414)1:1.59309,(Uvuros "
     "spalus:1.63679,(Zilavis sicagas:0.158265,Uzazopus aolo:0.158265)"
     "1:1.47853)1:0.230708)1:0.976915,Spempo gipus:2.84442)1:1.08647,"
@@ -27,7 +32,6 @@ _TREES = [
     "(Vaoras ovamla:0.235349,Nirceo spemgazzo:0.235349)1:1.34442)"
     "1:0.796904,(Wiopepus spiparzas:1.86067,Eavoros airos:0.906654)"
     "1:0.515998)1:1.55422);",
-
     "((((Egasis reggasas:0.0747242,(Niponis ecales:0.381168,Vossignis "
     "spepupapes:0.381168)1:0.0385491)1:0.697337,Tuapebbos "
     "eppozas:0.457931)1:2.02569,(Vucotes sparas:3.09293,((Ruttinges "
@@ -35,7 +39,6 @@ _TREES = [
     "emdis:0.260688)1:1.20787)1:1.35227,(Gemdas naoris:1.77171,(Tirreres "
     "sbissas:0.161549,Speppizipus spebbes:0.33078)1:1.44093)1:1.08563)"
     "1:0.235588)1:0.0498126)1:0.593566,Seti spines:0.874473);",
-
     "(((Uorus sbepis:1.00768,Winozbus veses:1.00768)1:2.02024,(((((Ragis "
     "zubarivos:0.239467,(Zoprotollas naessadda:0.032829,Sauvo "
     "tibbunnis:0.032829)1:0.206638)1:0.298691,Mirba "
@@ -58,14 +61,13 @@ class TestTextGen(unittest.TestCase):
     def test_label_gen(self):
         seq1 = ngesh.textgen.random_labels(size=5, seed=42)
         seq2 = ngesh.textgen.random_labels(size=5, seed=42)
-        
-        assert tuple(seq1) == tuple(seq2)
 
+        assert tuple(seq1) == tuple(seq2)
 
     def test_species_gen(self):
         seq1 = ngesh.textgen.random_species(size=5, seed=42)
         seq2 = ngesh.textgen.random_species(size=5, seed=42)
-        
+
         assert tuple(seq1) == tuple(seq2)
 
 
@@ -82,62 +84,71 @@ class TestTree(unittest.TestCase):
         Tests tree generation with minimum leaf number stop criterion.
         """
 
-        ngesh.gen_tree(1.0, 0.5, min_leaves=5)
-
+        assert (
+            ngesh.gen_tree(1.0, 0.5, min_leaves=5, seed="myseed").write()
+            == "(L1:2.19578,(((L2:1.62092,(L3:0.15995,L4:0.15995)1:1.46097)1:0.327325,L5:1.94825)1:2.23317,L6:4.18142)1:2.49625);"
+        )
 
     def test_generation_max_time(self):
         """
         Tests tree generation with maximum_time stop criterion.
         """
-        
-        ngesh.gen_tree(1.0, 0.5, max_time=2.5)
 
+        assert (
+            ngesh.gen_tree(1.0, 0.5, max_time=2.5, seed="myseed").write()
+            == "(L1:0.473217,(L2:1.81353,(L3:0.57295,L4:0.57295)1:1.24058)1:0.50789);"
+        )
 
     def test_generation_yule_model(self):
         """
         Tests tree generation in a birth-only model.
         """
 
-        ngesh.gen_tree(1.0, 0.0, max_time=2.5)
-
+        assert (
+            ngesh.gen_tree(1.0, 0.0, max_time=2.5, seed="myseed").write()
+            == "((L1:1.05875,L2:1.05875)1:0.881094,L3:1.93984);"
+        )
 
     def test_generation_labelling(self):
         """
         Tests tree generation with all the label models.
         """
-        
-        ngesh.gen_tree(1.0, 0.5, max_time=2.5, labels="enum")
-        ngesh.gen_tree(1.0, 0.5, max_time=2.5, labels="human")
-        ngesh.gen_tree(1.0, 0.5, max_time=2.5, labels="bio")
-        ngesh.gen_tree(1.0, 0.5, max_time=2.5, labels=None)
 
+        LOGGER.debug(
+            ngesh.gen_tree(1.0, 0.5, max_time=0.5, labels="enum", seed="myseed").write()
+        )
+        LOGGER.debug(
+            ngesh.gen_tree(
+                1.0, 0.5, max_time=0.5, labels="human", seed="myseed"
+            ).write()
+        )
+        LOGGER.debug(
+            ngesh.gen_tree(1.0, 0.5, max_time=0.5, labels="bio", seed="myseed").write()
+        )
 
     def test_generation_pruning(self):
         """
         Tests tree generation with pruning in a birth-death model.
         """
-        
-        ngesh.gen_tree(1.0, 0.5, max_time=5.0, prune=True)
 
+        ngesh.gen_tree(1.0, 0.5, max_time=5.0, prune=True)
 
     def test_generation_polytemy(self):
         """
-        Tests tree generation with hard politemy.
+        Tests tree generation with hard politomy.
         """
-        
-        ngesh.gen_tree(1.0, 0.5, min_leaves=25, lam=2.5)
 
+        ngesh.gen_tree(1.0, 0.5, min_leaves=25, lam=2.5)
 
     def test_generation_seed_no_label(self):
         """
         Test equality of trees generated with the same seed, no label.
         """
-        
-        # No label
-        t1 = ngesh.gen_tree(1.0, 0.5, max_time=3.0, labels=None, seed=1234) 
-        t2 = ngesh.gen_tree(1.0, 0.5, max_time=3.0, labels=None, seed=1234) 
-        assert t1.write() == t2.write()
 
+        # No label
+        t1 = ngesh.gen_tree(1.0, 0.5, max_time=3.0, labels=None, seed=1234)
+        t2 = ngesh.gen_tree(1.0, 0.5, max_time=3.0, labels=None, seed=1234)
+        assert t1.write() == t2.write()
 
     def test_generation_seed_enum_label(self):
         """
@@ -145,10 +156,9 @@ class TestTree(unittest.TestCase):
         """
 
         # Enumerating label
-        t1 = ngesh.gen_tree(1.0, 0.5, max_time=3.0, labels="enum", seed=1234) 
-        t2 = ngesh.gen_tree(1.0, 0.5, max_time=3.0, labels="enum", seed=1234) 
+        t1 = ngesh.gen_tree(1.0, 0.5, max_time=3.0, labels="enum", seed=1234)
+        t2 = ngesh.gen_tree(1.0, 0.5, max_time=3.0, labels="enum", seed=1234)
         assert t1.write() == t2.write()
-
 
     def test_generation_seed_human_label(self):
         """
@@ -156,10 +166,9 @@ class TestTree(unittest.TestCase):
         """
 
         # Enumerating label
-        t1 = ngesh.gen_tree(1.0, 0.5, max_time=3.0, labels="human", seed=1234) 
-        t2 = ngesh.gen_tree(1.0, 0.5, max_time=3.0, labels="human", seed=1234) 
+        t1 = ngesh.gen_tree(1.0, 0.5, max_time=3.0, labels="human", seed=1234)
+        t2 = ngesh.gen_tree(1.0, 0.5, max_time=3.0, labels="human", seed=1234)
         assert t1.write() == t2.write()
-
 
     def test_generation_seed_bio_label(self):
         """
@@ -167,8 +176,8 @@ class TestTree(unittest.TestCase):
         """
 
         # Enumerating label
-        t1 = ngesh.gen_tree(1.0, 0.5, max_time=3.0, labels="bio", seed=1234) 
-        t2 = ngesh.gen_tree(1.0, 0.5, max_time=3.0, labels="bio", seed=1234) 
+        t1 = ngesh.gen_tree(1.0, 0.5, max_time=3.0, labels="bio", seed=1234)
+        t2 = ngesh.gen_tree(1.0, 0.5, max_time=3.0, labels="bio", seed=1234)
         assert t1.write() == t2.write()
 
 
@@ -176,31 +185,33 @@ class TestCharacters(unittest.TestCase):
     """
     Class for `ngesh` tests related to character generation.
     """
-    
+
     def test_add_characters(self):
         # gamma parameters
         NUM_CONCEPTS = 10
-        k = 4.0 # shape
-        th = 1.0 # scale
-        z = 1.045 # "zipf" correction
+        k = 4.0  # shape
+        th = 1.0  # scale
+        z = 1.045  # "zipf" correction
 
         for newick in _TREES:
             tree = Tree(newick)
             tree = ngesh.add_characters(tree, NUM_CONCEPTS, k, th, z)
-            
+
+
 class TestOutput(unittest.TestCase):
     """
     Class for `ngesh` tests related to output generation.
     """
-    
+
     def test_tree2nexus(self):
         # We test the generatio with characters
         for newick in _TREES:
             tree = Tree(newick)
             tree = ngesh.add_characters(tree, 100, 4.0, 1.0, 1.05)
             buf = ngesh.tree2nexus(tree)
-  
+
 
 if __name__ == "__main__":
     import sys
+
     sys.exit(unittest.main())
