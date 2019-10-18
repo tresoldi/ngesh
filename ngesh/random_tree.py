@@ -344,7 +344,8 @@ def gen_tree(
     return tree
 
 
-def add_characters(tree, num_characters, k, th, k_hgt=None, th_hgt=None, e=1.0):
+def add_characters(tree, num_characters, k, th, k_hgt=None, th_hgt=None, e=1.0,
+        seed=None):
     """
     Add random characters to the nodes of a tree.
 
@@ -385,6 +386,9 @@ def add_characters(tree, num_characters, k, th, k_hgt=None, th_hgt=None, e=1.0):
         The provided tree, with random characters added.
     """
 
+    # Set seeds
+    _set_seeds(seed)
+
     # cache a range with the number of characters, for some speed up
     char_range = list(range(num_characters))
 
@@ -409,9 +413,11 @@ def add_characters(tree, num_characters, k, th, k_hgt=None, th_hgt=None, e=1.0):
     # sorting them in ascending order for the tree traversal.
     root_dists = {node: node.get_distance(tree) for node in tree.traverse("preorder")}
 
-    sorted_nodes = [
-        node for node, dist in sorted(root_dists.items(), key=itemgetter(1))
-    ]
+    # We need to sort by distance, with shorter ones first, and then by
+    # key, as some nodes (especially the final leaves) will have the exact
+    # same distance and we could not otherwise guarantee the order.
+    sorted_nodes = [node[0] for node in sorted(root_dists.items(),
+            key = lambda x: (x[1], x[0].name))]
 
     # Traverse the tree from the root, adding characters to all
     # nodes (i.e., not only leaves); `states` is the number of states
@@ -424,7 +430,10 @@ def add_characters(tree, num_characters, k, th, k_hgt=None, th_hgt=None, e=1.0):
         # different state for each character (copying from the already
         # compiled `char_range` list -- a copy is not strictly needed,
         # but is a best practice here).
-        ancestors = node.get_ancestors()
+        # NOTE: We need the expensive operation of sorting the ancestors
+        #       to guarantee reproducibility.
+        ancestors = sorted(node.get_ancestors(), key = lambda x: (x.dist,
+            x.name), reverse=True)
         if not ancestors:
             node.chars = char_range[:]
             continue

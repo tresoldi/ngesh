@@ -68,16 +68,17 @@ def tree2nexus(tree):
         missing_chars = True
 
     # Collect the number of states used per concept in the entire tree.
-    concept_states = [set(concept) for concept in itertools.zip_longest(*data.values())]
+    concept_states = [set(concept) for concept in
+            itertools.zip_longest(*[data[taxon] for taxon in sorted(data)])]
 
     # Build the textual binary strings
     bin_strings = {}
-    for taxon, char in data.items():
+    for taxon in sorted(data):
         # Build a sequence of booleans indicating whether the state is found
         seq = itertools.chain.from_iterable(
             [
                 [concept_state == state for state in concept_states[concept_idx]]
-                for concept_idx, concept_state in enumerate(char)
+                for concept_idx, concept_state in enumerate(data[taxon])
             ]
         )
 
@@ -105,8 +106,8 @@ def tree2nexus(tree):
     buf.append("  format datatype=standard missing=? gap=-;")
     buf.append("  matrix")
 
-    for taxon, bin_string in bin_strings.items():
-        buf.append(align_string % (taxon.replace(" ", "_"), bin_string))
+    for taxon in sorted(bin_strings):
+        buf.append(align_string % (taxon.replace(" ", "_"), bin_strings[taxon]))
 
     buf.append("  ;")
     buf.append("end;")

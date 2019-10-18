@@ -10,6 +10,7 @@ Tests for the `ngesh` package.
 
 # Import third-party libraries
 from ete3 import Tree
+import hashlib
 import logging
 import unittest
 import sys
@@ -49,7 +50,6 @@ _TREES = [
     "1:1.50433)1:0.97142,((Nunpis ozabmis:0.491355,Sbigirrecas sbilpo:"
     "0.491355)1:0.33275,Agolus galgis:0.824105)1:3.17523);",
 ]
-
 
 class TestTree(unittest.TestCase):
     """
@@ -177,22 +177,34 @@ class TestCharacters(unittest.TestCase):
         th = 1.0  # scale
         z = 1.045  # "zipf" correction
 
-        for newick in _TREES:
-            tree = Tree(newick)
-            tree = ngesh.add_characters(tree, NUM_CONCEPTS, k, th, z)
+        # Add characters to all trees, for coverage
+        trees = [
+            ngesh.add_characters(Tree(newick), NUM_CONCEPTS, k, th, z,
+            seed="myseed")
+            for newick in _TREES]
 
+        # Assert the first one
+        digest = hashlib.sha256(str(ngesh.tree2wordlist(trees[0])).encode("utf-8")).digest()
+        assert digest == b'\x8a&\x18\'\xe9{\x88\'\x90U\x1b`"[\nd\xb0\xbb\x82\x08\xc6$\xb9v\x98\x92\xcc|\xc0\xb7k\xed'
 
 class TestOutput(unittest.TestCase):
     """
     Class for `ngesh` tests related to output generation.
     """
 
-    def test_tree2nexus(self):
-        # We test the generatio with characters
-        for newick in _TREES:
-            tree = Tree(newick)
-            tree = ngesh.add_characters(tree, 100, 4.0, 1.0, 1.05)
-            buf = ngesh.tree2nexus(tree)
+    def test_tree_output(self):
+        # Add characters to all test trees
+        trees = [
+            ngesh.add_characters(Tree(newick), 100, 4.0, 1.0, 1.05,
+            seed="myseed")
+            for newick in _TREES]
+
+        # Assert the first one
+        digest_nx = hashlib.sha256(str(ngesh.tree2nexus(trees[0])).encode('utf-8')).digest()
+        digest_wl = hashlib.sha256(str(ngesh.tree2wordlist(trees[0])).encode('utf-8')).digest()
+
+        assert digest_nx == b"\x9d\x81\xd6\xa2/(\x0b\xcb[*7r=9eH\x83\xc7>\x80e\x7f\x93\x93'r\xc5{\ts\x9f\xf3"
+        assert digest_wl == b'.N\x04\xf2a@d~\x90 \x9e2\xc7\x07\xd6\xfb\xc6\xacJ\xad\x1a\xaal%1C\x14\xac\x11\xf6\x86\x99'
 
 
 if __name__ == "__main__":
