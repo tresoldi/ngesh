@@ -46,6 +46,16 @@ and "Spellis spusso")
 exported in a variety of formats, such as Newick trees, ASCII representation,
 tabular textual listings, etc.
 
+### Changelog
+
+Version 0.3:
+
+- General improvements to code quality
+- Full reproducibility from seeds for the pseudo-random generators,
+  allowing string, ints, and floats
+- Changes for further integration with `abzu` and `alteruphono` for
+  simulating linguistic data
+
 ## How does ngesh work?
 
 For each tree, an `event_rate` is computed from the sum of the `birth` and
