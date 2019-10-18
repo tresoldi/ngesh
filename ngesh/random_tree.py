@@ -10,6 +10,7 @@ evolution time.
 """
 
 # Import Python standard libraries
+import hashlib
 import math
 from operator import itemgetter
 import random
@@ -25,6 +26,21 @@ from abzu.textgen import random_labels, random_species
 # Define the maximum number of tries for generation
 __MAX_ATTEMPTS = 3000
 
+
+
+# TODO: move to a utils function
+def _set_seeds(seed):
+    random.seed(seed)
+
+    # allows using strings as np seeds, which only takes uint32 or arrays of
+    # NOTE: won't set the seed if it is None: if you want to seed none
+    # as seed, manuallz call np.random.seed()
+    if isinstance(seed, (str, float)):
+        seed = np.frombuffer(
+            hashlib.sha256(str(seed).encode("utf-8")).digest(), dtype=np.uint32
+        )
+
+    np.random.seed(seed)
 
 def __extant(tree):
     """
@@ -116,7 +132,7 @@ def __gen_tree(birth, death, min_leaves, max_time, labels, lam, prune, seed):
     birth = birth / event_rate
 
     # Initialize the RNG
-    random.seed(seed)
+    _set_seeds(seed)
 
     # Create the tree root as a node. Given that the root is at first set as
     # non-extinct and with a branch length of 0.0, it will be immediately
