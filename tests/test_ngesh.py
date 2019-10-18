@@ -113,7 +113,8 @@ class TestTree(unittest.TestCase):
         Tests tree generation with pruning in a birth-death model.
         """
 
-        ngesh.gen_tree(1.0, 0.5, max_time=5.0, prune=True)
+        tree = ngesh.gen_tree(1.0, 0.5, max_time=5.0, prune=True, seed="myseed")
+        assert tree.write() == "((((((L01:0.424746,L02:0.424746)1:1.18203,L03:1.07416)1:0.0460857,L04:0.887676)1:0.516424,L05:1.6383)1:0.276193,(((L06:0.0121126,L07:0.0121126)1:1.17026,L08:1.18237)1:0.676307,L09:1.61378)1:0.118574)1:0.207203,(L10:0.466091,(L11:0.118302,L12:0.118302)1:0.347789)1:1.08924);"
 
     def test_generation_polytemy(self):
         """
