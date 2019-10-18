@@ -388,6 +388,11 @@ In Python, some code similar to `ngesh` and which served as initial inspiration
 is provided by Marc-Rolland Noutahi on the blog post
 [How to simulate a phylogenetic tree ? (part 1)](https://mrnoutahi.com/2017/12/05/How-to-simulate-a-tree/).
 
+For simpler simulations, the `.populate()` method of the `Tree` class
+in ETE might be enough as well. Documentation on the method is
+available
+[here](http://etetoolkit.org/docs/latest/reference/reference_tree.html#ete3.TreeNode.populate).
+
 A number of on-line tools are also available at the time of writing:
 
 * [T-Rex (Tree and reticulogram REConstruction](http://www.trex.uqam.ca/index.php?action=randomtreegenerator&project=trex)
