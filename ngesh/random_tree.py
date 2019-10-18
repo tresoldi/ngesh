@@ -475,11 +475,15 @@ def add_characters(
         # current taxon, less the current taxon itself), and compute the
         # distance form the current node to each donor (so we can favor
         # closer taxa in the borrowing).
-        pot_source = [
-            donor
-            for donor, donor_dist in root_dists.items()
-            if donor_dist <= node.dist and donor != node
-        ]
+        # NOTE: sorting to guarantee reproducibility
+        pot_source = sorted(
+            [
+                donor
+                for donor, donor_dist in root_dists.items()
+                if donor_dist <= node.dist and donor != node
+            ],
+            key=lambda x: (x.dist, x.name),
+        )
 
         # Compute the probability of each donor, inversely proportional to
         # the current distance (thus the (min+max)-i). For the time being,
