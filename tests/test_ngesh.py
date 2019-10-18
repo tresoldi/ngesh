@@ -51,6 +51,7 @@ _TREES = [
     "0.491355)1:0.33275,Agolus galgis:0.824105)1:3.17523);",
 ]
 
+
 class TestTree(unittest.TestCase):
     """
     Class for `ngesh` tests related to tree generation.
@@ -114,7 +115,10 @@ class TestTree(unittest.TestCase):
         """
 
         tree = ngesh.gen_tree(1.0, 0.5, max_time=5.0, prune=True, seed="myseed")
-        assert tree.write() == "((((((L01:0.424746,L02:0.424746)1:1.18203,L03:1.07416)1:0.0460857,L04:0.887676)1:0.516424,L05:1.6383)1:0.276193,(((L06:0.0121126,L07:0.0121126)1:1.17026,L08:1.18237)1:0.676307,L09:1.61378)1:0.118574)1:0.207203,(L10:0.466091,(L11:0.118302,L12:0.118302)1:0.347789)1:1.08924);"
+        assert (
+            tree.write()
+            == "((((((L01:0.424746,L02:0.424746)1:1.18203,L03:1.07416)1:0.0460857,L04:0.887676)1:0.516424,L05:1.6383)1:0.276193,(((L06:0.0121126,L07:0.0121126)1:1.17026,L08:1.18237)1:0.676307,L09:1.61378)1:0.118574)1:0.207203,(L10:0.466091,(L11:0.118302,L12:0.118302)1:0.347789)1:1.08924);"
+        )
 
     def test_generation_polytomy(self):
         """
@@ -122,7 +126,10 @@ class TestTree(unittest.TestCase):
         """
 
         tree = ngesh.gen_tree(1.0, 0.5, min_leaves=25, lam=2.5, seed="myseed")
-        assert tree.write() == "(L01:2.19578,((L02:0.0682093,L03:0.0682093,L04:0.0682093,L05:0.0682093,L06:0.0682093)1:0.722613,L07:0.790822,(L08:0.691663,(L09:0.293216,L10:0.293216)1:0.398447,L11:0.691663)1:0.099159,L12:0.790822,L13:0.790822,L14:0.790822)1:3.32517,L15:4.116,(((L16:0.0125088,L17:0.0125088,L18:0.0125088,L19:0.0125088,L20:0.0125088,L21:0.0125088)1:0.0482921,L22:0.0608008,L23:0.0608008,L24:0.0608008,L25:0.0608008)1:1.70918,L26:1.76998,L27:1.52598,L28:1.6654,L29:0.74439)1:2.34601);"
+        assert (
+            tree.write()
+            == "(L01:2.19578,((L02:0.0682093,L03:0.0682093,L04:0.0682093,L05:0.0682093,L06:0.0682093)1:0.722613,L07:0.790822,(L08:0.691663,(L09:0.293216,L10:0.293216)1:0.398447,L11:0.691663)1:0.099159,L12:0.790822,L13:0.790822,L14:0.790822)1:3.32517,L15:4.116,(((L16:0.0125088,L17:0.0125088,L18:0.0125088,L19:0.0125088,L20:0.0125088,L21:0.0125088)1:0.0482921,L22:0.0608008,L23:0.0608008,L24:0.0608008,L25:0.0608008)1:1.70918,L26:1.76998,L27:1.52598,L28:1.6654,L29:0.74439)1:2.34601);"
+        )
 
     def test_generation_seed_no_label(self):
         """
@@ -179,13 +186,19 @@ class TestCharacters(unittest.TestCase):
 
         # Add characters to all trees, for coverage
         trees = [
-            ngesh.add_characters(Tree(newick), NUM_CONCEPTS, k, th, z,
-            seed="myseed")
-            for newick in _TREES]
+            ngesh.add_characters(Tree(newick), NUM_CONCEPTS, k, th, z, seed="myseed")
+            for newick in _TREES
+        ]
 
         # Assert the first one
-        digest = hashlib.sha256(str(ngesh.tree2wordlist(trees[0])).encode("utf-8")).digest()
-        assert digest == b'\x8a&\x18\'\xe9{\x88\'\x90U\x1b`"[\nd\xb0\xbb\x82\x08\xc6$\xb9v\x98\x92\xcc|\xc0\xb7k\xed'
+        digest = hashlib.sha256(
+            str(ngesh.tree2wordlist(trees[0])).encode("utf-8")
+        ).digest()
+        assert (
+            digest
+            == b"\x8a&\x18'\xe9{\x88'\x90U\x1b`\"[\nd\xb0\xbb\x82\x08\xc6$\xb9v\x98\x92\xcc|\xc0\xb7k\xed"
+        )
+
 
 class TestOutput(unittest.TestCase):
     """
@@ -195,16 +208,26 @@ class TestOutput(unittest.TestCase):
     def test_tree_output(self):
         # Add characters to all test trees
         trees = [
-            ngesh.add_characters(Tree(newick), 100, 4.0, 1.0, 1.05,
-            seed="myseed")
-            for newick in _TREES]
+            ngesh.add_characters(Tree(newick), 100, 4.0, 1.0, 1.05, seed="myseed")
+            for newick in _TREES
+        ]
 
         # Assert the first one
-        digest_nx = hashlib.sha256(str(ngesh.tree2nexus(trees[0])).encode('utf-8')).digest()
-        digest_wl = hashlib.sha256(str(ngesh.tree2wordlist(trees[0])).encode('utf-8')).digest()
+        digest_nx = hashlib.sha256(
+            str(ngesh.tree2nexus(trees[0])).encode("utf-8")
+        ).digest()
+        digest_wl = hashlib.sha256(
+            str(ngesh.tree2wordlist(trees[0])).encode("utf-8")
+        ).digest()
 
-        assert digest_nx == b"\x9d\x81\xd6\xa2/(\x0b\xcb[*7r=9eH\x83\xc7>\x80e\x7f\x93\x93'r\xc5{\ts\x9f\xf3"
-        assert digest_wl == b'.N\x04\xf2a@d~\x90 \x9e2\xc7\x07\xd6\xfb\xc6\xacJ\xad\x1a\xaal%1C\x14\xac\x11\xf6\x86\x99'
+        assert (
+            digest_nx
+            == b"\x9d\x81\xd6\xa2/(\x0b\xcb[*7r=9eH\x83\xc7>\x80e\x7f\x93\x93'r\xc5{\ts\x9f\xf3"
+        )
+        assert (
+            digest_wl
+            == b".N\x04\xf2a@d~\x90 \x9e2\xc7\x07\xd6\xfb\xc6\xacJ\xad\x1a\xaal%1C\x14\xac\x11\xf6\x86\x99"
+        )
 
 
 if __name__ == "__main__":

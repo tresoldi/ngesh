@@ -68,8 +68,10 @@ def tree2nexus(tree):
         missing_chars = True
 
     # Collect the number of states used per concept in the entire tree.
-    concept_states = [set(concept) for concept in
-            itertools.zip_longest(*[data[taxon] for taxon in sorted(data)])]
+    concept_states = [
+        set(concept)
+        for concept in itertools.zip_longest(*[data[taxon] for taxon in sorted(data)])
+    ]
 
     # Build the textual binary strings
     bin_strings = {}

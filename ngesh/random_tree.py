@@ -27,7 +27,6 @@ from abzu.textgen import random_labels, random_species
 __MAX_ATTEMPTS = 3000
 
 
-
 # TODO: move to a utils function
 def _set_seeds(seed):
     random.seed(seed)
@@ -41,6 +40,7 @@ def _set_seeds(seed):
         )
 
     np.random.seed(seed)
+
 
 def __extant(tree):
     """
@@ -344,8 +344,9 @@ def gen_tree(
     return tree
 
 
-def add_characters(tree, num_characters, k, th, k_hgt=None, th_hgt=None, e=1.0,
-        seed=None):
+def add_characters(
+    tree, num_characters, k, th, k_hgt=None, th_hgt=None, e=1.0, seed=None
+):
     """
     Add random characters to the nodes of a tree.
 
@@ -416,8 +417,9 @@ def add_characters(tree, num_characters, k, th, k_hgt=None, th_hgt=None, e=1.0,
     # We need to sort by distance, with shorter ones first, and then by
     # key, as some nodes (especially the final leaves) will have the exact
     # same distance and we could not otherwise guarantee the order.
-    sorted_nodes = [node[0] for node in sorted(root_dists.items(),
-            key = lambda x: (x[1], x[0].name))]
+    sorted_nodes = [
+        node[0] for node in sorted(root_dists.items(), key=lambda x: (x[1], x[0].name))
+    ]
 
     # Traverse the tree from the root, adding characters to all
     # nodes (i.e., not only leaves); `states` is the number of states
@@ -432,8 +434,9 @@ def add_characters(tree, num_characters, k, th, k_hgt=None, th_hgt=None, e=1.0,
         # but is a best practice here).
         # NOTE: We need the expensive operation of sorting the ancestors
         #       to guarantee reproducibility.
-        ancestors = sorted(node.get_ancestors(), key = lambda x: (x.dist,
-            x.name), reverse=True)
+        ancestors = sorted(
+            node.get_ancestors(), key=lambda x: (x.dist, x.name), reverse=True
+        )
         if not ancestors:
             node.chars = char_range[:]
             continue
