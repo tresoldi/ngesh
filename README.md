@@ -449,14 +449,14 @@ identifiers or protein accessions can be used for the same purpose
 If you use `ngesh`, please cite it as:
 
 > Tresoldi, Tiago (2019). Ngesh, a tool for simulating random phylogenetic trees.
-Version 0.2. Jena. Available at: https://github.com/tresoldi/ngesh
+Version 0.3. Jena. Available at: https://github.com/tresoldi/ngesh
 
 In BibTeX:
 
 ```
 @misc{Tresoldi2019ngesh,
   author = {Tresoldi, Tiago},
-  title = {Ngesh, a tool for simulating random phylogenetic trees. Version 0.2},
+  title = {Ngesh, a tool for simulating random phylogenetic trees. Version 0.3},
   howpublished = {\url{https://github.com/tresoldi/ngesh}},
   address = {Jena},
   year = {2019},
