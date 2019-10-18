@@ -94,16 +94,18 @@ class TestTree(unittest.TestCase):
         Tests tree generation with all the label models.
         """
 
-        LOGGER.debug(
-            ngesh.gen_tree(1.0, 0.5, max_time=0.5, labels="enum", seed="myseed").write()
+        e_tree = ngesh.gen_tree(1.0, 0.5, max_time=0.5, labels="enum", seed="myseed")
+        h_tree = ngesh.gen_tree(1.0, 0.5, max_time=0.5, labels="human", seed="myseed")
+        b_tree = ngesh.gen_tree(1.0, 0.5, max_time=0.5, labels="bio", seed="myseed")
+
+        assert e_tree.write() == "((L1:0.336704,L2:0.336704)1:0.161799,L3:0.498503);"
+        assert (
+            h_tree.write()
+            == "((Ugeg:0.336704,Hofgid:0.336704)1:0.161799,Vavi:0.498503);"
         )
-        LOGGER.debug(
-            ngesh.gen_tree(
-                1.0, 0.5, max_time=0.5, labels="human", seed="myseed"
-            ).write()
-        )
-        LOGGER.debug(
-            ngesh.gen_tree(1.0, 0.5, max_time=0.5, labels="bio", seed="myseed").write()
+        assert (
+            b_tree.write()
+            == "((Opgidas taninnos:0.336704,Uggegus atupuvus:0.336704)1:0.161799,Vavi ragolus:0.498503);"
         )
 
     def test_generation_pruning(self):
