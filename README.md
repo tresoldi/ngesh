@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/tresoldi/ngesh.svg?branch=master)](https://travis-ci.org/tresoldi/ngesh)
 [![codecov](https://codecov.io/gh/tresoldi/ngesh/branch/master/graph/badge.svg)](https://codecov.io/gh/tresoldi/ngesh)
+[![Codacy
+Badge](https://api.codacy.com/project/badge/Grade/16ece2c98e3e4f319cb134bef2ade19c)](https://www.codacy.com/manual/tresoldi/ngesh?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=tresoldi/ngesh&amp;utm_campaign=Badge_Grade)
 [![PyPI](https://img.shields.io/pypi/v/ngesh.svg)](https://pypi.org/project/ngesh)
 [![DOI](https://zenodo.org/badge/178537103.svg)](https://zenodo.org/badge/latestdoi/178537103)
 
@@ -47,6 +49,9 @@ exported in a variety of formats, such as Newick trees, ASCII representation,
 tabular textual listings, etc.
 
 ### Changelog
+
+Version 0.3.1:
+ - Code improvements for next release and submission
 
 Version 0.3:
 

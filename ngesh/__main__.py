@@ -128,7 +128,10 @@ def parse_arguments():
         help="Set death rate (mu, default 0.5 * `birth-rate`)",
     )
     parser.add_argument(
-        "-t", "--max_time", type=float, help="Set maximum time stopping criterion"
+        "-t",
+        "--max_time",
+        type=float,
+        help="Set maximum time stopping criterion",
     )
     parser.add_argument(
         "-l",
@@ -137,11 +140,17 @@ def parse_arguments():
         help="Set minimum leaf number stopping criterion (defaults 10)",
     )
     parser.add_argument(
-        "-x", "--labels", type=str, help='Set text generation model (defaults "human")'
+        "-x",
+        "--labels",
+        type=str,
+        help='Set text generation model (defaults "human")',
     )
     parser.add_argument("-r", "--seed", type=str, help="Set RNG seed string")
     parser.add_argument(
-        "-n", "--num_chars", type=int, help="Set random character number (default 0)"
+        "-n",
+        "--num_chars",
+        type=int,
+        help="Set random character number (default 0)",
     )
     parser.add_argument(
         "--k_mut",

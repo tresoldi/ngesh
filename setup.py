@@ -10,7 +10,7 @@ README_FILE = (LOCAL_PATH / "README.md").read_text()
 # This call to setup() does all the work
 setup(
     name="ngesh",
-    version="0.3",
+    version="0.3.1",
     description="Simulate random phylogenetic trees",
     long_description=README_FILE,
     long_description_content_type="text/markdown",

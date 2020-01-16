@@ -333,7 +333,9 @@ def gen_tree(
         seed = random.random()
 
         # Ask for a new tree
-        tree = __gen_tree(birth, death, min_leaves, max_time, labels, lam, prune, seed)
+        tree = __gen_tree(
+            birth, death, min_leaves, max_time, labels, lam, prune, seed
+        )
 
         # Break out of the loop if a valid tree was found, as in most of the
         # cases; if no tree could be generated, `__gen_tree()` will return
@@ -412,13 +414,16 @@ def add_characters(
     # facilitating the selection of nodes for some processes, we compile
     # a dictionary of distances from root for all nodes in the tree,
     # sorting them in ascending order for the tree traversal.
-    root_dists = {node: node.get_distance(tree) for node in tree.traverse("preorder")}
+    root_dists = {
+        node: node.get_distance(tree) for node in tree.traverse("preorder")
+    }
 
     # We need to sort by distance, with shorter ones first, and then by
     # key, as some nodes (especially the final leaves) will have the exact
     # same distance and we could not otherwise guarantee the order.
     sorted_nodes = [
-        node[0] for node in sorted(root_dists.items(), key=lambda x: (x[1], x[0].name))
+        node[0]
+        for node in sorted(root_dists.items(), key=lambda x: (x[1], x[0].name))
     ]
 
     # Traverse the tree from the root, adding characters to all
@@ -457,10 +462,13 @@ def add_characters(
         # note that, as we might have individual `k` parameters due to
         # the exponential correction, we cannot just ask for an array/list
         # of random numbers, but need to iterate one by one.
-        mutation_event = [np.random.gamma(k_vec[i], th) < node.dist for i in char_range]
+        mutation_event = [
+            np.random.gamma(k_vec[i], th) < node.dist for i in char_range
+        ]
 
         hgt_event = [
-            np.random.gamma(k_hgt_vec[i], th_hgt) < node.dist for i in char_range
+            np.random.gamma(k_hgt_vec[i], th_hgt) < node.dist
+            for i in char_range
         ]
 
         # Mutate characters according to `mutation_event`.
@@ -488,7 +496,9 @@ def add_characters(
         # Compute the probability of each donor, inversely proportional to
         # the current distance (thus the (min+max)-i). For the time being,
         # only a linear distibution of the probabilities is allowed.
-        donor_prob = np.array([node.get_distance(donor) for donor in pot_source])
+        donor_prob = np.array(
+            [node.get_distance(donor) for donor in pot_source]
+        )
         donor_prob = (min(donor_prob) + max(donor_prob)) - donor_prob
 
         # Select a random donor for each character, which will be used

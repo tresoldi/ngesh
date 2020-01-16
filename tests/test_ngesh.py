@@ -95,11 +95,20 @@ class TestTree(unittest.TestCase):
         Tests tree generation with all the label models.
         """
 
-        e_tree = ngesh.gen_tree(1.0, 0.5, max_time=0.5, labels="enum", seed="myseed")
-        h_tree = ngesh.gen_tree(1.0, 0.5, max_time=0.5, labels="human", seed="myseed")
-        b_tree = ngesh.gen_tree(1.0, 0.5, max_time=0.5, labels="bio", seed="myseed")
+        e_tree = ngesh.gen_tree(
+            1.0, 0.5, max_time=0.5, labels="enum", seed="myseed"
+        )
+        h_tree = ngesh.gen_tree(
+            1.0, 0.5, max_time=0.5, labels="human", seed="myseed"
+        )
+        b_tree = ngesh.gen_tree(
+            1.0, 0.5, max_time=0.5, labels="bio", seed="myseed"
+        )
 
-        assert e_tree.write() == "((L1:0.336704,L2:0.336704)1:0.161799,L3:0.498503);"
+        assert (
+            e_tree.write()
+            == "((L1:0.336704,L2:0.336704)1:0.161799,L3:0.498503);"
+        )
         assert (
             h_tree.write()
             == "((Ugeg:0.336704,Hofgid:0.336704)1:0.161799,Vavi:0.498503);"
@@ -186,7 +195,9 @@ class TestCharacters(unittest.TestCase):
 
         # Add characters to all trees, for coverage
         trees = [
-            ngesh.add_characters(Tree(newick), NUM_CONCEPTS, k, th, z, seed="myseed")
+            ngesh.add_characters(
+                Tree(newick), NUM_CONCEPTS, k, th, z, seed="myseed"
+            )
             for newick in _TREES
         ]
 
@@ -208,7 +219,9 @@ class TestOutput(unittest.TestCase):
     def test_tree_output(self):
         # Add characters to all test trees
         trees = [
-            ngesh.add_characters(Tree(newick), 100, 4.0, 1.0, 1.05, seed="myseed")
+            ngesh.add_characters(
+                Tree(newick), 100, 4.0, 1.0, 1.05, seed="myseed"
+            )
             for newick in _TREES
         ]
 
