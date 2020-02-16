@@ -45,6 +45,9 @@ tabular textual listings, etc.
 
 ### Changelog
 
+Version 0.4:
+  - General improvements for submission
+
 Version 0.3.1:
  - Code improvements for next release and submission
 
@@ -463,19 +466,18 @@ identifiers or protein accessions can be used for the same purpose
 
 If you use `ngesh`, please cite it as:
 
-> Tresoldi, Tiago (2019). Ngesh, a tool for simulating random phylogenetic trees.
-Version 0.3. Jena. Available at: https://github.com/tresoldi/ngesh
+> Tresoldi, Tiago (2020). Ngesh, a tool for simulating random phylogenetic trees.
+Version 0.4. Jena. Available at: https://github.com/tresoldi/ngesh
 
 In BibTeX:
 
 ```
-@misc{Tresoldi2019ngesh,
+@misc{Tresoldi2020ngesh,
   author = {Tresoldi, Tiago},
-  title = {Ngesh, a tool for simulating random phylogenetic trees. Version 0.3},
+  title = {Ngesh, a tool for simulating random phylogenetic trees. Version 0.4},
   howpublished = {\url{https://github.com/tresoldi/ngesh}},
   address = {Jena},
-  year = {2019},
-  doi = {10.5281/zenodo.2619311},
+  year = {2020},
 }
 ```
 
