@@ -5,20 +5,15 @@
 [![Codacy
 Badge](https://api.codacy.com/project/badge/Grade/16ece2c98e3e4f319cb134bef2ade19c)](https://www.codacy.com/manual/tresoldi/ngesh?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=tresoldi/ngesh&amp;utm_campaign=Badge_Grade)
 [![PyPI](https://img.shields.io/pypi/v/ngesh.svg)](https://pypi.org/project/ngesh)
-[![DOI](https://zenodo.org/badge/178537103.svg)](https://zenodo.org/badge/latestdoi/178537103)
 
-`ngesh` is a Python library for simulating random phylogenetic trees and
-related data (characters, states, branch length, etc.).
+`ngesh` is a Python library and related command-line tools
+for simulating phylogenetic trees and related data (characters, states,
+branch length, etc.).
 It is intended for benchmarking phylogenetic methods, especially in
 historical linguistics, and for providing dummy trees
 for their development and debugging. The generation of
 random phylogenetic trees also goes by the name of "simulation methods
 for phylogenetic trees" or just "phylogenetic tree simulation".
-
-*Please remember that `ngesh` is a work-in-progress and a library intended to
-be a simple drop-in for cases where random trees are needed; for complex
-methods, see the alternatives listed below or consult the
-bibliographic references.*
 
 In detail, with `ngesh`:
 
@@ -189,7 +184,7 @@ will pop up the ETE Tree Viewer on a random tree:
 python3 -c "import ngesh ; ngesh.display_random_tree()"
 ```
 
-![random tree](https://raw.githubusercontent.com/tresoldi/ngesh/master/doc/tree001.png){width=100%}
+![random tree](https://raw.githubusercontent.com/tresoldi/ngesh/master/doc/tree001.png)
 
 The main functions for generation are `gen_tree()`, which returns a random
 tree topology, and `add_characters()`, which simulates character evolution
@@ -324,13 +319,13 @@ and plot the results with `figtree` (or, again, similar software).
 Let's plot our summary tree and compare the results with the
 actual topology (which we can regenerate with the earlier seed).
 
-![summary tree](https://raw.githubusercontent.com/tresoldi/ngesh/master/doc/summary.nex.png){width=100%}
+![summary tree](https://raw.githubusercontent.com/tresoldi/ngesh/master/doc/summary.nex.png)
 
 ```
 $ ngesh -c examples/example_ngesh.conf --seed jena --output newick > examples/example.nw
 ```
 
-![original tree](https://raw.githubusercontent.com/tresoldi/ngesh/master/doc/example.nw.png){width=100%}
+![original tree](https://raw.githubusercontent.com/tresoldi/ngesh/master/doc/example.nw.png)
 
 The results are not excellent given the limits we set for quick demonstration,
 but it still capture major information and subgroupings (as clearer by
@@ -342,7 +337,7 @@ and repeat the analysis on a range of random trees, including studying the
 log of character changes (including borrowings) involved in this particular
 random tree.
 
-![summary tree radial](https://raw.githubusercontent.com/tresoldi/ngesh/master/doc/summary.nex2.png){width=100%}
+![summary tree radial](https://raw.githubusercontent.com/tresoldi/ngesh/master/doc/summary.nex2.png)
 
 *TODO: Compare trees (Robinson-Foulds symmetric difference?)*
 
@@ -460,9 +455,9 @@ identifiers or protein accessions can be used for the same purpose
 
 ## Gallery
 
-![random tree](https://raw.githubusercontent.com/tresoldi/ngesh/master/doc/tree001.png){width=100%}
-![random tree](https://raw.githubusercontent.com/tresoldi/ngesh/master/doc/tree002.png){width=100%}
-![random tree](https://raw.githubusercontent.com/tresoldi/ngesh/master/doc/tree003.png){width=100%}
+![random tree](https://raw.githubusercontent.com/tresoldi/ngesh/master/doc/tree001.png)
+![random tree](https://raw.githubusercontent.com/tresoldi/ngesh/master/doc/tree002.png)
+![random tree](https://raw.githubusercontent.com/tresoldi/ngesh/master/doc/tree003.png)
 
 ## How to cite
 
