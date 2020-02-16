@@ -1,0 +1,23 @@
+{
+  "@context": "https://raw.githubusercontent.com/codemeta/codemeta/master/codemeta.jsonld",
+  "@type": "Code",
+  "author": [
+    {
+      "@id": "http://orcid.org/0000-0002-2863-1467",
+      "@type": "Person",
+      "email": "tresoldi@shh.mpg.de",
+      "name": "Tiago Tresoldi",
+      "affiliation": "Department of Linguistic and Cultural Evolution, Max Planck Institute for the Science of Human History"
+    }
+  ],
+  "identifier": "",
+  "codeRepository": "https://github.com/tresoldi/ngesh",
+  "datePublished": "2020-02-16",
+  "dateModified": "2020-02-16",
+  "dateCreated": "2020-02-16",
+  "description": "Ngesh, a library for phylogenetic tree simulation",
+  "keywords": "random phylogentic tree, phylogenetics, simulation",
+  "license": "MIT",
+  "title": "ngesh",
+  "version": "0.4"
+}

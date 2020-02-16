@@ -1,4 +1,4 @@
-# Ngesh, simulation of random phylogenetic trees with characters
+# Ngesh, a library for phylogenetic tree simulation
 
 [![Build Status](https://travis-ci.org/tresoldi/ngesh.svg?branch=master)](https://travis-ci.org/tresoldi/ngesh)
 [![codecov](https://codecov.io/gh/tresoldi/ngesh/branch/master/graph/badge.svg)](https://codecov.io/gh/tresoldi/ngesh)
@@ -187,7 +187,7 @@ will pop up the ETE Tree Viewer on a random tree:
 python3 -c "import ngesh ; ngesh.display_random_tree()"
 ```
 
-![random tree](https://raw.githubusercontent.com/tresoldi/ngesh/master/doc/tree001.png)
+![random tree](https://raw.githubusercontent.com/tresoldi/ngesh/master/docs/tree001.png)
 
 The main functions for generation are `gen_tree()`, which returns a random
 tree topology, and `add_characters()`, which simulates character evolution
@@ -322,13 +322,13 @@ and plot the results with `figtree` (or, again, similar software).
 Let's plot our summary tree and compare the results with the
 actual topology (which we can regenerate with the earlier seed).
 
-![summary tree](https://raw.githubusercontent.com/tresoldi/ngesh/master/doc/summary.nex.png)
+![summary tree](https://raw.githubusercontent.com/tresoldi/ngesh/master/docs/summary.nex.png)
 
 ```
 $ ngesh -c examples/example_ngesh.conf --seed jena --output newick > examples/example.nw
 ```
 
-![original tree](https://raw.githubusercontent.com/tresoldi/ngesh/master/doc/example.nw.png)
+![original tree](https://raw.githubusercontent.com/tresoldi/ngesh/master/docs/example.nw.png)
 
 The results are not excellent given the limits we set for quick demonstration,
 but it still capture major information and subgroupings (as clearer by
@@ -340,7 +340,7 @@ and repeat the analysis on a range of random trees, including studying the
 log of character changes (including borrowings) involved in this particular
 random tree.
 
-![summary tree radial](https://raw.githubusercontent.com/tresoldi/ngesh/master/doc/summary.nex2.png)
+![summary tree radial](https://raw.githubusercontent.com/tresoldi/ngesh/master/docs/summary.nex2.png)
 
 *TODO: Compare trees (Robinson-Foulds symmetric difference?)*
 
@@ -458,11 +458,43 @@ identifiers or protein accessions can be used for the same purpose
 
 ## Gallery
 
-![random tree](https://raw.githubusercontent.com/tresoldi/ngesh/master/doc/tree001.png)
-![random tree](https://raw.githubusercontent.com/tresoldi/ngesh/master/doc/tree002.png)
-![random tree](https://raw.githubusercontent.com/tresoldi/ngesh/master/doc/tree003.png)
+![random tree](https://raw.githubusercontent.com/tresoldi/ngesh/master/docs/tree001.png)
+![random tree](https://raw.githubusercontent.com/tresoldi/ngesh/master/docs/tree002.png)
+![random tree](https://raw.githubusercontent.com/tresoldi/ngesh/master/docs/tree003.png)
 
-## How to cite
+## References
+
+* Bailey, N. T. J. (1964). *The elements of stochastic processes with applications to the natural sciences*. John Wiley & Sons.
+
+* Foote, M., J. P. Hunter, C. M. Janis, and J. J. Sepkoski Jr. (1999). *Evolutionary and preservational constraints on origins of biologic groups: Divergence times of eutherian mammals*. Science 283:1310–1314.
+
+* Harmon, Luke J (2019). *Phylogenetic Comparative Methods -- learning from trees*.
+Available at: [https://lukejharmon.github.io/pcm/chapter10_birthdeath/](https://lukejharmon.github.io/pcm/chapter10_birthdeath/). Access date: 2019-03-31.
+
+* Noutahi, Marc-Rolland (2017). *How to simulate a phylogenetic tree? (part 1)*. Available at:
+[https://mrnoutahi.com/2017/12/05/How-to-simulate-a-tree/](https://mrnoutahi.com/2017/12/05/How-to-simulate-a-tree/). Access date: 2019-03-31
+
+* Stadler, Tanja (2011). *Simulating Trees with a Fixed Number of Extant Species*. Systematic Biology 60.5:676-684. DOI: [https://doi.org/10.1093/sysbio/syr029](https://doi.org/10.1093/sysbio/syr029)
+
+## Community guidelines
+
+While the author can be contacted directly for support, it is recommended that
+third parties use GitHub standard features, such as issues and pull requests, to
+contribute, report problems, or seek support.
+
+Contributing guidelines, including a code of conduct, can be found in the
+CONTRIBUTING.md file.
+
+
+## Author and citation
+
+The library is developed by Tiago Tresoldi (tresoldi@shh.mpg.de).
+
+The author has received funding from the European Research Council (ERC)
+under the European Union’s Horizon 2020 research and innovation
+programme (grant agreement
+No. [ERC Grant #715618](https://cordis.europa.eu/project/rcn/206320/factsheet/en),
+[Computer-Assisted Language Comparison](https://digling.org/calc/).
 
 If you use `ngesh`, please cite it as:
 
@@ -481,27 +513,4 @@ In BibTeX:
 }
 ```
 
-## References
 
-* Bailey, N. T. J. (1964). *The elements of stochastic processes with applications to the natural sciences*. John Wiley & Sons.
-
-* Foote, M., J. P. Hunter, C. M. Janis, and J. J. Sepkoski Jr. (1999). *Evolutionary and preservational constraints on origins of biologic groups: Divergence times of eutherian mammals*. Science 283:1310–1314.
-
-* Harmon, Luke J (2019). *Phylogenetic Comparative Methods -- learning from trees*.
-Available at: [https://lukejharmon.github.io/pcm/chapter10_birthdeath/](https://lukejharmon.github.io/pcm/chapter10_birthdeath/). Access date: 2019-03-31.
-
-* Noutahi, Marc-Rolland (2017). *How to simulate a phylogenetic tree? (part 1)*. Available at:
-[https://mrnoutahi.com/2017/12/05/How-to-simulate-a-tree/](https://mrnoutahi.com/2017/12/05/How-to-simulate-a-tree/). Access date: 2019-03-31
-
-* Stadler, Tanja (2011). *Simulating Trees with a Fixed Number of Extant Species*. Systematic Biology 60.5:676-684. DOI: [https://doi.org/10.1093/sysbio/syr029](https://doi.org/10.1093/sysbio/syr029)
-
-## Author
-
-Tiago Tresoldi (tresoldi@shh.mpg.de)
-
-The author was supported during development by the 
-[ERC Grant #715618](https://cordis.europa.eu/project/rcn/206320/factsheet/en)
-for the project [CALC](http://calc.digling.org)
-(Computer-Assisted Language Comparison: Reconciling Computational and Classical
-Approaches in Historical Linguistics), led by
-[Johann-Mattis List](http://www.lingulist.de).
