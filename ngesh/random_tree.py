@@ -10,7 +10,6 @@ evolution time.
 """
 
 # Import Python standard libraries
-import hashlib
 import math
 import random
 
