@@ -241,16 +241,7 @@ def __gen_tree(**kwargs):
     return tree
 
 
-def gen_tree(
-    birth,
-    death,
-    min_leaves=None,
-    max_time=None,
-    labels="enum",
-    lam=0.0,
-    prune=False,
-    seed=None,
-):
+def gen_tree(birth, death, **kwargs):
     """
     Return a random phylogenetic tree.
 
@@ -303,6 +294,14 @@ def gen_tree(
     tree : ete3 tree
         The tree randomly generated according to the parameters.
     """
+
+    # Parse kwargs and set defaults
+    min_leaves = kwargs.get("min_leaves", None)
+    max_time = kwargs.get("max_time", None)
+    labels = kwargs.get("labels", "enum")
+    lam = kwargs.get("lam", 0.0)
+    prune = kwargs.get("prune", False)
+    seed = kwargs.get("seed", None)
 
     # Confirm that at least one stopping condition was provided
     if not (min_leaves or max_time):
