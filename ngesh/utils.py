@@ -77,11 +77,11 @@ def __gen_syl(min_syl, max_syl):
 
     # Map each syllable to random sounds
     syllables = []
-    for _ in range(random.randint(min_syl, max_syl)):
+    for _ in range(np.random.randint(min_syl, max_syl)):
         syllable = "".join(
             [
-                random.choice(__SOUNDS[sound_class])
-                for sound_class in random.choice(__PATTERNS)
+                np.random.choice(__SOUNDS[sound_class])
+                for sound_class in np.random.choice(__PATTERNS)
             ]
         )
 
@@ -115,7 +115,7 @@ def __clean_label(label):
     # Remove too complex clusters by selecting one random sound
     for cluster in __COMPLEX_CLUSTERS:
         if cluster in label:
-            label = label.replace(cluster, cluster[random.randint(0, 1)])
+            label = label.replace(cluster, cluster[np.random.randint(0, 1)])
 
     # Remove geminated vowels
     for vowel in __SOUNDS["V"]:
@@ -210,7 +210,7 @@ def random_species(size=1, seed=None):
 
     # If the label does not end in a vowel or in s/r, add a random suffix
     labels = [
-        label + random.choice(__SOUNDS["V"]) + random.choice(["s", ""])
+        label + np.random.choice(__SOUNDS["V"]) + np.random.choice(["s", ""])
         if label[-1] not in __SOUNDS["V"] + ["s", "r"]
         else label
         for label in labels
@@ -226,7 +226,7 @@ def random_species(size=1, seed=None):
     # in "ii"
     labels = [
         label + "s"
-        if (label.endswith("i") and random.random() <= 0.75)
+        if (label.endswith("i") and np.random.random() <= 0.75)
         else label
         for label in labels
     ]
@@ -235,7 +235,7 @@ def random_species(size=1, seed=None):
     # If a label ends in "a", it will end in "as" 50% of the time
     labels = [
         label + "s"
-        if (label.endswith("a") and random.random() <= 0.5)
+        if (label.endswith("a") and np.random.random() <= 0.5)
         else label
         for label in labels
     ]
@@ -248,7 +248,7 @@ def random_species(size=1, seed=None):
         for vowel in __SOUNDS["V"]:
             labels = [
                 label.replace(plosive + vowel, plosive + "h" + vowel)
-                if random.random() <= 0.5
+                if np.random.random() <= 0.5
                 else label
                 for label in labels
             ]
@@ -271,7 +271,7 @@ def random_species(size=1, seed=None):
 
                 labels = [
                     label.replace(source, target)
-                    if random.random() < 0.4
+                    if np.random.random() < 0.4
                     else label
                     for label in labels
                 ]
@@ -281,8 +281,8 @@ def random_species(size=1, seed=None):
         "%s%s%s"
         % (
             label,
-            random.choice(["r", "r", "l"]),
-            random.choice(__SOUNDS["V"]) + "s",
+            np.random.choice(["r", "r", "l"]),
+            np.random.choice(__SOUNDS["V"]) + "s",
         )
         if len(label) < 5
         else label
