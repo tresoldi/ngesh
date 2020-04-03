@@ -409,9 +409,6 @@ identifiers or protein accessions can be used for the same purpose
 
 * Shorter-term
     * Write better documentation of function parameters
-    * Add all still unavailable parameters to the command line tool (e.g.,
-      setting hard politomies)
-    * Automatically generate developer documentation (possibly with Sphinx)
     * Check if all outputs are complete (e.g., characters are currently
       missing in the Newick format)
     * Add a command-line option (or a new tool) that allows to write the
