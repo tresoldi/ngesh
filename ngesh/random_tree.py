@@ -103,7 +103,7 @@ def label_tree(tree, model, seed=None):
             leaf_node.name = pattern % (leaf_idx + 1)
 
 
-def __gen_tree(birth, death, min_leaves, max_time, labels, lam, prune, seed):
+def __gen_tree(**kwargs):
     """
     Internal function for tree generation.
 
@@ -119,17 +119,17 @@ def __gen_tree(birth, death, min_leaves, max_time, labels, lam, prune, seed):
     in the documentation for `gen_tree()`.
     """
 
+    # Initialize the RNG
+    utils.set_seeds(kwargs["seed"])
+
     # Compute the overall event rate (birth plus death), from which the
     # random expovariate will be drawn. `birth` is here normalized in range
     # [0..1] so that we can directly compare with the results of
     # `.random()` and decide if the event is a birth or a death.
     # `death` does not need to be normalized, as it is not used anymore (the
     # only check, below, is `.random() <= birth`).
-    event_rate = birth + death
-    birth = birth / event_rate
-
-    # Initialize the RNG
-    utils.set_seeds(seed)
+    event_rate = kwargs["birth"] + kwargs["death"]
+    birth = kwargs["birth"] / event_rate
 
     # Create the tree root as a node. Given that the root is at first set as
     # non-extinct and with a branch length of 0.0, it will be immediately
@@ -158,7 +158,7 @@ def __gen_tree(birth, death, min_leaves, max_time, labels, lam, prune, seed):
         # without implementing the event (as, by the random event time, it
         # would take place *after* our maximum time, in the future).
         total_time += event_time
-        if max_time and total_time > max_time:
+        if kwargs["max_time"] and total_time > kwargs["max_time"]:
             break
 
         # Select a random node among the extant ones and set it as extinct
@@ -176,7 +176,7 @@ def __gen_tree(birth, death, min_leaves, max_time, labels, lam, prune, seed):
             # of the children is here initially set to zero, and will be
             # increased by `event_time` in the loop below, along with all
             # other extant nodes.
-            for _ in range(2 + np.random.poisson(lam)):
+            for _ in range(2 + np.random.poisson(kwargs["lam"])):
                 child_node = Tree()
                 child_node.dist = 0
                 child_node.extinct = False
@@ -192,7 +192,9 @@ def __gen_tree(birth, death, min_leaves, max_time, labels, lam, prune, seed):
         leaf_nodes = __extant(tree)
         for leaf in leaf_nodes:
             new_leaf_dist = leaf.dist + event_time
-            leaf.dist = min(new_leaf_dist, (max_time or new_leaf_dist))
+            leaf.dist = min(
+                new_leaf_dist, (kwargs["max_time"] or new_leaf_dist)
+            )
 
         # If the event above was a death event, we might be in the undesirable
         # situation where all lineages went extinct before we
@@ -214,10 +216,10 @@ def __gen_tree(birth, death, min_leaves, max_time, labels, lam, prune, seed):
             break
 
         # Check whether one or both the stopping criteria were reached
-        if min_leaves and len(leaf_nodes) >= min_leaves:
+        if kwargs["min_leaves"] and len(leaf_nodes) >= kwargs["min_leaves"]:
             break
 
-        if max_time and total_time >= max_time:
+        if kwargs["max_time"] and total_time >= kwargs["max_time"]:
             break
 
     # In some cases we might end up with technically valid trees composed
@@ -229,12 +231,12 @@ def __gen_tree(birth, death, min_leaves, max_time, labels, lam, prune, seed):
     # Prune the tree, removing extinct leaves, if requested and if a
     # tree was found. Remember that the ete3 `prune()` method takes a list
     # of the nodes that will be kept, removing the other ones.
-    if prune and tree:
+    if kwargs["prune"] and tree:
         tree.prune(__extant(tree))
 
     # Label the tree before returning it, if it was provided
-    if labels and tree:
-        label_tree(tree, labels, seed=seed)
+    if kwargs["labels"] and tree:
+        label_tree(tree, kwargs["labels"], seed=kwargs["seed"])
 
     return tree
 
@@ -331,7 +333,14 @@ def gen_tree(
 
         # Ask for a new tree
         tree = __gen_tree(
-            birth, death, min_leaves, max_time, labels, lam, prune, seed
+            birth=birth,
+            death=death,
+            min_leaves=min_leaves,
+            max_time=max_time,
+            labels=labels,
+            lam=lam,
+            prune=prune,
+            seed=seed,
         )
 
         # Break out of the loop if a valid tree was found, as in most of the
