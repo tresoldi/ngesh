@@ -12,7 +12,6 @@ evolution time.
 # Import Python standard libraries
 import hashlib
 import math
-from operator import itemgetter
 import random
 
 # Import 3rd party libraries
