@@ -5,3 +5,4 @@ exclude_paths:
     - "CODE_OF_CONDUCT.md"
     - "manuscript/*"
     - "tests/*.py"
+    - "docs/conf.py"
