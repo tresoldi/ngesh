@@ -165,9 +165,9 @@ def __gen_tree(**kwargs):
         # event is decided based on the comparison of the result of a
         # `random.random()` call with `birth` (here already normalized in
         # relation to `event_rate`)
-        node = random.choice(leaf_nodes)
+        node = np.random.choice(leaf_nodes)
         node.extinct = True
-        if random.random() <= birth:
+        if np.random.random() <= birth:
             # The event will be a birth (i.e., speciation one), with at least
             # two children (the number is increased by a random sample from a
             # Poisson distribution using the `lam` parameter, so that
@@ -326,8 +326,8 @@ def gen_tree(birth, death, **kwargs):
         # new seed for future iterations if needed (if the provided seed fails,
         # in case of no tree generation, there is no point in trying the
         # feed again).
-        random.seed(seed)
-        seed = random.random()
+        utils.set_seeds(seed)
+        seed = np.random.random()
 
         # Ask for a new tree
         tree = __gen_tree(
