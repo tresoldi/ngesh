@@ -7,6 +7,7 @@ Module with auxiliary function for text generation.
 # Import Python standard libraries
 import itertools
 
+
 def tree2wordlist(tree):
     """
     Returns a string with the representation of a tree in wordlist format.
