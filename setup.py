@@ -9,7 +9,7 @@ README_FILE = (LOCAL_PATH / "README.md").read_text()
 
 
 # Load requirements, so they are listed in a single place
-with open('requirements.txt') as fp:
+with open("requirements.txt") as fp:
     install_requires = [dep.strip() for dep in fp.readlines()]
 
 # This call to setup() does all the work
