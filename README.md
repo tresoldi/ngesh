@@ -47,6 +47,13 @@ tabular textual listings, etc.
 
 Version 0.4:
   - General improvements for submission
+  - Extended function documentation and in-code comments
+  - Documentation at ReadTheDocs.io
+  - Complete output (whenever possible) for all output formats
+  - Complete command-line access to all parameters, such as for hard
+    politomies
+  - Automatic code review, more tests
+  - Removed dependency on the `abzu` library
 
 Version 0.3.1:
  - Code improvements for next release and submission
