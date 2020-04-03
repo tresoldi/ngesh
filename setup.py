@@ -30,6 +30,7 @@ setup(
         "Topic :: Software Development :: Libraries",
     ],
     packages=["ngesh"],
+    python_requires=">=3.7",
     keywords=["random phylogenetic tree", "phylogenetics", "simulation"],
     include_package_data=True,
     install_requires=install_requires,
