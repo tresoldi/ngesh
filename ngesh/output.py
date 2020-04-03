@@ -10,7 +10,7 @@ import itertools
 def tree2wordlist(tree):
     """
     Returns a string with the representation of a tree in wordlist format.
- 
+
     Parameters
     ----------
 
