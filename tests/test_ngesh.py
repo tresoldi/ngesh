@@ -196,7 +196,7 @@ class TestCharacters(unittest.TestCase):
         # Add characters to all trees, for coverage
         trees = [
             ngesh.add_characters(
-                Tree(newick), NUM_CONCEPTS, k, th, z, seed="myseed"
+                Tree(newick), NUM_CONCEPTS, k=k, th=th, z=z, seed="myseed"
             )
             for newick in _TREES
         ]
@@ -220,7 +220,7 @@ class TestOutput(unittest.TestCase):
         # Add characters to all test trees
         trees = [
             ngesh.add_characters(
-                Tree(newick), 100, 4.0, 1.0, 1.05, seed="myseed"
+                Tree(newick), 100, k=4.0, th=1.0, e=1.05, seed="myseed"
             )
             for newick in _TREES
         ]
@@ -235,11 +235,11 @@ class TestOutput(unittest.TestCase):
 
         assert (
             digest_nx
-            == b"\x9d\x81\xd6\xa2/(\x0b\xcb[*7r=9eH\x83\xc7>\x80e\x7f\x93\x93'r\xc5{\ts\x9f\xf3"
+            == b"^\xd2\xf4$\x1d\xd3\xb7\x97\xe2\xe0{SQw'{\xaf\x9b\xb6\x14\xbd\x80\xd3\x81P\x19$\xc3\xc7\xe8\x98\xe1"
         )
         assert (
             digest_wl
-            == b".N\x04\xf2a@d~\x90 \x9e2\xc7\x07\xd6\xfb\xc6\xacJ\xad\x1a\xaal%1C\x14\xac\x11\xf6\x86\x99"
+            == b"a\x8b\x04X\xdf\x07\x86\xaf\xe9\xa3\xed\xb9\xc5:{E\xb4\xfa1D\xb1\xb1\xb5\x05$X}M\x1a\xcf_\xa5"
         )
 
 
