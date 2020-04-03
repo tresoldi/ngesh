@@ -143,6 +143,7 @@ def parse_arguments():
         "-x",
         "--labels",
         type=str,
+        choices=["bio", "human", "enum", "none"],
         help='Set text generation model (defaults "human")',
     )
     parser.add_argument("-r", "--seed", type=str, help="Set RNG seed string")
@@ -192,6 +193,10 @@ def parse_arguments():
     # Set death to half birth, if not provided
     if not args.death:
         args.death = args.birth / 2.0
+
+    # Set label to None as value, if so provided
+    if args.labels == "none":
+        args.labels = None
 
     return args
 
