@@ -42,6 +42,7 @@ def new_tree(args):
         min_leaves=args.min_leaves,
         max_time=args.max_time,
         labels=args.labels,
+        lam=args.lam,
         seed=args.seed,
     )
 
@@ -88,6 +89,7 @@ def parse_arguments():
         "k_mut": 5.0,
         "th_mut": 1.0,
         "e_mut": 1.05,
+        "lam": 0.0,
     }
 
     # Parse any configuration speification first. Note that `add_help` is
@@ -177,6 +179,11 @@ def parse_arguments():
         "--th_hgt",
         type=float,
         help="Set character HGT gamma `theta` parameter (default `th_mut`)",
+    )
+    parser.add_argument(
+        "--lam",
+        type=float,
+        help="Expectation of interval for speciation sampling, allowing politomies (default 0.0)",
     )
     parser.add_argument(
         "-o",
