@@ -10,6 +10,8 @@ Welcome to ngesh's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   readme
+   Modules <source/modules.rst>
 
 
 Indices and tables
