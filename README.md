@@ -412,10 +412,6 @@ identifiers or protein accessions can be used for the same purpose
     * Add all still unavailable parameters to the command line tool (e.g.,
       setting hard politomies)
     * Automatically generate developer documentation (possibly with Sphinx)
-    * Allow generation of unlabelled trees from the command-line (a text
-      generation model is currently mandatory)
-    * Look for default parameters that are more closely related to
-      linguistic trees (or, at least, to the Indo-European one)
     * Check if all outputs are complete (e.g., characters are currently
       missing in the Newick format)
     * Add a command-line option (or a new tool) that allows to write the
@@ -426,22 +422,12 @@ identifiers or protein accessions can be used for the same purpose
       and borrowing rates
     * Allow to exclude non extant taxa from horizontal gene transfer
       events
-    * Add stopping criterion on the global number of nodes (in complement
-      to the number of *extant* nodes, currently implemented), either absolute
-      or as a range
 
 * Longer-term
-    * Simulation of data problems (incomplete sampling, errors in
-      sequencing/cognate judgment, etc.)
     * Variable birth/death ratios
-    * Rewrite the random text generation functions, possibly as actual
-      Python generators
     * Consider replacing or complementing `expovariate()` in birth/death
       events with actual random Poisson sampling, allowing additional models
-    * Build a simple website
     * Implement parallel character evolution as controlled by a parameter
-    * Rewrite functions with too many arguments to accept dictionaries of
-      parameters
     * Implement more models for random character generation, especially those
       frm genetics (first candidate, a General Time Reversable model with
       a proportion of invariable sites and a gamma-shaped distribution of

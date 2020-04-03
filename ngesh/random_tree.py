@@ -32,26 +32,36 @@ def _set_seeds(seed):
     random.seed(seed)
 
     # allows using strings as np seeds, which only takes uint32 or arrays of
-    # NOTE: won't set the seed if it is None: if you want to seed none
-    # as seed, manuallz call np.random.seed()
+    # NOTE: this won't set the seed if it is None: if you want to seed none
+    #       as seed, manually call np.random.seed()
     if isinstance(seed, (str, float)):
-        seed = np.frombuffer(
+        new_seed = np.frombuffer(
             hashlib.sha256(str(seed).encode("utf-8")).digest(), dtype=np.uint32
         )
-
-    np.random.seed(seed)
+        np.random.seed(new_seed)
 
 
 def __extant(tree):
     """
     Internal function returning a list of non-extinct leaves in a tree.
+ 
+    Parameters
+    ----------
+
+    tree: ete3 tree object
+        The tree whose nodes will be checked.
+
+    Returns
+    -------
+    leaves: list
+        List of extant leaves.
     """
 
     # Return a filtered list compiled with a list comprehension; the
     # 'extinct' field is not part of ETE3 defaults, but we use here in
     # order to easily differentiate between alive and extinct leaves in
     # Birth-Death models.
-    return [leave for leave in tree.get_leaves() if leave.extinct is False]
+    return [leaf for leaf in tree.get_leaves() if leaf.extinct is False]
 
 
 def label_tree(tree, model, seed=None):
@@ -74,7 +84,7 @@ def label_tree(tree, model, seed=None):
         (for random single names), and "bio" (for random biological names).
     seed : value
         An optional seed for the random number generator, only used in case
-        of linguistic labels. Defaults to None.
+        of linguistic and biological labels. Defaults to `None`.
     """
 
     # Cache the leaves, so we can also obtain their number
@@ -86,6 +96,7 @@ def label_tree(tree, model, seed=None):
         # The execution would not fail as we are using `zip()`, only items
         # would be unnamed, but we are manually adding missing labels as
         # enumerations to make sure there are no anynomous nodes.
+        # TODO: decide on better approach or make case explicit in docs
         species = sorted(set(random_species(len(leaves), seed)))
         species += ["L%i" % i for i in range(len(leaves) - len(species))]
 
@@ -125,9 +136,9 @@ def __gen_tree(birth, death, min_leaves, max_time, labels, lam, prune, seed):
     # Compute the overall event rate (birth plus death), from which the
     # random expovariate will be drawn. `birth` is here normalized in range
     # [0..1] so that we can directly compare with the results of
-    # random.random() and decide if the event is a birth or a death.
+    # `.random()` and decide if the event is a birth or a death.
     # `death` does not need to be normalized, as it is not used anymore (the
-    # only check, below, is `random.random() <= birth`).
+    # only check, below, is `.random() <= birth`).
     event_rate = birth + death
     birth = birth / event_rate
 
@@ -207,11 +218,11 @@ def __gen_tree(birth, death, min_leaves, max_time, labels, lam, prune, seed):
         # optimal (nor elegant) and might get us stuck in a
         # loop if we don't keep track of the number of iterations
         # (especially if we got to this point by using a
-        # user-provided random seed). In face of that,
-        # it is preferable to be explicit about the problem by
-        # returning a None value, with the user (or a wrapper
+        # user-provided random seed and/or set of unfortunate parameters).
+        # In face of that, it is preferable to be explicit about the problem by
+        # returning a `None` value, with the user (or a wrapper
         # function) being in charge of asserting that the desired
-        # number of random trees is collected (even if it is only one).
+        # number of random trees is collected (even if it is a single one).
         if not leaf_nodes:
             tree = None
             break
@@ -253,10 +264,10 @@ def gen_tree(
     seed=None,
 ):
     """
-    Returns a random phylogenetic tree.
+    Return a random phylogenetic tree.
 
     At least one stopping criterion must be informed, with the tree being
-    returned when the either is met.
+    returned when such criterion, or either criteria, is/are met.
 
     This function wraps the internal `__gen_tree()` function which cannot
     guarantee that a valid tree will be generated given the user
@@ -407,7 +418,7 @@ def add_characters(
     k_hgt_vec = [k / (e ** idx) for idx in char_range]
 
     # When simulating the character evolution, we need to traverse the tree
-    # in chronological order, so that when then characters for each taxon
+    # in chronological order, so that when the characters for each taxon
     # are compiled/simulated, all the characters from chronologically
     # anterior taxa are already available (allowing to model processes such
     # as horizontal gene transfer, etc.). In order to do so, and later
@@ -496,6 +507,7 @@ def add_characters(
         # Compute the probability of each donor, inversely proportional to
         # the current distance (thus the (min+max)-i). For the time being,
         # only a linear distibution of the probabilities is allowed.
+        # TODO: allow different distributions
         donor_prob = np.array(
             [node.get_distance(donor) for donor in pot_source]
         )
@@ -509,6 +521,7 @@ def add_characters(
         # Note that the probability for `np.random.choice()` (used here as
         # `random.choice()` from the standard library is not available in
         # Python 3.5) needs to normalized in range [0,1].
+        # TODO: use python random
         donor_nodes = np.random.choice(
             pot_source, num_characters, p=(donor_prob / sum(donor_prob))
         )

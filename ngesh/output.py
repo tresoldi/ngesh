@@ -7,10 +7,21 @@ Module with auxiliary function for text generation.
 # Import Python standard libraries
 import itertools
 
-
 def tree2wordlist(tree):
     """
     Returns a string with the representation of a tree in wordlist format.
+ 
+    Parameters
+    ----------
+
+    tree : ete3
+        The ete3 tree whose CSV representation will be returned.
+
+    Returns
+    -------
+
+    buf : string
+        A string with the full representation of the tree in CSV format.
     """
 
     # The number of characters for each taxon; it will be set when the
