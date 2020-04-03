@@ -19,31 +19,16 @@ import numpy as np
 from ete3 import Tree
 
 # Import other modules from this library
-# from ngesh.textgen import random_labels, random_species
-from abzu.textgen import random_labels, random_species
+from . import utils
 
 # Define the maximum number of tries for generation
 __MAX_ATTEMPTS = 3000
 
 
-# TODO: move to a utils function
-def _set_seeds(seed):
-    random.seed(seed)
-
-    # allows using strings as np seeds, which only takes uint32 or arrays of
-    # NOTE: this won't set the seed if it is None: if you want to seed none
-    #       as seed, manually call np.random.seed()
-    if isinstance(seed, (str, float)):
-        new_seed = np.frombuffer(
-            hashlib.sha256(str(seed).encode("utf-8")).digest(), dtype=np.uint32
-        )
-        np.random.seed(new_seed)
-
-
 def __extant(tree):
     """
     Internal function returning a list of non-extinct leaves in a tree.
- 
+
     Parameters
     ----------
 
@@ -96,14 +81,16 @@ def label_tree(tree, model, seed=None):
         # would be unnamed, but we are manually adding missing labels as
         # enumerations to make sure there are no anynomous nodes.
         # TODO: decide on better approach or make case explicit in docs
-        species = sorted(set(random_species(len(leaves), seed)))
+        species = sorted(set(utils.random_species(len(leaves), seed)))
         species += ["L%i" % i for i in range(len(leaves) - len(species))]
 
         for leaf_node, name in zip(leaves, species):
             leaf_node.name = name
 
     elif model == "human":
-        for leaf_node, name in zip(leaves, random_labels(len(leaves), seed)):
+        for leaf_node, name in zip(
+            leaves, utils.random_labels(len(leaves), seed)
+        ):
             leaf_node.name = name
 
     else:
@@ -142,7 +129,7 @@ def __gen_tree(birth, death, min_leaves, max_time, labels, lam, prune, seed):
     birth = birth / event_rate
 
     # Initialize the RNG
-    _set_seeds(seed)
+    utils.set_seeds(seed)
 
     # Create the tree root as a node. Given that the root is at first set as
     # non-extinct and with a branch length of 0.0, it will be immediately
