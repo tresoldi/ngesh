@@ -52,9 +52,9 @@ def new_tree(args):
             args.num_chars,
             args.k_mut,
             args.th_mut,
-            args.k_hgt,
-            args.th_hgt,
-            args.e_mut,
+            k_hgt=args.k_hgt,
+            th_hgt=args.th_hgt,
+            e=args.e_mut,
         )
 
     return tree

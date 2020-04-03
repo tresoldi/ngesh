@@ -351,9 +351,7 @@ def gen_tree(birth, death, **kwargs):
     return tree
 
 
-def add_characters(
-    tree, num_characters, k, th, k_hgt=None, th_hgt=None, e=1.0, seed=None
-):
+def add_characters(tree, num_characters, k, th, **kwargs):
     """
     Add random characters to the nodes of a tree.
 
@@ -394,8 +392,14 @@ def add_characters(
         The provided tree, with random characters added.
     """
 
+    # Parse **kwargs
+    k_hgt = kwargs.get("k_hgt", None)
+    th_hgt = kwargs.get("th_hgt", None)
+    e = kwargs.get("e", 1.0)
+    seed = kwargs.get("seed", None)
+
     # Set seeds
-    _set_seeds(seed)
+    utils.set_seeds(seed)
 
     # cache a range with the number of characters, for some speed up
     char_range = list(range(num_characters))
