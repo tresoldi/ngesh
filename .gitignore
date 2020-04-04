@@ -1,3 +1,11 @@
+# Manuscript LATEX intermediate files
+paper.aux
+paper.bcf
+paper.out
+paper.pdf
+paper.run.xml
+paper.tex
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

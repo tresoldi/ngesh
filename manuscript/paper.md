@@ -4,7 +4,7 @@ tags:
   - Python
   - phylogenetics
   - random phylogenetic tree
-  - simulation
+  - phylogenetic tree simulation
 authors:
   - name: Tiago Tresoldi
     orcid: 0000-0002-2863-1467
@@ -19,43 +19,52 @@ bibliography: paper.bib
 # Summary
 
 This work describes [`ngesh`](https://pypi.org/project/ngesh/), a Python library
-and related command-line tools for simulating phylogenetic
-trees and related data (characters, states, branch length, etc.). It is intended
-for benchmarking phylogenetic methods, especially in historical linguistics, and
-for providing dummy trees for their development and debugging. The generation of
-random phylogenetic trees also goes by the name of "simulation methods for
-phylogenetic trees" or just "phylogenetic tree simulation".
-
-In detail, with ngesh:
-
-  - trees can be generated according to user-specified birth and death ratios
-(and the death ratio can be set to zero, resulting in a birth-only tree)
-  - speciation events default to two descendants, but the number of descendants
-can be randomly drawn from a user-defined Poisson process (allowing to model
-hard politomies)
-  - trees will have random topologies and, if necessary, random branch-lengths
-  - trees can be limited in terms of number of extant leaves, evolution time (as
-related to the birth and death parameters), or both
-  - non-extant leaves can be pruned from birth-death trees
-  - character evolution can be simulated in relation to branch lengths, with
-user-specified ratios for mutation and horizontal gene transfer, with different
-rates of change for each character
-  - trees can be generated from user-provided seeds, so that the random
-generation can be maintained across executions (and, in most cases, the
-execution should be reproducible also on different machines and different
-vestions of Python)
-  - nodes can optionally receive unique labels, either sequential ones (like
-"L01", "L02", and "L03"), random human-readable names (like "Sume", "Fekobir",
-and "Tukok"), or random biological names approximating the binomial nomenclature
-standard (like "Sburas wioris", "Zurbata ceglaces", and "Spellis spusso")
-  - trees can be returned as ETE tree objects or exported in a variety of
-formats, such as Newick trees, ASCII representation, tabular textual listings,
-etc.
+for the task of phylogenetic tree and data simulation.
+It is intended to provide dummy
+trees and data for the development, debugging, and benchmarking of
+phylogenetic methods and tools, particularly in the field of historical
+linguistics. The library allows to reproducibly generate random trees
+according to user-specified parameters, such as birth and death ratio, and
+withing certain constraints, such as relative time depth or number or
+extant nodes, allowing to output either as programming variables or
+in a variety of file formats.
 
 # Background
 
+Métodos estocásticos têm sido utilizado em uma variedade campos além daquele
+biológico para o qual foram inicialmente desenvolvidos, como a linguística
+histórica (citar). A adaptaćão de tais métodos tem levado a algumas
+incertezas sobre sua adaptabilidade, pois as metáforas evolutivas básicas
+podem não ser imediatamente transponíveis; deste modo, faz-se ainda mais
+importante a prática de simulaćões estocásticas que permitam desenvolver e
+avaliar a eficiências e eficácia de tais métodos, desde a verificaćão
+de métodos de input e output, como o parsing de formatos ou a geraćão de
+visualizaćões gráficas, avaliando o desempenho de pipelines de modo
+independete da análise real, até a verifićão da robustez dos métodos,
+como na equivalente prática de desenvolvimento de software de fuzzy
+testing. Para estas finalidades é útil a random phylogenetic tree generation,
+which also goes by the names of "phylogenetic tree simulation".
 Just to cite @Bailey:1990, @Foote:1999, @Harmon:2019, @Stadler:2011,
 @Noutahi:2017 
+
+O ngesh é uma biblioteca e ferramentas de linha de comando que permitem
+tal geraćão. Trees can be generated according to different parameters
+such as birth and death ratio (allowing birth-only trees if desired),
+contrained according to different parameters (such as maximum branch length
+from root or number of extant nodes),
+output distribution for speciation events (allowing to model hard politomies),
+pruning of non-extant leaves, etc.
+Character evolution corresponding to the random topology can be likewise
+generated, including user-specified ratios for mutation and horizontal
+gene transfer (including different rates of change for each character).
+For usability, trees can be generated according to user-provided seeds and
+can optionally receive unique labels, being either sequences (such as
+"L01", "L02", "L03", random human-readable names (like "Sume", "Fekobir",
+and "Tukok"), or random biological names approximating the binomial nomenclature
+standard (like "Sburas wioris", "Zurbata ceglaces", and "Spellis spusso").
+The simulated trees can be used as ETE tree objects or exported in a
+variety of formats, such as Newick trees, ASCII representation, tabular
+textual listings, etc.
 
 # Installation, Usage, & Examples
 
@@ -67,28 +76,100 @@ $ pip install ngesh
 ```
 
 The [documentation](https://ngesh.readthedocs.io/en/latest/) offers detailed
-instructions on how to use the library. For most purposes,
+instructions on how to use the library. Simpler trees can be generated
+directly from the command line, which by default will return a different
+random small birth-death tree in Newick format at each call:
+
+```bash
+$ ngesh
+(output)
+```
+
+The same command line tool can refer to values provided in a textual
+configuration file. Here, we generate the Nexus data for a reproducible Yule
+tree (note the 12345 seed) with a birth ratio of 0.75, at least 8 leaves
+with "human" labels, and 10 presence/absence characters:
+Parameters set in a configuration file can be overridden at the command line.
+As ASCII representation of the same tree could be obtained with the
+`--ascii` flag.
+
+```bash
+$ cat
+```
+
+The package is, however, designed to be used as a library. If you have PyQt5
+installed (which is not listed as a dependency), the following code will pop
+up the ETE Tree Viewer on a random tree:
+
+```bash
+$ python -c "import ngesh ; ngesh.display_random_tree()"
+```
+
+The main functions for generation are `gen_tree()`, which returns a random tree
+topology, and `add_characters()`, which simulates character evolution in a
+provided tree. As they are separate tasks, it is possible to just generate
+a random tree or to simulate character evolution in an user provided tree.
+
+```python
+
+In [1]: import ngesh
+
+In [2]: tree = ngesh.gen_tree(1.0, 0.5, max_time=3.0, labels="human")
+
+In [3]: print(tree)
+
+      /-Butobfa
+   /-|
+  |  |   /-Defomze
+  |   \-|
+  |      \-Gegme
+--|
+  |      /-Bo
+  |   /-|
+  |  |   \-Peoni
+   \-|
+     |   /-Riuzo
+      \-|
+         \-Hoale
+
+In [4]: tree = ngesh.add_characters(tree, 10, 3.0, 1.0)
+
+In [5]: print(ngesh.tree2nexus(tree))
+#NEXUS
+
+begin data;
+  dimensions ntax=7 nchar=15;
+  format datatype=standard missing=? gap=-;
+  matrix
+Hoale      100111101101110
+Butobfa    101011101110101
+Defomze    101011110110101
+Riuzo      100111101101110
+Peoni      110011101110110
+Bo         110011101110110
+Gegme      101011101110101
+  ;
+end;
+```
 
 # Alternatives
 
-There are many tools for simulating phylogenetic processes in order to
-obtain random phylogenetic trees. The most complete is probably the R
-package `TreeSim` by Tanja Stadler, which includes many flexible tree
-simulation functions. In R, one can also use the `rtree()` function from
-package `ape` and the `birthdeath.tree()` one from package `geiger`,
-as well as manually randomizing taxon placement in cladograms.
+The most complete alternative for simulating phylogenetic processes, even
+though with no particular support for historical linguistics, is the
+R package `TreeSim` by @Stadler:2011. Always in R, the `rtree()` function
+of the `ape` package and the `birthdeath.tree()` one of the `geiger`
+package might also be sufficient. In Python, code similar to `ngesh` and
+which served as an initial inspiration is provided by @Noutahi:2017,
+and for simpler simulations the `.populate()` method of the `Tree` class in
+ETE can be used as well. In all languages, manual randomization of taxon
+placement in existing cladograms is a well known alternative.
 
-In Python, some code similar to `ngesh` and which served as initial
-inspiration is provided by @Noutahi:2017.
-
-For simpler simulations, the `.populate()` method of the `Tree` class in ETE
-might be enough as well. Documentation on the method is available here.
-
-A number of on-line tools are also available at the time of writing:
-
-  - T-Rex (Tree and reticulogram REConstruction at the Université du Québec à Montréal (UQAM)
-  - Anvi'o Server can be used on-line as a wrapper to T-Rex above
-  - phyloT, which by randomly sampling taxonomic names, identifiers or protein accessions can be used for the same purpose
+Particularly for specific biological simulations, a number of on-line tools can
+also be used, such as 
+`T-Rex` (Tree and reticulogram REConstruction at the Université du Québec à Montréal (UQAM),
+`Anvi'o Server` can be used on-line as a wrapper to T-Rex above,
+and `phyloT`, which by randomly sampling taxonomic names, identifiers or
+protein accessions can be used for the same purpose.
 
 
 # Code and Documentation Availability
