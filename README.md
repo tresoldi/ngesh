@@ -45,6 +45,11 @@ tabular textual listings, etc.
 
 ### Changelog
 
+Version 0.4.1:
+  - Fixed bug with character generation during simulation of horizontal
+    gene transfer
+  - Fixed bug in upper boundary number of syllables for label generation
+
 Version 0.4:
   - General improvements for submission
   - Extended function documentation and in-code comments

@@ -15,7 +15,7 @@ with open("requirements.txt") as fp:
 # This call to setup() does all the work
 setup(
     name="ngesh",
-    version="0.4",
+    version="0.4.1",
     description="Simulate random phylogenetic trees",
     long_description=README_FILE,
     long_description_content_type="text/markdown",
