@@ -377,10 +377,14 @@ def add_characters(tree, num_characters, k, th, **kwargs):
         events.
     k_hgt : float
         The k parameter for the gamma distirbution related to horizontal
-        gene transfer events. Defaults to the value of `k`.
+        gene transfer events. Defaults to None (in case HGT should be
+        modelled but the user is unsure about an appropriate value for
+        `k_hgt`, it suggested to set it to 1.5 times `k`).
     th_hgt : float
         The theta parameter for the gamma distribution related to horizontal
-        gene transfer events. Defaults to the value of `th`.
+        gene transfer events. Defaults to None (in case HGT should be
+        modelled but the user is unsure about an appropriate value for
+        `th_hgt`, it suggested to set it to the same value as `th`).
     e : float
         The exponent for correction of mutation probability of each
         character. Defaults to 1.0 (no correction).
@@ -407,12 +411,10 @@ def add_characters(tree, num_characters, k, th, **kwargs):
     k_vec = [k / (e ** idx) for idx in char_range]
 
     # build the k vector per character for horizontal gene transfer
-    if not k_hgt:
-        k_hgt = 1.5 * k
-    if not th_hgt:
-        th_hgt = th
-
-    k_hgt_vec = [k / (e ** idx) for idx in char_range]
+    if k_hgt and th_hgt:
+        k_hgt_vec = [k / (e ** idx) for idx in char_range]
+    else:
+        k_hgt_vec = None
 
     # When simulating the character evolution, we need to traverse the tree
     # in chronological order, so that when the characters for each taxon
@@ -422,17 +424,12 @@ def add_characters(tree, num_characters, k, th, **kwargs):
     # facilitating the selection of nodes for some processes, we compile
     # a dictionary of distances from root for all nodes in the tree,
     # sorting them in ascending order for the tree traversal.
-    root_dists = {
-        node: node.get_distance(tree) for node in tree.traverse("preorder")
-    }
-
-    # We need to sort by distance, with shorter ones first, and then by
+    # We also need to sort by distance, with shorter ones first, and then by
     # key, as some nodes (especially the final leaves) will have the exact
     # same distance and we could not otherwise guarantee the order.
-    sorted_nodes = [
-        node[0]
-        for node in sorted(root_dists.items(), key=lambda x: (x[1], x[0].name))
-    ]
+    sorted_nodes = sorted(
+        tree.traverse("preorder"), key=lambda x: (x.get_distance(tree), x.name)
+    )
 
     # Traverse the tree from the root, adding characters to all
     # nodes (i.e., not only leaves); `states` is the number of states
@@ -448,7 +445,9 @@ def add_characters(tree, num_characters, k, th, **kwargs):
         # NOTE: We need the expensive operation of sorting the ancestors
         #       to guarantee reproducibility.
         ancestors = sorted(
-            node.get_ancestors(), key=lambda x: (x.dist, x.name), reverse=True
+            node.get_ancestors(),
+            key=lambda x: (x.get_distance(tree), x.name),
+            reverse=True,
         )
         if not ancestors:
             node.chars = char_range[:]
@@ -474,60 +473,63 @@ def add_characters(tree, num_characters, k, th, **kwargs):
             np.random.gamma(k_vec[i], th) < node.dist for i in char_range
         ]
 
-        hgt_event = [
-            np.random.gamma(k_hgt_vec[i], th_hgt) < node.dist
-            for i in char_range
-        ]
-
         # Mutate characters according to `mutation_event`.
         for idx, mutation in enumerate(mutation_event):
             if mutation:
                 chars[idx] = states
                 states += 1
 
-        # For HGT simulation, we first obtain a list of all donors, taxa
-        # which can potentially be source for the borrowing
-        # (those whose root distance is less to or equal to that of the
-        # current taxon, less the current taxon itself), and compute the
-        # distance form the current node to each donor (so we can favor
-        # closer taxa in the borrowing).
-        # NOTE: sorting to guarantee reproducibility
-        pot_source = sorted(
-            [
-                donor
-                for donor, donor_dist in root_dists.items()
-                if donor_dist <= node.dist and donor != node
-            ],
-            key=lambda x: (x.dist, x.name),
-        )
+        # Perform HGT simulation if requested
+        if k_hgt_vec:
+            # For HGT simulation, we first obtain a list of all donors, taxa
+            # which can potentially be source for the borrowing
+            # (those whose root distance is less to or equal to that of the
+            # current taxon, less the current taxon itself), and compute the
+            # distance form the current node to each donor (so we can favor
+            # closer taxa in the borrowing).
+            hgt_event = [
+                np.random.gamma(k_hgt_vec[i], th_hgt) < node.dist
+                for i in char_range
+            ]
 
-        # Compute the probability of each donor, inversely proportional to
-        # the current distance (thus the (min+max)-i). For the time being,
-        # only a linear distibution of the probabilities is allowed.
-        # TODO: allow different distributions
-        donor_prob = np.array(
-            [node.get_distance(donor) for donor in pot_source]
-        )
-        donor_prob = (min(donor_prob) + max(donor_prob)) - donor_prob
+            # NOTE: sorting to guarantee reproducibility
+            pot_source = sorted(
+                [
+                    donor
+                    for donor in sorted_nodes
+                    if donor.get_distance(tree) < node.get_distance(tree)
+                    and donor != node
+                ],
+                key=lambda x: (x.get_distance(tree), x.name),
+            )
 
-        # Select a random donor for each character, which will be used
-        # only if an hgt event is set for the character. While this logic
-        # might seem inefficient (we could draw just those characters to
-        # be replace), it leaves the code in place for future planned
-        # developments.
-        # Note that the probability for `np.random.choice()` (used here as
-        # `random.choice()` from the standard library is not available in
-        # Python 3.5) needs to normalized in range [0,1].
-        # TODO: use python random
-        donor_nodes = np.random.choice(
-            pot_source, num_characters, p=(donor_prob / sum(donor_prob))
-        )
+            # Compute the probability of each donor, inversely proportional to
+            # the current distance (thus the (min+max)-i). For the time being,
+            # only a linear distibution of the probabilities is allowed.
+            # TODO: allow different distributions
+            donor_prob = np.array(
+                [node.get_distance(donor) for donor in pot_source]
+            )
+            donor_prob = (min(donor_prob) + max(donor_prob)) - donor_prob
 
-        # Mutate characters by performing a horizontal gene transfer
-        # according to `hgt_event`.
-        for idx, hgt, donor_node in zip(char_range, hgt_event, donor_nodes):
-            if hgt:
-                chars[idx] = donor_node.chars[idx]
+            # Select a random donor for each character, which will be used
+            # only if an hgt event is set for the character. While this logic
+            # might seem inefficient (we could draw just those characters to
+            # be replace), it leaves the code in place for future planned
+            # developments.
+            # Note that the probability for `np.random.choice()` (used here as
+            # `random.choice()` from the standard library is not available in
+            # Python 3.5) needs to normalized in range [0,1].
+            # TODO: use python random
+            donor_nodes = np.random.choice(
+                pot_source, num_characters, p=(donor_prob / sum(donor_prob))
+            )
+
+            # Mutate characters by performing a horizontal gene transfer
+            # according to `hgt_event`.
+            for idx, hgt, donor_node in zip(char_range, hgt_event, donor_nodes):
+                if hgt:
+                    chars[idx] = donor_node.chars[idx]
 
         # Set the new characters.
         node.chars = chars

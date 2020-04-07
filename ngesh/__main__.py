@@ -56,6 +56,7 @@ def new_tree(args):
             k_hgt=args.k_hgt,
             th_hgt=args.th_hgt,
             e=args.e_mut,
+            seed=args.seed,
         )
 
     return tree
@@ -173,12 +174,12 @@ def parse_arguments():
     parser.add_argument(
         "--k_hgt",
         type=float,
-        help="Set character HGT gamma `k` parameter (default 1.5 * `k_mut`)",
+        help="Set character HGT gamma `k` parameter (default None)",
     )
     parser.add_argument(
         "--th_hgt",
         type=float,
-        help="Set character HGT gamma `theta` parameter (default `th_mut`)",
+        help="Set character HGT gamma `theta` parameter (default None)",
     )
     parser.add_argument(
         "--lam",
