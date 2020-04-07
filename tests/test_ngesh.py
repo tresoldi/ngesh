@@ -114,11 +114,11 @@ class TestTree(unittest.TestCase):
         )
         assert (
             h_tree.write()
-            == "(Tifvep:0.449746,((Ova:0.0968117,Die:0.0968117)1:0.330426,Ue:0.26938)1:0.0225083);"
+            == "(Hifvepo:0.449746,((Bibeu:0.0968117,Pelbe:0.0968117)1:0.330426,Fuzegpu:0.26938)1:0.0225083);"
         )
         assert (
             b_tree.write()
-            == "(Diesles zegpus:0.449746,((Ovasos vuvus:0.0968117,Tipepa lesas:0.0968117)1:0.330426,Ueses ases:0.26938)1:0.0225083);"
+            == "(Sbibeus neartas:0.449746,((Spelbes rempucis:0.0968117,Spuzegpus spicus:0.0968117)1:0.330426,Wipepo uales:0.26938)1:0.0225083);"
         )
 
     def test_generation_pruning(self):

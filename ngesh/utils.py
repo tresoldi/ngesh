@@ -77,7 +77,7 @@ def __gen_syl(min_syl, max_syl):
 
     # Map each syllable to random sounds
     syllables = []
-    for _ in range(np.random.randint(min_syl, max_syl+1)):
+    for _ in range(np.random.randint(min_syl, max_syl + 1)):
         syllable = "".join(
             [
                 np.random.choice(__SOUNDS[sound_class])
