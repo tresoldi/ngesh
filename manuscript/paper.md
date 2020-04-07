@@ -29,13 +29,14 @@ different parameters and constrains and output in a variety of file formats.
 
 Computational phylogenetics, especially after the popularization of
 Bayesian inference, is being increasingly used in fields beyond biology,
-such as historical linguistics and stemmatics (cite).
+such as historical linguistics [@Bouckaert:2012] and stemmatics
+[@Robinson:2016].
 Such expansions has led to some uncertainties and resistence about its
 adaptability, as the underlying evolutionary metaphors may not be
 immediately transposable across fields, requiring its efficiency to
 be demonstrated. Stochastic simulations, long recommended for
-natural sciences (@Bailey:1990) and phylogenetics in general
-(e.g. @Foote:1999, @Harmon:2019), becomes even more important, allowing
+natural sciences [@Bailey:1990] and phylogenetics in general
+[@Foote:1999; @Harmon:2019], becomes even more important, allowing
 to empirically evaluate efficiency and accuracy, particularly in
 humanity fields in which the number of documented evolutions to serve
 as references may be limited. As a side-effect, simulations can serve as
@@ -55,25 +56,28 @@ gene transfer. Taxa can be labeled either sequentially
 (such as "L01", "L02", "L03") or randomly with either human-readable
 (like "Sume", "Fekobir", and "Tukok") or binominal biological nomenclature
 (like "Sburas wioris", "Zurbata ceglaces", and "Spellis spusso").
-The simulated trees can be used as ETE (@ete2016) tree objects or exported in a
+The simulated trees can be used as ETE [@ETE:2016] tree objects or exported in a
 variety of formats, such as Newick trees, ASCII representation, tabular
 textual listings, etc.
 
 # Installation, Usage, & Examples
 
 The library can be installed with the standard `pip` tool for package
-management, by issuing `pip install ngesh`.
+management, by issuing the "`pip install ngesh`" command.
 Trees can be generated directly from the command line, defaulting to small
 structures in Newick format:
 
 ```bash
 $ ngesh
-(Mamut:1.11985,(Koge:0.880823,(Rozkob:0.789548,(Meu:0.706601,(((Felbuh:0.189693,Kefa:0.189693)1:0.117347,((Epib:0.153782,Vugog:0.153782)1:0.0884745,Puluk:0.242256)1:0.0647836)1:0.0469885,Efam:0.354028)1:0.352573)1:0.0829465)1:0.0912757)1:0.23903);
+(Mamut:1.11985,(Koge:0.880823,(Rozkob:0.789548,(Meu:0.706601,
+(((Felbuh:0.189693,Kefa:0.189693)1:0.117347,((Epib:0.153782,Vugog:0.153782)
+1:0.0884745,Puluk:0.242256)1:0.0647836)1:0.0469885,Efam:0.354028)1:0.352573)
+1:0.0829465)1:0.0912757)1:0.23903);
 ```
 
 The tool allows for both configuration files and command-line flags overriding
 them. Here we generate the Nexus data for a reproducible Yule
-tree (note the "12345" seed) with a birth ratio of 0.75, at least 5 leaves
+tree with a birth ratio of 0.75, at least 5 leaves
 with "human" labels, and 10 presence/absence characters.
 
 ```bash
@@ -102,64 +106,50 @@ Wite      111110110111011011100101000100110
 end;
 ```
 
-The package is, however, designed to be used as a library.
-The main functions for generation are `gen_tree()`, which returns a random tree
-topology, and `add_characters()`, which simulates character evolution in a
-provided tree. As they are separate tasks, it is possible to just generate
+Despite the convenience of a command-line tool, the package is designed to be
+used as a library. The two main functions for generation are `gen_tree()`,
+which returns a random tree, and `add_characters()`, which simulates character
+given a tree in. As they are separate tasks, it is possible to just generate
 a random tree or to simulate character evolution in an user provided tree.
 
 ```python
+>>> import ngesh
+>>> tree = ngesh.gen_tree(1.0, 0.5, max_time=0.5, labels="bio", seed="abc")
+>>> print(tree)
 
-In [1]: import ngesh
-
-In [2]: tree = ngesh.gen_tree(1.0, 0.5, max_time=3.0, labels="human")
-
-In [3]: print(tree)
-
-      /-Butobfa
+      /-Nedoros seveddi
    /-|
-  |  |   /-Defomze
-  |   \-|
-  |      \-Gegme
---|
-  |      /-Bo
-  |   /-|
-  |  |   \-Peoni
-   \-|
-     |   /-Riuzo
-      \-|
-         \-Hoale
-
-In [4]: tree = ngesh.add_characters(tree, 10, 3.0, 1.0)
-
-In [5]: print(ngesh.tree2nexus(tree))
+--|   \-Radabmo toras
+  |
+   \-Wirror ubislis
+>>> print(tree.write())
+((Nedoros seveddi:0.158084,Radabmo toras:0.158084)1:0.325586,
+Wirror ubislis:0.48367);
+>>> tree = ngesh.add_characters(tree, 15, 2.0, 0.5)
+>>> print(ngesh.tree2nexus(tree))
 #NEXUS
 
 begin data;
-  dimensions ntax=7 nchar=15;
+  dimensions ntax=3 nchar=22;
   format datatype=standard missing=? gap=-;
   matrix
-Hoale      100111101101110
-Butobfa    101011101110101
-Defomze    101011110110101
-Riuzo      100111101101110
-Peoni      110011101110110
-Bo         110011101110110
-Gegme      101011101110101
+Nedoros_seveddi    1111011011101010101101
+Radabmo_toras      1111011101011010101101
+Wirror_ubislis     1111101011010101011110
   ;
 end;
 ```
 
 # Alternatives
 
-The most complete alternative for simulating phylogenetic processes, even
-though with no particular support for historical linguistics, is the
+The most complete alternative for simulating phylogenetic processes, despite
+no particular support for historical linguistics or stemmatics, is the
 R package `TreeSim` by @Stadler:2011. Always in R, the `rtree()` function
 of the `ape` package and the `birthdeath.tree()` one of the `geiger`
 package might also be sufficient. In Python, code similar to `ngesh` and
 which served as an initial inspiration is provided by @Noutahi:2017,
 and for simpler simulations the `.populate()` method of the `Tree` class in
-ETE can be used as well. In all languages, manual randomization of taxon
+ETE [@ETE:2016] can be used as well. In all languages, manual randomization of taxon
 placement in existing cladograms is a well known alternative.
 
 # Code and Documentation Availability
