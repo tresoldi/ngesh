@@ -18,7 +18,7 @@ bibliography: paper.bib
 
 # Summary
 
-This work presents [`ngesh`](https://pypi.org/project/ngesh/), a Python library for simulating phylogenetic trees and data designed for research in Historical Linguistics and Stemmatics. It allows to generate reproducible stochastic simulations according to various evolutionary criteria, including character-specific mutation rates and probabilities of lateral transmission. Different output formats are supported and results can simulate inadequate data compilation. The library is designed for usage in development, debugging, and benchmarking of software pipelines for phylogenetic inference.
+This work presents [`ngesh`](https://pypi.org/project/ngesh/), a Python library for simulating phylogenetic trees and data designed for research in Historical Linguistics and Stemmatics. It allows to generate reproducible stochastic simulations according to various evolutionary criteria, including character mutation rates and lateral transmission probability. Different output formats are supported and results can simulate inadequate data compilation. The library is designed for usage in development, debugging, and benchmarking of software pipelines for phylogenetic inference.
 
 # Background
 

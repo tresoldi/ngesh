@@ -349,6 +349,7 @@ def gen_tree(birth, death, **kwargs):
 
     return tree
 
+
 # TODO: carry seed? Probably yes.
 def simulate_bad_sampling(tree, cutoff=None):
     """
@@ -386,6 +387,7 @@ def simulate_bad_sampling(tree, cutoff=None):
         for leaf, rnd_remove in zip(tree.get_leaves(), rnd_remove_vec):
             if rnd_remove <= cutoff:
                 leaf.delete()
+
 
 def add_characters(tree, num_characters, k, th, **kwargs):
     """
