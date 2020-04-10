@@ -59,6 +59,10 @@ def new_tree(args):
             seed=args.seed,
         )
 
+    # Simulate bad sampling if requested
+    if args.sampling:
+        ngesh.simulate_bad_sampling(tree, args.sampling)
+
     return tree
 
 
@@ -185,6 +189,11 @@ def parse_arguments():
         "--lam",
         type=float,
         help="Expectation of interval for speciation sampling, allowing politomies (default 0.0)",
+    )
+    parser.add_argument(
+        "-s", "--sampling",
+        type=float,
+        help="The approximate percentage of extant nodes to remove while simulating bad sampling (default None, for no simulation)"
     )
     parser.add_argument(
         "-o",

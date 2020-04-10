@@ -349,6 +349,43 @@ def gen_tree(birth, death, **kwargs):
 
     return tree
 
+# TODO: carry seed? Probably yes.
+def simulate_bad_sampling(tree, cutoff=None):
+    """
+    Modify a tree in place simulating bad sampling.
+
+    Bad sampling is currently simulated in an uniform distribution, i.e.,
+    all existing leaves have the same probability of being removed. Note that
+    if a full simulation of tree topology and characters is peformed,
+    this task must be carried out *after* the simulation of character
+    evolution, as otherwise they would fit the sampled tree and not the
+    original one.
+
+    The random number generator is used as it is (no new seed)
+
+    Parameters
+    ----------
+    cutoff : float
+        The approximate percentage of extant leaves to remove from the
+        tree before returning, simulating uniform bad sampling. As this is
+        performed randomly, there is no guarantee that any leaf will
+        actually be removed. Default to `None` (no bad sampling simulation).
+    """
+
+    # Simulate bad sampling by building an array of random numbers, the same
+    # length of the number of leaves, and dropping thus below a given
+    # threshold.
+    # TODO: add other distributions for bad sampling
+    # TODO: add weighted bad sampling, simulating families; the easiest
+    #       strategy is to weight considering the distance from a
+    #       randomly selected node
+    # NOTE: this is currently only operating on leaves (after pruning, if
+    #       requested) and only removing (i.e., not detaching)
+    if cutoff:
+        rnd_remove_vec = [np.random.random() for leaf in tree.get_leaves()]
+        for leaf, rnd_remove in zip(tree.get_leaves(), rnd_remove_vec):
+            if rnd_remove <= cutoff:
+                leaf.delete()
 
 def add_characters(tree, num_characters, k, th, **kwargs):
     """
