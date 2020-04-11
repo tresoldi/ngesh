@@ -1,5 +1,5 @@
-ngesh library
-=============
+The ngesh library
+=================
 
 Ngesh is a
 Python library for simulating phylogenetic trees and data designed for
@@ -26,7 +26,7 @@ quantifiable precision of results. Simulations also allow basic fuzzy
 testing of software and can support studies on which evolutionary
 models, processes, and sets of criteria better match observed phenomena.
 
-The ```ngesh`` <https://pypi.org/project/ngesh/>`__ library is a tool
+The ```ngesh`` library is a tool
 for setting up these kind of simulations, designed for easy integration
 into phylogenetic pipelines. It can generate reproducible trees and
 correlated data from random seeds, following both user-established
@@ -149,26 +149,35 @@ References
 
 * Bailey, N. T. (1964). The elements of stochastic processes with applications to the natural
 sciences. New York, London, Sydney: John Wiley & Soins.
+
 * Bouckaert, R., Lemey, P., Dunn, M., Greenhill, S. J., Alekseyenko, A. V., Drummond, A. J.,
 Gray, R. D., et al. (2012). Mapping the origins and expansion of the indo-european language
 family. Science, 337(6097), 957–960.
+
 * Foote, M., Hunter, J. P., Janis, C. M., & Sepkoski, J. J. (1999). Evolutionary and preser-
 vational constraints on origins of biologic groups: Divergence times of eutherian mammals.
 Science, 283(5406), 1310–1314. doi:10.1126/science.283.5406.1310
 Harmon, L. J. (2019). Phylogenetic comparative methods. University of Idaho.
+
 * Huerta-Cepas, J., Serra, F., & Bork, P. (2016). ETE 3: Reconstruction, Analysis, and
 Visualization of Phylogenomic Data. Molecular Biology and Evolution, 33(6), 1635–1638.
 doi:10.1093/molbev/msw046
+
 * Maurits, L., Forkel, R., Kaiping, G. A., & Atkinson, Q. D. (2017). BEASTling: A software
 tool for linguistic phylogenetics using beast 2. PloS One, 12(8).
+
 * Noutahi, M.-R. (2017). How to simulate a phylogenetic tree? Retrieved from https://
 mrnoutahi.com/2017/12/05/How-to-simulate-a-tree/
+
 * Paradis, E., & Schliep, K. (2018). Ape 5.0: An environment for modern phylogenetics and
 evolutionary analyses in R. Bioinformatics, 35, 526–528.
+
 * Pennell, M., Eastman, J., Slater, G., Brown, J., Uyeda, J., FitzJohn, R., Alfaro, M., et al.
 (2014). Geiger v2.0: An expanded suite of methods for fitting macroevolutionary models to
 phylogenetic trees. Bioinformatics, 30, 2216–2218.
+
 * Robinson, P. (2016). The digital revolution in scholarly editing. Ars Edendi Lecture Series, 4,
 181–207.
+
 * Stadler, T. (2011). Simulating trees with a fixed number of extant species. Systematic
 Biology, 60(5), 676–684. doi:10.1093/sysbio/syr029
