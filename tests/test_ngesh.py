@@ -57,6 +57,14 @@ class TestTree(unittest.TestCase):
     Class for `ngesh` tests related to tree generation.
     """
 
+    def test_generation_no_stop(self):
+        """
+        Tests an assert is raised if no stopping criteria are given.
+        """
+
+        with self.assertRaises(ValueError):
+            ngesh.gen_tree(1.0, 0.5)
+
     # We first test generations, just to see if no exception is thrown, etc.
     # For all tests, we use the same parameters of birth rate as 1.0
     # and death rate as 0.5.
@@ -76,10 +84,10 @@ class TestTree(unittest.TestCase):
         Tests tree generation with maximum_time stop criterion.
         """
 
-        tree = ngesh.gen_tree(1.0, 0.5, max_time=1.0, seed="myseed")
+        tree = ngesh.gen_tree(1.0, 0.5, max_time=0.1, seed="myseed")
         assert (
             tree.write()
-            == "(L1:0.532642,(((L2:0.183099,L3:0.183099)1:0.0312144,L4:0.0414806)1:0.411228,(((L5:0.0772764,L6:0.185296)1:0.0111507,L7:0.111863)1:0.00297779,L8:0.199425)1:0.426117)1:0.131906);"
+            == "((L1:0.0437074,L2:0.0437074)1:0.0503426,L3:0.09405);"
         )
 
     def test_generation_yule_model(self):
@@ -120,6 +128,10 @@ class TestTree(unittest.TestCase):
             b_tree.write()
             == "(Sbibeus neartas:0.449746,((Spelbes rempucis:0.0968117,Spuzegpus spicus:0.0968117)1:0.330426,Wipepo uales:0.26938)1:0.0225083);"
         )
+
+        # Assert error
+        with self.assertRaises(ValueError):
+            ngesh.gen_tree(1.0, 0.5, max_time=0.5, labels="XXX")
 
     def test_generation_pruning(self):
         """
@@ -183,6 +195,35 @@ class TestTree(unittest.TestCase):
         t2 = ngesh.gen_tree(1.0, 0.5, max_time=3.0, labels="bio", seed=1234)
         assert t1.write() == t2.write()
 
+    def test_bad_sampling(self):
+        """
+        Test bad sampling simulation on an existing tree.
+        """
+        tree = Tree(_TREES[-1])
+        ngesh.add_characters(
+            tree,
+            10,
+            k=4.0,
+            th=1.0,
+            z=1.045,
+            k_hgt=2.0,
+            th_hgt=1.1,
+            seed="myseed",
+        )
+
+        previous = tree.write()
+        ngesh.simulate_bad_sampling(tree, 0.5, seed="myseed")
+
+        digest = hashlib.sha256(
+            str(ngesh.tree2wordlist(tree)).encode("utf-8")
+        ).digest()
+
+        assert tree.write() != previous
+        assert (
+            digest
+            == b'\x8e\xe3\x9fzN\xbe0\xaa\xe2a\xc5\x854\x87>\xe6"s1?\xc1\x08YqM\xc4\xdd9Zh\xb37'
+        )
+
 
 class TestCharacters(unittest.TestCase):
     """
@@ -211,6 +252,27 @@ class TestCharacters(unittest.TestCase):
         assert (
             digest
             == b"\xdc<\x1f\x10N\xbf\xcc\xc4|l26\x10\xfc\xbaN\xb7\\c\x8bB\xca\x95.\xcbH\x82T\xa3\xbd\xff\x15"
+        )
+
+    def test_add_characters_with_hgt(self):
+        tree_hgt = Tree(_TREES[0])
+        ngesh.add_characters(
+            tree_hgt,
+            10,
+            k=4.0,
+            th=1.0,
+            z=1.045,
+            k_hgt=2.0,
+            th_hgt=1.1,
+            seed="myseed",
+        )
+        digest = hashlib.sha256(
+            str(ngesh.tree2wordlist(tree_hgt)).encode("utf-8")
+        ).digest()
+
+        assert (
+            digest
+            == b"\xc0\x84\x8a\xa8\x0b\xd6\xf8\x1b\x9c\xc7\xe6\xaf]\xe7\xee\x105\x989\x9b\xcfke\xe5\xf3\x03\xdc\x17U\x14 \xac"
         )
 
 
@@ -243,6 +305,16 @@ class TestOutput(unittest.TestCase):
         assert (
             digest_wl
             == b"\xb6\xc8i\xf4!\xf4l\x91\xb9\x8d\xb5Kae\x1aF\x9c\xfd\n \x06\xf2D\x1e<\xdd(U]6(\xbf"
+        )
+
+        # Test output for a tree without characters
+        tree_nochar = Tree(_TREES[0])
+        digest_nx_nochar = hashlib.sha256(
+            str(ngesh.tree2nexus(tree_nochar)).encode("utf-8")
+        ).digest()
+        assert (
+            digest_nx_nochar
+            == b"A\x06N\x97n1iD\x01n\x07T\x99al\xa8)m\n\x93\x9ajKp\x07\x9bc\x8a\x03\x1a\x8d\xb7"
         )
 
 
