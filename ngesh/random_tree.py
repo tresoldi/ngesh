@@ -87,10 +87,8 @@ def label_tree(tree, model, seed=None):
             leaf_node.name = name
 
     elif model == "human":
-        for leaf_node, name in zip(
-            leaves, utils.random_labels(len(leaves), seed)
-        ):
-            leaf_node.name = name
+        for leaf, name in zip(leaves, utils.random_labels(len(leaves), seed)):
+            leaf.name = name
 
     else:
         # Build the pattern for the label, including the computation of the
@@ -350,45 +348,6 @@ def gen_tree(birth, death, **kwargs):
     return tree
 
 
-# TODO: carry seed? Probably yes.
-def simulate_bad_sampling(tree, cutoff=None):
-    """
-    Modify a tree in place simulating bad sampling.
-
-    Bad sampling is currently simulated in an uniform distribution, i.e.,
-    all existing leaves have the same probability of being removed. Note that
-    if a full simulation of tree topology and characters is peformed,
-    this task must be carried out *after* the simulation of character
-    evolution, as otherwise they would fit the sampled tree and not the
-    original one.
-
-    The random number generator is used as it is (no new seed)
-
-    Parameters
-    ----------
-    cutoff : float
-        The approximate percentage of extant leaves to remove from the
-        tree before returning, simulating uniform bad sampling. As this is
-        performed randomly, there is no guarantee that any leaf will
-        actually be removed. Default to `None` (no bad sampling simulation).
-    """
-
-    # Simulate bad sampling by building an array of random numbers, the same
-    # length of the number of leaves, and dropping thus below a given
-    # threshold.
-    # TODO: add other distributions for bad sampling
-    # TODO: add weighted bad sampling, simulating families; the easiest
-    #       strategy is to weight considering the distance from a
-    #       randomly selected node
-    # NOTE: this is currently only operating on leaves (after pruning, if
-    #       requested) and only removing (i.e., not detaching)
-    if cutoff:
-        rnd_remove_vec = [np.random.random() for leaf in tree.get_leaves()]
-        for leaf, rnd_remove in zip(tree.get_leaves(), rnd_remove_vec):
-            if rnd_remove <= cutoff:
-                leaf.delete()
-
-
 def add_characters(tree, num_characters, k, th, **kwargs):
     """
     Add random characters to the nodes of a tree.
@@ -437,7 +396,7 @@ def add_characters(tree, num_characters, k, th, **kwargs):
     # Parse **kwargs
     k_hgt = kwargs.get("k_hgt", None)
     th_hgt = kwargs.get("th_hgt", None)
-    e = kwargs.get("e", 1.0)
+    mut_exp = kwargs.get("e", 1.0)
     seed = kwargs.get("seed", None)
 
     # Set seeds
@@ -447,11 +406,11 @@ def add_characters(tree, num_characters, k, th, **kwargs):
     char_range = list(range(num_characters))
 
     # build the k vector per character, with the correction
-    k_vec = [k / (e ** idx) for idx in char_range]
+    k_vec = [k / (mut_exp ** idx) for idx in char_range]
 
     # build the k vector per character for horizontal gene transfer
     if k_hgt and th_hgt:
-        k_hgt_vec = [k / (e ** idx) for idx in char_range]
+        k_hgt_vec = [k / (mut_exp ** idx) for idx in char_range]
     else:
         k_hgt_vec = None
 
@@ -545,7 +504,6 @@ def add_characters(tree, num_characters, k, th, **kwargs):
             # Compute the probability of each donor, inversely proportional to
             # the current distance (thus the (min+max)-i). For the time being,
             # only a linear distibution of the probabilities is allowed.
-            # TODO: allow different distributions
             donor_prob = np.array(
                 [node.get_distance(donor) for donor in pot_source]
             )
@@ -559,7 +517,6 @@ def add_characters(tree, num_characters, k, th, **kwargs):
             # Note that the probability for `np.random.choice()` (used here as
             # `random.choice()` from the standard library is not available in
             # Python 3.5) needs to normalized in range [0,1].
-            # TODO: use python random
             donor_nodes = np.random.choice(
                 pot_source, num_characters, p=(donor_prob / sum(donor_prob))
             )
@@ -574,3 +531,44 @@ def add_characters(tree, num_characters, k, th, **kwargs):
         node.chars = chars
 
     return tree
+
+
+def simulate_bad_sampling(tree, cutoff=None, seed=None):
+    """
+    Modify a tree in place simulating bad sampling.
+
+    Bad sampling is currently simulated in an uniform distribution, i.e.,
+    all existing leaves have the same probability of being removed. Note that
+    if a full simulation of tree topology and characters is peformed,
+    this task must be carried out *after* the simulation of character
+    evolution, as otherwise they would fit the sampled tree and not the
+    original one.
+
+    The random number generator is used as it is (no new seed)
+
+    Parameters
+    ----------
+    tree : object
+        ETE Tree object for bad sampling simulation.
+    cutoff : float
+        The approximate percentage of extant leaves to remove from the
+        tree before returning, simulating uniform bad sampling. As this is
+        performed randomly, there is no guarantee that any leaf will
+        actually be removed. Default to `None` (no bad sampling simulation).
+    seed : value
+        An optional seed for the random number generator. Defaults to None.
+    """
+
+    # Initialize the RNG
+    utils.set_seeds(seed)
+
+    # Simulate bad sampling by building an array of random numbers, the same
+    # length of the number of leaves, and dropping thus below a given
+    # threshold.
+    # NOTE: this is currently only operating on leaves (after pruning, if
+    #       requested) and only removing (i.e., not detaching)
+    if cutoff:
+        rnd_remove_vec = [np.random.random() for leaf in tree.get_leaves()]
+        for leaf, rnd_remove in zip(tree.get_leaves(), rnd_remove_vec):
+            if rnd_remove <= cutoff:
+                leaf.delete()

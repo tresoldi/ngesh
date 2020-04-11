@@ -61,7 +61,7 @@ def new_tree(args):
 
     # Simulate bad sampling if requested
     if args.sampling:
-        ngesh.simulate_bad_sampling(tree, args.sampling)
+        ngesh.simulate_bad_sampling(tree, args.sampling, seed=args.seed)
 
     return tree
 
@@ -194,7 +194,8 @@ def parse_arguments():
         "-s",
         "--sampling",
         type=float,
-        help="The approximate percentage of extant nodes to remove while simulating bad sampling (default None, for no simulation)",
+        help="The approximate percentage of extant nodes to remove while "
+        "simulating bad sampling (default None, for no simulation)",
     )
     parser.add_argument(
         "-o",

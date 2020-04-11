@@ -13,7 +13,10 @@ import numpy as np
 
 # Define data for random label generation: sound classes, too complex
 # clusters, and syllable patterns
-__SOUNDS = {"C": [c for c in "bpdtfvszrlgkmnh"], "V": [v for v in "aeiou"]}
+__SOUNDS = {
+    "C": "b p d t f v s z r l g k m n h".split(),
+    "V": "a e i o u".split(),
+}
 __COMPLEX_CLUSTERS = [
     "pb",
     "bp",
