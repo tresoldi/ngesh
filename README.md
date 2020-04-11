@@ -12,7 +12,7 @@ branch length, etc.).
 It is intended for benchmarking phylogenetic methods, especially in
 historical linguistics, and for providing dummy trees
 for their development and debugging. The generation of
-random phylogenetic trees also goes by the name of "simulation methods
+stochastic phylogenetic trees also goes by the name of "simulation methods
 for phylogenetic trees" or just "phylogenetic tree simulation".
 
 In detail, with `ngesh`:
@@ -118,7 +118,7 @@ with a birth ratio of 0.75, at least 8 leaves with `"human"` labels,
 and 10 presence/absence characters:
 
 ```
-$ cat my_tree.conf 
+$ cat my_tree.conf
 [Config]
 labels=human
 birth=0.666
@@ -277,7 +277,7 @@ and a string seed `"jena"` for reproducibility; the tree data is exported
 in `"wordlist"` format:
 
 ```
-$ cat examples/example_ngesh.conf 
+$ cat examples/example_ngesh.conf
 [Config]
 labels=human
 birth=0.9
@@ -288,7 +288,7 @@ num_chars=100
 
 $ ngesh -c examples/example.conf --seed jena > examples/example.csv
 
-$ head examples/example.csv 
+$ head examples/example.csv
 Language_ID,Feature_ID,Value
 Dotare,feature_0,0
 Dotare,feature_1,1
@@ -312,7 +312,7 @@ default parameters for
 horizontal gene transfer being a bit too aggressive).
 
 ```
-$ cat examples/example_beastling.conf 
+$ cat examples/example_beastling.conf
 [admin]
 basename=example
 [MCMC]
@@ -321,9 +321,9 @@ chainlength=500000
 model=covarion
 data=example.csv
 
-$ beastling example_beastling.conf 
+$ beastling example_beastling.conf
 
-$ beast example.xml 
+$ beast example.xml
 ```
 
 We can proceed normally here: use BEAST2's `treeannotator` (or similar
@@ -386,7 +386,7 @@ a module of a larger system for simulating language evolution and benchmarking
 related tools, called [Enki](https://en.wikipedia.org/wiki/Enki) after the
 Sumerian god of (among many other things) language and mischief.
 
-The intended pronounciation, as in the most accepted reconstructions, is /ŋeʃ/. 
+The intended pronounciation, as in the most accepted reconstructions, is /ŋeʃ/.
 But don't strees over it: it is just a unique name.
 
 ## Alternatives
@@ -507,5 +507,3 @@ In BibTeX:
   year = {2020},
 }
 ```
-
-
