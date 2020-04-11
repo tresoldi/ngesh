@@ -4,7 +4,7 @@ formats:
     - htmlzip
 
 python:
-    version: 3.5
+    version: 3.7
     install:
         - method: pip
           path: .

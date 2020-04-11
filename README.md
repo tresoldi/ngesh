@@ -5,6 +5,7 @@
 [![Codacy
 Badge](https://api.codacy.com/project/badge/Grade/16ece2c98e3e4f319cb134bef2ade19c)](https://www.codacy.com/manual/tresoldi/ngesh?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=tresoldi/ngesh&amp;utm_campaign=Badge_Grade)
 [![PyPI](https://img.shields.io/pypi/v/ngesh.svg)](https://pypi.org/project/ngesh)
+[![Documentation Status](https://readthedocs.org/projects/ngesh/badge/?version=latest)](https://ngesh.readthedocs.io/en/latest/?badge=latest)
 
 `ngesh` is a Python library and related command-line tools
 for simulating phylogenetic trees and related data (characters, states,
