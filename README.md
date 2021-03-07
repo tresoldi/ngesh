@@ -17,6 +17,8 @@ for their development and debugging. The generation of
 stochastic phylogenetic trees also goes by the name of "simulation methods
 for phylogenetic trees" or just "phylogenetic tree simulation".
 
+![ngesh](https://raw.githubusercontent.com/tresoldi/ngesh/master/docs/banner.png)
+
 In detail, with `ngesh`:
 
 * trees can be generated according to user-specified birth and death ratios (and
