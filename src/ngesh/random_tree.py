@@ -1,8 +1,5 @@
-# encoding: utf-8
-
 """
 Random Phylogenetic Tree Generator.
-
 This script provides function to generate random phylogenetic trees in
 a Yule (birth only) or Birth-Death model, setting different generation
 parameters and limiting the tree in terms of number of leaves and/or
@@ -12,32 +9,25 @@ evolution time.
 # Import Python standard libraries
 import math
 import random
+from typing import Hashable, List, Optional
 
 # Import 3rd party libraries
+from ete3 import Tree, TreeNode
 import numpy as np
-from ete3 import Tree
 
 # Import other modules from this library
-from . import utils
+from . import common
 
 # Define the maximum number of tries for generation
 __MAX_ATTEMPTS = 3000
 
 
-def __extant(tree):
+def __extant(tree: Tree) -> List[TreeNode]:
     """
     Internal function returning a list of non-extinct leaves in a tree.
 
-    Parameters
-    ----------
-
-    tree: ete3 tree object
-        The tree whose nodes will be checked.
-
-    Returns
-    -------
-    leaves: list
-        List of extant leaves.
+    :param tree: The tree whose nodes will be checked.
+    :return: List of extant leaves.
     """
 
     # Return a filtered list compiled with a list comprehension; the
@@ -47,7 +37,8 @@ def __extant(tree):
     return [leaf for leaf in tree.get_leaves() if leaf.extinct is False]
 
 
-def label_tree(tree, model, seed=None):
+# TODO: return a success
+def label_tree(tree: Tree, model: str = "enum", seed: Optional[Hashable] = None):
     """
     Labels the nodes of a tree according to a model.
 
@@ -56,17 +47,11 @@ def label_tree(tree, model, seed=None):
 
     Please note that the `tree` object is changed in place (no return).
 
-    Parameters
-    ----------
-
-    tree: ete3 tree object
-        The tree whose nodes will be labeled.
-    model : str
-        A string indicating which model for label generation should be
+    :param tree: The tree whose nodes will be labeled in place.
+    :param model: A string indicating which model for label generation should be
         used. Possible values are "enum" (for enumerated labels), "human"
         (for random single names), and "bio" (for random biological names).
-    seed : value
-        An optional seed for the random number generator, only used in case
+    :param seed: An optional seed for the random number generator, only used in case
         of linguistic and biological labels. Defaults to `None`.
     """
 
@@ -80,14 +65,14 @@ def label_tree(tree, model, seed=None):
         # would be unnamed, but we are manually adding missing labels as
         # enumerations to make sure there are no anynomous nodes.
         # TODO: decide on better approach or make case explicit in docs
-        species = sorted(set(utils.random_species(len(leaves), seed)))
+        species = sorted(set(common.random_species(len(leaves), seed)))
         species += ["L%i" % i for i in range(len(leaves) - len(species))]
 
         for leaf_node, name in zip(leaves, species):
             leaf_node.name = name
 
     elif model == "human":
-        for leaf, name in zip(leaves, utils.random_labels(len(leaves), seed)):
+        for leaf, name in zip(leaves, common.random_labels(len(leaves), seed)):
             leaf.name = name
 
     else:
@@ -117,7 +102,7 @@ def __gen_tree_fast(**kwargs):
     """
 
     # Initialize the RNG
-    utils.set_seeds(kwargs["seed"])
+    common.set_seeds(kwargs["seed"])
 
     # Compute the overall event rate (birth plus death), from which the
     # random expovariate will be drawn. `birth` is here normalized in range
@@ -275,7 +260,17 @@ def __gen_tree_fast(**kwargs):
     return tree
 
 
-def __gen_tree(**kwargs):
+# TODO: add check of either max_time of min_leaves
+def __gen_tree(
+    birth: float,
+    death: float,
+    min_leaves: Optional[int] = None,
+    max_time: Optional[float] = None,
+    lam: float = 0.0,
+    prune: bool = False,
+    labels: str = "enum",
+    seed: Optional[Hashable] = None,
+) -> Tree:
     """
     Internal function for tree generation.
 
@@ -289,10 +284,34 @@ def __gen_tree(**kwargs):
     and does not perform any checking on the values. Information on the
     arguments, which have the same variable names and properties, are given
     in the documentation for `gen_tree()`.
+
+    :param birth: The birth rate (lambda) for the generated tree.
+    :param death: The death rate (mu) for the generated tree. Must be explicitly set
+        to zero for Yule model (i.e., birth only).
+    :param min_leaves: A stopping criterion with the minimum number of extant leaves.
+        The generated tree will have at least the number of requested
+        extant leaves (possibly more, as the last speciation event might
+        produce more leaves than the minimum specified.
+        Defaults to `None`.
+    :param max_time: A stopping criterion with the maximum allowed time for evolution.
+        Defaults to `None`.
+    :param lam: The expectation of interval for sampling a Poisson distribution
+        during speciation, with a minimum of two descendants. Should be used
+        if more than two descendants are to be allowed. Defaults to zero,
+        meaning that all speciation events will have two and only two
+        descendents.
+    :param prune: A flag indicating whether any non-extant leaves should be
+        pruned from the tree before it is returned.
+    :param labels: The model to be used for generating random labels, either
+        "enum" (for enumerated labels), "human" (for random single names),
+        "bio" (for random biological names" or None. Defaults to "enum".
+    :param seed: An optional seed for the random number generator. Defaults
+        to `None`.
+    :return: The tree randomly generated according to the parameters.
     """
 
     # Initialize the RNG
-    utils.set_seeds(kwargs["seed"])
+    common.set_seeds(seed)
 
     # Compute the overall event rate (birth plus death), from which the
     # random expovariate will be drawn. `birth` is here normalized in range
@@ -300,8 +319,8 @@ def __gen_tree(**kwargs):
     # `.random()` and decide if the event is a birth or a death.
     # `death` does not need to be normalized, as it is not used anymore (the
     # only check, below, is `.random() <= birth`).
-    event_rate = kwargs["birth"] + kwargs["death"]
-    birth = kwargs["birth"] / event_rate
+    event_rate = birth + death
+    birth = birth / event_rate
 
     # Create the tree root as a node. Given that the root is at first set as
     # non-extinct and with a branch length of 0.0, it will be immediately
@@ -330,7 +349,7 @@ def __gen_tree(**kwargs):
         # without implementing the event (as, by the random event time, it
         # would take place *after* our maximum time, in the future).
         total_time += event_time
-        if kwargs["max_time"] and total_time > kwargs["max_time"]:
+        if max_time and total_time > max_time:
             break
 
         # Select a random node among the extant ones and set it as extinct
@@ -348,7 +367,7 @@ def __gen_tree(**kwargs):
             # of the children is here initially set to zero, and will be
             # increased by `event_time` in the loop below, along with all
             # other extant nodes.
-            for _ in range(2 + np.random.poisson(kwargs["lam"])):
+            for _ in range(2 + np.random.poisson(lam)):
                 child_node = Tree()
                 child_node.dist = 0
                 child_node.extinct = False
@@ -364,7 +383,7 @@ def __gen_tree(**kwargs):
         leaf_nodes = __extant(tree)
         for leaf in leaf_nodes:
             new_leaf_dist = leaf.dist + event_time
-            leaf.dist = min(new_leaf_dist, (kwargs["max_time"] or new_leaf_dist))
+            leaf.dist = min(new_leaf_dist, (max_time or new_leaf_dist))
 
         # If the event above was a death event, we might be in the undesirable
         # situation where all lineages went extinct before we
@@ -386,10 +405,10 @@ def __gen_tree(**kwargs):
             break
 
         # Check whether one or both the stopping criteria were reached
-        if kwargs["min_leaves"] and len(leaf_nodes) >= kwargs["min_leaves"]:
+        if min_leaves and len(leaf_nodes) >= min_leaves:
             break
 
-        if kwargs["max_time"] and total_time >= kwargs["max_time"]:
+        if max_time and total_time >= max_time:
             break
 
     # In some cases we might end up with technically valid trees composed
@@ -401,17 +420,27 @@ def __gen_tree(**kwargs):
     # Prune the tree, removing extinct leaves, if requested and if a
     # tree was found. Remember that the ete3 `prune()` method takes a list
     # of the nodes that will be kept, removing the other ones.
-    if kwargs["prune"] and tree:
+    if prune and tree:
         tree.prune(__extant(tree))
 
     # Label the tree before returning it, if it was provided
-    if kwargs["labels"] and tree:
-        label_tree(tree, kwargs["labels"], seed=kwargs["seed"])
+    if labels and tree:
+        label_tree(tree, labels, seed=seed)
 
     return tree
 
 
-def gen_tree(birth, death, method="standard", **kwargs):
+def gen_tree(
+    birth: float,
+    death: float,
+    method: str = "standard",
+    min_leaves: Optional[int] = None,
+    max_time: Optional[float] = None,
+    lam: float = 0.0,
+    prune: bool = False,
+    labels: str = "enum",
+    seed: Optional[Hashable] = None,
+) -> Tree:
     """
     Return a random phylogenetic tree.
 
@@ -425,56 +454,32 @@ def gen_tree(birth, death, method="standard", **kwargs):
     within the limits of an internal parameter for maximum number of
     attempts.
 
-    Parameters
-    ----------
-
-    birth : float
-        The birth rate (lambda) for the generated tree.
-    death : float
-        The death rate (mu) for the generated tree. Must be explicitly set
+    :param birth: The birth rate (lambda) for the generated tree.
+    :param death: The death rate (mu) for the generated tree. Must be explicitly set
         to zero for Yule model (i.e., birth only).
-    method: str
-        The generation method to use. Available methods are "default" and
+    :param method: The generation method to use. Available methods are "default" and
         "fast" (contributed by Nicola de Maio).
-    min_leaves : int
-        A stopping criterion with the minimum number of extant leaves.
+    :param min_leaves: A stopping criterion with the minimum number of extant leaves.
         The generated tree will have at least the number of requested
         extant leaves (possibly more, as the last speciation event might
         produce more leaves than the minimum specified.
-        Defaults to None.
-    max_time : float
-        A stopping criterion with the maximum allowed time for evolution.
-        Defaults to None.
-    labels : str or None
-        The model to be used for generating random labels, either
-        "enum" (for enumerated labels), "human" (for random single names),
-        "bio" (for random biological names" or None. Defaults to "enum".
-    seed : value
-        An optional seed for the random number generator. Defaults to None.
-    lam : float
-        The expectation of interval for sampling a Poisson distribution
+        Defaults to `None`.
+    :param max_time: A stopping criterion with the maximum allowed time for evolution.
+        Defaults to `None`.
+    :param lam: The expectation of interval for sampling a Poisson distribution
         during speciation, with a minimum of two descendants. Should be used
         if more than two descendants are to be allowed. Defaults to zero,
         meaning that all speciation events will have two and only two
         descendents.
-    prune : bool
-        A flag indicating whether any non-extant leaves should be pruned from
-        the tree before it is returned.
-
-    Returns
-    -------
-
-    tree : ete3 tree
-        The tree randomly generated according to the parameters.
+    :param prune: A flag indicating whether any non-extant leaves should be
+        pruned from the tree before it is returned.
+    :param labels: The model to be used for generating random labels, either
+        "enum" (for enumerated labels), "human" (for random single names),
+        "bio" (for random biological names" or None. Defaults to "enum".
+    :param seed: An optional seed for the random number generator. Defaults
+        to `None`.
+    :return: The tree randomly generated according to the parameters.
     """
-
-    # Parse kwargs and set defaults
-    min_leaves = kwargs.get("min_leaves", None)
-    max_time = kwargs.get("max_time", None)
-    labels = kwargs.get("labels", "enum")
-    lam = kwargs.get("lam", 0.0)
-    prune = kwargs.get("prune", False)
-    seed = kwargs.get("seed", None)
 
     # Confirm that at least one stopping condition was provided
     if not (min_leaves or max_time):
@@ -508,7 +513,7 @@ def gen_tree(birth, death, method="standard", **kwargs):
         # new seed for future iterations if needed (if the provided seed fails,
         # in case of no tree generation, there is no point in trying the
         # feed again).
-        utils.set_seeds(seed)
+        common.set_seeds(seed)
         seed = np.random.random()
 
         # Ask for a new tree
@@ -532,7 +537,18 @@ def gen_tree(birth, death, method="standard", **kwargs):
     return tree
 
 
-def add_characters(tree, num_characters, k, th, **kwargs):
+# TODO: do it in-place?
+# TODO: rename mut_exp to e?
+def add_characters(
+    tree: Tree,
+    num_characters: int,
+    k: float,
+    th: float,
+    mut_exp: float = 1.0,
+    k_hgt: Optional[float] = None,
+    th_hgt: Optional[float] = None,
+    seed: Optional[Hashable] = None,
+) -> Tree:
     """
     Add random characters to the nodes of a tree.
 
@@ -543,48 +559,28 @@ def add_characters(tree, num_characters, k, th, **kwargs):
     such as the simulation of errors in sequencing/data collection, is
     performed by this function.
 
-    Parameters
-    ----------
-
-    tree: ete3
-        The ete3 tree to which characters will be added. Any previous
+    :param tree: The ete3 tree to which characters will be added. Any previous
         characters will be overridden.
-    num_characters: int
-        The number of characters for each taxa.
-    k : float
-        The k parameter for the gamma distribution related to mutation
+    :param num_characters: The number of characters for each taxa.
+    :param k: The k parameter for the gamma distribution related to mutation
         events.
-    th : float
-        The theta parameter for the gamma distribution related to mutation
+    :param th: The theta parameter for the gamma distribution related to mutation
         events.
-    k_hgt : float
-        The k parameter for the gamma distirbution related to horizontal
+    :param k_hgt: The k parameter for the gamma distirbution related to horizontal
         gene transfer events. Defaults to None (in case HGT should be
         modelled but the user is unsure about an appropriate value for
         `k_hgt`, it suggested to set it to 1.5 times `k`).
-    th_hgt : float
-        The theta parameter for the gamma distribution related to horizontal
+    :param t_hgt: The theta parameter for the gamma distribution related to horizontal
         gene transfer events. Defaults to None (in case HGT should be
         modelled but the user is unsure about an appropriate value for
         `th_hgt`, it suggested to set it to the same value as `th`).
-    e : float
-        The exponent for correction of mutation probability of each
+    :param mut_exp: The exponent for correction of mutation probability of each
         character. Defaults to 1.0 (no correction).
-
-    Returns
-    -------
-    tree : ete3
-        The provided tree, with random characters added.
+    :return: The provided tree, with random characters added.
     """
 
-    # Parse **kwargs
-    k_hgt = kwargs.get("k_hgt", None)
-    th_hgt = kwargs.get("th_hgt", None)
-    mut_exp = kwargs.get("e", 1.0)
-    seed = kwargs.get("seed", None)
-
     # Set seeds
-    utils.set_seeds(seed)
+    common.set_seeds(seed)
 
     # cache a range with the number of characters, for some speed up
     char_range = list(range(num_characters))
@@ -712,7 +708,10 @@ def add_characters(tree, num_characters, k, th, **kwargs):
     return tree
 
 
-def simulate_bad_sampling(tree, cutoff=None, seed=None):
+# TODO: make sure there is a bad sampling if we are unlucky with the seed?
+def simulate_bad_sampling(
+    tree: Tree, cutoff: Optional[float] = None, seed: Optional[Hashable] = None
+):
     """
     Modify a tree in place simulating bad sampling.
 
@@ -723,23 +722,16 @@ def simulate_bad_sampling(tree, cutoff=None, seed=None):
     evolution, as otherwise they would fit the sampled tree and not the
     original one.
 
-    The random number generator is used as it is (no new seed)
-
-    Parameters
-    ----------
-    tree : object
-        ETE Tree object for bad sampling simulation.
-    cutoff : float
-        The approximate percentage of extant leaves to remove from the
+    :param tree: ETE3 Tree object for bad sampling simulation.
+    :param cutoff: The approximate percentage of extant leaves to remove from the
         tree before returning, simulating uniform bad sampling. As this is
         performed randomly, there is no guarantee that any leaf will
         actually be removed. Default to `None` (no bad sampling simulation).
-    seed : value
-        An optional seed for the random number generator. Defaults to None.
+    :param seed: An optional seed for the random number generator. Defaults to `None`.
     """
 
     # Initialize the RNG
-    utils.set_seeds(seed)
+    common.set_seeds(seed)
 
     # Simulate bad sampling by building an array of random numbers, the same
     # length of the number of leaves, and dropping thus below a given

@@ -35,7 +35,9 @@ _TREES = [
 def test_tree_output():
     # Add characters to all test trees
     trees = [
-        ngesh.add_characters(Tree(newick), 100, k=4.0, th=1.0, e=1.05, seed="myseed")
+        ngesh.add_characters(
+            Tree(newick), 100, k=4.0, th=1.0, mut_exp=1.05, seed="myseed"
+        )
         for newick in _TREES
     ]
 

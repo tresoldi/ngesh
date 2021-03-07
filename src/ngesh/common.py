@@ -43,6 +43,9 @@ def set_seeds(seed):
     floats as seed for `numpy` as well.
     """
 
+    if seed is None:
+        return
+
     random.seed(seed)
 
     # allows using strings as np seeds, which only takes uint32 or arrays of
