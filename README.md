@@ -492,8 +492,7 @@ CONTRIBUTING.md file.
 ## References
 
 The `ngesh` banner was designed by Tiago Tresoldi on basis of the
-vignette "Sherwood Forest" by
-J. Needham
+vignette "Sherwood Forest" by J. Needham
 published in Needham, J. (1895) *Studies of trees in pencil and in water colors*. First
 series. London, Glasgow, Edinburgh: Blackie & Son. (under public domain and
 available on [archive.org](https://archive.org/details/studiesoftreesin00need/page/n3/mode/2up)).

@@ -6,18 +6,19 @@ Module with utilitary data and functions.
 import hashlib
 import itertools
 import random
+from typing import Hashable, List, Optional
 
-# Import 3rd party libraries
+# Import 3rd-party libraries
 import numpy as np
 
 
 # Define data for random label generation: sound classes, too complex
 # clusters, and syllable patterns
-__SOUNDS = {
+_SOUNDS = {
     "C": "b p d t f v s z r l g k m n h".split(),
     "V": "a e i o u".split(),
 }
-__COMPLEX_CLUSTERS = [
+_COMPLEX_CLUSTERS = [
     "pb",
     "bp",
     "sz",
@@ -32,10 +33,10 @@ __COMPLEX_CLUSTERS = [
     "pf",
     "sr",
 ]
-__PATTERNS = ["V", "CV", "CV", "CVC"]
+_PATTERNS = ["V", "CV", "CV", "CVC"]
 
 
-def set_seeds(seed):
+def set_seeds(seed: Optional[Hashable] = None):
     """
     Set seeds globally from the user provided one.
 
@@ -43,42 +44,33 @@ def set_seeds(seed):
     floats as seed for `numpy` as well.
     """
 
-    if seed is None:
-        return
-
+    # Set Python generator seed
     random.seed(seed)
 
-    # allows using strings as np seeds, which only takes uint32 or arrays of
-    # NOTE: this won't set the seed if it is None: if you want to seed none
-    #       as seed, manually call np.random.seed()
-    if isinstance(seed, (str, float)):
-        np_seed = np.frombuffer(
-            hashlib.sha256(str(seed).encode("utf-8")).digest(), dtype=np.uint32
-        )
+    # Allows using strings as np seeds, which only takes uint32 or arrays of
+    # numbers. As this does not allow to accept `None`, we manually
+    # call the function if necessary,
+    if seed is None:
+        np.random_seed()
     else:
-        np_seed = seed
+        if isinstance(seed, (str, float)):
+            np_seed = np.frombuffer(
+                hashlib.sha256(str(seed).encode("utf-8")).digest(), dtype=np.uint32
+            )
+        else:
+            np_seed = seed
 
-    # Set the np set
-    np.random.seed(np_seed)
+        # Set the np seed
+        np.random.seed(np_seed)
 
 
-def __gen_syl(min_syl, max_syl):
+def _gen_syl(min_syl: int, max_syl: int) -> List[str]:
     """
     Internal function for generating a random syllable.
 
-    Parameters
-    ----------
-
-    min_syl : int
-        The minimum number of syllables.
-    max_syl : int
-        The maximum number of syllables.
-
-    Returns
-    -------
-
-    syllables : list of strings
-        A list of strings, each with one random syllable.
+    :param min_syl: The minimum number of syllables.
+    :param max_syl: The maximum number of syllables.
+    :return: A list of strings, each with one random syllable.
     """
 
     # Map each syllable to random sounds
@@ -86,8 +78,8 @@ def __gen_syl(min_syl, max_syl):
     for _ in range(np.random.randint(min_syl, max_syl + 1)):
         syllable = "".join(
             [
-                np.random.choice(__SOUNDS[sound_class])
-                for sound_class in np.random.choice(__PATTERNS)
+                np.random.choice(_SOUNDS[sound_class])
+                for sound_class in np.random.choice(_PATTERNS)
             ]
         )
 
@@ -96,7 +88,7 @@ def __gen_syl(min_syl, max_syl):
     return syllables
 
 
-def __clean_label(label):
+def _clean_label(label: str) -> str:
     """
     Returns a cleaned version of a label.
 
@@ -104,6 +96,9 @@ def __clean_label(label):
     label, removing harder to read geminates, treating "h" differently,
     etc. It is also used to guarantee that all labels will be
     capitalized.
+
+    :param label: The label to be cleaned.
+    :return: The cleaned version of the label.
     """
 
     # We "uncapitalize" label, as it might have been capitalized before
@@ -114,17 +109,17 @@ def __clean_label(label):
     # making sure we only have "h" in intervocalic position or at the
     # beginning of the word (increases readability)
     label = label.replace("hh", "")
-    for cons in __SOUNDS["C"]:
+    for cons in _SOUNDS["C"]:
         label = label.replace(cons + "h", cons)
         label = label.replace("h" + cons, cons)
 
-    # Remove too complex clusters by selecting one random sound
-    for cluster in __COMPLEX_CLUSTERS:
+    # Remove clusters that are too complex by selecting one random sound
+    for cluster in _COMPLEX_CLUSTERS:
         if cluster in label:
             label = label.replace(cluster, cluster[np.random.randint(0, 1)])
 
     # Remove geminated vowels
-    for vowel in __SOUNDS["V"]:
+    for vowel in _SOUNDS["V"]:
         label = label.replace(vowel + vowel, vowel)
 
     # Replace initial "i" with "wi" -- this makes reading labels easier
@@ -135,32 +130,26 @@ def __clean_label(label):
     return label.capitalize()
 
 
-def random_labels(size=1, seed=None):
+def random_labels(size: int = 1, seed: Optional[Hashable] = None) -> List[str]:
     """
     Returns a list of unique random pronounceable labels.
 
-    Parameters
-    ----------
-    size : int
-        The number of labels in the returned set. Defaults to one.
-    seed : value
-        An optional seed for the random number generator. Defaults to None.
-
-    Returns
-    -------
-    labels : list of strings
-        The list of unique labels.
+    :param size: The number of labels in the returned set. Defaults to 1.
+    :param seed: An optional seed for the random number generator. Defaults
+        to `None`.
+    :return: The list of unique labels.
     """
 
     # Initialize the RNG
+    # TODO: use set_seeds, fix tests
     random.seed(seed)
 
     # Iterate until enough unique labels have been collected
     ret_labels = []
     for _ in range(size):
         # Generate a random capitalized label with 2 to 3 syllables.
-        syllables = __gen_syl(2, 3)
-        label = __clean_label("".join(syllables))
+        syllables = _gen_syl(2, 3)
+        label = _clean_label("".join(syllables))
 
         # Append more syllables if necessary, one at a time, until an unique
         # name is generated.
@@ -168,7 +157,7 @@ def random_labels(size=1, seed=None):
             if label not in ret_labels:
                 break
 
-            label = __clean_label(label + __gen_syl(1, 1)[0])
+            label = _clean_label(label + _gen_syl(1, 1)[0])
 
         # Collect the generated label.
         ret_labels.append(label)
@@ -183,21 +172,14 @@ def random_labels(size=1, seed=None):
 # this pseudo-modern Latin, and we only really care about good-enough
 # labels in this case. In other words, please don't care too much about
 # this function or the quality of its code ;)
-def random_species(size=1, seed=None):
+def random_species(size: int = 1, seed: Optional[Hashable] = None) -> List[str]:
     """
     Returns a list of unique random species labels.
 
-    Parameters
-    ----------
-    size : int
-        The number of labels in the returned set. Defaults to one.
-    seed : value
-        An optional seed for the random number generator. Defaults to None.
-
-    Returns
-    -------
-    labels : list of strings
-        The list of unique labels.
+    :param size: The number of labels in the returned set. Defaults to 1.
+    :param seed: An optional seed for the random number generator. Defaults
+        to `None`.
+    :return: The list of unique labels.
     """
 
     # Obtain random labels: we need double the number of items, as
@@ -216,8 +198,8 @@ def random_species(size=1, seed=None):
 
     # If the label does not end in a vowel or in s/r, add a random suffix
     labels = [
-        label + np.random.choice(__SOUNDS["V"]) + np.random.choice(["s", ""])
-        if label[-1] not in __SOUNDS["V"] + ["s", "r"]
+        label + np.random.choice(_SOUNDS["V"]) + np.random.choice(["s", ""])
+        if label[-1] not in _SOUNDS["V"] + ["s", "r"]
         else label
         for label in labels
     ]
@@ -247,7 +229,7 @@ def random_species(size=1, seed=None):
     # (i.e., plus an "h"). As all the "h" at this point are intervocalic,
     # we can just run some replacements.
     for plosive in "tp":
-        for vowel in __SOUNDS["V"]:
+        for vowel in _SOUNDS["V"]:
             labels = [
                 label.replace(plosive + vowel, plosive + "h" + vowel)
                 if np.random.random() <= 0.5
@@ -264,8 +246,8 @@ def random_species(size=1, seed=None):
 
     # Increase the number of geminates in case of intervocalic consonants
     for cons in "bpdtsrlgmn":
-        for vowel1 in __SOUNDS["V"]:
-            for vowel2 in __SOUNDS["V"]:
+        for vowel1 in _SOUNDS["V"]:
+            for vowel2 in _SOUNDS["V"]:
                 source = vowel1 + cons + vowel2
                 target = vowel1 + cons + cons + vowel2
 
@@ -280,7 +262,7 @@ def random_species(size=1, seed=None):
         % (
             label,
             np.random.choice(["r", "r", "l"]),
-            np.random.choice(__SOUNDS["V"]) + "s",
+            np.random.choice(_SOUNDS["V"]) + "s",
         )
         if len(label) < 5
         else label
@@ -289,7 +271,7 @@ def random_species(size=1, seed=None):
 
     # Build the actual labels from genera and epithets and return
     labels = [
-        "%s %s" % (__clean_label(genus), __clean_label(epithet).lower())
+        "%s %s" % (_clean_label(genus), _clean_label(epithet).lower())
         for genus, epithet in itertools.zip_longest(labels[:size], labels[size:])
     ]
 

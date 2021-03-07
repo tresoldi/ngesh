@@ -61,19 +61,32 @@ def test_generation_no_stop():
         ngesh.gen_tree(1.0, 0.5)
 
 
-# We first test generations, just to see if no exception is thrown, etc.
-# For all tests, we use the same parameters of birth rate as 1.0
-# and death rate as 0.5.
-def test_generation_min_leaves():
+@pytest.mark.parametrize(
+    "birth,death,min_leaves,seed,expected",
+    [
+        [
+            1.0,
+            0.5,
+            5,
+            "myseed",
+            "(L1:0.532642,((L2:0.0290176,L3:0.0290176)1:0.411228,((L4:0.0111507,L5:0.0111507)1:0.00297779,L6:0.0141285)1:0.426117)1:0.131906);",
+        ],
+        [
+            1.2,
+            0.3,
+            7,
+            12345,
+            "(((((L1:1.54313,L2:1.54313)1:0.348404,((L3:0.0243007,L4:0.0243007)1:0.580711,L5:0.605011)1:1.28653)1:0.991873,L6:0.622061)1:0.579099,(L7:1.39093,L8:1.39093)1:2.07157)1:0.822327,L9:0.395632);",
+        ],
+    ],
+)
+def test_generation_min_leaves(birth, death, min_leaves, seed, expected):
     """
     Tests tree generation with minimum leaf number stop criterion.
     """
 
-    tree = ngesh.gen_tree(1.0, 0.5, min_leaves=5, seed="myseed")
-    assert (
-        tree.write()
-        == "(L1:0.532642,((L2:0.0290176,L3:0.0290176)1:0.411228,((L4:0.0111507,L5:0.0111507)1:0.00297779,L6:0.0141285)1:0.426117)1:0.131906);"
-    )
+    tree = ngesh.gen_tree(birth, death, min_leaves=min_leaves, seed=seed)
+    assert tree.write() == expected
 
 
 def test_generation_max_time():

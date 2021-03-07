@@ -1,5 +1,6 @@
 """
 Random Phylogenetic Tree Generator.
+
 This script provides function to generate random phylogenetic trees in
 a Yule (birth only) or Birth-Death model, setting different generation
 parameters and limiting the tree in terms of number of leaves and/or
@@ -11,7 +12,7 @@ import math
 import random
 from typing import Hashable, List, Optional
 
-# Import 3rd party libraries
+# Import 3rd-party libraries
 from ete3 import Tree, TreeNode
 import numpy as np
 
@@ -85,7 +86,7 @@ def label_tree(tree: Tree, model: str = "enum", seed: Optional[Hashable] = None)
             leaf_node.name = pattern % (leaf_idx + 1)
 
 
-def __gen_tree_fast(**kwargs):
+def _gen_tree_fast(**kwargs):
     """
     Internal function for tree generation.
 
@@ -261,7 +262,7 @@ def __gen_tree_fast(**kwargs):
 
 
 # TODO: add check of either max_time of min_leaves
-def __gen_tree(
+def _gen_tree(
     birth: float,
     death: float,
     min_leaves: Optional[int] = None,
@@ -491,9 +492,9 @@ def gen_tree(
 
     # Decide on the method to use
     if method == "standard":
-        gen_function = __gen_tree
+        gen_function = _gen_tree
     elif method == "fast":
-        gen_function = __gen_tree_fast
+        gen_function = _gen_tree_fast
     else:
         raise ValueError("Unknown generation method")
 
