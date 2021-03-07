@@ -490,27 +490,32 @@ CONTRIBUTING.md file.
 
 ## Author and citation
 
-The library is developed by Tiago Tresoldi (tresoldi@shh.mpg.de).
+The library is developed by Tiago Tresoldi (tiago.tresoldi@lingfil.uu.se).
 
-The author has received funding from the European Research Council (ERC)
-under the European Union’s Horizon 2020 research and innovation
-programme (grant agreement
+The author has received funding from the Riksbankens Jubileumsfond
+(grant agreement ID: [MXM19-1087:1](https://www.rj.se/en/anslag/2019/cultural-evolution-of-texts/),
+[Cultural Evolution of Texts](https://github.com/evotext/)).
+
+During the first stages of development, the author received funding from the
+European Research Council (ERC) under the European Union’s Horizon 2020
+research and innovation programme (grant agreement
 No. [ERC Grant #715618](https://cordis.europa.eu/project/rcn/206320/factsheet/en),
-[Computer-Assisted Language Comparison](https://digling.org/calc/).
+[Computer-Assisted Language Comparison](https://digling.org/calc/)).
 
 If you use `ngesh`, please cite it as:
 
-> Tresoldi, Tiago (2020). Ngesh, a tool for simulating random phylogenetic trees.
-Version 0.4. Jena. Available at: https://github.com/tresoldi/ngesh
+> Tresoldi, Tiago (2021). Ngesh, a tool for simulating random phylogenetic trees.
+Version 0.5. Uppsala: Uppsala universitet. Available at: https://github.com/tresoldi/ngesh
 
 In BibTeX:
 
 ```
 @misc{Tresoldi2020ngesh,
   author = {Tresoldi, Tiago},
-  title = {Ngesh, a tool for simulating random phylogenetic trees. Version 0.4},
+  title = {Ngesh, a tool for simulating random phylogenetic trees. Version 0.5},
   howpublished = {\url{https://github.com/tresoldi/ngesh}},
-  address = {Jena},
-  year = {2020},
+  address = {Uppsala},
+  publisher = {Uppsala universitet},
+  year = {2021},
 }
 ```
