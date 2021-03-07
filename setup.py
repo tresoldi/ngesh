@@ -4,10 +4,10 @@ setup.py for the `ngesh` library
 Requirements are listed in `requirements.txt`.
 """
 
-import pathlib
 
 # Import Python standard libraries
-from setuptools import setup
+from setuptools import setup, find_packages
+import pathlib
 
 # The directory containing this file
 LOCAL_PATH = pathlib.Path(__file__).parent
@@ -31,6 +31,10 @@ setup(
     ],
     description="Simulate random phylogenetic trees",
     entry_points={"console_scripts": ["ngesh=ngesh.__main__:main"]},
+    extras_require={
+        "dev": ["black", "flake8", "twine", "wheel"],
+        "test": ["pytest"],
+    },
     include_package_data=True,
     install_requires=install_requires,
     keywords=["random phylogenetic tree", "phylogenetics", "simulation"],
@@ -38,7 +42,8 @@ setup(
     long_description=README_FILE,
     long_description_content_type="text/markdown",
     name="ngesh",
-    packages=["ngesh"],
+    packages=find_packages(where="src"),
+    package_dir={"": "src"},
     python_requires=">=3.6",
     test_suite="tests",
     tests_require=[],
