@@ -86,7 +86,16 @@ def label_tree(tree: Tree, model: str = "enum", seed: Optional[Hashable] = None)
             leaf_node.name = pattern % (leaf_idx + 1)
 
 
-def _gen_tree_fast(**kwargs):
+def _gen_tree_fast(
+    birth: float,
+    death: float,
+    min_leaves: Optional[int] = None,
+    max_time: Optional[float] = None,
+    lam: float = 0.0,
+    prune: bool = False,
+    labels: str = "enum",
+    seed: Optional[Hashable] = None,
+):
     """
     Internal function for tree generation.
 
@@ -103,7 +112,7 @@ def _gen_tree_fast(**kwargs):
     """
 
     # Initialize the RNG
-    common.set_seeds(kwargs["seed"])
+    common.set_seeds(seed)
 
     # Compute the overall event rate (birth plus death), from which the
     # random expovariate will be drawn. `birth` is here normalized in range
@@ -111,8 +120,8 @@ def _gen_tree_fast(**kwargs):
     # `.random()` and decide if the event is a birth or a death.
     # `death` does not need to be normalized, as it is not used anymore (the
     # only check, below, is `.random() <= birth`).
-    event_rate = kwargs["birth"] + kwargs["death"]
-    birth = kwargs["birth"] / event_rate
+    event_rate = birth + death
+    birth = birth / event_rate
 
     # Create the tree root as a node. Given that the root is at first set as
     # non-extinct and with a branch length of 0.0, it will be immediately
@@ -132,9 +141,9 @@ def _gen_tree_fast(**kwargs):
     # extant nodes.
     total_time = 0.0
     while True:
-        # Get the list of extant leaves
-        # NICOLA: I removed this, as with the new leaves list we can more efficiently keep track of the extant leaf nodes
-        # leaf_nodes = __extant(tree)
+        # Note that, in comparison to the default method, this implementation
+        # does not check for extant leaves, as with the new `leaves` list we
+        # can more efficiently keep track of the extantn leaf nodes
 
         # Compute the event time before the next birth/death event from a
         # random exporaviate reflecting the number of extant leaves and the
@@ -146,27 +155,28 @@ def _gen_tree_fast(**kwargs):
         # without implementing the event (as, by the random event time, it
         # would take place *after* our maximum time, in the future).
         total_time += event_time
-        if kwargs["max_time"] and total_time > kwargs["max_time"]:
-
+        if max_time and total_time > max_time:
             # NICOLA: this is a trick to save time on the branch lengths updates.
             # node.dist is initialized with the time at which the nodes were created,
-            # and when a node is terminated or the simulation is finished, node.dist is updated to
-            # represent the branch length.
+            # and when a node is terminated or the simulation is finished, node.dist
+            # is updated to # represent the branch length.
             for node in leaves:
-                node.dist = kwargs["max_time"] - node.dist
+                node.dist = max_time - node.dist
+
             break
 
         # Select a random node among the extant ones and set it as extinct
         # before simulating either a birth or death event; the type of
         # event is decided based on the comparison of the result of a
         # `random.random()` call with `birth` (here already normalized in
-        # relation to `event_rate`)
-        # node = np.random.choice(leaf_nodes)
-        # NICOLA: small change to keep track of the position of the parent node within the list leaves.
-        leafN = np.random.random_integers(len(leaves)) - 1
-        node = leaves[leafN]
+        # relation to `event_rate`). In relation to the default implementation,
+        # this one keepts track of the position of the parent node
+        # within the list leaves.
+        leaf_n = np.random.random_integers(len(leaves)) - 1
+        node = leaves[leaf_n]
         node.extinct = True
-        # NICOLA: as before, here we update node.dist for a node before putting it away
+
+        # As before, here we update node.dist for a node before putting it away
         node.dist = total_time - node.dist
         if np.random.random() <= birth:
             # The event will be a birth (i.e., speciation one), with at least
@@ -176,41 +186,32 @@ def _gen_tree_fast(**kwargs):
             # of the children is here initially set to zero, and will be
             # increased by `event_time` in the loop below, along with all
             # other extant nodes.
-            # NICOLA: here I am taking care of the first child out of the loop just so
-            # I can replace its parent with it in the leaves list - this wasn't necessary.
+            # Here, Nicola's implementation takes care of the first child
+            # out of the loop just so it can replace its parent with it in
+            # the leaves list - this was not necesasary.
             child_node = Tree()
-            # NICOLA: as mentioned before node.dist is initialized as the current time - this is a speed-up trick but the result is the same.
+
+            # As mentioned before, in Nicola's implementation node.dist is
+            # initialized as the current time - this is a speed-up trick but
+            # the result is the same.
             child_node.dist = total_time
             child_node.extinct = False
             node.add_child(child_node)
-            # NICOLA: child replacing parent in the leaves list
-            leaves[leafN] = child_node
-            for _ in range(1 + np.random.poisson(kwargs["lam"])):
+
+            # Child replacing parent in the leaves list
+            leaves[leaf_n] = child_node
+            for _ in range(1 + np.random.poisson(lam)):
                 child_node = Tree()
                 child_node.dist = total_time
                 child_node.extinct = False
 
+                # Adding child to node and leaves
                 node.add_child(child_node)
-                # NICOLA: adding child to leaves
                 leaves.append(child_node)
 
         else:
-            # NICOLA: remove node from leaves if it dies.
-            del leaves[leafN]
-
-        # (Re)Extract the list of extant nodes, now that we might have new
-        # children and that the randomly selected node went extinct
-        # (easier than directly manipulating the Python list). From the
-        # updated list, we will extend the branch length of all extant leaves
-        # (thus including any new children) by the `event_time` computed
-        # above.
-        # NICOLA: with the other changes, this is not needed now.
-        # leaf_nodes = __extant(tree)
-        # for leaf in leaf_nodes:
-        #    new_leaf_dist = leaf.dist + event_time
-        #    leaf.dist = min(
-        #        new_leaf_dist, (kwargs["max_time"] or new_leaf_dist)
-        #    )
+            # Remove node from leaves if it dies.
+            del leaves[leaf_n]
 
         # If the event above was a death event, we might be in the undesirable
         # situation where all lineages went extinct before we
@@ -232,15 +233,10 @@ def _gen_tree_fast(**kwargs):
             break
 
         # Check whether the number of leaves stopping criterium was reached
-        if kwargs["min_leaves"] and len(leaves) >= kwargs["min_leaves"]:
-            # NICOLA: usual node.dist update here before terminating the simulation.
+        if min_leaves and len(leaves) >= min_leaves:
             for node in leaves:
                 node.dist = total_time - node.dist
             break
-
-        # NICOLA: this test was already done before so I removed it.
-        # if kwargs["max_time"] and total_time >= kwargs["max_time"]:
-        #    break
 
     # In some cases we might end up with technically valid trees composed
     # only of the root. We make sure at least one speciation event took
@@ -251,12 +247,12 @@ def _gen_tree_fast(**kwargs):
     # Prune the tree, removing extinct leaves, if requested and if a
     # tree was found. Remember that the ete3 `prune()` method takes a list
     # of the nodes that will be kept, removing the other ones.
-    if kwargs["prune"] and tree:
+    if prune and tree:
         tree.prune(leaves)
 
     # Label the tree before returning it, if it was provided
-    if kwargs["labels"] and tree:
-        label_tree(tree, kwargs["labels"], seed=kwargs["seed"])
+    if labels and tree:
+        label_tree(tree, labels, seed=seed)
 
     return tree
 
@@ -269,7 +265,7 @@ def _gen_tree(
     max_time: Optional[float] = None,
     lam: float = 0.0,
     prune: bool = False,
-    labels: str = "enum",
+    labels: Optional[str] = "enum",
     seed: Optional[Hashable] = None,
 ) -> Tree:
     """
@@ -439,7 +435,7 @@ def gen_tree(
     max_time: Optional[float] = None,
     lam: float = 0.0,
     prune: bool = False,
-    labels: str = "enum",
+    labels: Optional[str] = "enum",
     seed: Optional[Hashable] = None,
 ) -> Tree:
     """
