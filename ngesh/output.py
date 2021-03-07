@@ -82,9 +82,7 @@ def tree2nexus(tree):
     # Collect the number of states used per concept in the entire tree.
     concept_states = [
         set(concept)
-        for concept in itertools.zip_longest(
-            *[data[taxon] for taxon in sorted(data)]
-        )
+        for concept in itertools.zip_longest(*[data[taxon] for taxon in sorted(data)])
     ]
 
     # Build the textual binary strings
@@ -93,10 +91,7 @@ def tree2nexus(tree):
         # Build a sequence of booleans indicating whether the state is found
         seq = itertools.chain.from_iterable(
             [
-                [
-                    concept_state == state
-                    for state in concept_states[concept_idx]
-                ]
+                [concept_state == state for state in concept_states[concept_idx]]
                 for concept_idx, concept_state in enumerate(data[taxon])
             ]
         )

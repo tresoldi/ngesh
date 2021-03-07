@@ -364,9 +364,7 @@ def __gen_tree(**kwargs):
         leaf_nodes = __extant(tree)
         for leaf in leaf_nodes:
             new_leaf_dist = leaf.dist + event_time
-            leaf.dist = min(
-                new_leaf_dist, (kwargs["max_time"] or new_leaf_dist)
-            )
+            leaf.dist = min(new_leaf_dist, (kwargs["max_time"] or new_leaf_dist))
 
         # If the event above was a death event, we might be in the undesirable
         # situation where all lineages went extinct before we
@@ -653,9 +651,7 @@ def add_characters(tree, num_characters, k, th, **kwargs):
         # note that, as we might have individual `k` parameters due to
         # the exponential correction, we cannot just ask for an array/list
         # of random numbers, but need to iterate one by one.
-        mutation_event = [
-            np.random.gamma(k_vec[i], th) < node.dist for i in char_range
-        ]
+        mutation_event = [np.random.gamma(k_vec[i], th) < node.dist for i in char_range]
 
         # Mutate characters according to `mutation_event`.
         for idx, mutation in enumerate(mutation_event):
@@ -672,8 +668,7 @@ def add_characters(tree, num_characters, k, th, **kwargs):
             # distance form the current node to each donor (so we can favor
             # closer taxa in the borrowing).
             hgt_event = [
-                np.random.gamma(k_hgt_vec[i], th_hgt) < node.dist
-                for i in char_range
+                np.random.gamma(k_hgt_vec[i], th_hgt) < node.dist for i in char_range
             ]
 
             # NOTE: sorting to guarantee reproducibility
@@ -682,7 +677,7 @@ def add_characters(tree, num_characters, k, th, **kwargs):
                     donor
                     for donor in sorted_nodes
                     if donor.get_distance(tree) < node.get_distance(tree)
-                       and donor != node
+                    and donor != node
                 ],
                 key=lambda x: (x.get_distance(tree), x.name),
             )
@@ -690,9 +685,7 @@ def add_characters(tree, num_characters, k, th, **kwargs):
             # Compute the probability of each donor, inversely proportional to
             # the current distance (thus the (min+max)-i). For the time being,
             # only a linear distibution of the probabilities is allowed.
-            donor_prob = np.array(
-                [node.get_distance(donor) for donor in pot_source]
-            )
+            donor_prob = np.array([node.get_distance(donor) for donor in pot_source])
             donor_prob = (min(donor_prob) + max(donor_prob)) - donor_prob
 
             # Select a random donor for each character, which will be used

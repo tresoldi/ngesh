@@ -87,10 +87,7 @@ class TestTree(unittest.TestCase):
         """
 
         tree = ngesh.gen_tree(1.0, 0.5, max_time=0.1, seed="myseed")
-        assert (
-            tree.write()
-            == "((L1:0.0437074,L2:0.0437074)1:0.0503426,L3:0.09405);"
-        )
+        assert tree.write() == "((L1:0.0437074,L2:0.0437074)1:0.0503426,L3:0.09405);"
 
     def test_generation_yule_model(self):
         """
@@ -108,15 +105,9 @@ class TestTree(unittest.TestCase):
         Tests tree generation with all the label models.
         """
 
-        e_tree = ngesh.gen_tree(
-            1.0, 0.5, max_time=0.5, labels="enum", seed="myseed"
-        )
-        h_tree = ngesh.gen_tree(
-            1.0, 0.5, max_time=0.5, labels="human", seed="myseed"
-        )
-        b_tree = ngesh.gen_tree(
-            1.0, 0.5, max_time=0.5, labels="bio", seed="myseed"
-        )
+        e_tree = ngesh.gen_tree(1.0, 0.5, max_time=0.5, labels="enum", seed="myseed")
+        h_tree = ngesh.gen_tree(1.0, 0.5, max_time=0.5, labels="human", seed="myseed")
+        b_tree = ngesh.gen_tree(1.0, 0.5, max_time=0.5, labels="bio", seed="myseed")
 
         assert (
             e_tree.write()
@@ -216,9 +207,7 @@ class TestTree(unittest.TestCase):
         previous = tree.write()
         ngesh.simulate_bad_sampling(tree, 0.5, seed="myseed")
 
-        digest = hashlib.sha256(
-            str(ngesh.tree2wordlist(tree)).encode("utf-8")
-        ).digest()
+        digest = hashlib.sha256(str(ngesh.tree2wordlist(tree)).encode("utf-8")).digest()
 
         assert tree.write() != previous
         assert (
