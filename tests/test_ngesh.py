@@ -8,6 +8,8 @@ test_ngesh
 Tests for the `ngesh` package.
 """
 
+# TODO: add test for `fast` method
+
 # Import third-party libraries
 from ete3 import Tree
 import hashlib
