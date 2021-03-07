@@ -46,6 +46,9 @@ tabular textual listings, etc.
 
 ### Changelog
 
+Version 0.5:
+  - Included new faster generation method contributed by @NicolaDM
+
 Version 0.4.1:
   - Fixed bug with character generation during simulation of horizontal
     gene transfer
