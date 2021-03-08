@@ -38,7 +38,6 @@ def __extant(tree: Tree) -> List[TreeNode]:
     return [leaf for leaf in tree.get_leaves() if leaf.extinct is False]
 
 
-# TODO: return a success
 def label_tree(tree: Tree, model: str = "enum", seed: Optional[Hashable] = None):
     """
     Labels the nodes of a tree according to a model.
@@ -65,7 +64,6 @@ def label_tree(tree: Tree, model: str = "enum", seed: Optional[Hashable] = None)
         # The execution would not fail as we are using `zip()`, only items
         # would be unnamed, but we are manually adding missing labels as
         # enumerations to make sure there are no anonymous nodes.
-        # TODO: decide on better approach or make case explicit in docs
         species = sorted(set(common.random_species(len(leaves), seed)))
         species += ["L%i" % i for i in range(len(leaves) - len(species))]
 
@@ -257,7 +255,6 @@ def _gen_tree_fast(
     return tree
 
 
-# TODO: add check of either max_time of min_leaves
 def _gen_tree(
     birth: float,
     death: float,
@@ -535,7 +532,6 @@ def gen_tree(
 
 
 # TODO: do it in-place?
-# TODO: rename mut_exp to e?
 def add_characters(
     tree: Tree,
     num_characters: int,
@@ -707,7 +703,6 @@ def add_characters(
     return tree
 
 
-# TODO: make sure there is a bad sampling if we are unlucky with the seed?
 def simulate_bad_sampling(
     tree: Tree, cutoff: Optional[float] = None, seed: Optional[Hashable] = None
 ):
@@ -720,6 +715,9 @@ def simulate_bad_sampling(
     this task must be carried out *after* the simulation of character
     evolution, as otherwise they would fit the sampled tree and not the
     original one.
+
+    As the bad sampling simulation is also based on random numbers,
+    while unlikely it is possible that no actual simulation takes place.
 
     :param tree: ETE3 Tree object for bad sampling simulation.
     :param cutoff: The approximate percentage of extant leaves to remove from the
