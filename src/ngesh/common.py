@@ -141,8 +141,7 @@ def random_labels(size: int = 1, seed: Optional[Hashable] = None) -> List[str]:
     """
 
     # Initialize the RNG
-    # TODO: use set_seeds, fix tests
-    random.seed(seed)
+    set_seeds(seed)
 
     # Iterate until enough unique labels have been collected
     ret_labels = []

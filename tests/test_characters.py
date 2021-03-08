@@ -49,7 +49,7 @@ def test_add_characters():
         str(ngesh.tree2wordlist(trees[2])).encode("utf-8")
     ).hexdigest()
 
-    assert digest0 == "f869aeb50c1803619be9e1f95f2ef8e3"
+    assert digest0 == "ca4d18471017451744989d50359a3987"
     assert digest1 == "de938cc901e3fd66ebce8b3cf14fc17c"
     assert digest2 == "c579a146e80807b1ebbdb6deec47a084"
 

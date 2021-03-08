@@ -182,12 +182,11 @@ def test_generation_labelling():
     )
     assert (
         h_tree.write()
-        == "(Hifvepo:0.477492,((Bibeu:0.0502537,Pelbe:0.0502537)1:0.157858,Fuzegpu:0.0610461)1:0.26938);"
+        == "(Vaduggoh:0.477492,((Guvep:0.0502537,Nanga:0.0502537)1:0.157858,Uele:0.0610461)1:0.26938);"
     )
     assert (
-        b_tree.write()
-        == "(Sbibeus neartas:0.477492,((Spelbes rempucis:0.0502537,Spuzegpus spicus:0.0502537)1:0.157858,"
-        "Wipepo uales:0.0610461)1:0.26938);"
+        b_tree.write() == "(Guvepus zegpua:0.477492,((Nangas apes:0.0502537,Ueles "
+        "sbatatapes:0.0502537)1:0.157858,Vaduggo nuvus:0.0610461)1:0.26938);"
     )
 
     # Assert error
