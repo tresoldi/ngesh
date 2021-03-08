@@ -3,6 +3,7 @@ exclude_paths:
     - "README.md"
     - "CONTRIBUTING.md"
     - "CODE_OF_CONDUCT.md"
+    - "CHANGELOG.md"
     - "manuscript/*"
     - "tests/*.py"
     - "docs/conf.py"
