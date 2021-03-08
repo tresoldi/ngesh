@@ -3,8 +3,8 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to ngesh's documentation!
-=================================
+Welcome to ngesh' documentation!
+================================
 
 |PyPI| |CI| |Codacy Badge| |Documentation Status|
 

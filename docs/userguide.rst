@@ -1,5 +1,5 @@
-Userguide for the ``ngesh`` library
-===================================
+User guide for the ``ngesh`` library
+====================================
 
 Command line
 

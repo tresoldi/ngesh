@@ -9,9 +9,6 @@ phylogenetic trees also goes by the name of “simulation methods for
 phylogenetic trees”, “synthetic data”, or just “phylogenetic tree
 simulation”.
 
-.. figure:: https://raw.githubusercontent.com/tresoldi/ngesh/master/docs/banner.png
-   :alt: ngesh
-
 Among the highlights of the package, with ``ngesh``:
 
 -  any hashable element can be provided as a seed for the pseudo-random
@@ -166,8 +163,6 @@ Viewer on a random tree:
 
 .. figure:: https://raw.githubusercontent.com/tresoldi/ngesh/master/docs/tree001.png
    :alt: random tree
-
-   random tree
 
 The main functions for generation are ``gen_tree()``
 (`doc <https://ngesh.readthedocs.io/en/latest/source/ngesh.html#ngesh.random_tree.gen_tree>`__),
@@ -346,16 +341,12 @@ topology (which we can regenerate with the earlier seed).
 .. figure:: https://raw.githubusercontent.com/tresoldi/ngesh/master/docs/summary.nex.png
    :alt: summary tree
 
-   summary tree
-
 .. code:: bash
 
    $ ngesh -c examples/example_ngesh.conf --seed uppsala --output newick > examples/example.nw
 
 .. figure:: https://raw.githubusercontent.com/tresoldi/ngesh/master/docs/example.nw.png
    :alt: original tree
-
-   original tree
 
 The results are not excellent given the limits we set for quick
 demonstration, but it still capture major information and subgroupings
@@ -369,8 +360,6 @@ particular random tree.
 
 .. figure:: https://raw.githubusercontent.com/tresoldi/ngesh/master/docs/summary.nex2.png
    :alt: summary tree radial
-
-   summary tree radial
 
 Trees can, as expected, be compared with common methods of tree
 comparison, such as `Robinson–Foulds
