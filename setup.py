@@ -32,6 +32,7 @@ setup(
     description="Simulate random phylogenetic trees",
     entry_points={"console_scripts": ["ngesh=ngesh.__main__:main"]},
     extras_require={
+        "gfx": ["PyQt5"],
         "dev": ["black", "flake8", "twine", "wheel"],
         "test": ["pytest"],
     },
@@ -51,3 +52,4 @@ setup(
     version="0.4.1",  # remember to sync with __init__.py
     zip_safe=False,
 )
+

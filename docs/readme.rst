@@ -1,5 +1,5 @@
-Ngesh, a library for phylogenetic tree simulation
-=================================================
+Manual
+======
 
 ``ngesh`` is a Python library and command-line tool for simulating
 phylogenetic trees and related data (characters, states, branch length,

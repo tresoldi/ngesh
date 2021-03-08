@@ -37,20 +37,27 @@ Among the highlights of the package, with `ngesh`:
   (like "L01", "L02", and "L03"), random pronounceable names (like "Sume", "Fekobir", and "Tukok"),
   or random biological names approximating the binomial nomenclature standard
   (like "Sburas wioris", "Zurbata ceglaces", and "Spellis spusso")
-* trees can be returned as [ETE](http://etetoolkit.org/) tree objects or
-  exported in a variety of formats, such as Newick trees, ASCII representation,
+* returned trees are as [ETE3](http://etetoolkit.org/) tree objects and can be
+  exported to a variety of formats, such as Newick trees, ASCII representation,
   tabular textual listings, etc.
 
 ## Installation
 
 In any standard Python environment, `ngesh` can be installed with:
 
-```
+```bash
 pip install ngesh
 ```
 
 The `pip` installation will also fetch the dependencies `ete3` and
-`numpy`, if necessary.
+`numpy`, if necessary. The built-in tree visualization
+tool from `ete3` requires the `PyQt5` library which is not installed
+by default, but which should be available in most systems. It can be
+installed along with the package with:
+
+```bash
+pip install ngesh[gfx]
+```
 
 ## How to use
 
@@ -156,8 +163,7 @@ $ ngesh -c ngesh_demo.conf --seed 123 -o ascii
 ```
 
 The package is, however, designed to be used as a library. If you have
-PyQt5 installed (which is *not* listed as a dependency and must be installed
-separately), the following code will pop up the ETE Tree Viewer on a random tree:
+PyQt5 installed, the following code will pop up the ETE Tree Viewer on a random tree:
 
 ```bash
 python3 -c "import ngesh ; ngesh.show_random_tree()"
@@ -175,8 +181,7 @@ generate a random tree or to simulate character evolution in an user
 provided tree.
 
 The code snipped below shows a basic tree generation, character evolution,
-and output flow; the parameters for generation are the same listed in
-the docstrings and in the following below.
+and output flow.
 
 ```python
 >>> import ngesh
@@ -216,7 +221,7 @@ Gegme      101011101110101
 end;
 ```
 
-## Parameters for tree generation
+### Parameters for tree generation
 
 The parameters for tree generation, as also given by the command `ngesh -h`, are:
 
@@ -234,7 +239,7 @@ generated names, and `"bio"` for randomly generated specie names)
 * `th_hgt`: The character HGT gamma `th` parameter
 * `e`: The character general mutation `e` parameter
 
-## How does ngesh work?
+## How does `ngesh` work?
 
 For each tree, an `event_rate` is computed from the sum of the `birth` and
 `death` rates. At each iteration, which takes place after an
@@ -247,9 +252,28 @@ The random labels follow the expected methods for random text generation
 from a set of patterns, taking care to generate names as universally
 readable (if not pronounceable) as possible.
 
-*missing on character generation*
+For random character generation, characters are added according to parameters of gamma distributions
+which are related to the length of each branch. The two possible
+events are mutation (assumed to be always to a new character, i.e., no
+parallel evolution) and horizontal gene transfer. No perturbation,
+such as the simulation of errors in sequencing/data collection, is
+performed during character generation, as these can be, at least in part,
+simulated by the functions for bad sampling. Note that, for the time being,
+character generation only simulates states analogous to those of
+historical linguistics (cognate sets) and assumes character independence (that is,
+no block movement as common in stemmatology). While the latter might be
+implemented in the future, there are no plans for simulation of genetic
+data at the moment.
 
-### Integrating with other software
+The library also allows simulating bad sampling. Bad sampling is currently simulated in an uniform distribution, i.e.,
+all existing leaves have the same probability of being removed. Note that
+if a full simulation of tree topology and characters is performed,
+this task must be carried out *after* the simulation of character
+evolution, as otherwise they would fit the sampled tree and not the
+original one. No method for data perturbation is available at the
+moment, but we have plans to implement them in the future.
+
+## Integrating with other software
 
 Integration is easy due to the various export functions. For example, it
 is possible to generate random trees with characters for which we know
@@ -420,17 +444,28 @@ identifiers or protein accessions can be used for the same purpose
 
 ## References
 
-* Bailey, N. T. J. (1964). *The elements of stochastic processes with applications to the natural sciences*. John Wiley & Sons.
+* Bailey, Norman. T. J. (1964). *The elements of stochastic processes with applications to the natural sciences*.
+  John Wiley & Sons.
 
-* Foote, M., J. P. Hunter, C. M. Janis, and J. J. Sepkoski Jr. (1999). *Evolutionary and preservational constraints on origins of biologic groups: Divergence times of eutherian mammals*. Science 283:1310–1314.
+* Foote, Mike; Hunter, John P.; Janis, Christine M.; and Sepkoski J. John Jr. (1999). "Evolutionary and preservational
+  constraints on origins of biologic groups: Divergence times of eutherian mammals". *Science* 283:1310–1314.
 
-* Harmon, Luke J (2019). *Phylogenetic Comparative Methods -- learning from trees*.
-Available at: [https://lukejharmon.github.io/pcm/chapter10_birthdeath/](https://lukejharmon.github.io/pcm/chapter10_birthdeath/). Access date: 2019-03-31.
+* Harmon, Luke J. (2019). *Phylogenetic Comparative Methods -- learning from trees*.
+  Available at: [https://lukejharmon.github.io/pcm/chapter10_birthdeath/](https://lukejharmon.github.io/pcm/chapter10_birthdeath/). 
+  Access date: 2019-03-31.
+
+* Huerta-Cepas, Jaime; Serra, Francois; and Bork, Peer (2016). "ETE 3: Reconstruction, analysis and visualization of
+  phylogenomic data." *Mol Biol Evol*. DOI: [10.1093/molbev/msw046](https://doi.org/10.1093/molbev/msw046). 
 
 * Noutahi, Marc-Rolland (2017). *How to simulate a phylogenetic tree? (part 1)*. Available at:
-[https://mrnoutahi.com/2017/12/05/How-to-simulate-a-tree/](https://mrnoutahi.com/2017/12/05/How-to-simulate-a-tree/). Access date: 2019-03-31
+  [https://mrnoutahi.com/2017/12/05/How-to-simulate-a-tree/](https://mrnoutahi.com/2017/12/05/How-to-simulate-a-tree/).
+  Access date: 2019-03-31.
 
-* Stadler, Tanja (2011). *Simulating Trees with a Fixed Number of Extant Species*. Systematic Biology 60.5:676-684. DOI: [https://doi.org/10.1093/sysbio/syr029](https://doi.org/10.1093/sysbio/syr029)
+* Robinson, D. R.; Foulds, L. R. (1981). "Comparison of phylogenetic trees". *Mathematical Biosciences* 53 (1–2):
+  131–147. DOI: [10.1016/0025-5564(81)90043-2](https://doi.org/10.1016/0025-5564(81)90043-2).
+
+* Stadler, Tanja (2011). "Simulating Trees with a Fixed Number of Extant Species". *Systematic Biology* 60.5:676-684.
+  DOI: [10.1093/sysbio/syr029](https://doi.org/10.1093/sysbio/syr029).
 
 The `ngesh` banner was designed by Tiago Tresoldi on basis of the
 vignette "Sherwood Forest" by J. Needham
@@ -450,7 +485,7 @@ Contributing guidelines, including a code of conduct, can be found in the
 ## Author and citation
 
 The library is developed by Tiago Tresoldi (tiago.tresoldi@lingfil.uu.se). The library is developed in the context of
-the [Cultural Evolution of Texts](https://github.com/evotext/), with funding from the
+the [Cultural Evolution of Texts](https://github.com/evotext/) project, with funding from the
 [Riksbankens Jubileumsfond](https://www.rj.se/) (grant agreement ID:
 [MXM19-1087:1](https://www.rj.se/en/anslag/2019/cultural-evolution-of-texts/)).
 
@@ -468,7 +503,7 @@ Version 0.5. Uppsala: Uppsala universitet. Available at: https://github.com/tres
 In BibTeX:
 
 ```
-@misc{Tresoldi2020ngesh,
+@misc{Tresoldi2021ngesh,
   author = {Tresoldi, Tiago},
   title = {Ngesh, a tool for simulating random phylogenetic trees. Version 0.5},
   howpublished = {\url{https://github.com/tresoldi/ngesh}},
