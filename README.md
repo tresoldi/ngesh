@@ -41,37 +41,6 @@ Among the highlights of the package, with `ngesh`:
   exported in a variety of formats, such as Newick trees, ASCII representation,
   tabular textual listings, etc.
 
-### Changelog
-
-Version 0.5:
-  - Code improvements preparing for release and submission
-  - Included new faster generation method contributed by @NicolaDM
-
-Version 0.4.1:
-  - Fixed bug with character generation during simulation of horizontal
-    gene transfer
-  - Fixed bug in upper boundary number of syllables for label generation
-
-Version 0.4:
-  - General improvements for submission
-  - Extended function documentation and in-code comments
-  - Documentation at ReadTheDocs.io
-  - Complete output (whenever possible) for all output formats
-  - Complete command-line access to all parameters, such as for hard
-    politomies
-  - Automatic code review, more tests
-  - Removed dependency on the `abzu` library
-
-Version 0.3.1:
-  - Code improvements for next release and submission
-
-Version 0.3:
-  - General improvements to code quality
-  - Full reproducibility from seeds for the pseudo-random generators,
-    allowing string, ints, and floats
-  - Changes for further integration with `abzu` and `alteruphono` for
-    simulating linguistic data
-
 ## Installation
 
 In any standard Python environment, `ngesh` can be installed with:
@@ -455,14 +424,13 @@ Contributing guidelines, including a code of conduct, can be found in the
 
 ## Author and citation
 
-The library is developed by Tiago Tresoldi (tiago.tresoldi@lingfil.uu.se).
-
-The author has received funding from the Riksbankens Jubileumsfond
-(grant agreement ID: [MXM19-1087:1](https://www.rj.se/en/anslag/2019/cultural-evolution-of-texts/),
-[Cultural Evolution of Texts](https://github.com/evotext/)).
+The library is developed by Tiago Tresoldi (tiago.tresoldi@lingfil.uu.se). The library is developed in the context of
+the [Cultural Evolution of Texts](https://github.com/evotext/), with funding from the
+[Riksbankens Jubileumsfond](https://www.rj.se/) (grant agreement ID:
+[MXM19-1087:1](https://www.rj.se/en/anslag/2019/cultural-evolution-of-texts/)).
 
 During the first stages of development, the author received funding from the
-European Research Council (ERC) under the European Union’s Horizon 2020
+[European Research Council](https://erc.europa.eu/) (ERC) under the European Union’s Horizon 2020
 research and innovation programme (grant agreement
 No. [ERC Grant #715618](https://cordis.europa.eu/project/rcn/206320/factsheet/en),
 [Computer-Assisted Language Comparison](https://digling.org/calc/)).
