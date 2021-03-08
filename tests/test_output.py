@@ -24,7 +24,7 @@ import ngesh
             "oiasis:2.63243)1:0.511706,Spetitis mubvoppis:3.14413);",
             "e253eb3a1099b49227478f4de3fcdae0",
             "3c5c0fa6e8d63574a699f95ba91aa2c2",
-            "aeb95294eff4e2d9fab041b873c5b46e",
+            "80d5f9c2175ed10cc41f8d40212bce9e",
         ],
         [
             "((((Ataba eolus:0.274414,Dasoros audus:0.274414)1:1.59309,(Uvuros "
@@ -36,7 +36,7 @@ import ngesh
             "1:0.515998)1:1.55422);",
             "1729eea617c0f4109c84a21b63820c1b",
             "ccf3fa67b5196f4c414d3cf2bf7aab3f",
-            "741715e94dd5a03d8e6cbb760d6ee4a0",
+            "c0e129d0c85a72696613d61e53fa7c91",
         ],
     ],
 )

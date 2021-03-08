@@ -49,9 +49,9 @@ def test_add_characters():
         str(ngesh.tree2wordlist(trees[2])).encode("utf-8")
     ).hexdigest()
 
-    assert digest0 == "ca4d18471017451744989d50359a3987"
-    assert digest1 == "de938cc901e3fd66ebce8b3cf14fc17c"
-    assert digest2 == "c579a146e80807b1ebbdb6deec47a084"
+    assert digest0 == "e3cdead9e32700032cc0d5adbf0b45b0"
+    assert digest1 == "63138f5a7080c2d9accd30e9d151053b"
+    assert digest2 == "e451e777e1fc501f5ccc51818e4475a6"
 
 
 def test_add_characters_with_hgt():
@@ -76,4 +76,4 @@ def test_add_characters_with_hgt():
     )
     digest = hashlib.md5(str(ngesh.tree2wordlist(tree_hgt)).encode("utf-8")).hexdigest()
 
-    assert digest == "5a777e753026f194b9ce338f1f412e11"
+    assert digest == "b7333cdb63e0c614f01a5384b7891a4e"

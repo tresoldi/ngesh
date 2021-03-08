@@ -24,22 +24,24 @@ def tree2wordlist(tree: Tree) -> str:
     # Buffer for the data to be returned
     buf = ["Language_ID,Feature_ID,Value"]
 
-    # Iterate over all leaves
+    # Iterate over all leaves, collecting data
+    rows = []
     for leave in tree.get_leaves():
         # Get the number of characters if necessary
         if not num_chars:
             num_chars = len(leave.chars)
 
         # Iterate over all characters of the current leave
-        rows = [
+        rows += [
             [leave.name, "feature_%i" % idx, str(leave.chars[idx])]
             for idx in range(num_chars)
         ]
 
-        # Add all rows as comma-separated strings to the buffer; while this
-        # would work without assignment, it is best practice to always
-        # assign an expression to something.
-        _ = [buf.append(",".join(row)) for row in rows]
+    # Sort the row info, so it better resembles real datasets, and
+    # add it to the buffer
+    rows = sorted(rows, key=lambda r: (r[1], r[0]))
+    for row in rows:
+        buf.append(",".join(row))
 
     # Join the buffer and return it
     return "\n".join(buf)

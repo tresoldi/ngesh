@@ -58,12 +58,18 @@ You can test your installation from the command line with the `ngesh` command, w
 will return a different random small birth-death tree in Newick format each time it
 is called:
 
-```
+```bash
 $ ngesh
-(Saorus getes:1.31562,((Voces earas:1.07567,(Dallao spettus:0.703609,Sburas wioris:0.703609)1:0.372063)1:0.464667,(Zurbaza ceglaces:0.527431,(Amduo vizoris:0.345862,Uras wiurus:0.345862)1:0.18551)1:1.00897)1:2.1707);
+((Vovrera:0.149348,(Wigag:3.11592,(Pallo:2.68125,Zoei:1.85803)1:1.29704)1:0.204529)1:0.607805,(((Avi:0.347942,Uemi:0.0137646)1:1.41697,(((Kufo:0.817012,
+(Gapurem:0.0203582,Hukub:0.0203582)1:0.796654)1:0.395727,Tablo:0.00846148)1:0.484705,(Kaza:0.140656,((Tozea:0.240634,Pebigmom:0.240634)1:1.13579,(Kata:0
+.109977,((Fabom:0.04242,Upik:0.04242)1:0.549364,(Amue:0.182635,Lunida:0.182635)1:0.409149)1:0.366701)1:0.417941)1:0.162968)1:0.158051)1:1.47281)1:1.0326
+,(Kunizob:0.650455,Madku:0.221172)1:1.22008)1:0.587783);
+
 
 $ ngesh
-((Ollio zavis:0.698453,(Spectuo sicui:0.596731,((Ronis mivulis:0.0431014,Vaporus conomattas:0.0431014)1:0.413634,Rizarus urrus:0.456735)1:0.139996)1:0.101722)1:3.17827,(Deses mepus:2.22061,(Ovegpuves wiumoras:1.88469,(Easas ecdebus:0.201891,Muggas lupas:0.201891)1:1.6828)1:0.335918)1:1.65611);
+((((Povi:0.325601,Udo:0.325601)1:0.0750448,Hiruta:0.400646)1:0.181454,(Voebi:0.0293506,Sodi:0.0293506)1:0.55275)1:0.258834,((Vandemif:0.0160558,(((Dubik
+:0.0543122,Fuvu:0.0543122)1:0.36458,Hitfuv:0.418892)1:0.0388987,Pizuna:0.457791)1:0.0535386)1:0.179893,(Uo:0.67132,Zegna:0.163427)1:0.0199021)1:0.149711
+);
 ```
 
 The same command line tool can refer to values provided in a textual
@@ -72,8 +78,8 @@ reproducible Yule tree (note the `12345` seed)
 with a birth ratio of 0.75, at least 8 leaves with `"human"` labels,
 and 10 presence/absence characters:
 
-```
-$ cat my_tree.conf
+```bash
+$ cat ngesh_demo.conf
 [Config]
 labels=human
 birth=0.666
@@ -82,28 +88,29 @@ output=nexus
 min_leaves=8
 num_chars=10
 
-$ ngesh -c mine.conf --seed 12345
+$ ngesh -c ngesh_demo.conf --seed 123
 #NEXUS
 
 begin data;
-  dimensions ntax=15 nchar=25;
+  dimensions ntax=16 nchar=38;
   format datatype=standard missing=? gap=-;
   matrix
-Foro        1011000101010010100100100
-Meno        1100100101010010010010001
-Vuea        1100110001010100001001001
-Vegevo      1100100101010010010010100
-Bufuri      1100110001010100001001001
-Novake      1100110001010100001001001
-Fonulip     1100110001010100001001001
-Omih        1101001001010011000100100
-Onegro      1101000011010010001100100
-Rolsoa      1100100100110010010100100
-Wigu        1101001001010010001100100
-Teozu       1101001001010011000100010
-Kabu        1100100101001010010100100
-Timebbed    1100100101010010010010100
-Okuna       1100110001010100001001001
+Abel        10001001011000010000010010010000100000
+Azogu       10001001011000010000010010010000100000
+Bou         10001001100010100000010010010000000010
+Dipu        10001001010001000010000110010000000001
+Gezepsem    10001001100010100000010010010000000010
+Gupote      10001001010010010000010010010000000100
+Hefi        10100100010010010001000001010001000000
+Lerzo       10001001010001000010000110010000000001
+Magumel     10001001010010010000010010010000000010
+Pao         01001010010100001000100010001000100000
+Sanigo      10010100010010000100001000100010010000
+Tuzizo      10001001100010100000010010010000000010
+Wialum      10001001011000010000010010000100100000
+Zudal       10001001010010010000010010010000100000
+Zukar       10001001011000010000010010000100100000
+Zusu        10010100010010000100001000100010001000
   ;
 end;
 ```
@@ -112,72 +119,69 @@ Parameters set in a configuration file can be overridden at the command line.
 The ASCII representation of the topology of the same tree can be obtained
 with:
 
-```
-$ ngesh -c mine.conf --seed 12345 -o ascii
+```bash
+$ ngesh -c ngesh_demo.conf --seed 123 -o ascii
 
-         /-Omih
+         /-Zudal
         |
-      /-|      /-Onegro
-     |  |   /-|
-     |   \-|   \-Wigu
-     |     |
-     |      \-Teozu
-     |
-   /-|   /-Kabu
-  |  |  |
-  |  |  |            /-Novake
-  |  |  |           |
-  |  |  |         /-|      /-Okuna
-  |  |  |        |  |   /-|
-  |   \-|        |   \-|   \-Fonulip
-  |     |      /-|     |
-  |     |     |  |      \-Bufuri
-  |     |     |  |
---|     |   /-|   \-Vuea
-  |     |  |  |
-  |     |  |  |   /-Meno
-  |      \-|   \-|
-  |        |      \-Rolsoa
-  |        |
-  |        |   /-Vegevo
-  |         \-|
-  |            \-Timebbed
+        |               /-Azogu
+        |              |
+        |            /-|      /-Wialum
+        |           |  |   /-|
+        |           |   \-|   \-Zukar
+        |         /-|     |
+        |        |  |      \-Abel
+        |        |  |
+      /-|        |  |   /-Dipu
+     |  |        |   \-|
+     |  |      /-|      \-Lerzo
+     |  |     |  |
+     |  |     |  |         /-Bou
+     |  |     |  |      /-|
+     |  |     |  |   /-|   \-Gezepsem
+     |  |   /-|  |  |  |
+   /-|  |  |  |   \-|   \-Tuzizo
+  |  |  |  |  |     |
+  |  |   \-|  |      \-Magumel
+  |  |     |  |
+  |  |     |   \-Pao
+  |  |     |
+--|  |      \-Gupote
+  |  |
+  |  |   /-Zusu
+  |   \-|
+  |      \-Sanigo
   |
-   \-Foro
+   \-Hefi
 ```
 
 The package is, however, designed to be used as a library. If you have
-PyQt5 installed (which is not listed as a dependency), the following code
-will pop up the ETE Tree Viewer on a random tree:
+PyQt5 installed (which is *not* listed as a dependency and must be installed
+separately), the following code will pop up the ETE Tree Viewer on a random tree:
 
-```
-python3 -c "import ngesh ; ngesh.display_random_tree()"
+```bash
+python3 -c "import ngesh ; ngesh.show_random_tree()"
 ```
 
 ![random tree](https://raw.githubusercontent.com/tresoldi/ngesh/master/docs/tree001.png)
 
-The main functions for generation are `gen_tree()`, which returns a random
-tree topology, and `add_characters()`, which simulates character evolution
+The main functions for generation are `gen_tree()` ([doc](https://ngesh.readthedocs.io/en/latest/source/ngesh.html#ngesh.random_tree.gen_tree)),
+which returns a random
+tree topology, and
+`add_characters()` ([doc](https://ngesh.readthedocs.io/en/latest/source/ngesh.html#ngesh.random_tree.add_characters)),
+which simulates character evolution
 in a provided tree. As they are separate tasks, it is possible to just
 generate a random tree or to simulate character evolution in an user
 provided tree.
 
-The full documentation is available in the functions docstring (which
-can be visualized with `print(ngesh.gen_tree.__doc__)` and
-`print(ngesh.add_characters.__doc__)`) or
-[directly in the source code](https://github.com/tresoldi/ngesh/blob/master/ngesh/random_tree.py).
 The code snipped below shows a basic tree generation, character evolution,
 and output flow; the parameters for generation are the same listed in
 the docstrings and in the following below.
 
-```
-$ ipython3
-
-In [1]: import ngesh
-
-In [2]: tree = ngesh.gen_tree(1.0, 0.5, max_time=3.0, labels="human")
-
-In [3]: print(tree)
+```python
+>>> import ngesh
+>>> tree = ngesh.gen_tree(1.0, 0.5, max_time=3.0, labels="human")
+>>> print(tree)
 
       /-Butobfa
    /-|
@@ -193,9 +197,8 @@ In [3]: print(tree)
       \-|
          \-Hoale
 
-In [4]: tree = ngesh.add_characters(tree, 10, 3.0, 1.0)
-
-In [5]: print(ngesh.tree2nexus(tree))
+>>> tree = ngesh.add_characters(tree, 10, 3.0, 1.0)
+>>> print(ngesh.tree2nexus(tree))
 #NEXUS
 
 begin data;
@@ -215,7 +218,7 @@ end;
 
 ## Parameters for tree generation
 
-The parameters for tree generation, as also given by `ngesh -h`, are:
+The parameters for tree generation, as also given by the command `ngesh -h`, are:
 
 * `birth`: The tree birth rate (l)
 * `death`: The tree death rate (mu)
@@ -261,10 +264,10 @@ Let's simulate phylogenetic data for an analysis using BEAST2 through
 [BEASTling](https://github.com/lmaurits/BEASTling). We start with
 a birth-death tree (lambda=0.9, mu=0.3), with at least 15 leaves, and 100
 characters whose evolution is modelled with the default parameters
-and a string seed `"jena"` for reproducibility; the tree data is exported
+and a string seed `"uppsala"` for reproducibility; the tree data is exported
 in `"wordlist"` format:
 
-```
+```bash
 $ cat examples/example_ngesh.conf
 [Config]
 labels=human
@@ -274,19 +277,29 @@ output=nexus
 min_leaves=15
 num_chars=100
 
-$ ngesh -c examples/example.conf --seed jena > examples/example.csv
+$ ngesh -c examples/example_ngesh.conf --seed uppsala > examples/example.csv
 
-$ head examples/example.csv
+$ head -n 20 examples/example.csv
 Language_ID,Feature_ID,Value
-Dotare,feature_0,0
-Dotare,feature_1,1
-Dotare,feature_2,2
-Dotare,feature_3,3
-Dotare,feature_4,4
-Dotare,feature_5,5
-Dotare,feature_6,6
-Dotare,feature_7,7
-Dotare,feature_8,8
+Akup,feature_0,0
+Buter,feature_0,0
+Dufou,feature_0,0
+Emot,feature_0,0
+Kiu,feature_0,0
+Kovala,feature_0,0
+Lusei,feature_0,0
+Oso,feature_0,0
+Puota,feature_0,0
+Relenin,feature_0,976
+Sotok,feature_0,0
+Tetosur,feature_0,0
+Usimi,feature_0,976
+Voe,feature_0,0
+Vusodur,feature_0,0
+Zeba,feature_0,0
+Zufe,feature_0,0
+Akup,feature_1,1
+Buter,feature_1,1
 ```
 
 We can now use a minimal BEASTling configuration and generate an XML
@@ -299,12 +312,14 @@ from the assumptions used for generation (besides the fact of the
 default parameters for
 horizontal gene transfer being a bit too aggressive).
 
-```
+```bash
 $ cat examples/example_beastling.conf
 [admin]
 basename=example
+
 [MCMC]
 chainlength=500000
+
 [model example]
 model=covarion
 data=example.csv
@@ -324,8 +339,8 @@ actual topology (which we can regenerate with the earlier seed).
 
 ![summary tree](https://raw.githubusercontent.com/tresoldi/ngesh/master/docs/summary.nex.png)
 
-```
-$ ngesh -c examples/example_ngesh.conf --seed jena --output newick > examples/example.nw
+```bash
+$ ngesh -c examples/example_ngesh.conf --seed uppsala --output newick > examples/example.nw
 ```
 
 ![original tree](https://raw.githubusercontent.com/tresoldi/ngesh/master/docs/example.nw.png)
@@ -342,21 +357,31 @@ random tree.
 
 ![summary tree radial](https://raw.githubusercontent.com/tresoldi/ngesh/master/docs/summary.nex2.png)
 
-*TODO: Compare trees (Robinson-Foulds symmetric difference?)*
+Trees can, as expected, be compared with common methods of tree
+comparison, such as [Robinson–Foulds metric](https://en.wikipedia.org/wiki/Robinson%E2%80%93Foulds_metric).
+All packages and programming languages for this purpose should be
+able to read the trees exported in Newick or NEXUS format; however,
+as `ngesh` trees are actually ETE3 trees, we can also do it directly
+from Python:
+
+```python
+d = tree1.robinson_foulds(tree_2)
+```
 
 The files used and generated in this example can be found in the `/examples` directory.
 
 ## What does "ngesh" mean?
 
-Technically it is just an unique name, but it was derived from one of the Sumerian words
-for "tree", [ĝeš](http://psd.museum.upenn.edu/epsd/epsd/e2052.html), albeit
-with an uncommon transcription. The name comes from the library once being
-a module of a larger system for simulating language evolution and benchmarking
-related tools, called [Enki](https://en.wikipedia.org/wiki/Enki) after the
-Sumerian god of (among many other things) language and mischief.
+Technically it is just an unique name, but it was originally derived from one of the Sumerian words
+for "tree", [ĝeš](http://psd.museum.upenn.edu/epsd/epsd/e2052.html). The name
+was chosen because the library was first planned as part of
+a larger system for simulating language evolution and benchmarking
+related tools, named [Enki](https://en.wikipedia.org/wiki/Enki) after the
+Sumerian god of (among many other things) language and "randomness".
 
-The intended pronounciation, as in the most accepted reconstructions, is /ŋeʃ/.
-But don't strees over it: it is just a unique name.
+The intended pronunciation, as in the most accepted reconstructions, is /ŋeʃ/.
+But don't stress over it, and feel free to call it /n̩.gɛʃ/, as
+most people seem to do: it is just a unique name.
 
 ## Alternatives
 

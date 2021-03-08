@@ -301,4 +301,4 @@ def test_bad_sampling():
     digest = hashlib.md5(str(ngesh.tree2wordlist(tree)).encode("utf-8")).hexdigest()
 
     assert tree.write() != previous
-    assert digest == "1f194c8f1701296a433a8483ec8808ba"
+    assert digest == "b93f857ee3f9d1c794bed9c9b9907eed"

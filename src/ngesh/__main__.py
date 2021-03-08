@@ -6,6 +6,8 @@ __main__.py
 Module for command-line execution and generation of random trees.
 """
 
+# TODO: add "show" as option
+
 # Import Python standard libraries
 import argparse
 import configparser
@@ -86,6 +88,7 @@ def parse_arguments():
         "k_mut": 5.0,
         "th_mut": 1.0,
         "e_mut": 1.05,
+        "method": "standard",
         "lam": 0.0,
     }
 
