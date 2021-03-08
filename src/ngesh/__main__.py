@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# encoding: utf-8
 
 """
 __main__.py
@@ -11,28 +10,23 @@ Module for command-line execution and generation of random trees.
 import argparse
 import configparser
 
+# Import 3rd-party libraries
+from ete3 import Tree
+
 # Import our library
 import ngesh
 
 
-def new_tree(args):
+def new_tree(args) -> Tree:
     """
     Generates and returns a new tree.
 
     This function is a simple wrapper on the main `gen_tree()` and
-    `add_characters()` functions. It is intented for command-line usage,
+    `add_characters()` functions. It is intended for command-line usage,
     but it can be used in code for quick prototyping.
 
-    Parameters
-    ----------
-
-    args : Namespace
-        A namespace with the parameters for tree generation.
-
-    Returns
-    -------
-    tree: ete3 object
-        The randomly generated tree.
+    :param args: A namespace with the parameters for tree generation.
+    :return: The randomly generated tree.
     """
 
     # Generate the random tree
@@ -43,6 +37,7 @@ def new_tree(args):
         max_time=args.max_time,
         labels=args.labels,
         lam=args.lam,
+        method=args.method,
         seed=args.seed,
     )
 
@@ -55,7 +50,7 @@ def new_tree(args):
             args.th_mut,
             k_hgt=args.k_hgt,
             th_hgt=args.th_hgt,
-            e=args.e_mut,
+            mut_exp=args.e_mut,
             seed=args.seed,
         )
 
@@ -75,10 +70,7 @@ def parse_arguments():
     overridden by a configuration file first (whose path is provided as
     an argument itself), and by command-line parameters second.
 
-    Returns
-    -------
-    args : namespace
-        A namespace with all the parameters.
+    :return: A namespace with all the parameters.
     """
 
     # Specify the defaults for the options: these are overridden, in order,
@@ -97,7 +89,7 @@ def parse_arguments():
         "lam": 0.0,
     }
 
-    # Parse any configuration speification first. Note that `add_help` is
+    # Parse any configuration specification first. Note that `add_help` is
     # set to False so that a call with `-h` is not parsed here; also
     # note that the `formatter_class` uses the raw description, so it
     # does not mess up with its own readability assumptions.
@@ -119,7 +111,7 @@ def parse_arguments():
         config.read([args.conf_file])
         options.update(dict(config.items("Config")))
 
-    # Parse any remaining argument, this time without supressing the `--help`;
+    # Parse any remaining argument, this time without suppressing the `--help`;
     # the options of `config_parser` are inherited through `parents`,
     # and defaults are set from `options` at the end of the new argument
     # creation.
@@ -152,6 +144,13 @@ def parse_arguments():
         type=str,
         choices=["bio", "human", "enum", "none"],
         help='Set text generation model (defaults "human")',
+    )
+    parser.add_argument(
+        "-m",
+        "--method",
+        type=str,
+        choices=["standard", "fast"],
+        help='Set tree generation method (defaults "standard")',
     )
     parser.add_argument("-r", "--seed", type=str, help="Set RNG seed string")
     parser.add_argument(
@@ -206,7 +205,6 @@ def parse_arguments():
     )
 
     parser.set_defaults(**options)
-
     args = parser.parse_args(remaining_argv)
 
     # Set death to half birth, if not provided
