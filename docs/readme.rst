@@ -1,8 +1,6 @@
 Ngesh, a library for phylogenetic tree simulation
 =================================================
 
-|PyPI| |CI| |Codacy Badge| |Documentation Status|
-
 ``ngesh`` is a Python library and command-line tool for simulating
 phylogenetic trees and related data (characters, states, branch length,
 etc.). It is intended for benchmarking phylogenetic methods, especially
@@ -511,14 +509,6 @@ In BibTeX:
      year = {2021},
    }
 
-.. |PyPI| image:: https://img.shields.io/pypi/v/ngesh.svg
-   :target: https://pypi.org/project/ngesh
-.. |CI| image:: https://github.com/tresoldi/ngesh/actions/workflows/CI.yml/badge.svg
-   :target: https://github.com/tresoldi/ngesh/actions/workflows/CI.yml
-.. |Codacy Badge| image:: https://api.codacy.com/project/badge/Grade/16ece2c98e3e4f319cb134bef2ade19c
-   :target: https://www.codacy.com/manual/tresoldi/ngesh?utm_source=github.com&utm_medium=referral&utm_content=tresoldi/ngesh&utm_campaign=Badge_Grade
-.. |Documentation Status| image:: https://readthedocs.org/projects/ngesh/badge/?version=latest
-   :target: https://ngesh.readthedocs.io/en/latest/?badge=latest
 .. |random tree| image:: https://raw.githubusercontent.com/tresoldi/ngesh/master/docs/tree001.png
 .. |random tree| image:: https://raw.githubusercontent.com/tresoldi/ngesh/master/docs/tree002.png
 .. |random tree| image:: https://raw.githubusercontent.com/tresoldi/ngesh/master/docs/tree003.png
