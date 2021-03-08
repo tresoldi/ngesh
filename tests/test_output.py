@@ -1,67 +1,66 @@
+"""
+test_output
+===========
+
+Tests for various textual outputs of the `ngesh` package.
+"""
+
+# Import Python standard libraries
 import hashlib
+import pytest
+
+# Import 3rd-party libraries
 from ete3 import Tree
+
+# Import the library being tested
 import ngesh
 
-# Some pre-generated newick trees for testing
-_TREES = [
-    "(((Nucroto zolos:0.339415,Coddopus zoggaus:0.339415)1:2.29301,Aporos "
-    "oiasis:2.63243)1:0.511706,Spetitis mubvoppis:3.14413);",
-    "((((Ataba eolus:0.274414,Dasoros audus:0.274414)1:1.59309,(Uvuros "
-    "spalus:1.63679,(Zilavis sicagas:0.158265,Uzazopus aolo:0.158265)"
-    "1:1.47853)1:0.230708)1:0.976915,Spempo gipus:2.84442)1:1.08647,"
-    "(((Cobbas linis:0.242355,Ciggus sopebbas:0.242355)1:1.33741,"
-    "(Vaoras ovamla:0.235349,Nirceo spemgazzo:0.235349)1:1.34442)"
-    "1:0.796904,(Wiopepus spiparzas:1.86067,Eavoros airos:0.906654)"
-    "1:0.515998)1:1.55422);",
-    "((((Egasis reggasas:0.0747242,(Niponis ecales:0.381168,Vossignis "
-    "spepupapes:0.381168)1:0.0385491)1:0.697337,Tuapebbos "
-    "eppozas:0.457931)1:2.02569,(Vucotes sparas:3.09293,((Ruttinges "
-    "daerus:0.300024,(Ovugas setlanes:0.297199,Rezas "
-    "emdis:0.260688)1:1.20787)1:1.35227,(Gemdas naoris:1.77171,(Tirreres "
-    "sbissas:0.161549,Speppizipus spebbes:0.33078)1:1.44093)1:1.08563)"
-    "1:0.235588)1:0.0498126)1:0.593566,Seti spines:0.874473);",
-    "(((Uorus sbepis:1.00768,Winozbus veses:1.00768)1:2.02024,(((((Ragis "
-    "zubarivos:0.239467,(Zoprotollas naessadda:0.032829,Sauvo "
-    "tibbunnis:0.032829)1:0.206638)1:0.298691,Mirba "
-    "ummes:0.538158)1:0.751761,Gitopes guaras:1.28992)1:0.219143,(Uvoros "
-    "sbego:0.429929,Rouslis novuddenus:0.429929)1:1.07913)1:0.0145254,"
-    "(((Spaupis gieves:0.155583,Ruasus coeddas:0.155583)1:0.222901,Tipapo "
-    "vati:0.378484)1:0.044333,Zuvcus luruzuco:0.422817)1:1.10077)"
-    "1:1.50433)1:0.97142,((Nunpis ozabmis:0.491355,Sbigirrecas sbilpo:"
-    "0.491355)1:0.33275,Agolus galgis:0.824105)1:3.17523);",
-]
 
+@pytest.mark.parametrize(
+    "newick,ref_nx_nochar,ref_nx,ref_wl",
+    [
+        [
+            "(((Nucroto zolos:0.339415,Coddopus zoggaus:0.339415)1:2.29301,Aporos "
+            "oiasis:2.63243)1:0.511706,Spetitis mubvoppis:3.14413);",
+            "e253eb3a1099b49227478f4de3fcdae0",
+            "3c5c0fa6e8d63574a699f95ba91aa2c2",
+            "aeb95294eff4e2d9fab041b873c5b46e",
+        ],
+        [
+            "((((Ataba eolus:0.274414,Dasoros audus:0.274414)1:1.59309,(Uvuros "
+            "spalus:1.63679,(Zilavis sicagas:0.158265,Uzazopus aolo:0.158265)"
+            "1:1.47853)1:0.230708)1:0.976915,Spempo gipus:2.84442)1:1.08647,"
+            "(((Cobbas linis:0.242355,Ciggus sopebbas:0.242355)1:1.33741,"
+            "(Vaoras ovamla:0.235349,Nirceo spemgazzo:0.235349)1:1.34442)"
+            "1:0.796904,(Wiopepus spiparzas:1.86067,Eavoros airos:0.906654)"
+            "1:0.515998)1:1.55422);",
+            "1729eea617c0f4109c84a21b63820c1b",
+            "ccf3fa67b5196f4c414d3cf2bf7aab3f",
+            "741715e94dd5a03d8e6cbb760d6ee4a0",
+        ],
+    ],
+)
+def test_tree_output(newick: str, ref_nx_nochar: str, ref_nx: str, ref_wl: str):
+    """
+    Test various output methods.
+    """
 
-def test_tree_output():
-    # Add characters to all test trees
-    trees = [
-        ngesh.add_characters(
-            Tree(newick), 100, k=4.0, th=1.0, mut_exp=1.05, seed="myseed"
-        )
-        for newick in _TREES
-    ]
-
-    # Assert the first one
-    digest_nx = hashlib.sha256(str(ngesh.tree2nexus(trees[0])).encode("utf-8")).digest()
-    digest_wl = hashlib.sha256(
-        str(ngesh.tree2wordlist(trees[0])).encode("utf-8")
-    ).digest()
-
-    assert (
-        digest_nx
-        == b"E\xf8\x97\xb6*\x7f\xf4_j\x89\x02dn\x1d\xbe\xb0\xb6\xcd\xd9.\xca:\x9ft\xe2m\xc5y\xa5\xaa\x0fa"
-    )
-    assert (
-        digest_wl
-        == b"\xb6\xc8i\xf4!\xf4l\x91\xb9\x8d\xb5Kae\x1aF\x9c\xfd\n \x06\xf2D\x1e<\xdd(U]6(\xbf"
-    )
-
+    # Test output without characters
     # Test output for a tree without characters
-    tree_nochar = Tree(_TREES[0])
-    digest_nx_nochar = hashlib.sha256(
+    tree_nochar = Tree(newick)
+    digest_nx_nochar = hashlib.md5(
         str(ngesh.tree2nexus(tree_nochar)).encode("utf-8")
-    ).digest()
-    assert (
-        digest_nx_nochar
-        == b"A\x06N\x97n1iD\x01n\x07T\x99al\xa8)m\n\x93\x9ajKp\x07\x9bc\x8a\x03\x1a\x8d\xb7"
+    ).hexdigest()
+    assert digest_nx_nochar == ref_nx_nochar
+
+    # Add characters to the tree
+    tree = ngesh.add_characters(
+        Tree(newick), 100, k=4.0, th=1.0, mut_exp=1.05, seed="myseed"
     )
+
+    # Build nexus and wordlist output for assessment
+    digest_nx = hashlib.md5(str(ngesh.tree2nexus(tree)).encode("utf-8")).hexdigest()
+    digest_wl = hashlib.md5(str(ngesh.tree2wordlist(tree)).encode("utf-8")).hexdigest()
+
+    assert digest_nx == ref_nx
+    assert digest_wl == ref_wl

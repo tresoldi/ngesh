@@ -1,11 +1,24 @@
+"""
+test_characters
+===============
+
+Tests for character generation in the `ngesh` package.
+"""
+
+# Import Python standard libraries
 import hashlib
-from ete3 import Tree
+
+# Import the library being tested
 import ngesh
 
 
 def test_add_characters():
+    """
+    Test the addition of random characters to trees.
+    """
+
     # gamma parameters
-    NUM_CONCEPTS = 10
+    concepts = 10
     k = 4.0  # shape
     th = 1.0  # scale
     z = 1.045  # "zipf" correction
@@ -13,7 +26,7 @@ def test_add_characters():
     # Create trees, also for coverage/profile
     _trees = [
         ngesh.gen_tree(
-            1.0, 0.5, max_time=3.0, labels="bio", method="standard", seed=1234
+            1.0, 0.5, max_time=3.0, labels="bio", method="standard", seed=123
         ),
         ngesh.gen_tree(1.0, 0.5, min_leaves=25, lam=2.5, method="fast", seed="myseed"),
         ngesh.gen_tree(1.1, 0.0, min_leaves=7, lam=1.5, method="fast", seed="uppsala"),
@@ -21,38 +34,30 @@ def test_add_characters():
 
     # Add characters to all trees, for coverage
     trees = [
-        ngesh.add_characters(tree, NUM_CONCEPTS, k=k, th=th, mut_exp=z, seed="myseed")
+        ngesh.add_characters(tree, concepts, k=k, th=th, mut_exp=z, seed="myseed")
         for tree in _trees
     ]
 
     # Assert the trees by digest
-    digest0 = hashlib.sha256(
+    digest0 = hashlib.md5(
         str(ngesh.tree2wordlist(trees[0])).encode("utf-8")
-    ).digest()
-    digest1 = hashlib.sha256(
+    ).hexdigest()
+    digest1 = hashlib.md5(
         str(ngesh.tree2wordlist(trees[1])).encode("utf-8")
-    ).digest()
-    digest2 = hashlib.sha256(
+    ).hexdigest()
+    digest2 = hashlib.md5(
         str(ngesh.tree2wordlist(trees[2])).encode("utf-8")
-    ).digest()
+    ).hexdigest()
 
-    assert (
-        digest0
-        == b"9\xbf\x8e\x1a,n\x19\x9c\xb6Z\xa3\x9b\x98\x99\x08\xe6\xe6\x94\xb0]\xa00\xd6s\xe3\x03\xc5\xad\x8a\xfc_\x98"
-    )
-
-    assert (
-        digest1
-        == b"\xd7\xa6'9+dni\xbc\xa6s\xa0\x81\xdf\xcb\x00K$\xf2(\xdc\xf0K\\\x1e/\xaa\x1d\xd7gQ\x18"
-    )
-
-    assert (
-        digest2
-        == b"\xda\xbe;B\x04\xdf\xde\xdd\x88\xd3\x95\xbcL\xca\xe8\xc7'\xde\xd6G@\x03\x16\t\xc1\xe4\x07\x90C\x00M{"
-    )
+    assert digest0 == "f869aeb50c1803619be9e1f95f2ef8e3"
+    assert digest1 == "de938cc901e3fd66ebce8b3cf14fc17c"
+    assert digest2 == "c579a146e80807b1ebbdb6deec47a084"
 
 
 def test_add_characters_with_hgt():
+    """
+    Test the addition of random characters to trees with HGT.
+    """
 
     # Create tree
     tree_hgt = ngesh.gen_tree(
@@ -64,14 +69,11 @@ def test_add_characters_with_hgt():
         10,
         k=4.0,
         th=1.0,
-        mut_exp=1.0,  # z=1.045, TODO: fix test later
+        mut_exp=1.045,
         k_hgt=2.0,
         th_hgt=1.1,
         seed="myseed",
     )
-    digest = hashlib.sha256(str(ngesh.tree2wordlist(tree_hgt)).encode("utf-8")).digest()
+    digest = hashlib.md5(str(ngesh.tree2wordlist(tree_hgt)).encode("utf-8")).hexdigest()
 
-    assert (
-        digest
-        == b"@\x1c\xf7\xc7\xe1]]\x1e\x10\xd8\xd8<\x8aH\xaa\x1b\xdb\xd6\xfb:\xbbD\xea\x053\x10\x96\x85(@y\xeb"
-    )
+    assert digest == "5a777e753026f194b9ce338f1f412e11"

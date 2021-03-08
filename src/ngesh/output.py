@@ -1,14 +1,14 @@
-# encoding: utf-8
-
 """
-Module with auxiliary function for text generation.
+Module with auxiliary function for output generation.
 """
 
 # Import Python standard libraries
 import itertools
 
+# Import 3rd-party libraries
+from ete3 import Tree
 
-def tree2wordlist(tree):
+def tree2wordlist(tree:Tree):
     """
     Returns a string with the representation of a tree in wordlist format.
 
@@ -53,7 +53,7 @@ def tree2wordlist(tree):
     return "\n".join(buf)
 
 
-def tree2nexus(tree):
+def tree2nexus(tree:Tree):
     """
     Returns a string with the representation of a tree in NEXUS format.
 
