@@ -2,54 +2,49 @@
 
 [![PyPI](https://img.shields.io/pypi/v/ngesh.svg)](https://pypi.org/project/ngesh)
 [![CI](https://github.com/tresoldi/ngesh/actions/workflows/CI.yml/badge.svg)](https://github.com/tresoldi/ngesh/actions/workflows/CI.yml)
-
-[![codecov](https://codecov.io/gh/tresoldi/ngesh/branch/master/graph/badge.svg)](https://codecov.io/gh/tresoldi/ngesh)
 [![Codacy
 Badge](https://api.codacy.com/project/badge/Grade/16ece2c98e3e4f319cb134bef2ade19c)](https://www.codacy.com/manual/tresoldi/ngesh?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=tresoldi/ngesh&amp;utm_campaign=Badge_Grade)
 [![Documentation Status](https://readthedocs.org/projects/ngesh/badge/?version=latest)](https://ngesh.readthedocs.io/en/latest/?badge=latest)
 
-`ngesh` is a Python library and related command-line tools
+`ngesh` is a Python library and command-line tool
 for simulating phylogenetic trees and related data (characters, states,
 branch length, etc.).
 It is intended for benchmarking phylogenetic methods, especially in
-historical linguistics, and for providing dummy trees
-for their development and debugging. The generation of
+historical linguistics and stemmatology. The generation of
 stochastic phylogenetic trees also goes by the name of "simulation methods
-for phylogenetic trees" or just "phylogenetic tree simulation".
+for phylogenetic trees", "synthetic data", or just "phylogenetic tree simulation".
 
 ![ngesh](https://raw.githubusercontent.com/tresoldi/ngesh/master/docs/banner.png)
 
-In detail, with `ngesh`:
+Among the highlights of the package, with `ngesh`:
 
-* trees can be generated according to user-specified birth and death ratios (and
-the death ratio can be set to zero, resulting in a birth-only tree)
-* speciation events default to two descendants, but the number of descendants
-can be randomly drawn from a user-defined Poisson process (allowing
-to model hard politomies)
+* any hashable element can be provided as a seed for the pseudo-random number
+  generators, guaranteeing that the generated trees are reproducible (including
+  across different systems)
+* trees can be generated according to user-specified parameters such as birth and death ratios (and
+  the death ratio can be set to zero, resulting in a birth-only tree)
 * trees will have random topologies and, if necessary, random branch-lengths
 * trees can be limited in terms of number of extant leaves, evolution time
-(as related to the birth and death parameters), or both
+  (as related to the birth and death parameters), or both
 * non-extant leaves can be pruned from birth-death trees
+* speciation events default to two descendants, but the number of descendants
+  can be randomly drawn from a user-defined Poisson process (allowing
+  modelling of hard politomies)
 * character evolution can be simulated in relation to branch lengths,
-with user-specified ratios for mutation and horizontal gene transfer,
-with different rates of change for each character
-* trees can be generated from user-provided seeds, so that the random
-generation can be maintained across executions (and, in most cases, the
-execution should be reproducible *also* on different machines and different
-vestions of Python)
+  with user-specified ratios for mutation and for horizontal gene transfer,
+  with different rates of change for each character
 * nodes can optionally receive unique labels, either sequential ones
-(like "L01", "L02", and "L03"),
-random human-readable names (like "Sume", "Fekobir", and "Tukok"),
-or random biological names approximating the
-binomial nomenclature standard (like "Sburas wioris", "Zurbata ceglaces",
-and "Spellis spusso")
+  (like "L01", "L02", and "L03"), random pronounceable names (like "Sume", "Fekobir", and "Tukok"),
+  or random biological names approximating the binomial nomenclature standard
+  (like "Sburas wioris", "Zurbata ceglaces", and "Spellis spusso")
 * trees can be returned as [ETE](http://etetoolkit.org/) tree objects or
-exported in a variety of formats, such as Newick trees, ASCII representation,
-tabular textual listings, etc.
+  exported in a variety of formats, such as Newick trees, ASCII representation,
+  tabular textual listings, etc.
 
 ### Changelog
 
 Version 0.5:
+  - Code improvements preparing for release and submission
   - Included new faster generation method contributed by @NicolaDM
 
 Version 0.4.1:
@@ -68,30 +63,14 @@ Version 0.4:
   - Removed dependency on the `abzu` library
 
 Version 0.3.1:
- - Code improvements for next release and submission
+  - Code improvements for next release and submission
 
 Version 0.3:
-
-- General improvements to code quality
-- Full reproducibility from seeds for the pseudo-random generators,
-  allowing string, ints, and floats
-- Changes for further integration with `abzu` and `alteruphono` for
-  simulating linguistic data
-
-## How does ngesh work?
-
-For each tree, an `event_rate` is computed from the sum of the `birth` and
-`death` rates. At each iteration, which takes place after an
-random expovariant time from the `event_rate`, one of the extant nodes is
-selected for an "event": either a birth or a death from the
-proportion of each rate. All other extant leaves have their distances
-updated with the event time.
-
-The random labels follow the expected methods for random text generation
-from a set of patterns, taking care to generate names as universally
-readable (if not pronounceable) as possible.
-
-*missing on character generation*
+  - General improvements to code quality
+  - Full reproducibility from seeds for the pseudo-random generators,
+    allowing string, ints, and floats
+  - Changes for further integration with `abzu` and `alteruphono` for
+    simulating linguistic data
 
 ## Installation
 
@@ -265,6 +244,39 @@ Gegme      101011101110101
 end;
 ```
 
+## Parameters for tree generation
+
+The parameters for tree generation, as also given by `ngesh -h`, are:
+
+* `birth`: The tree birth rate (l)
+* `death`: The tree death rate (mu)
+* `max_time`: The stopping criterion for maximum evolution time
+* `min_leaves`: The stopping criterion for minimum number of leaves
+* `labels`: The model for textual generation of random labels
+(`None`, `"enum"` for a simple enumeration, `"human"` for randomly
+generated names, and `"bio"` for randomly generated specie names)
+* `num_chars`: The number of characters to be simulated
+* `k_mut`: The character mutation gamma `k` parameter
+* `th_mut`: The character mutation gamma `th` parameter
+* `k_hgt`: The character HGT gamma `k` parameter
+* `th_hgt`: The character HGT gamma `th` parameter
+* `e`: The character general mutation `e` parameter
+
+## How does ngesh work?
+
+For each tree, an `event_rate` is computed from the sum of the `birth` and
+`death` rates. At each iteration, which takes place after an
+random expovariant time from the `event_rate`, one of the extant nodes is
+selected for an "event": either a birth or a death from the
+proportion of each rate. All other extant leaves have their distances
+updated with the event time.
+
+The random labels follow the expected methods for random text generation
+from a set of patterns, taking care to generate names as universally
+readable (if not pronounceable) as possible.
+
+*missing on character generation*
+
 ### Integrating with other software
 
 Integration is easy due to the various export functions. For example, it
@@ -363,26 +375,7 @@ random tree.
 
 *TODO: Compare trees (Robinson-Foulds symmetric difference?)*
 
-The files used and generated in this example
-can be found in the `/examples` directory.
-
-## Parameters for tree generation
-
-The parameters for tree generation, as also given by `ngesh -h`, are:
-
-* `birth`: The tree birth rate (l)
-* `death`: The tree death rate (mu)
-* `max_time`: The stopping criterion for maximum evolution time
-* `min_leaves`: The stopping criterion for minimum number of leaves
-* `labels`: The model for textual generation of random labels
-(`None`, `"enum"` for a simple enumeration, `"human"` for randomly
-generated names, and `"bio"` for randomly generated specie names)
-* `num_chars`: The number of characters to be simulated
-* `k_mut`: The character mutation gamma `k` parameter
-* `th_mut`: The character mutation gamma `th` parameter
-* `k_hgt`: The character HGT gamma `k` parameter
-* `th_hgt`: The character HGT gamma `th` parameter
-* `e`: The character general mutation `e` parameter
+The files used and generated in this example can be found in the `/examples` directory.
 
 ## What does "ngesh" mean?
 
@@ -414,6 +407,7 @@ For simpler simulations, the `.populate()` method of the `Tree` class
 in ETE might be enough as well. Documentation on the method is
 available
 [here](http://etetoolkit.org/docs/latest/reference/reference_tree.html#ete3.TreeNode.populate).
+The `toytree` and `dendropy` packages also offer comparable functionality.
 
 A number of on-line tools are also available at the time of writing:
 
@@ -424,40 +418,6 @@ be used on-line as a wrapper to T-Rex above
 * [phyloT](https://phylot.biobyte.de/), which by randomly sampling taxonomic names,
 identifiers or protein accessions can be used for the same purpose
 
-## TODO
-
-* Shorter-term
-    * Write better documentation of function parameters
-    * Check if all outputs are complete (e.g., characters are currently
-      missing in the Newick format)
-    * Add a command-line option (or a new tool) that allows to write the
-      output to one file and the reference tree to a second one (possibly
-      with the log of character evolution)
-    * Check for alternatives for the exponential correction of a character
-      resistance to mutation (e.g. Zipf law), including separating mutation
-      and borrowing rates
-    * Allow to exclude non extant taxa from horizontal gene transfer
-      events
-
-* Longer-term
-    * Variable birth/death ratios
-    * Consider replacing or complementing `expovariate()` in birth/death
-      events with actual random Poisson sampling, allowing additional models
-    * Implement parallel character evolution as controlled by a parameter
-    * Implement more models for random character generation, especially those
-      frm genetics (first candidate, a General Time Reversable model with
-      a proportion of invariable sites and a gamma-shaped distribution of
-      rates across sites)
-    * Simulate a "donation power" for taxa, making borrowing events globally
-      more likely from a given donor (analogous to cultural influence in
-      linguistics)
-    * Allow to guarantee that borrowing events will always result in
-      altered states (it is currently possible that an event will borrow
-      an equal state for a given character, especially considering that we
-      favor borrowing from closer taxa)
-    * Implement character simulation for other datatypes, particularly from
-      genetics (currently only standard binary presence/absence)
-
 ## Gallery
 
 ![random tree](https://raw.githubusercontent.com/tresoldi/ngesh/master/docs/tree001.png)
@@ -465,8 +425,6 @@ identifiers or protein accessions can be used for the same purpose
 ![random tree](https://raw.githubusercontent.com/tresoldi/ngesh/master/docs/tree003.png)
 
 ## References
-
-toytree, dendropy
 
 * Bailey, N. T. J. (1964). *The elements of stochastic processes with applications to the natural sciences*. John Wiley & Sons.
 
@@ -480,6 +438,12 @@ Available at: [https://lukejharmon.github.io/pcm/chapter10_birthdeath/](https://
 
 * Stadler, Tanja (2011). *Simulating Trees with a Fixed Number of Extant Species*. Systematic Biology 60.5:676-684. DOI: [https://doi.org/10.1093/sysbio/syr029](https://doi.org/10.1093/sysbio/syr029)
 
+The `ngesh` banner was designed by Tiago Tresoldi on basis of the
+vignette "Sherwood Forest" by J. Needham
+published in Needham, J. (1895) *Studies of trees in pencil and in water colors*. First
+series. London, Glasgow, Edinburgh: Blackie & Son. (under public domain and
+available on [archive.org](https://archive.org/details/studiesoftreesin00need/page/n3/mode/2up)).
+
 ## Community guidelines
 
 While the author can be contacted directly for support, it is recommended that
@@ -487,15 +451,7 @@ third parties use GitHub standard features, such as issues and pull requests, to
 contribute, report problems, or seek support.
 
 Contributing guidelines, including a code of conduct, can be found in the
-CONTRIBUTING.md file.
-
-## References
-
-The `ngesh` banner was designed by Tiago Tresoldi on basis of the
-vignette "Sherwood Forest" by J. Needham
-published in Needham, J. (1895) *Studies of trees in pencil and in water colors*. First
-series. London, Glasgow, Edinburgh: Blackie & Son. (under public domain and
-available on [archive.org](https://archive.org/details/studiesoftreesin00need/page/n3/mode/2up)).
+`CONTRIBUTING.md` file.
 
 ## Author and citation
 
