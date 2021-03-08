@@ -1,5 +1,5 @@
 """
-Module with utilitary data and functions.
+Module with utility data and functions.
 """
 
 # Import Python standard libraries
@@ -51,7 +51,7 @@ def set_seeds(seed: Optional[Hashable] = None):
     # numbers. As this does not allow to accept `None`, we manually
     # call the function if necessary,
     if seed is None:
-        np.random_seed()
+        np.random.seed()
     else:
         if isinstance(seed, (str, float)):
             np_seed = np.frombuffer(

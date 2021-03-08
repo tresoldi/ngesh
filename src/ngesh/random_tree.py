@@ -64,7 +64,7 @@ def label_tree(tree: Tree, model: str = "enum", seed: Optional[Hashable] = None)
         # extremely unlikely, we might have repeated items in the labels.
         # The execution would not fail as we are using `zip()`, only items
         # would be unnamed, but we are manually adding missing labels as
-        # enumerations to make sure there are no anynomous nodes.
+        # enumerations to make sure there are no anonymous nodes.
         # TODO: decide on better approach or make case explicit in docs
         species = sorted(set(common.random_species(len(leaves), seed)))
         species += ["L%i" % i for i in range(len(leaves) - len(species))]
@@ -143,14 +143,14 @@ def _gen_tree_fast(
     while True:
         # Note that, in comparison to the default method, this implementation
         # does not check for extant leaves, as with the new `leaves` list we
-        # can more efficiently keep track of the extantn leaf nodes
+        # can more efficiently keep track of the extant leaf nodes
 
         # Compute the event time before the next birth/death event from a
-        # random exporaviate reflecting the number of extant leaves and the
+        # random expovariate reflecting the number of extant leaves and the
         # combined event probability.
         event_time = random.expovariate(len(leaves) * event_rate)
 
-        # Update the total evolution time. If a maximum alloted time
+        # Update the total evolution time. If a maximum allotted time
         # `max_time` is provided and we overshoot it, break the loop
         # without implementing the event (as, by the random event time, it
         # would take place *after* our maximum time, in the future).
@@ -170,7 +170,7 @@ def _gen_tree_fast(
         # event is decided based on the comparison of the result of a
         # `random.random()` call with `birth` (here already normalized in
         # relation to `event_rate`). In relation to the default implementation,
-        # this one keepts track of the position of the parent node
+        # this one keeps track of the position of the parent node
         # within the list leaves.
         leaf_n = np.random.random_integers(len(leaves)) - 1
         node = leaves[leaf_n]
@@ -188,7 +188,7 @@ def _gen_tree_fast(
             # other extant nodes.
             # Here, Nicola's implementation takes care of the first child
             # out of the loop just so it can replace its parent with it in
-            # the leaves list - this was not necesasary.
+            # the leaves list - this was not necessary.
             child_node = Tree()
 
             # As mentioned before, in Nicola's implementation node.dist is
@@ -232,7 +232,7 @@ def _gen_tree_fast(
             tree = None
             break
 
-        # Check whether the number of leaves stopping criterium was reached
+        # Check whether the number of leaves stopping criterion was reached
         if min_leaves and len(leaves) >= min_leaves:
             for node in leaves:
                 node.dist = total_time - node.dist
@@ -337,11 +337,11 @@ def _gen_tree(
         leaf_nodes = __extant(tree)
 
         # Compute the event time before the next birth/death event from a
-        # random exporaviate reflecting the number of extant leaves and the
+        # random expovariate reflecting the number of extant leaves and the
         # combined event probability.
         event_time = random.expovariate(len(leaf_nodes) * event_rate)
 
-        # Update the total evolution time. If a maximum alloted time
+        # Update the total evolution time. If a maximum allotted time
         # `max_time` is provided and we overshoot it, break the loop
         # without implementing the event (as, by the random event time, it
         # would take place *after* our maximum time, in the future).
@@ -552,7 +552,7 @@ def add_characters(
     Characters are added according to parameters of gamma distributions
     which are related to the length of each branch. The two possible
     events are mutation (assumed to be always to a new character, i.e., no
-    parallel evolution) and horizontal gene transfer. No pertubation,
+    parallel evolution) and horizontal gene transfer. No perturbation,
     such as the simulation of errors in sequencing/data collection, is
     performed by this function.
 
@@ -563,16 +563,18 @@ def add_characters(
         events.
     :param th: The theta parameter for the gamma distribution related to mutation
         events.
-    :param k_hgt: The k parameter for the gamma distirbution related to horizontal
+    :param k_hgt: The k parameter for the gamma distribution related to horizontal
         gene transfer events. Defaults to None (in case HGT should be
         modelled but the user is unsure about an appropriate value for
         `k_hgt`, it suggested to set it to 1.5 times `k`).
-    :param t_hgt: The theta parameter for the gamma distribution related to horizontal
+    :param th_hgt: The theta parameter for the gamma distribution related to horizontal
         gene transfer events. Defaults to None (in case HGT should be
         modelled but the user is unsure about an appropriate value for
         `th_hgt`, it suggested to set it to the same value as `th`).
     :param mut_exp: The exponent for correction of mutation probability of each
         character. Defaults to 1.0 (no correction).
+    :param seed: An optional seed for the random number generator. Defaults
+        to `None`.
     :return: The provided tree, with random characters added.
     """
 
@@ -677,7 +679,7 @@ def add_characters(
 
             # Compute the probability of each donor, inversely proportional to
             # the current distance (thus the (min+max)-i). For the time being,
-            # only a linear distibution of the probabilities is allowed.
+            # only a linear distribution of the probabilities is allowed.
             donor_prob = np.array([node.get_distance(donor) for donor in pot_source])
             donor_prob = (min(donor_prob) + max(donor_prob)) - donor_prob
 
@@ -714,7 +716,7 @@ def simulate_bad_sampling(
 
     Bad sampling is currently simulated in an uniform distribution, i.e.,
     all existing leaves have the same probability of being removed. Note that
-    if a full simulation of tree topology and characters is peformed,
+    if a full simulation of tree topology and characters is performed,
     this task must be carried out *after* the simulation of character
     evolution, as otherwise they would fit the sampled tree and not the
     original one.
@@ -736,7 +738,7 @@ def simulate_bad_sampling(
     # NOTE: this is currently only operating on leaves (after pruning, if
     #       requested) and only removing (i.e., not detaching)
     if cutoff:
-        rnd_remove_vec = [np.random.random() for leaf in tree.get_leaves()]
+        rnd_remove_vec = [np.random.random() for _ in tree.get_leaves()]
         for leaf, rnd_remove in zip(tree.get_leaves(), rnd_remove_vec):
             if rnd_remove <= cutoff:
                 leaf.delete()

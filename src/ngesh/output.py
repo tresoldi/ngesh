@@ -8,21 +8,13 @@ import itertools
 # Import 3rd-party libraries
 from ete3 import Tree
 
-def tree2wordlist(tree:Tree):
+
+def tree2wordlist(tree: Tree) -> str:
     """
     Returns a string with the representation of a tree in wordlist format.
 
-    Parameters
-    ----------
-
-    tree : ete3
-        The ete3 tree whose CSV representation will be returned.
-
-    Returns
-    -------
-
-    buf : string
-        A string with the full representation of the tree in CSV format.
+    :param tree: The ete3 tree whose CSV representation will be returned.
+    :return: A string with the full representation of the tree in CSV format.
     """
 
     # The number of characters for each taxon; it will be set when the
@@ -45,7 +37,7 @@ def tree2wordlist(tree:Tree):
         ]
 
         # Add all rows as comma-separated strings to the buffer; while this
-        # would work without assignment, it is best pratice to always
+        # would work without assignment, it is best practice to always
         # assign an expression to something.
         _ = [buf.append(",".join(row)) for row in rows]
 
@@ -53,21 +45,12 @@ def tree2wordlist(tree:Tree):
     return "\n".join(buf)
 
 
-def tree2nexus(tree:Tree):
+def tree2nexus(tree: Tree) -> str:
     """
     Returns a string with the representation of a tree in NEXUS format.
 
-    Parameters
-    ----------
-
-    tree : ete3
-        The ete3 tree whose NEXUS representation will be returned.
-
-    Returns
-    -------
-
-    buf : string
-        A string with the full representation of the tree in NEXUS format.
+    :param tree: The ete3 tree whose NEXUS representation will be returned.
+    :return: A string with the full representation of the tree in NEXUS format.
     """
 
     # Collect all taxa and their characters, provided the characters
