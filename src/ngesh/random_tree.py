@@ -425,8 +425,8 @@ def _gen_tree(
 
 
 def gen_tree(
-    birth: float,
-    death: float,
+    birth: float = 1.0,
+    death: float = 0.5,
     method: str = "standard",
     min_leaves: Optional[int] = None,
     max_time: Optional[float] = None,
@@ -448,9 +448,10 @@ def gen_tree(
     within the limits of an internal parameter for maximum number of
     attempts.
 
-    :param birth: The birth rate (lambda) for the generated tree.
+    :param birth: The birth rate (lambda) for the generated tree. Defaults
+        to 1.0.
     :param death: The death rate (mu) for the generated tree. Must be explicitly set
-        to zero for Yule model (i.e., birth only).
+        to zero for Yule model (i.e., birth only). Defaults to 0.5.
     :param method: The generation method to use. Available methods are "default" and
         "fast" (contributed by Nicola de Maio).
     :param min_leaves: A stopping criterion with the minimum number of extant leaves.
