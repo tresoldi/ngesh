@@ -29,7 +29,7 @@ Among the highlights of the package, with `ngesh`:
 * non-extant leaves can be pruned from birth-death trees
 * speciation events default to two descendants, but the number of descendants
   can be randomly drawn from a user-defined Poisson process (allowing
-  modelling of hard politomies)
+  to model hard politomies)
 * character evolution can be simulated in relation to branch lengths,
   with user-specified ratios for mutation and for horizontal gene transfer,
   with different rates of change for each character
