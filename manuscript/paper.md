@@ -20,7 +20,8 @@ bibliography: paper.bib
 
 # Summary
 
-This work presents [`ngesh`](https://pypi.org/project/ngesh/), a Python library for simulating phylogenetic trees and data designed for research in Historical Linguistics and Stemmatics.
+This work presents [`ngesh`](https://pypi.org/project/ngesh/), a Python library for simulating phylogenetic trees and
+data designed for research in historical linguistics and stemmatics.
 It generates reproducible stochastic simulations of evolution according to various criteria, including character mutation rates and lateral transmission probability. Many output formats are
 supported and results can simulate inadequate data compilation. The library is designed for usage in development, debugging, and benchmarking of software pipelines and methods for phylogenetic inference.
 
@@ -31,23 +32,23 @@ Stochastic simulations, long advocated for natural sciences in general [@Bailey:
 genetics in specific [@Foote:1999; @Harmon:2019], should be extended to these new approaches.
 This way, evolutionary analogies and methods' performance can be
 evaluated through vast amounts of simulated histories, without limits imposed by
-data availability and collection time, along with quantifiable precision of results.
+data availability and collection time, along with a quantifiable precision of results.
 Simulations also allow basic fuzzy testing of software and
 support studies on which evolutionary models, processes, and evolutionary parameters
 better match observed phenomena.
 
 The [`ngesh`](https://pypi.org/project/ngesh/) library is a tool
-for setting up these kind of simulations, designed for easy
+for setting up this kind of simulation, designed for easy
 integration into phylogenetic pipelines. It can generate reproducible trees and
 correlated data from random seeds, following both user-established parameters,
 such as rates of birth and death, and constrains, such as branch
 length and the node number. Character evolution related to the
 tree topology can likewise be simulated, including *ex novo* mutations and
-horizontal gene transfers. Results can be manipulated in diverse
+horizontal gene transfers. It can manipulate results in diverse
 manners, for example by pruning extinct leaves or simulating uneven sampling. The
-library can label taxa in progression or randomly with either
-names easy to pronounce (e.g. "Sume" and "Fekobir") or
-binominal nomenclature-like (e.g. "Sburas wioris" and "Zurbata pusso").
+library can label taxa in progression or with random names
+that are either easy to pronounce (e.g. "Sume" and "Fekobir") or
+imitate binominal nomenclature-like (e.g. "Sburas wioris" and "Zurbata pusso").
 The simulated trees are standard ETE3 objects [@ETE:2016] and may
 be exported into different formats like Newick trees, ASCII-art representation,
 and tabular lists.
