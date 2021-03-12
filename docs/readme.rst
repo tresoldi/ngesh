@@ -17,9 +17,9 @@ Among the highlights of the package, with ``ngesh``:
 -  trees can be generated according to user-specified parameters such as
    birth and death ratios (and the death ratio can be set to zero,
    resulting in a birth-only tree)
--  trees will have random topologies and, if necessary, random
+-  trees will have random topologies and, if desired, random
    branch-lengths
--  trees can be limited in terms of number of extant leaves, evolution
+-  trees can be constrained in terms of number of extant leaves, evolution
    time (as related to the birth and death parameters), or both
 -  non-extant leaves can be pruned from birth-death trees
 -  speciation events default to two descendants, but the number of
@@ -28,13 +28,13 @@ Among the highlights of the package, with ``ngesh``:
 -  character evolution can be simulated in relation to branch lengths,
    with user-specified ratios for mutation and for horizontal gene
    transfer, with different rates of change for each character
--  nodes can optionally receive unique labels, either sequential ones
-   (like “L01”, “L02”, and “L03”), random pronounceable names (like
+-  nodes can receive unique labels, either sequential ones
+   (like “L01”, “L02”, and “L03”), random names easy to pronounce (like
    “Sume”, “Fekobir”, and “Tukok”), or random biological names
    approximating the binomial nomenclature standard (like “Sburas
    wioris”, “Zurbata ceglaces”, and “Spellis spusso”)
--  trees can be returned as `ETE <http://etetoolkit.org/>`__ tree
-   objects or exported in a variety of formats, such as Newick trees,
+-  trees are normal `ETE3 <http://etetoolkit.org/>`__ tree
+   objects that can be exported in a variety of formats, such as Newick trees,
    ASCII representation, tabular textual listings, etc.
 
 Installation
@@ -46,7 +46,7 @@ In any standard Python environment, ``ngesh`` can be installed with:
 
    pip install ngesh
 
-The ``pip`` installation will also fetch the dependencies ``ete3`` and
+The ``pip`` installation will fetch the dependencies ``ete3`` and
 ``numpy``, if necessary.
 
 How to use

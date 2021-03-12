@@ -32,7 +32,7 @@ simulation”.
    :caption: Contents:
 
    readme
-   userguide
+   beginners
    Modules <source/modules.rst>
 
 

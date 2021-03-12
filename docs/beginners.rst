@@ -1,5 +1,5 @@
-User guide
-==========
+Beginners' guide
+================
 
 The ``ngesh`` library is designed to generate simulated data in
 reproducible manner: the pseudo-random generator seeds are used not only
