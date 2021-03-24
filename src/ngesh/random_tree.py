@@ -532,7 +532,6 @@ def gen_tree(
     return tree
 
 
-# TODO: do it in-place?
 def add_characters(
     tree: Tree,
     num_characters: int,

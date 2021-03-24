@@ -6,8 +6,6 @@ __main__.py
 Module for command-line execution and generation of random trees.
 """
 
-# TODO: add "show" as option
-
 # Import Python standard libraries
 import argparse
 import configparser
@@ -244,6 +242,7 @@ def main():
     elif args.output == "gfx":
         try:
             import PyQt5
+
             tree.show()
         except ImportError:
             raise ImportError("Unable to import or use `PyQt5` (is it installed?).")
