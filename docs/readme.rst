@@ -437,7 +437,7 @@ Alternatives
 
 There are many tools for simulating phylogenetic processes to obtain
 random phylogenetic trees. The most complete is probably the R package
-```TreeSim`` <https://CRAN.R-project.org/package=TreeSim>`__ by Tanja
+`TreeSim <https://CRAN.R-project.org/package=TreeSim>`__ by Tanja
 Stadler, which includes many flexible tree simulation functions. In R,
 one can also use the ``rtree()`` function from package ``ape`` and the
 ``birthdeath.tree()`` one from package ``geiger``, as well as manually
