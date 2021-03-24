@@ -1,10 +1,11 @@
 ---
-title: 'Ngesh: a Python library for phylogenetic simulation'
+title: 'Ngesh: a Python library for generating synthetic phylogenetic data
 tags:
   - Python
   - phylogenetics
   - random phylogenetic tree
   - phylogenetic tree simulation
+  - synthetic data
 authors:
   - name: Tiago Tresoldi
     orcid: 0000-0002-2863-1467
@@ -22,43 +23,49 @@ bibliography: paper.bib
 
 This work presents [`ngesh`](https://pypi.org/project/ngesh/), a Python library for simulating phylogenetic trees and
 data,
-designed for usage in development, debugging, and benchmarking of software pipelines and methods for phylogenetic
+designed for usage in development, debugging, and benchmarking of analysis pipelines and methods for phylogenetic
 inference, particularly in historical linguistics and stemmatics.
-It generates reproducible stochastic simulations of evolution according to various criteria, including character
-mutation rates and horizontal transfer probability, and its results can simulate inadequate data compilation and
-sampling. Many output formats are supported, both for visualization (such as plain text and via tree viewers)
+The package generates reproducible stochastic simulations of evolution according to various criteria,
+including character
+mutation rates and probability of horizontal transfer, and its results can include the simulation of inadequate
+data compilation and sampling. Different output formats are supported, both for visualization
+(such as plain text and with integrated graphical viewers)
 and for software interoperability (such as Newick and NEXUS).
 
 # Background
 
-Computational phylogenetics is being increasingly accepted in fields beyond biology, such as historical linguistics [@Bouckaert:2012] and stemmatics [@Robinson:2016].
+Computational phylogenetics is being increasingly accepted in fields beyond biology, such as historical
+linguistics [@Bouckaert:2012] and stemmatics [@Robinson:2016].
 Stochastic simulations, long advocated for natural sciences in general [@Bailey:1990] and
-genetics in specific [@Foote:1999; @Harmon:2019], should be extended to these other fields.
-This way, we are able to evaluate evolutionary analogies, evolutionary models, and methods’ performance
+genetics in specific [@Foote:1999; @Harmon:2019], are not yet used often enough in these
+fields. However, they are highly desirable, allowing to
+evaluate evolutionary analogies and models, as well as methods' performance,
 through vast amounts of simulated histories, without limits imposed by
-data availability and collection time, along with a quantifiable precision of results.
-Likewise, simulations allow basic fuzzy testing of software and
+data availability and collection time and with quantifiable precision of results.
+Simulations can also be used to perform basic fuzzy testing of software and to
 support studies on which evolutionary models, processes, and evolutionary parameters
-better match observed phenomena.
+better match the observed phenomena.
 
-The [`ngesh`](https://pypi.org/project/ngesh/) library is a tool
-for setting up this kind of simulation, designed for easy
+The [`ngesh`](https://pypi.org/project/ngesh/) library is a tool that
+allows to perform such simulations, designed for easy
 integration into phylogenetic pipelines. It can generate reproducible trees and
 correlated data from random seeds, following both user-established parameters,
 such as ratios of birth and death, and constrains, such as branch
-lengths and number of taxa. Character evolution related to the
-tree topology can likewise be simulated, including *ex novo* mutations and
-horizontal gene transfers. It can manipulate results in diverse
-manners, for example by pruning extinct leaves or simulating uneven sampling. The
+lengths and minimum number of taxa. The
 library can label taxa progressive enumeration or with random names
 that are easy to pronounce (e.g. "Sume" and "Fekobir") or which
 imitate the binominal nomenclature (e.g. "Sburas wioris" and "Zurbata pusso").
+Character evolution related to the
+tree topology can likewise be simulated, including *ex novo* mutations and
+horizontal gene transfers. Results can be manipulated in diverse
+manners, for example by pruning extinct leaves or simulating uneven sampling. 
 The simulated trees are standard ETE3 objects [@ETE:2016] and may
-be exported into different formats like Newick trees, ASCII-art representation,
+be exported into different formats such as Newick trees, ASCII-art representation,
 and tabular lists.
 
-The library is proposed as a building block for evaluating software pipelines.
-It is a curated alternative to the basic technique of randomizing taxa
+
+As a building block for evaluating pipelines of analysis, the library
+is a curated alternative to the basic technique of randomizing taxa
 placement in existing cladograms, and to simpler tools such as the one by
 @Noutahi:2017 or the `populate()` method of ETE3’s `Tree`
 class [@ETE:2016]. Within its intended scope, it compares to
@@ -68,7 +75,8 @@ however with specific support for historical linguistics and stemmatics.
 
 # Installation, Usage, & Examples
 
-Users can install the library with the standard `pip` tool for managing Python packages. Trees can be generated from the command-line, defaulting to small phylogenies in Newick format:
+Users can install the library with the standard `pip` tool for managing Python packages. Trees can be
+generated from the command-line, defaulting to small phylogenies in Newick format:
 
 ```bash
 $ ngesh
