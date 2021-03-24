@@ -33,11 +33,11 @@ and for software interoperability (such as Newick and NEXUS).
 
 Computational phylogenetics is being increasingly accepted in fields beyond biology, such as historical linguistics [@Bouckaert:2012] and stemmatics [@Robinson:2016].
 Stochastic simulations, long advocated for natural sciences in general [@Bailey:1990] and
-genetics in specific [@Foote:1999; @Harmon:2019], should be extended to these new approaches.
-This way, evolutionary analogies, evolutionary models, and methods' performance can be
-evaluated through vast amounts of simulated histories, without limits imposed by
+genetics in specific [@Foote:1999; @Harmon:2019], should be extended to these other fields.
+This way, we are able to evaluate evolutionary analogies, evolutionary models, and methods’ performance
+through vast amounts of simulated histories, without limits imposed by
 data availability and collection time, along with a quantifiable precision of results.
-Simulations also allow basic fuzzy testing of software and
+Likewise, simulations allow basic fuzzy testing of software and
 support studies on which evolutionary models, processes, and evolutionary parameters
 better match observed phenomena.
 
@@ -51,7 +51,7 @@ tree topology can likewise be simulated, including *ex novo* mutations and
 horizontal gene transfers. It can manipulate results in diverse
 manners, for example by pruning extinct leaves or simulating uneven sampling. The
 library can label taxa progressive enumeration or with random names
-that are either easy to pronounce (e.g. "Sume" and "Fekobir") or which
+that are easy to pronounce (e.g. "Sume" and "Fekobir") or which
 imitate the binominal nomenclature (e.g. "Sburas wioris" and "Zurbata pusso").
 The simulated trees are standard ETE3 objects [@ETE:2016] and may
 be exported into different formats like Newick trees, ASCII-art representation,
@@ -61,11 +61,10 @@ The library is proposed as a building block for evaluating software pipelines.
 It is a curated alternative to the basic technique of randomizing taxa
 placement in existing cladograms, and to simpler tools such as the one by
 @Noutahi:2017 or the `populate()` method of ETE3’s `Tree`
-class [@ETE:2016]. Within its intended scope, it compares favorably to
+class [@ETE:2016]. Within its intended scope, it compares to
 popular alternatives, including the R `TreeSim` [@Stadler:2011] and `geiger`
-packages [@Pennell:2014] and the `rtree()` function of `ape` [@Paradis:2018], because of
-its specific support for historical linguistics and stemmatics,
-as well of its availability as a stand-alone tool.
+packages [@Pennell:2014] and the `rtree()` function of `ape` [@Paradis:2018],
+however with specific support for historical linguistics and stemmatics.
 
 # Installation, Usage, & Examples
 
@@ -110,7 +109,9 @@ end;
 
 Despite the benefit of a stand-alone tool, the package is designed to be run as a library.
 The two primary functions are `gen_tree()`, which returns a random tree, and
-`add_characters()`, which adds character evolution data to a tree. Users can therefore generate random trees without character information or simulate character evolution within existing trees, including non-simulated ones.
+`add_characters()`, which adds character evolution data to a tree. Users can
+generate random trees without character information or simulate character evolution within existing trees,
+including non-simulated ones.
 
 ```python
 >>> import ngesh
@@ -129,7 +130,9 @@ The two primary functions are `gen_tree()`, which returns a random tree, and
 >>> tree = ngesh.add_characters(tree, 15, 2.0, 0.5)
 ```
 
-Besides the `write()` method of the example above, which outputs Newick trees, results can be exported in NEXUS format with the `tree2nexus()` function and in tabular output, appropriate for BEASTling [@Maurits:2017], with `tree2wordlist()`.
+Besides the `write()` method of the example above, which outputs Newick trees, results can be exported in NEXUS
+format with the `tree2nexus()` function and in a tabular output expected by
+tools such as BEASTling [@Maurits:2017], with the `tree2wordlist()` function.
 
 # Code and Documentation Availability
 
