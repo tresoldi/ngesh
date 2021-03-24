@@ -12,7 +12,7 @@ from .common import set_seeds
 from .random_tree import gen_tree, add_characters, simulate_bad_sampling
 from .output import tree2nexus, tree2wordlist
 
-
+# TODO: move to some "extra" module?
 def show_random_tree():
     """
     Shows a random tree using ETE3.

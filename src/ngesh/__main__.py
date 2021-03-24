@@ -203,7 +203,7 @@ def parse_arguments():
         "-o",
         "--output",
         type=str,
-        choices=["newick", "ascii", "nexus", "wl"],
+        choices=["newick", "ascii", "nexus", "wl", "gfx"],
         help='Set output type (default "newick")',
     )
 
@@ -241,6 +241,12 @@ def main():
         print(ngesh.tree2nexus(tree))
     elif args.output == "wl":
         print(ngesh.tree2wordlist(tree))
+    elif args.output == "gfx":
+        try:
+            import PyQt5
+            tree.show()
+        except ImportError:
+            raise ImportError("Unable to import or use `PyQt5` (is it installed?).")
 
 
 if __name__ == "__main__":

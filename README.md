@@ -11,15 +11,15 @@ for simulating phylogenetic trees and related data (characters, states,
 branch length, etc.).
 It is intended for benchmarking phylogenetic methods, especially in
 historical linguistics and stemmatology. The generation of
-stochastic phylogenetic trees also goes by the name of "simulation methods
-for phylogenetic trees", "synthetic data", or just "phylogenetic tree simulation".
+stochastic phylogenetic trees also goes by the name "simulation methods
+for phylogenetic trees", "synthetic data generation", or just "phylogenetic tree simulation".
 
 ![ngesh](https://raw.githubusercontent.com/tresoldi/ngesh/master/docs/banner.png)
 
 Among the highlights of the package, with `ngesh`:
 
 * any hashable element can be provided as a seed for the pseudo-random number
-  generators, guaranteeing that the generated trees are reproducible (including
+  generators, guaranteeing that the synthetic trees are reproducible (including
   across different systems)
 * trees can be generated according to user-specified parameters such as birth and death ratios (and
   the death ratio can be set to zero, resulting in a birth-only tree)
@@ -52,7 +52,8 @@ pip install ngesh
 The `pip` installation will fetch the dependencies `ete3` and
 `numpy`, if necessary. The built-in tree visualization
 tool from `ete3` requires the `PyQt5` library which is not installed
-by default, but which should be available in most systems. It can be
+by default, but which should be available in most systems.
+If necessary, it can be
 installed along with the package with:
 
 ```bash
@@ -79,10 +80,10 @@ $ ngesh
 );
 ```
 
-The same command-line tool can refer to values provided in a textual
+The same command-line tool can use parameters provided in a textual
 configuration file. Here, we generate the Nexus data for a
-reproducible Yule tree (note the `12345` seed)
-with a birth ratio of 0.75, at least 8 leaves with `"human"` labels,
+reproducible Yule tree (note the `123` seed)
+with a birth ratio of 0.666, at least 8 leaves with `"human"` labels,
 and 10 presence/absence characters:
 
 ```bash
@@ -122,9 +123,13 @@ Zusu        10010100010010000100001000100010001000
 end;
 ```
 
-We can override parameters from configuration files at the command-line.
+All parameters provided in the configuration files can be overridden
+at the command-line.
 
-A textual visualization of the tree can be obtained with:
+A textual representation of the same tree (that is, of the
+random tree generated with the set of parameters and the same
+seed) can be obtained with the
+`-o ascii` flag:
 
 ```bash
 $ ngesh -c ngesh_demo.conf --seed 123 -o ascii
@@ -163,13 +168,24 @@ $ ngesh -c ngesh_demo.conf --seed 123 -o ascii
 ```
 
 The package is, however, designed to be used as a library. If you have
-PyQt5 installed, the following code will pop up the ETE Tree Viewer on a random tree:
+PyQt5 installed, the following command will open the ETE Tree Viewer
+on the same random tree:
+
+```bash
+$ ngesh -c ngesh_demo.conf --seed 123 -o gfx
+```
+
+![random tree](https://raw.githubusercontent.com/tresoldi/ngesh/master/docs/tree001.png)
+
+Likewise, the following code is useful for quick demonstration and
+will pop up the Viewer on a random tree each time it is called:
 
 ```bash
 python3 -c "import ngesh ; ngesh.show_random_tree()"
 ```
 
-![random tree](https://raw.githubusercontent.com/tresoldi/ngesh/master/docs/tree001.png)
+![random tree](https://raw.githubusercontent.com/tresoldi/ngesh/master/docs/tree002.png)
+
 
 
 The primary functions for generation are `gen_tree()`
