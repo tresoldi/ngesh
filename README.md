@@ -409,7 +409,7 @@ Sumerian god of (among many other things) language and "randomness".
 
 The intended pronunciation, as in the most accepted reconstructions, is /ŋeʃ/.
 But don't stress over it, and feel free to call it /n̩.gɛʃ/, as
-many people seem to do.
+most people have been doing.
 
 ## Alternatives
 
