@@ -414,7 +414,7 @@ Python:
    d = tree1.robinson_foulds(tree_2)
 
 The files used and generated in this example can be found in the
-```/examples`` <https://github.com/tresoldi/ngesh/tree/main/examples>`__
+`/examples <https://github.com/tresoldi/ngesh/tree/main/examples>`__
 directory.
 
 What does “ngesh” mean?
@@ -437,7 +437,7 @@ Alternatives
 
 There are many tools for simulating phylogenetic processes to obtain
 random phylogenetic trees. The most complete is probably the R package
-`TreeSim <https://CRAN.R-project.org/package=TreeSim>`__ by Tanja
+TreeSim by Tanja
 Stadler, which includes many flexible tree simulation functions. In R,
 one can also use the ``rtree()`` function from package ``ape`` and the
 ``birthdeath.tree()`` one from package ``geiger``, as well as manually
