@@ -21,16 +21,20 @@ bibliography: paper.bib
 # Summary
 
 This work presents [`ngesh`](https://pypi.org/project/ngesh/), a Python library for simulating phylogenetic trees and
-data designed for research in historical linguistics and stemmatics.
-It generates reproducible stochastic simulations of evolution according to various criteria, including character mutation rates and lateral transmission probability. Many output formats are
-supported and results can simulate inadequate data compilation. The library is designed for usage in development, debugging, and benchmarking of software pipelines and methods for phylogenetic inference.
+data,
+designed for usage in development, debugging, and benchmarking of software pipelines and methods for phylogenetic
+inference, particularly in historical linguistics and stemmatics.
+It generates reproducible stochastic simulations of evolution according to various criteria, including character
+mutation rates and horizontal transfer probability, and its results can simulate inadequate data compilation and
+sampling. Many output formats are supported, both for visualization (such as plain text and via tree viewers)
+and for software interoperability (such as Newick and NEXUS).
 
 # Background
 
 Computational phylogenetics is being increasingly accepted in fields beyond biology, such as historical linguistics [@Bouckaert:2012] and stemmatics [@Robinson:2016].
 Stochastic simulations, long advocated for natural sciences in general [@Bailey:1990] and
 genetics in specific [@Foote:1999; @Harmon:2019], should be extended to these new approaches.
-This way, evolutionary analogies and methods' performance can be
+This way, evolutionary analogies, evolutionary models, and methods' performance can be
 evaluated through vast amounts of simulated histories, without limits imposed by
 data availability and collection time, along with a quantifiable precision of results.
 Simulations also allow basic fuzzy testing of software and
@@ -41,14 +45,14 @@ The [`ngesh`](https://pypi.org/project/ngesh/) library is a tool
 for setting up this kind of simulation, designed for easy
 integration into phylogenetic pipelines. It can generate reproducible trees and
 correlated data from random seeds, following both user-established parameters,
-such as rates of birth and death, and constrains, such as branch
-length and the node number. Character evolution related to the
+such as ratios of birth and death, and constrains, such as branch
+lengths and number of taxa. Character evolution related to the
 tree topology can likewise be simulated, including *ex novo* mutations and
 horizontal gene transfers. It can manipulate results in diverse
 manners, for example by pruning extinct leaves or simulating uneven sampling. The
-library can label taxa in progression or with random names
-that are either easy to pronounce (e.g. "Sume" and "Fekobir") or
-imitate binominal nomenclature-like (e.g. "Sburas wioris" and "Zurbata pusso").
+library can label taxa progressive enumeration or with random names
+that are either easy to pronounce (e.g. "Sume" and "Fekobir") or which
+imitate the binominal nomenclature (e.g. "Sburas wioris" and "Zurbata pusso").
 The simulated trees are standard ETE3 objects [@ETE:2016] and may
 be exported into different formats like Newick trees, ASCII-art representation,
 and tabular lists.
@@ -129,9 +133,9 @@ Besides the `write()` method of the example above, which outputs Newick trees, r
 
 # Code and Documentation Availability
 
-The `ngesh` source code is available on GitHub at [https://github.com/evotext/ngesh](https://github.com/evotext/ngesh).
+The `ngesh` source code is available on GitHub at [https://github.com/tresoldi/ngesh](https://github.com/tresoldi/ngesh).
 
-The full user documentation is available at [https://ngesh.readthedocs.io/](https://ngesh.readthedocs.io/).
+User documentation is available at [https://ngesh.readthedocs.io/](https://ngesh.readthedocs.io/).
 
 # Acknowledgements
 
