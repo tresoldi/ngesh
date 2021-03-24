@@ -1,5 +1,5 @@
 ---
-title: "Ngesh: a Python library for generating synthetic phylogenetic data"
+title: "Ngesh: a Python library for synthetic phylogenetic data"
 tags:
   - Python
   - phylogenetics
