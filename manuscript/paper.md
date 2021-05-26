@@ -37,19 +37,19 @@ and for software interoperability (such as Newick and NEXUS).
 Computational phylogenetics is being increasingly accepted in fields beyond biology, such as historical
 linguistics [@Bouckaert:2012] and stemmatics [@Robinson:2016].
 Stochastic simulations, long advocated for natural sciences in general [@Bailey:1990] and
-genetics in specific [@Foote:1999; @Harmon:2019], are not yet used often enough in these
-fields. However, they are highly desirable, allowing to
-evaluate evolutionary analogies and models, as well as methods' performance,
+genetics in specific [@Foote:1999; @Harmon:2019], are not used enough in these
+fields. However, they are very desirable, allowing to
+evaluate evolutionary analogies, models, and performance
 through vast amounts of simulated histories, without limits imposed by
-data availability and collection time and with quantifiable precision of results.
-Simulations can also be used to perform basic fuzzy testing of software and to
+data availability and collection time, with quantifiable precision of results.
+Simulations can also be used to perform fuzzy testing of software and to
 support studies on which evolutionary models, processes, and evolutionary parameters
 better match the observed phenomena.
 
 The [`ngesh`](https://pypi.org/project/ngesh/) library is a tool that
 allows to perform such simulations, designed for easy
 integration into phylogenetic pipelines. It can generate reproducible trees and
-correlated data from random seeds, following both user-established parameters,
+correlated data following both user-established parameters,
 such as ratios of birth and death, and constrains, such as branch
 lengths and minimum number of taxa. The
 library can label taxa progressive enumeration or with random names
@@ -63,22 +63,20 @@ The simulated trees are standard ETE3 objects [@ETE:2016] and may
 be exported into different formats such as Newick trees, ASCII-art representation,
 and tabular lists.
 
+# Statement of need
 
-As a building block for evaluating pipelines of analysis, the library
+The library addresses the need of more tools to investigate and teach
+phylogenetics in historical linguistics and stemmatics.
+As a building block for evaluating pipelines of analysis, it
 is an alternative to the basic technique of randomizing taxa
 placement in existing cladograms, and to simpler tools such as the one by
 @Noutahi:2017 or the `populate()` method of ETE3’s `Tree`
-class [@ETE:2016]. Within its intended scope of historical linguistics and
-stemmatics, it compares to
-popular alternatives, such as the R `TreeSim` [@Stadler:2011] and `geiger`
+class [@ETE:2016]. It compares to
+popular alternatives, such as the `TreeSim` [@Stadler:2011] and `geiger`
 packages [@Pennell:2014] and the `rtree()` function of `ape` [@Paradis:2018],
 by using default parameters that produce trees closer to
-those found in these fields. The library also
-addresses the need of a tool that can be used to teach phylogenetics in
-these fields by focusing on the generation of data, such as random cognate classes,
-which fit existing pipelines better than the results of tools
-developed with a focus on biology.
-
+those found in the fields of its intended scope, also in terms of
+file formats that better fit existing pipelines.
 
 # Installation, Usage, & Examples
 
@@ -145,9 +143,9 @@ including non-simulated ones.
 >>> tree = ngesh.add_characters(tree, 15, 2.0, 0.5)
 ```
 
-Besides the `write()` method of the example above, which outputs Newick trees, results can be exported in NEXUS
-format with the `tree2nexus()` function and in a tabular output expected by
-tools such as BEASTling [@Maurits:2017], with the `tree2wordlist()` function.
+Besides the `write()` method above, which outputs Newick trees, results can be exported in NEXUS
+format with `tree2nexus()` and in a tabular output expected by
+tools such as BEASTling [@Maurits:2017], with `tree2wordlist()`.
 
 # Code and Documentation Availability
 
