@@ -65,13 +65,20 @@ and tabular lists.
 
 
 As a building block for evaluating pipelines of analysis, the library
-is a curated alternative to the basic technique of randomizing taxa
+is an alternative to the basic technique of randomizing taxa
 placement in existing cladograms, and to simpler tools such as the one by
 @Noutahi:2017 or the `populate()` method of ETE3’s `Tree`
-class [@ETE:2016]. Within its intended scope, it compares to
-popular alternatives, including the R `TreeSim` [@Stadler:2011] and `geiger`
+class [@ETE:2016]. Within its intended scope of historical linguistics and
+stemmatics, it compares to
+popular alternatives, such as the R `TreeSim` [@Stadler:2011] and `geiger`
 packages [@Pennell:2014] and the `rtree()` function of `ape` [@Paradis:2018],
-however with specific support for historical linguistics and stemmatics.
+by using default parameters that produce trees closer to
+those found in these fields. The library also
+addresses the need of a tool that can be used to teach phylogenetics in
+these fields by focusing on the generation of data, such as random cognate classes,
+which fit existing pipelines better than the results of tools
+developed with a focus on biology.
+
 
 # Installation, Usage, & Examples
 
