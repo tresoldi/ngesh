@@ -72,19 +72,21 @@ is an alternative to the basic technique of randomizing taxa
 placement in existing cladograms, and to simpler tools such as the one by
 @Noutahi:2017 or the `populate()` method of ETE3’s `Tree`
 class [@ETE:2016]. While there are many other alternatives available
-for simulating trees (such as the `TreeSim` [@Stadler:2011] and `geiger`
-packages [@Pennell:2014], as well as the `rtree()` function of `ape` [@Paradis:2018],
-for R or the `DendroPy` [@Sukumaran2021] library for Python),
-`ngesh` compares favorably in historical linguistics
-by using default parameters that produce trees closer to
-those found in the field, while using formats that better fit
+for simulating trees, including `TreeSim` [@Stadler:2011], `geiger`
+[@Pennell:2014], `ape` [@Paradis:2018],
+and `DendroPy` [@Sukumaran2021],
+`ngesh` compares favorably in historical linguistics and
+stemmatics. For the former, it provides
+default parameters that produce trees closer to
+those found in the field, all while using formats that better fit
 the existing pipelines (such as CLDF [@cldf]) and laying ground for
-the usage of character values which are not the default
-cognate set for modelling lexical replacement (such as sound
-changes). In stemmatics, where Bayesian phylogenetics have
+the usage of different character values (such as sound changes)
+besides the default 
+cognate-sets for modelling lexical replacement.
+For the latter, where Bayesian phylogenetics have
 been gaining traction at a slower pace, the library constitutes
 the first general-purpose tool available and should help
-make the method for popular. 
+make these methods for popular. 
 
 # Installation, Usage, & Examples
 
