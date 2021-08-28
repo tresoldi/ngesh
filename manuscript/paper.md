@@ -13,9 +13,9 @@ authors:
 affiliations:
  - name: Department of Linguistics and Philology, Uppsala University
    index: 1
- - name: Department of Linguistic and Cultural Evolution, Max Planck Institute for the Science of Human History
+ - name: Department of Linguistic and Cultural Evolution, Max Planck Institute for Evolutionary Anthropology
    index: 2
-date: 02 April 2021
+date: 29 August 2021
 bibliography: paper.bib
 ---
 
@@ -38,7 +38,7 @@ Computational phylogenetics is being increasingly accepted in fields beyond biol
 linguistics [@Bouckaert:2012] and stemmatics [@Robinson:2016].
 Stochastic simulations, long advocated for natural sciences in general [@Bailey:1990] and
 genetics in specific [@Foote:1999; @Harmon:2019], are not used enough in these
-fields. However, they are very desirable, allowing to
+fields. Nonetheless, they are very desirable, allowing to
 evaluate evolutionary analogies, models, and performance
 through vast amounts of simulated histories, without limits imposed by
 data availability and collection time, with quantifiable precision of results.
@@ -71,12 +71,20 @@ As a building block for evaluating pipelines of analysis, it
 is an alternative to the basic technique of randomizing taxa
 placement in existing cladograms, and to simpler tools such as the one by
 @Noutahi:2017 or the `populate()` method of ETE3’s `Tree`
-class [@ETE:2016]. It compares to
-popular alternatives, such as the `TreeSim` [@Stadler:2011] and `geiger`
-packages [@Pennell:2014] and the `rtree()` function of `ape` [@Paradis:2018],
+class [@ETE:2016]. While there are many other alternatives available
+for simulating trees (such as the `TreeSim` [@Stadler:2011] and `geiger`
+packages [@Pennell:2014], as well as the `rtree()` function of `ape` [@Paradis:2018],
+for R or the `DendroPy` [@Sukumaran2021] library for Python),
+`ngesh` compares favorably in historical linguistics
 by using default parameters that produce trees closer to
-those found in the fields of its intended scope, also in terms of
-file formats that better fit existing pipelines.
+those found in the field, while using formats that better fit
+the existing pipelines (such as CLDF [@cldf]) and laying ground for
+the usage of character values which are not the default
+cognate set for modelling lexical replacement (such as sound
+changes). In stemmatics, where Bayesian phylogenetics have
+been gaining traction at a slower pace, the library constitutes
+the first general-purpose tool available and should help
+make the method for popular. 
 
 # Installation, Usage, & Examples
 
