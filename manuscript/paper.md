@@ -161,7 +161,8 @@ Besides the `write()` method above, which outputs Newick trees, results can be e
 format with `tree2nexus()` or in a textual tabular format with `tree2wordlist()`. Phylogenetic reconstruction can
 then be carried either by manually building an XML model for BEAST2 [@beast2] (normally with the aid of the graphical interface BEAUTi) or by using tools such as BEASTling [@Maurits:2017], producing
 a tree distribution. This distribution can be summarized to a maximum clade credibility ("MCC") tree
-with phylogenetic packages, allowing both visual and quantitative comparisons. A demonstration of such steps is provided with the user documentation.
+with phylogenetic packages, allowing both visual and quantitative comparisons. A demonstration of such steps is provided with the user documentation
+("Integrating with other software").
 
 
 # Code and Documentation Availability
