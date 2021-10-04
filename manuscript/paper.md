@@ -142,8 +142,6 @@ including non-simulated ones.
 >>> import ngesh
 >>> tree = ngesh.gen_tree(1.0, 0.5, max_time=0.3, labels="bio",
                           seed="135")
-
-
 >>> print(tree)
 
    /-Lubedsas larpes
