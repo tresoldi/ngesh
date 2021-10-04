@@ -50,7 +50,7 @@ The [`ngesh`](https://pypi.org/project/ngesh/) library is a tool that
 allows to perform such simulations, designed for easy
 integration into phylogenetic pipelines. It can generate reproducible trees and
 correlated data following both user-established parameters,
-such as ratios of birth and death, and constrains, such as branch
+such as ratios of birth and death, and constraints, such as branch
 lengths and minimum number of taxa. The
 library can label taxa progressive enumeration or with random names
 that are easy to pronounce (e.g. "Sume" and "Fekobir") or which
@@ -78,8 +78,10 @@ and `DendroPy` [@Sukumaran2021],
 `ngesh` compares favorably in historical linguistics and
 stemmatics. For the former, it provides
 default parameters that produce trees closer to
-those found in the field, all while using formats that better fit
-the existing pipelines (such as CLDF [@cldf]) and laying ground for
+those found in the field, particularly in terms of the
+simulation of horizontal transfers (i.e., loanword),
+all while using formats that better fit
+the existing linguistic pipelines, such as CLDF [@cldf], and laying ground for
 the usage of different character values (such as sound changes)
 besides the default 
 cognate-sets for modelling lexical replacement.
@@ -140,6 +142,8 @@ including non-simulated ones.
 >>> import ngesh
 >>> tree = ngesh.gen_tree(1.0, 0.5, max_time=0.3, labels="bio",
                           seed="135")
+
+
 >>> print(tree)
 
    /-Lubedsas larpes
@@ -153,9 +157,12 @@ including non-simulated ones.
 >>> tree = ngesh.add_characters(tree, 15, 2.0, 0.5)
 ```
 
-Besides the `write()` method above, which outputs Newick trees, results can be exported in NEXUS
-format with `tree2nexus()` and in a tabular output expected by
-tools such as BEASTling [@Maurits:2017], with `tree2wordlist()`.
+Besides the `write()` method above, which outputs Newick trees, results can be exported in either NEXUS
+format with `tree2nexus()` or in a textual tabular format with `tree2wordlist()`. Phylogenetic reconstruction can
+then be carried either by manually building an XML model for BEAST2 [@beast2] (normally with the aid of the graphical interface BEAUTi) or by using tools such as BEASTling [@Maurits:2017], producing
+a tree distribution. This distribution can be summarized to a maximum clade credibility ("MCC") tree
+with phylogenetic packages, allowing both visual and quantitative comparisons. A demonstration of such steps is provided with the user documentation.
+
 
 # Code and Documentation Availability
 
