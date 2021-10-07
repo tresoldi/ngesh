@@ -53,8 +53,8 @@ correlated data following both user-established parameters,
 such as ratios of birth and death, and constraints, such as branch
 lengths and minimum number of taxa. The
 library can label taxa progressive enumeration or with random names
-that are easy to pronounce (e.g. "Sume" and "Fekobir") or which
-imitate the binominal nomenclature (e.g. "Sburas wioris" and "Zurbata pusso").
+that are easy to pronounce (e.g., "Sume" and "Fekobir") or which
+imitate the binominal nomenclature (e.g., "Sburas wioris" and "Zurbata pusso").
 Character evolution related to the
 tree topology can likewise be simulated, including *ex novo* mutations and
 horizontal gene transfers. Results can be manipulated in diverse
