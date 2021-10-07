@@ -511,18 +511,21 @@ No. [ERC Grant #715618](https://cordis.europa.eu/project/rcn/206320/factsheet/en
 
 If you use `ngesh`, please cite it as:
 
-> Tresoldi, Tiago (2021). Ngesh, a tool for simulating random phylogenetic trees.
-Version 0.5. Uppsala: Uppsala universitet. Available at: https://github.com/tresoldi/ngesh
+> Tresoldi, T., (2021). Ngesh: a Python library for synthetic phylogenetic data. Journal of Open Source Software, 6(66), 3173, https://doi.org/10.21105/joss.03173
 
 In BibTeX:
 
 ```
-@misc{Tresoldi2021ngesh,
-  author = {Tresoldi, Tiago},
-  title = {Ngesh, a tool for simulating random phylogenetic trees. Version 0.5},
-  howpublished = {\url{https://github.com/tresoldi/ngesh}},
-  address = {Uppsala},
-  publisher = {Uppsala universitet},
+@article{Tresoldi2021ngesh,
+  doi = {10.21105/joss.03173},
+  url = {https://doi.org/10.21105/joss.03173},
   year = {2021},
+  publisher = {The Open Journal},
+  volume = {6},
+  number = {66},
+  pages = {3173},
+  author = {Tiago Tresoldi},
+  title = {Ngesh: a Python library for synthetic phylogenetic data},
+  journal = {Journal of Open Source Software}
 }
 ```
