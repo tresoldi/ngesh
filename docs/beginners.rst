@@ -144,3 +144,14 @@ horizontal gene transfer.
 
 The trees can be exported to different formats, as described in the
 modules documentation and perfomed in the tests.
+
+Newick representations of trees can be "sorted", solving comparison issues
+of these structures (remember that phylogenetic trees are like
+"hanging mobiles"). The module is self-contained and can be called from
+the command-line:
+
+.. code:: python
+   >>> my_newick = "(Ei:0.98,(Mepale:0.39,(Srufo:0.14,Pulet:0.14):0.24):0.58);"
+   >>> ngesh.sorted_newick(my_newick)
+
+   (((Pulet:0.14,Srufo:0.14):0.24,Mepale:0.39):0.58,Ei:0.98);

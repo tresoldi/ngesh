@@ -236,6 +236,18 @@ Gegme      101011101110101
 end;
 ```
 
+Newick representations of trees can be "sorted", solving comparison issues
+of these structures (remember that phylogenetic trees are like
+"hanging mobiles"). The module is self-contained and can be called from
+the command-line:
+
+```bash
+$ cat tiago.newick
+(Ei:0.98,(Mepale:0.39,(Srufo:0.14,Pulet:0.14):0.24):0.58);
+$ src/ngesh/newick.py -i tiago.newick
+(((Pulet:0.14,Srufo:0.14):0.24,Mepale:0.39):0.58,Ei:0.98);
+```
+
 ### Parameters for tree generation
 
 The parameters for tree generation, as also given by the command `ngesh -h`, are:

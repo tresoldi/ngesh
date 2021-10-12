@@ -3,14 +3,15 @@ ngesh __init__.py
 """
 
 # Version of the ngesh package
-__version__ = "1.0"
+__version__ = "1.1"
 __author__ = "Tiago Tresoldi"
 __email__ = "tiago.tresoldi@lingfil.uu.se"
 
 # Import from local modules
 from .common import set_seeds
-from .random_tree import gen_tree, add_characters, simulate_bad_sampling
+from .newick import sorted_newick
 from .output import tree2nexus, tree2wordlist
+from .random_tree import gen_tree, add_characters, simulate_bad_sampling
 
 # TODO: move to some "extra" module?
 def show_random_tree():
@@ -39,10 +40,12 @@ def show_random_tree():
 
 # Build the namespace
 __all__ = [
-    "gen_tree",
     "add_characters",
+    "gen_tree",
+    "set_seeds",
+    "show_random_tree",
     "simulate_bad_sampling",
+    "sorted_newick",
     "tree2nexus",
     "tree2wordlist",
-    "show_random_tree",
 ]
