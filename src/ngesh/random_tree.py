@@ -88,6 +88,7 @@ def _gen_tree_fast(
     birth: float,
     death: float,
     min_leaves: Optional[int] = None,
+    num_leaves: Optional[int] = None,
     max_time: Optional[float] = None,
     lam: float = 0.0,
     prune: bool = False,
@@ -108,6 +109,11 @@ def _gen_tree_fast(
     arguments, which have the same variable names and properties, are given
     in the documentation for `gen_tree()`.
     """
+
+    if num_leaves:
+        raise ValueError(
+            "num_leaves still not implemented for the fast computation method."
+        )
 
     # Initialize the RNG
     common.set_seeds(seed)
@@ -259,6 +265,7 @@ def _gen_tree(
     birth: float,
     death: float,
     min_leaves: Optional[int] = None,
+    num_leaves: Optional[int] = None,
     max_time: Optional[float] = None,
     lam: float = 0.0,
     prune: bool = False,
@@ -287,6 +294,12 @@ def _gen_tree(
         extant leaves (possibly more, as the last speciation event might
         produce more leaves than the minimum specified.
         Defaults to `None`.
+    :param num_leaves: A stopping criterion with the number of leaves in the
+        tree, including non extant ones (note that this differs from `min_leaves`).
+        The generated tree will have exactly the number of requested leaves,
+        performing pruning if necessary. Note that, if combined with `prune`,
+        this option might result in trees with fewer nodes than what has
+        been specified. Defaults to `None`.
     :param max_time: A stopping criterion with the maximum allowed time for evolution.
         Defaults to `None`.
     :param lam: The expectation of interval for sampling a Poisson distribution
@@ -398,12 +411,21 @@ def _gen_tree(
             tree = None
             break
 
-        # Check whether one or both the stopping criteria were reached
+        # Check whether any stopping criterion has been reached; if `num_leaves`
+        # is specified and the number of leaves (including extinct ones) is
+        # already over the limit, the most recent ones will be pruned.
         if min_leaves and len(leaf_nodes) >= min_leaves:
             break
 
         if max_time and total_time >= max_time:
             break
+
+        if num_leaves:
+            _leaves = tree.get_leaves()
+            if len(_leaves) == num_leaves:
+                break
+            elif len(_leaves) > num_leaves:
+                tree.prune(_leaves[:num_leaves])
 
     # In some cases we might end up with technically valid trees composed
     # only of the root. We make sure at least one speciation event took
@@ -429,6 +451,7 @@ def gen_tree(
     death: float = 0.5,
     method: str = "standard",
     min_leaves: Optional[int] = None,
+    num_leaves: Optional[int] = None,
     max_time: Optional[float] = None,
     lam: float = 0.0,
     prune: bool = False,
@@ -459,6 +482,12 @@ def gen_tree(
         extant leaves (possibly more, as the last speciation event might
         produce more leaves than the minimum specified.
         Defaults to `None`.
+    :param num_leaves: A stopping criterion with the number of leaves in the
+        tree, including non extant ones (note that this differs from `min_leaves`).
+        The generated tree will have exactly the number of requested leaves,
+        performing pruning if necessary. Note that, if combined with `prune`,
+        this option might result in trees with fewer nodes than what has
+        been specified. Defaults to `None`.
     :param max_time: A stopping criterion with the maximum allowed time for evolution.
         Defaults to `None`.
     :param lam: The expectation of interval for sampling a Poisson distribution
@@ -477,7 +506,7 @@ def gen_tree(
     """
 
     # Confirm that at least one stopping condition was provided
-    if not (min_leaves or max_time):
+    if not any([min_leaves, num_leaves, max_time]):
         raise ValueError("At least one stopping criterion is required.")
 
     # Confirm that a valid `labels` was passed
@@ -516,6 +545,7 @@ def gen_tree(
             birth=birth,
             death=death,
             min_leaves=min_leaves,
+            num_leaves=num_leaves,
             max_time=max_time,
             labels=labels,
             lam=lam,
@@ -581,11 +611,11 @@ def add_characters(
     char_range = list(range(num_characters))
 
     # build the k vector per character, with the correction
-    k_vec = [k / (mut_exp ** idx) for idx in char_range]
+    k_vec = [k / (mut_exp**idx) for idx in char_range]
 
     # build the k vector per character for horizontal gene transfer
     if k_hgt and th_hgt:
-        k_hgt_vec = [k / (mut_exp ** idx) for idx in char_range]
+        k_hgt_vec = [k / (mut_exp**idx) for idx in char_range]
     else:
         k_hgt_vec = None
 

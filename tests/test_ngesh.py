@@ -81,6 +81,43 @@ def test_generation_min_leaves(
 
 
 @pytest.mark.parametrize(
+    "birth,death,num_leaves,method,seed,expected",
+    [
+        [
+            1.0,
+            0.5,
+            5,
+            "standard",
+            "myseed",
+            "(L1:0.532642,((L2:0.0178669,L3:0.0178669)1:0.411228,(L4:0.00297779,L5:0.00297779)1:0.426117)1:0.131906);",
+        ],
+        [
+            1.2,
+            0.3,
+            7,
+            "standard",
+            12345,
+            "(((((L1:0.938121,L2:0.938121)1:0.348404,L3:1.28653)1:0.991873,L4:0.622061)1:0.579099,(L5:0.785923,L6:0.785923)1:2.07157)1:0.822327,L7:0.395632);",
+        ],
+    ],
+)
+def test_generation_num_leaves(
+    birth: float,
+    death: float,
+    num_leaves: int,
+    method: str,
+    seed: Hashable,
+    expected: str,
+):
+    """
+    Tests tree generation with number of leaves stop criterion.
+    """
+
+    tree = ngesh.gen_tree(birth, death, num_leaves=num_leaves, method=method, seed=seed)
+    assert tree.write() == expected
+
+
+@pytest.mark.parametrize(
     "birth,death,max_time,method,seed,expected",
     [
         [

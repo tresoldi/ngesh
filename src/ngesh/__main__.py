@@ -137,7 +137,13 @@ def parse_arguments():
         "-l",
         "--min_leaves",
         type=float,
-        help="Set minimum leaf number stopping criterion (defaults 10)",
+        help="Set minimum leaf number stopping criterion",
+    )
+    parser.add_argument(
+        "-L",
+        "--num_leaves",
+        type=float,
+        help="Set the exact number of leaves",
     )
     parser.add_argument(
         "-x",
