@@ -170,7 +170,7 @@ def _gen_tree_fast(
         # relation to `event_rate`). In relation to the default implementation,
         # this one keeps track of the position of the parent node
         # within the list leaves.
-        leaf_n = np.random.random_integers(len(leaves)) - 1
+        leaf_n = np.random.randint(0, len(leaves))
         node = leaves[leaf_n]
         node.extinct = True
 
