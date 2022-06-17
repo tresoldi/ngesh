@@ -1,5 +1,14 @@
 # Changelog
 
+Version 1.2:
+  - Added exact number of leaves as stop criterion
+
+Version 1.1.1:
+  - Small bugfixes, related to JOSS publication
+
+Version 1.0:
+  - Release for JOSS publication
+
 Version 0.5:
   - Code improvements preparing for release and submission
   - Included new faster generation method contributed by @NicolaDM
