@@ -3,7 +3,7 @@ ngesh __init__.py
 """
 
 # Version of the ngesh package
-__version__ = "1.2"
+__version__ = "1.2.1"
 __author__ = "Tiago Tresoldi"
 __email__ = "tiago.tresoldi@lingfil.uu.se"
 
