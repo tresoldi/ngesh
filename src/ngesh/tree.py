@@ -138,7 +138,15 @@ class Tree:
         root = copies[self.root]
         if root is None:
             raise ValueError("pruning removed every observation")
-        return Tree(root)
+        result = Tree(root)
+        for tip in result.tips():
+            if tip.attrs.get("sampled_tip") and (
+                tip.length != 0
+                or tip.parent is None
+                or not tip.parent.attrs.get("sampled_ancestor")
+            ):
+                tip.attrs["sampled_tip"] = False
+        return result
 
     def rescale(self, target: float, mode: str = "height") -> None:
         if not math.isfinite(target) or target <= 0:

@@ -154,3 +154,24 @@ class BundleTests(unittest.TestCase):
         ]:
             with self.subTest(text=text), self.assertRaises(ValueError):
                 toml_subset(text)
+
+    def test_sampled_ancestor_encodings_preserve_observations(self):
+        from ngesh import Tree, simulate
+
+        with tempfile.TemporaryDirectory() as tmp:
+            for seed in range(20):
+                out = Path(tmp) / str(seed)
+                simulate(
+                    preset="stemma",
+                    seed=seed,
+                    config={"tree": {"n_taxa": 10}, "characters": {"n_characters": 5}},
+                    out=out,
+                )
+                truth = Tree.from_newick((out / "truth.nwk").read_text())
+                leaves = Tree.from_newick((out / "truth_sa_leaves.nwk").read_text())
+                internal = Tree.from_newick((out / "truth_sa_internal.nwk").read_text())
+                expected = {n.name for n in truth.tips()}
+                self.assertEqual(expected, {n.name for n in leaves.tips()})
+                self.assertEqual(
+                    expected, {n.name for n in internal.traverse() if n.name in expected}
+                )

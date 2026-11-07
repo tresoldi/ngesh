@@ -229,3 +229,11 @@ interval by an independent exponential wait of rate n*birth. This gives mean
 origin height H_n/birth and positive terminal edges. Birth-death and relaxed-copying histories now use time-weighted reservoir
 sampling across all n-lineage intervals before reaching 2n or the deadline.
 Extinct attempts without reaching the threshold are retried.
+
+## Sampled witnesses after pruning
+
+A sample whose continuation was pruned is an ordinary terminal witness, not an
+ancestor of its former sister. Pruning clears its sampled-tip marker; the
+internal encoder only converts zero-length samples attached to sampled ancestor
+nodes. Both alternate encodings are emitted whenever ancestor sampling was
+configured, including when all sampled ancestors became terminal.

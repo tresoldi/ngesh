@@ -172,7 +172,9 @@ def write_bundle(
         (path / "history_tree.nwk").write_text(
             evolution.history_tree.newick() + "\n", encoding="utf-8"
         )
-    if any(n.attrs.get("sampled_ancestor") for n in tree.traverse()):
+    if params.get("tree_config", {}).get("ancestor_rate", 0) or any(
+        n.attrs.get("sampled_ancestor") for n in tree.traverse()
+    ):
         (path / "truth_sa_leaves.nwk").write_text(tree.newick() + "\n", encoding="utf-8")
         (path / "truth_sa_internal.nwk").write_text(
             ancestor_internal(tree).newick() + "\n", encoding="utf-8"
