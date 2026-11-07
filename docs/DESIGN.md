@@ -30,3 +30,25 @@ core rather than preserve misleading 1.x parameter semantics.
   deliberately refer to the primary tree, not a shortest path through a network.
 * Unary pruning sums edge lengths, retaining absolute sample times and named
   sampled ancestors. Root stem length is meaningful and is serialized.
+
+## G2: stopping, loss, ancestors and copying
+
+* Yule starts with one lineage at time zero, including its first waiting time
+  (root stem). At n tips its expected height is H_(n-1)/birth. Crown-conditioned
+  height has a different expectation and is not silently substituted.
+* Exact-n generation ends at the first hitting time. n plus a deadline means
+  reaching n **by** that time, with rejection of extinct/late attempts. Time-only
+  generation conditions on >=2 surviving lineages. Limits bound failed attempts
+  and explosive populations. Standard and fast names share one correct kernel.
+* Polytomies add Poisson(lambda) offspring to a binary birth. At the final birth
+  offspring are capped to the remaining tip budget: the exact-n model therefore
+  has a truncated final polytomy. Rejection of overshoots was an alternative, but
+  biases the entire trajectory rather than just its stated stopping transition.
+* Sampling is Bernoulli(rho) per extant tip, after evolution. Fossil/manuscript
+  observations are a Poisson process per lineage-time, split into a continuation
+  and a zero-length sampled tip. Loss later in time does not erase earlier samples.
+* Copying irregularity uses independent mean-one lognormal birth multipliers per
+  new lineage. A birth can have an additional Poisson burst with an explicit
+  probability. This models simultaneous extra copies, not undocumented calendar
+  periods of scriptorium activity. High loss is a preset parameter, not an
+  assumption that changes the process.
