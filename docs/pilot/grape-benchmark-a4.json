@@ -1,0 +1,2090 @@
+{
+  "distance": "GRAPE legacy average synonym strategy and max_dist missing policy for baselines",
+  "grape_revision": "74fec5d78aeb4317253025d8cf05903bd1c6105f",
+  "limitations": [
+    "small exploratory simulation; no confidence intervals or significance claims",
+    "gene-content sparse TSV conflates known absence and missingness",
+    "no reticulation network scoring; tree truth only"
+  ],
+  "methods": "GRAPE native adjusted/louvain/fixed; NJ and UPGMA from GRAPE validation harness",
+  "records": [
+    {
+      "clade_f1": 0.8571428571428571,
+      "clade_precision": 0.8823529411764706,
+      "clade_recall": 0.8333333333333334,
+      "method": "grape",
+      "normalized_rf": 0.15151515151515152,
+      "replicate": 0,
+      "scenario": "lexical-baseline"
+    },
+    {
+      "clade_f1": 0.7999999999999999,
+      "clade_precision": 0.8235294117647058,
+      "clade_recall": 0.7777777777777778,
+      "method": "nj",
+      "normalized_rf": 0.11764705882352941,
+      "replicate": 0,
+      "scenario": "lexical-baseline"
+    },
+    {
+      "clade_f1": 0.8333333333333334,
+      "clade_precision": 0.8333333333333334,
+      "clade_recall": 0.8333333333333334,
+      "method": "upgma",
+      "normalized_rf": 0.17647058823529413,
+      "replicate": 0,
+      "scenario": "lexical-baseline"
+    },
+    {
+      "clade_f1": 0.6470588235294118,
+      "clade_precision": 0.6875,
+      "clade_recall": 0.6111111111111112,
+      "method": "grape",
+      "normalized_rf": 0.3125,
+      "replicate": 1,
+      "scenario": "lexical-baseline"
+    },
+    {
+      "clade_f1": 0.5714285714285715,
+      "clade_precision": 0.5882352941176471,
+      "clade_recall": 0.5555555555555556,
+      "method": "nj",
+      "normalized_rf": 0.17647058823529413,
+      "replicate": 1,
+      "scenario": "lexical-baseline"
+    },
+    {
+      "clade_f1": 0.7222222222222222,
+      "clade_precision": 0.7222222222222222,
+      "clade_recall": 0.7222222222222222,
+      "method": "upgma",
+      "normalized_rf": 0.29411764705882354,
+      "replicate": 1,
+      "scenario": "lexical-baseline"
+    },
+    {
+      "clade_f1": 0.6451612903225806,
+      "clade_precision": 0.7692307692307693,
+      "clade_recall": 0.5555555555555556,
+      "method": "grape",
+      "normalized_rf": 0.3103448275862069,
+      "replicate": 2,
+      "scenario": "lexical-baseline"
+    },
+    {
+      "clade_f1": 0.6285714285714287,
+      "clade_precision": 0.6470588235294118,
+      "clade_recall": 0.6111111111111112,
+      "method": "nj",
+      "normalized_rf": 0.35294117647058826,
+      "replicate": 2,
+      "scenario": "lexical-baseline"
+    },
+    {
+      "clade_f1": 0.4444444444444444,
+      "clade_precision": 0.4444444444444444,
+      "clade_recall": 0.4444444444444444,
+      "method": "upgma",
+      "normalized_rf": 0.5294117647058824,
+      "replicate": 2,
+      "scenario": "lexical-baseline"
+    },
+    {
+      "clade_f1": 0.5161290322580646,
+      "clade_precision": 0.6153846153846154,
+      "clade_recall": 0.4444444444444444,
+      "method": "grape",
+      "normalized_rf": 0.5172413793103449,
+      "replicate": 3,
+      "scenario": "lexical-baseline"
+    },
+    {
+      "clade_f1": 0.5142857142857143,
+      "clade_precision": 0.5294117647058824,
+      "clade_recall": 0.5,
+      "method": "nj",
+      "normalized_rf": 0.29411764705882354,
+      "replicate": 3,
+      "scenario": "lexical-baseline"
+    },
+    {
+      "clade_f1": 0.4444444444444444,
+      "clade_precision": 0.4444444444444444,
+      "clade_recall": 0.4444444444444444,
+      "method": "upgma",
+      "normalized_rf": 0.5882352941176471,
+      "replicate": 3,
+      "scenario": "lexical-baseline"
+    },
+    {
+      "clade_f1": 0.823529411764706,
+      "clade_precision": 0.875,
+      "clade_recall": 0.7777777777777778,
+      "method": "grape",
+      "normalized_rf": 0.15151515151515152,
+      "replicate": 4,
+      "scenario": "lexical-baseline"
+    },
+    {
+      "clade_f1": 0.7428571428571428,
+      "clade_precision": 0.7647058823529411,
+      "clade_recall": 0.7222222222222222,
+      "method": "nj",
+      "normalized_rf": 0.17647058823529413,
+      "replicate": 4,
+      "scenario": "lexical-baseline"
+    },
+    {
+      "clade_f1": 0.6666666666666666,
+      "clade_precision": 0.6666666666666666,
+      "clade_recall": 0.6666666666666666,
+      "method": "upgma",
+      "normalized_rf": 0.35294117647058826,
+      "replicate": 4,
+      "scenario": "lexical-baseline"
+    },
+    {
+      "clade_f1": 0.8823529411764706,
+      "clade_precision": 0.9375,
+      "clade_recall": 0.8333333333333334,
+      "method": "grape",
+      "normalized_rf": 0.125,
+      "replicate": 5,
+      "scenario": "lexical-baseline"
+    },
+    {
+      "clade_f1": 0.7999999999999999,
+      "clade_precision": 0.8235294117647058,
+      "clade_recall": 0.7777777777777778,
+      "method": "nj",
+      "normalized_rf": 0.058823529411764705,
+      "replicate": 5,
+      "scenario": "lexical-baseline"
+    },
+    {
+      "clade_f1": 0.5555555555555556,
+      "clade_precision": 0.5555555555555556,
+      "clade_recall": 0.5555555555555556,
+      "method": "upgma",
+      "normalized_rf": 0.4117647058823529,
+      "replicate": 5,
+      "scenario": "lexical-baseline"
+    },
+    {
+      "clade_f1": 0.7096774193548387,
+      "clade_precision": 0.8461538461538461,
+      "clade_recall": 0.6111111111111112,
+      "method": "grape",
+      "normalized_rf": 0.26666666666666666,
+      "replicate": 6,
+      "scenario": "lexical-baseline"
+    },
+    {
+      "clade_f1": 0.6857142857142857,
+      "clade_precision": 0.7058823529411765,
+      "clade_recall": 0.6666666666666666,
+      "method": "nj",
+      "normalized_rf": 0.17647058823529413,
+      "replicate": 6,
+      "scenario": "lexical-baseline"
+    },
+    {
+      "clade_f1": 0.6111111111111112,
+      "clade_precision": 0.6111111111111112,
+      "clade_recall": 0.6111111111111112,
+      "method": "upgma",
+      "normalized_rf": 0.35294117647058826,
+      "replicate": 6,
+      "scenario": "lexical-baseline"
+    },
+    {
+      "clade_f1": 0.7272727272727272,
+      "clade_precision": 0.8,
+      "clade_recall": 0.6666666666666666,
+      "method": "grape",
+      "normalized_rf": 0.22580645161290322,
+      "replicate": 7,
+      "scenario": "lexical-baseline"
+    },
+    {
+      "clade_f1": 0.7428571428571428,
+      "clade_precision": 0.7647058823529411,
+      "clade_recall": 0.7222222222222222,
+      "method": "nj",
+      "normalized_rf": 0.058823529411764705,
+      "replicate": 7,
+      "scenario": "lexical-baseline"
+    },
+    {
+      "clade_f1": 0.7222222222222222,
+      "clade_precision": 0.7222222222222222,
+      "clade_recall": 0.7222222222222222,
+      "method": "upgma",
+      "normalized_rf": 0.29411764705882354,
+      "replicate": 7,
+      "scenario": "lexical-baseline"
+    },
+    {
+      "clade_f1": 0.7647058823529411,
+      "clade_precision": 0.8125,
+      "clade_recall": 0.7222222222222222,
+      "method": "grape",
+      "normalized_rf": 0.21212121212121213,
+      "replicate": 8,
+      "scenario": "lexical-baseline"
+    },
+    {
+      "clade_f1": 0.6285714285714287,
+      "clade_precision": 0.6470588235294118,
+      "clade_recall": 0.6111111111111112,
+      "method": "nj",
+      "normalized_rf": 0.17647058823529413,
+      "replicate": 8,
+      "scenario": "lexical-baseline"
+    },
+    {
+      "clade_f1": 0.7222222222222222,
+      "clade_precision": 0.7222222222222222,
+      "clade_recall": 0.7222222222222222,
+      "method": "upgma",
+      "normalized_rf": 0.29411764705882354,
+      "replicate": 8,
+      "scenario": "lexical-baseline"
+    },
+    {
+      "clade_f1": 0.7096774193548387,
+      "clade_precision": 0.8461538461538461,
+      "clade_recall": 0.6111111111111112,
+      "method": "grape",
+      "normalized_rf": 0.2413793103448276,
+      "replicate": 9,
+      "scenario": "lexical-baseline"
+    },
+    {
+      "clade_f1": 0.6857142857142857,
+      "clade_precision": 0.7058823529411765,
+      "clade_recall": 0.6666666666666666,
+      "method": "nj",
+      "normalized_rf": 0.29411764705882354,
+      "replicate": 9,
+      "scenario": "lexical-baseline"
+    },
+    {
+      "clade_f1": 0.7222222222222222,
+      "clade_precision": 0.7222222222222222,
+      "clade_recall": 0.7222222222222222,
+      "method": "upgma",
+      "normalized_rf": 0.29411764705882354,
+      "replicate": 9,
+      "scenario": "lexical-baseline"
+    },
+    {
+      "clade_f1": 0.5333333333333333,
+      "clade_precision": 0.6666666666666666,
+      "clade_recall": 0.4444444444444444,
+      "method": "grape",
+      "normalized_rf": 0.5,
+      "replicate": 0,
+      "scenario": "lexical-relaxed-clock"
+    },
+    {
+      "clade_f1": 0.39999999999999997,
+      "clade_precision": 0.4117647058823529,
+      "clade_recall": 0.3888888888888889,
+      "method": "nj",
+      "normalized_rf": 0.5294117647058824,
+      "replicate": 0,
+      "scenario": "lexical-relaxed-clock"
+    },
+    {
+      "clade_f1": 0.3888888888888889,
+      "clade_precision": 0.3888888888888889,
+      "clade_recall": 0.3888888888888889,
+      "method": "upgma",
+      "normalized_rf": 0.6470588235294118,
+      "replicate": 0,
+      "scenario": "lexical-relaxed-clock"
+    },
+    {
+      "clade_f1": 0.6250000000000001,
+      "clade_precision": 0.7142857142857143,
+      "clade_recall": 0.5555555555555556,
+      "method": "grape",
+      "normalized_rf": 0.3333333333333333,
+      "replicate": 1,
+      "scenario": "lexical-relaxed-clock"
+    },
+    {
+      "clade_f1": 0.5714285714285715,
+      "clade_precision": 0.5882352941176471,
+      "clade_recall": 0.5555555555555556,
+      "method": "nj",
+      "normalized_rf": 0.35294117647058826,
+      "replicate": 1,
+      "scenario": "lexical-relaxed-clock"
+    },
+    {
+      "clade_f1": 0.6111111111111112,
+      "clade_precision": 0.6111111111111112,
+      "clade_recall": 0.6111111111111112,
+      "method": "upgma",
+      "normalized_rf": 0.35294117647058826,
+      "replicate": 1,
+      "scenario": "lexical-relaxed-clock"
+    },
+    {
+      "clade_f1": 0.8484848484848485,
+      "clade_precision": 0.9333333333333333,
+      "clade_recall": 0.7777777777777778,
+      "method": "grape",
+      "normalized_rf": 0.16129032258064516,
+      "replicate": 2,
+      "scenario": "lexical-relaxed-clock"
+    },
+    {
+      "clade_f1": 0.6857142857142857,
+      "clade_precision": 0.7058823529411765,
+      "clade_recall": 0.6666666666666666,
+      "method": "nj",
+      "normalized_rf": 0.11764705882352941,
+      "replicate": 2,
+      "scenario": "lexical-relaxed-clock"
+    },
+    {
+      "clade_f1": 0.6111111111111112,
+      "clade_precision": 0.6111111111111112,
+      "clade_recall": 0.6111111111111112,
+      "method": "upgma",
+      "normalized_rf": 0.4117647058823529,
+      "replicate": 2,
+      "scenario": "lexical-relaxed-clock"
+    },
+    {
+      "clade_f1": 0.606060606060606,
+      "clade_precision": 0.6666666666666666,
+      "clade_recall": 0.5555555555555556,
+      "method": "grape",
+      "normalized_rf": 0.375,
+      "replicate": 3,
+      "scenario": "lexical-relaxed-clock"
+    },
+    {
+      "clade_f1": 0.7428571428571428,
+      "clade_precision": 0.7647058823529411,
+      "clade_recall": 0.7222222222222222,
+      "method": "nj",
+      "normalized_rf": 0.23529411764705882,
+      "replicate": 3,
+      "scenario": "lexical-relaxed-clock"
+    },
+    {
+      "clade_f1": 0.5555555555555556,
+      "clade_precision": 0.5555555555555556,
+      "clade_recall": 0.5555555555555556,
+      "method": "upgma",
+      "normalized_rf": 0.4117647058823529,
+      "replicate": 3,
+      "scenario": "lexical-relaxed-clock"
+    },
+    {
+      "clade_f1": 0.5,
+      "clade_precision": 0.7,
+      "clade_recall": 0.3888888888888889,
+      "method": "grape",
+      "normalized_rf": 0.38461538461538464,
+      "replicate": 4,
+      "scenario": "lexical-relaxed-clock"
+    },
+    {
+      "clade_f1": 0.6857142857142857,
+      "clade_precision": 0.7058823529411765,
+      "clade_recall": 0.6666666666666666,
+      "method": "nj",
+      "normalized_rf": 0.23529411764705882,
+      "replicate": 4,
+      "scenario": "lexical-relaxed-clock"
+    },
+    {
+      "clade_f1": 0.5,
+      "clade_precision": 0.5,
+      "clade_recall": 0.5,
+      "method": "upgma",
+      "normalized_rf": 0.5294117647058824,
+      "replicate": 4,
+      "scenario": "lexical-relaxed-clock"
+    },
+    {
+      "clade_f1": 0.7058823529411765,
+      "clade_precision": 0.75,
+      "clade_recall": 0.6666666666666666,
+      "method": "grape",
+      "normalized_rf": 0.3125,
+      "replicate": 5,
+      "scenario": "lexical-relaxed-clock"
+    },
+    {
+      "clade_f1": 0.5142857142857143,
+      "clade_precision": 0.5294117647058824,
+      "clade_recall": 0.5,
+      "method": "nj",
+      "normalized_rf": 0.35294117647058826,
+      "replicate": 5,
+      "scenario": "lexical-relaxed-clock"
+    },
+    {
+      "clade_f1": 0.6111111111111112,
+      "clade_precision": 0.6111111111111112,
+      "clade_recall": 0.6111111111111112,
+      "method": "upgma",
+      "normalized_rf": 0.4117647058823529,
+      "replicate": 5,
+      "scenario": "lexical-relaxed-clock"
+    },
+    {
+      "clade_f1": 0.5333333333333333,
+      "clade_precision": 0.6666666666666666,
+      "clade_recall": 0.4444444444444444,
+      "method": "grape",
+      "normalized_rf": 0.5,
+      "replicate": 6,
+      "scenario": "lexical-relaxed-clock"
+    },
+    {
+      "clade_f1": 0.45714285714285713,
+      "clade_precision": 0.47058823529411764,
+      "clade_recall": 0.4444444444444444,
+      "method": "nj",
+      "normalized_rf": 0.29411764705882354,
+      "replicate": 6,
+      "scenario": "lexical-relaxed-clock"
+    },
+    {
+      "clade_f1": 0.5555555555555556,
+      "clade_precision": 0.5555555555555556,
+      "clade_recall": 0.5555555555555556,
+      "method": "upgma",
+      "normalized_rf": 0.47058823529411764,
+      "replicate": 6,
+      "scenario": "lexical-relaxed-clock"
+    },
+    {
+      "clade_f1": 0.4848484848484848,
+      "clade_precision": 0.5333333333333333,
+      "clade_recall": 0.4444444444444444,
+      "method": "grape",
+      "normalized_rf": 0.4838709677419355,
+      "replicate": 7,
+      "scenario": "lexical-relaxed-clock"
+    },
+    {
+      "clade_f1": 0.39999999999999997,
+      "clade_precision": 0.4117647058823529,
+      "clade_recall": 0.3888888888888889,
+      "method": "nj",
+      "normalized_rf": 0.47058823529411764,
+      "replicate": 7,
+      "scenario": "lexical-relaxed-clock"
+    },
+    {
+      "clade_f1": 0.3888888888888889,
+      "clade_precision": 0.3888888888888889,
+      "clade_recall": 0.3888888888888889,
+      "method": "upgma",
+      "normalized_rf": 0.5882352941176471,
+      "replicate": 7,
+      "scenario": "lexical-relaxed-clock"
+    },
+    {
+      "clade_f1": 0.45161290322580644,
+      "clade_precision": 0.5384615384615384,
+      "clade_recall": 0.3888888888888889,
+      "method": "grape",
+      "normalized_rf": 0.5333333333333333,
+      "replicate": 8,
+      "scenario": "lexical-relaxed-clock"
+    },
+    {
+      "clade_f1": 0.5142857142857143,
+      "clade_precision": 0.5294117647058824,
+      "clade_recall": 0.5,
+      "method": "nj",
+      "normalized_rf": 0.47058823529411764,
+      "replicate": 8,
+      "scenario": "lexical-relaxed-clock"
+    },
+    {
+      "clade_f1": 0.3888888888888889,
+      "clade_precision": 0.3888888888888889,
+      "clade_recall": 0.3888888888888889,
+      "method": "upgma",
+      "normalized_rf": 0.5882352941176471,
+      "replicate": 8,
+      "scenario": "lexical-relaxed-clock"
+    },
+    {
+      "clade_f1": 0.6206896551724137,
+      "clade_precision": 0.8181818181818182,
+      "clade_recall": 0.5,
+      "method": "grape",
+      "normalized_rf": 0.4074074074074074,
+      "replicate": 9,
+      "scenario": "lexical-relaxed-clock"
+    },
+    {
+      "clade_f1": 0.39999999999999997,
+      "clade_precision": 0.4117647058823529,
+      "clade_recall": 0.3888888888888889,
+      "method": "nj",
+      "normalized_rf": 0.47058823529411764,
+      "replicate": 9,
+      "scenario": "lexical-relaxed-clock"
+    },
+    {
+      "clade_f1": 0.4444444444444444,
+      "clade_precision": 0.4444444444444444,
+      "clade_recall": 0.4444444444444444,
+      "method": "upgma",
+      "normalized_rf": 0.5294117647058824,
+      "replicate": 9,
+      "scenario": "lexical-relaxed-clock"
+    },
+    {
+      "clade_f1": 0.5333333333333333,
+      "clade_precision": 0.6666666666666666,
+      "clade_recall": 0.4444444444444444,
+      "method": "grape",
+      "normalized_rf": 0.42857142857142855,
+      "replicate": 0,
+      "scenario": "lexical-borrowing"
+    },
+    {
+      "clade_f1": 0.5714285714285715,
+      "clade_precision": 0.5882352941176471,
+      "clade_recall": 0.5555555555555556,
+      "method": "nj",
+      "normalized_rf": 0.23529411764705882,
+      "replicate": 0,
+      "scenario": "lexical-borrowing"
+    },
+    {
+      "clade_f1": 0.5,
+      "clade_precision": 0.5,
+      "clade_recall": 0.5,
+      "method": "upgma",
+      "normalized_rf": 0.5294117647058824,
+      "replicate": 0,
+      "scenario": "lexical-borrowing"
+    },
+    {
+      "clade_f1": 0.823529411764706,
+      "clade_precision": 0.875,
+      "clade_recall": 0.7777777777777778,
+      "method": "grape",
+      "normalized_rf": 0.1875,
+      "replicate": 1,
+      "scenario": "lexical-borrowing"
+    },
+    {
+      "clade_f1": 0.6285714285714287,
+      "clade_precision": 0.6470588235294118,
+      "clade_recall": 0.6111111111111112,
+      "method": "nj",
+      "normalized_rf": 0.23529411764705882,
+      "replicate": 1,
+      "scenario": "lexical-borrowing"
+    },
+    {
+      "clade_f1": 0.6666666666666666,
+      "clade_precision": 0.6666666666666666,
+      "clade_recall": 0.6666666666666666,
+      "method": "upgma",
+      "normalized_rf": 0.29411764705882354,
+      "replicate": 1,
+      "scenario": "lexical-borrowing"
+    },
+    {
+      "clade_f1": 0.6875000000000001,
+      "clade_precision": 0.7857142857142857,
+      "clade_recall": 0.6111111111111112,
+      "method": "grape",
+      "normalized_rf": 0.2,
+      "replicate": 2,
+      "scenario": "lexical-borrowing"
+    },
+    {
+      "clade_f1": 0.6857142857142857,
+      "clade_precision": 0.7058823529411765,
+      "clade_recall": 0.6666666666666666,
+      "method": "nj",
+      "normalized_rf": 0.23529411764705882,
+      "replicate": 2,
+      "scenario": "lexical-borrowing"
+    },
+    {
+      "clade_f1": 0.5,
+      "clade_precision": 0.5,
+      "clade_recall": 0.5,
+      "method": "upgma",
+      "normalized_rf": 0.4117647058823529,
+      "replicate": 2,
+      "scenario": "lexical-borrowing"
+    },
+    {
+      "clade_f1": 0.6666666666666666,
+      "clade_precision": 0.7333333333333333,
+      "clade_recall": 0.6111111111111112,
+      "method": "grape",
+      "normalized_rf": 0.3548387096774194,
+      "replicate": 3,
+      "scenario": "lexical-borrowing"
+    },
+    {
+      "clade_f1": 0.6285714285714287,
+      "clade_precision": 0.6470588235294118,
+      "clade_recall": 0.6111111111111112,
+      "method": "nj",
+      "normalized_rf": 0.17647058823529413,
+      "replicate": 3,
+      "scenario": "lexical-borrowing"
+    },
+    {
+      "clade_f1": 0.7222222222222222,
+      "clade_precision": 0.7222222222222222,
+      "clade_recall": 0.7222222222222222,
+      "method": "upgma",
+      "normalized_rf": 0.29411764705882354,
+      "replicate": 3,
+      "scenario": "lexical-borrowing"
+    },
+    {
+      "clade_f1": 0.6451612903225806,
+      "clade_precision": 0.7692307692307693,
+      "clade_recall": 0.5555555555555556,
+      "method": "grape",
+      "normalized_rf": 0.3793103448275862,
+      "replicate": 4,
+      "scenario": "lexical-borrowing"
+    },
+    {
+      "clade_f1": 0.45714285714285713,
+      "clade_precision": 0.47058823529411764,
+      "clade_recall": 0.4444444444444444,
+      "method": "nj",
+      "normalized_rf": 0.4117647058823529,
+      "replicate": 4,
+      "scenario": "lexical-borrowing"
+    },
+    {
+      "clade_f1": 0.5,
+      "clade_precision": 0.5,
+      "clade_recall": 0.5,
+      "method": "upgma",
+      "normalized_rf": 0.5294117647058824,
+      "replicate": 4,
+      "scenario": "lexical-borrowing"
+    },
+    {
+      "clade_f1": 0.5806451612903226,
+      "clade_precision": 0.6923076923076923,
+      "clade_recall": 0.5,
+      "method": "grape",
+      "normalized_rf": 0.4,
+      "replicate": 5,
+      "scenario": "lexical-borrowing"
+    },
+    {
+      "clade_f1": 0.6285714285714287,
+      "clade_precision": 0.6470588235294118,
+      "clade_recall": 0.6111111111111112,
+      "method": "nj",
+      "normalized_rf": 0.29411764705882354,
+      "replicate": 5,
+      "scenario": "lexical-borrowing"
+    },
+    {
+      "clade_f1": 0.5555555555555556,
+      "clade_precision": 0.5555555555555556,
+      "clade_recall": 0.5555555555555556,
+      "method": "upgma",
+      "normalized_rf": 0.47058823529411764,
+      "replicate": 5,
+      "scenario": "lexical-borrowing"
+    },
+    {
+      "clade_f1": 0.8750000000000001,
+      "clade_precision": 1.0,
+      "clade_recall": 0.7777777777777778,
+      "method": "grape",
+      "normalized_rf": 0.13333333333333333,
+      "replicate": 6,
+      "scenario": "lexical-borrowing"
+    },
+    {
+      "clade_f1": 0.6857142857142857,
+      "clade_precision": 0.7058823529411765,
+      "clade_recall": 0.6666666666666666,
+      "method": "nj",
+      "normalized_rf": 0.29411764705882354,
+      "replicate": 6,
+      "scenario": "lexical-borrowing"
+    },
+    {
+      "clade_f1": 0.9444444444444444,
+      "clade_precision": 0.9444444444444444,
+      "clade_recall": 0.9444444444444444,
+      "method": "upgma",
+      "normalized_rf": 0.058823529411764705,
+      "replicate": 6,
+      "scenario": "lexical-borrowing"
+    },
+    {
+      "clade_f1": 0.7272727272727272,
+      "clade_precision": 0.8,
+      "clade_recall": 0.6666666666666666,
+      "method": "grape",
+      "normalized_rf": 0.22580645161290322,
+      "replicate": 7,
+      "scenario": "lexical-borrowing"
+    },
+    {
+      "clade_f1": 0.5142857142857143,
+      "clade_precision": 0.5294117647058824,
+      "clade_recall": 0.5,
+      "method": "nj",
+      "normalized_rf": 0.23529411764705882,
+      "replicate": 7,
+      "scenario": "lexical-borrowing"
+    },
+    {
+      "clade_f1": 0.5,
+      "clade_precision": 0.5,
+      "clade_recall": 0.5,
+      "method": "upgma",
+      "normalized_rf": 0.5294117647058824,
+      "replicate": 7,
+      "scenario": "lexical-borrowing"
+    },
+    {
+      "clade_f1": 0.7058823529411765,
+      "clade_precision": 0.75,
+      "clade_recall": 0.6666666666666666,
+      "method": "grape",
+      "normalized_rf": 0.21212121212121213,
+      "replicate": 8,
+      "scenario": "lexical-borrowing"
+    },
+    {
+      "clade_f1": 0.7428571428571428,
+      "clade_precision": 0.7647058823529411,
+      "clade_recall": 0.7222222222222222,
+      "method": "nj",
+      "normalized_rf": 0.17647058823529413,
+      "replicate": 8,
+      "scenario": "lexical-borrowing"
+    },
+    {
+      "clade_f1": 0.7777777777777778,
+      "clade_precision": 0.7777777777777778,
+      "clade_recall": 0.7777777777777778,
+      "method": "upgma",
+      "normalized_rf": 0.23529411764705882,
+      "replicate": 8,
+      "scenario": "lexical-borrowing"
+    },
+    {
+      "clade_f1": 0.6470588235294118,
+      "clade_precision": 0.6875,
+      "clade_recall": 0.6111111111111112,
+      "method": "grape",
+      "normalized_rf": 0.3125,
+      "replicate": 9,
+      "scenario": "lexical-borrowing"
+    },
+    {
+      "clade_f1": 0.5142857142857143,
+      "clade_precision": 0.5294117647058824,
+      "clade_recall": 0.5,
+      "method": "nj",
+      "normalized_rf": 0.29411764705882354,
+      "replicate": 9,
+      "scenario": "lexical-borrowing"
+    },
+    {
+      "clade_f1": 0.5,
+      "clade_precision": 0.5,
+      "clade_recall": 0.5,
+      "method": "upgma",
+      "normalized_rf": 0.5294117647058824,
+      "replicate": 9,
+      "scenario": "lexical-borrowing"
+    },
+    {
+      "clade_f1": 0.6250000000000001,
+      "clade_precision": 0.7142857142857143,
+      "clade_recall": 0.5555555555555556,
+      "method": "grape",
+      "normalized_rf": 0.2903225806451613,
+      "replicate": 0,
+      "scenario": "lexical-synonymy"
+    },
+    {
+      "clade_f1": 0.5714285714285715,
+      "clade_precision": 0.5882352941176471,
+      "clade_recall": 0.5555555555555556,
+      "method": "nj",
+      "normalized_rf": 0.29411764705882354,
+      "replicate": 0,
+      "scenario": "lexical-synonymy"
+    },
+    {
+      "clade_f1": 0.5,
+      "clade_precision": 0.5,
+      "clade_recall": 0.5,
+      "method": "upgma",
+      "normalized_rf": 0.47058823529411764,
+      "replicate": 0,
+      "scenario": "lexical-synonymy"
+    },
+    {
+      "clade_f1": 0.4666666666666666,
+      "clade_precision": 0.5833333333333334,
+      "clade_recall": 0.3888888888888889,
+      "method": "grape",
+      "normalized_rf": 0.5,
+      "replicate": 1,
+      "scenario": "lexical-synonymy"
+    },
+    {
+      "clade_f1": 0.39999999999999997,
+      "clade_precision": 0.4117647058823529,
+      "clade_recall": 0.3888888888888889,
+      "method": "nj",
+      "normalized_rf": 0.4117647058823529,
+      "replicate": 1,
+      "scenario": "lexical-synonymy"
+    },
+    {
+      "clade_f1": 0.3333333333333333,
+      "clade_precision": 0.3333333333333333,
+      "clade_recall": 0.3333333333333333,
+      "method": "upgma",
+      "normalized_rf": 0.6470588235294118,
+      "replicate": 1,
+      "scenario": "lexical-synonymy"
+    },
+    {
+      "clade_f1": 0.5625000000000001,
+      "clade_precision": 0.6428571428571429,
+      "clade_recall": 0.5,
+      "method": "grape",
+      "normalized_rf": 0.41935483870967744,
+      "replicate": 2,
+      "scenario": "lexical-synonymy"
+    },
+    {
+      "clade_f1": 0.45714285714285713,
+      "clade_precision": 0.47058823529411764,
+      "clade_recall": 0.4444444444444444,
+      "method": "nj",
+      "normalized_rf": 0.47058823529411764,
+      "replicate": 2,
+      "scenario": "lexical-synonymy"
+    },
+    {
+      "clade_f1": 0.5555555555555556,
+      "clade_precision": 0.5555555555555556,
+      "clade_recall": 0.5555555555555556,
+      "method": "upgma",
+      "normalized_rf": 0.4117647058823529,
+      "replicate": 2,
+      "scenario": "lexical-synonymy"
+    },
+    {
+      "clade_f1": 0.7741935483870968,
+      "clade_precision": 0.9230769230769231,
+      "clade_recall": 0.6666666666666666,
+      "method": "grape",
+      "normalized_rf": 0.2413793103448276,
+      "replicate": 3,
+      "scenario": "lexical-synonymy"
+    },
+    {
+      "clade_f1": 0.5714285714285715,
+      "clade_precision": 0.5882352941176471,
+      "clade_recall": 0.5555555555555556,
+      "method": "nj",
+      "normalized_rf": 0.29411764705882354,
+      "replicate": 3,
+      "scenario": "lexical-synonymy"
+    },
+    {
+      "clade_f1": 0.4444444444444444,
+      "clade_precision": 0.4444444444444444,
+      "clade_recall": 0.4444444444444444,
+      "method": "upgma",
+      "normalized_rf": 0.5294117647058824,
+      "replicate": 3,
+      "scenario": "lexical-synonymy"
+    },
+    {
+      "clade_f1": 0.7333333333333334,
+      "clade_precision": 0.9166666666666666,
+      "clade_recall": 0.6111111111111112,
+      "method": "grape",
+      "normalized_rf": 0.2857142857142857,
+      "replicate": 4,
+      "scenario": "lexical-synonymy"
+    },
+    {
+      "clade_f1": 0.8571428571428571,
+      "clade_precision": 0.8823529411764706,
+      "clade_recall": 0.8333333333333334,
+      "method": "nj",
+      "normalized_rf": 0.11764705882352941,
+      "replicate": 4,
+      "scenario": "lexical-synonymy"
+    },
+    {
+      "clade_f1": 0.6111111111111112,
+      "clade_precision": 0.6111111111111112,
+      "clade_recall": 0.6111111111111112,
+      "method": "upgma",
+      "normalized_rf": 0.4117647058823529,
+      "replicate": 4,
+      "scenario": "lexical-synonymy"
+    },
+    {
+      "clade_f1": 0.6451612903225806,
+      "clade_precision": 0.7692307692307693,
+      "clade_recall": 0.5555555555555556,
+      "method": "grape",
+      "normalized_rf": 0.2413793103448276,
+      "replicate": 5,
+      "scenario": "lexical-synonymy"
+    },
+    {
+      "clade_f1": 0.5714285714285715,
+      "clade_precision": 0.5882352941176471,
+      "clade_recall": 0.5555555555555556,
+      "method": "nj",
+      "normalized_rf": 0.23529411764705882,
+      "replicate": 5,
+      "scenario": "lexical-synonymy"
+    },
+    {
+      "clade_f1": 0.7777777777777778,
+      "clade_precision": 0.7777777777777778,
+      "clade_recall": 0.7777777777777778,
+      "method": "upgma",
+      "normalized_rf": 0.23529411764705882,
+      "replicate": 5,
+      "scenario": "lexical-synonymy"
+    },
+    {
+      "clade_f1": 0.9142857142857143,
+      "clade_precision": 0.9411764705882353,
+      "clade_recall": 0.8888888888888888,
+      "method": "grape",
+      "normalized_rf": 0.030303030303030304,
+      "replicate": 6,
+      "scenario": "lexical-synonymy"
+    },
+    {
+      "clade_f1": 0.7999999999999999,
+      "clade_precision": 0.8235294117647058,
+      "clade_recall": 0.7777777777777778,
+      "method": "nj",
+      "normalized_rf": 0.0,
+      "replicate": 6,
+      "scenario": "lexical-synonymy"
+    },
+    {
+      "clade_f1": 0.7777777777777778,
+      "clade_precision": 0.7777777777777778,
+      "clade_recall": 0.7777777777777778,
+      "method": "upgma",
+      "normalized_rf": 0.17647058823529413,
+      "replicate": 6,
+      "scenario": "lexical-synonymy"
+    },
+    {
+      "clade_f1": 0.8750000000000001,
+      "clade_precision": 1.0,
+      "clade_recall": 0.7777777777777778,
+      "method": "grape",
+      "normalized_rf": 0.13333333333333333,
+      "replicate": 7,
+      "scenario": "lexical-synonymy"
+    },
+    {
+      "clade_f1": 0.7428571428571428,
+      "clade_precision": 0.7647058823529411,
+      "clade_recall": 0.7222222222222222,
+      "method": "nj",
+      "normalized_rf": 0.17647058823529413,
+      "replicate": 7,
+      "scenario": "lexical-synonymy"
+    },
+    {
+      "clade_f1": 0.6666666666666666,
+      "clade_precision": 0.6666666666666666,
+      "clade_recall": 0.6666666666666666,
+      "method": "upgma",
+      "normalized_rf": 0.35294117647058826,
+      "replicate": 7,
+      "scenario": "lexical-synonymy"
+    },
+    {
+      "clade_f1": 0.6,
+      "clade_precision": 0.75,
+      "clade_recall": 0.5,
+      "method": "grape",
+      "normalized_rf": 0.42857142857142855,
+      "replicate": 8,
+      "scenario": "lexical-synonymy"
+    },
+    {
+      "clade_f1": 0.39999999999999997,
+      "clade_precision": 0.4117647058823529,
+      "clade_recall": 0.3888888888888889,
+      "method": "nj",
+      "normalized_rf": 0.4117647058823529,
+      "replicate": 8,
+      "scenario": "lexical-synonymy"
+    },
+    {
+      "clade_f1": 0.4444444444444444,
+      "clade_precision": 0.4444444444444444,
+      "clade_recall": 0.4444444444444444,
+      "method": "upgma",
+      "normalized_rf": 0.5882352941176471,
+      "replicate": 8,
+      "scenario": "lexical-synonymy"
+    },
+    {
+      "clade_f1": 0.7096774193548387,
+      "clade_precision": 0.8461538461538461,
+      "clade_recall": 0.6111111111111112,
+      "method": "grape",
+      "normalized_rf": 0.26666666666666666,
+      "replicate": 9,
+      "scenario": "lexical-synonymy"
+    },
+    {
+      "clade_f1": 0.5714285714285715,
+      "clade_precision": 0.5882352941176471,
+      "clade_recall": 0.5555555555555556,
+      "method": "nj",
+      "normalized_rf": 0.29411764705882354,
+      "replicate": 9,
+      "scenario": "lexical-synonymy"
+    },
+    {
+      "clade_f1": 0.5555555555555556,
+      "clade_precision": 0.5555555555555556,
+      "clade_recall": 0.5555555555555556,
+      "method": "upgma",
+      "normalized_rf": 0.47058823529411764,
+      "replicate": 9,
+      "scenario": "lexical-synonymy"
+    },
+    {
+      "clade_f1": 0.47058823529411764,
+      "clade_precision": 0.5,
+      "clade_recall": 0.4444444444444444,
+      "method": "grape",
+      "normalized_rf": 0.5,
+      "replicate": 0,
+      "scenario": "morphology"
+    },
+    {
+      "clade_f1": 0.28571428571428575,
+      "clade_precision": 0.29411764705882354,
+      "clade_recall": 0.2777777777777778,
+      "method": "nj",
+      "normalized_rf": 0.5882352941176471,
+      "replicate": 0,
+      "scenario": "morphology"
+    },
+    {
+      "clade_f1": 0.2222222222222222,
+      "clade_precision": 0.2222222222222222,
+      "clade_recall": 0.2222222222222222,
+      "method": "upgma",
+      "normalized_rf": 0.7647058823529411,
+      "replicate": 0,
+      "scenario": "morphology"
+    },
+    {
+      "clade_f1": 0.5882352941176471,
+      "clade_precision": 0.625,
+      "clade_recall": 0.5555555555555556,
+      "method": "grape",
+      "normalized_rf": 0.3939393939393939,
+      "replicate": 1,
+      "scenario": "morphology"
+    },
+    {
+      "clade_f1": 0.5142857142857143,
+      "clade_precision": 0.5294117647058824,
+      "clade_recall": 0.5,
+      "method": "nj",
+      "normalized_rf": 0.47058823529411764,
+      "replicate": 1,
+      "scenario": "morphology"
+    },
+    {
+      "clade_f1": 0.2222222222222222,
+      "clade_precision": 0.2222222222222222,
+      "clade_recall": 0.2222222222222222,
+      "method": "upgma",
+      "normalized_rf": 0.7647058823529411,
+      "replicate": 1,
+      "scenario": "morphology"
+    },
+    {
+      "clade_f1": 0.7058823529411765,
+      "clade_precision": 0.75,
+      "clade_recall": 0.6666666666666666,
+      "method": "grape",
+      "normalized_rf": 0.3125,
+      "replicate": 2,
+      "scenario": "morphology"
+    },
+    {
+      "clade_f1": 0.6285714285714287,
+      "clade_precision": 0.6470588235294118,
+      "clade_recall": 0.6111111111111112,
+      "method": "nj",
+      "normalized_rf": 0.35294117647058826,
+      "replicate": 2,
+      "scenario": "morphology"
+    },
+    {
+      "clade_f1": 0.3888888888888889,
+      "clade_precision": 0.3888888888888889,
+      "clade_recall": 0.3888888888888889,
+      "method": "upgma",
+      "normalized_rf": 0.6470588235294118,
+      "replicate": 2,
+      "scenario": "morphology"
+    },
+    {
+      "clade_f1": 0.7222222222222222,
+      "clade_precision": 0.7222222222222222,
+      "clade_recall": 0.7222222222222222,
+      "method": "grape",
+      "normalized_rf": 0.17647058823529413,
+      "replicate": 3,
+      "scenario": "morphology"
+    },
+    {
+      "clade_f1": 0.7428571428571428,
+      "clade_precision": 0.7647058823529411,
+      "clade_recall": 0.7222222222222222,
+      "method": "nj",
+      "normalized_rf": 0.11764705882352941,
+      "replicate": 3,
+      "scenario": "morphology"
+    },
+    {
+      "clade_f1": 0.5555555555555556,
+      "clade_precision": 0.5555555555555556,
+      "clade_recall": 0.5555555555555556,
+      "method": "upgma",
+      "normalized_rf": 0.4117647058823529,
+      "replicate": 3,
+      "scenario": "morphology"
+    },
+    {
+      "clade_f1": 0.7999999999999999,
+      "clade_precision": 0.8235294117647058,
+      "clade_recall": 0.7777777777777778,
+      "method": "grape",
+      "normalized_rf": 0.09090909090909091,
+      "replicate": 4,
+      "scenario": "morphology"
+    },
+    {
+      "clade_f1": 0.7999999999999999,
+      "clade_precision": 0.8235294117647058,
+      "clade_recall": 0.7777777777777778,
+      "method": "nj",
+      "normalized_rf": 0.11764705882352941,
+      "replicate": 4,
+      "scenario": "morphology"
+    },
+    {
+      "clade_f1": 0.6666666666666666,
+      "clade_precision": 0.6666666666666666,
+      "clade_recall": 0.6666666666666666,
+      "method": "upgma",
+      "normalized_rf": 0.23529411764705882,
+      "replicate": 4,
+      "scenario": "morphology"
+    },
+    {
+      "clade_f1": 0.9444444444444444,
+      "clade_precision": 0.9444444444444444,
+      "clade_recall": 0.9444444444444444,
+      "method": "grape",
+      "normalized_rf": 0.058823529411764705,
+      "replicate": 5,
+      "scenario": "morphology"
+    },
+    {
+      "clade_f1": 0.9714285714285714,
+      "clade_precision": 1.0,
+      "clade_recall": 0.9444444444444444,
+      "method": "nj",
+      "normalized_rf": 0.0,
+      "replicate": 5,
+      "scenario": "morphology"
+    },
+    {
+      "clade_f1": 0.5555555555555556,
+      "clade_precision": 0.5555555555555556,
+      "clade_recall": 0.5555555555555556,
+      "method": "upgma",
+      "normalized_rf": 0.4117647058823529,
+      "replicate": 5,
+      "scenario": "morphology"
+    },
+    {
+      "clade_f1": 0.5,
+      "clade_precision": 0.5714285714285714,
+      "clade_recall": 0.4444444444444444,
+      "method": "grape",
+      "normalized_rf": 0.4838709677419355,
+      "replicate": 6,
+      "scenario": "morphology"
+    },
+    {
+      "clade_f1": 0.6285714285714287,
+      "clade_precision": 0.6470588235294118,
+      "clade_recall": 0.6111111111111112,
+      "method": "nj",
+      "normalized_rf": 0.29411764705882354,
+      "replicate": 6,
+      "scenario": "morphology"
+    },
+    {
+      "clade_f1": 0.3333333333333333,
+      "clade_precision": 0.3333333333333333,
+      "clade_recall": 0.3333333333333333,
+      "method": "upgma",
+      "normalized_rf": 0.6470588235294118,
+      "replicate": 6,
+      "scenario": "morphology"
+    },
+    {
+      "clade_f1": 0.5714285714285715,
+      "clade_precision": 0.5882352941176471,
+      "clade_recall": 0.5555555555555556,
+      "method": "grape",
+      "normalized_rf": 0.3939393939393939,
+      "replicate": 7,
+      "scenario": "morphology"
+    },
+    {
+      "clade_f1": 0.5142857142857143,
+      "clade_precision": 0.5294117647058824,
+      "clade_recall": 0.5,
+      "method": "nj",
+      "normalized_rf": 0.29411764705882354,
+      "replicate": 7,
+      "scenario": "morphology"
+    },
+    {
+      "clade_f1": 0.2222222222222222,
+      "clade_precision": 0.2222222222222222,
+      "clade_recall": 0.2222222222222222,
+      "method": "upgma",
+      "normalized_rf": 0.7647058823529411,
+      "replicate": 7,
+      "scenario": "morphology"
+    },
+    {
+      "clade_f1": 0.7999999999999999,
+      "clade_precision": 0.8235294117647058,
+      "clade_recall": 0.7777777777777778,
+      "method": "grape",
+      "normalized_rf": 0.21212121212121213,
+      "replicate": 8,
+      "scenario": "morphology"
+    },
+    {
+      "clade_f1": 0.6285714285714287,
+      "clade_precision": 0.6470588235294118,
+      "clade_recall": 0.6111111111111112,
+      "method": "nj",
+      "normalized_rf": 0.35294117647058826,
+      "replicate": 8,
+      "scenario": "morphology"
+    },
+    {
+      "clade_f1": 0.4444444444444444,
+      "clade_precision": 0.4444444444444444,
+      "clade_recall": 0.4444444444444444,
+      "method": "upgma",
+      "normalized_rf": 0.5294117647058824,
+      "replicate": 8,
+      "scenario": "morphology"
+    },
+    {
+      "clade_f1": 0.75,
+      "clade_precision": 0.8571428571428571,
+      "clade_recall": 0.6666666666666666,
+      "method": "grape",
+      "normalized_rf": 0.22580645161290322,
+      "replicate": 9,
+      "scenario": "morphology"
+    },
+    {
+      "clade_f1": 0.5714285714285715,
+      "clade_precision": 0.5882352941176471,
+      "clade_recall": 0.5555555555555556,
+      "method": "nj",
+      "normalized_rf": 0.4117647058823529,
+      "replicate": 9,
+      "scenario": "morphology"
+    },
+    {
+      "clade_f1": 0.4444444444444444,
+      "clade_precision": 0.4444444444444444,
+      "clade_recall": 0.4444444444444444,
+      "method": "upgma",
+      "normalized_rf": 0.5294117647058824,
+      "replicate": 9,
+      "scenario": "morphology"
+    },
+    {
+      "clade_f1": 0.7647058823529411,
+      "clade_precision": 0.8125,
+      "clade_recall": 0.7222222222222222,
+      "method": "grape",
+      "normalized_rf": 0.25,
+      "replicate": 0,
+      "scenario": "genecontent"
+    },
+    {
+      "clade_f1": 0.7428571428571428,
+      "clade_precision": 0.7647058823529411,
+      "clade_recall": 0.7222222222222222,
+      "method": "nj",
+      "normalized_rf": 0.17647058823529413,
+      "replicate": 0,
+      "scenario": "genecontent"
+    },
+    {
+      "clade_f1": 0.7777777777777778,
+      "clade_precision": 0.7777777777777778,
+      "clade_recall": 0.7777777777777778,
+      "method": "upgma",
+      "normalized_rf": 0.23529411764705882,
+      "replicate": 0,
+      "scenario": "genecontent"
+    },
+    {
+      "clade_f1": 0.6470588235294118,
+      "clade_precision": 0.6875,
+      "clade_recall": 0.6111111111111112,
+      "method": "grape",
+      "normalized_rf": 0.3333333333333333,
+      "replicate": 1,
+      "scenario": "genecontent"
+    },
+    {
+      "clade_f1": 0.5142857142857143,
+      "clade_precision": 0.5294117647058824,
+      "clade_recall": 0.5,
+      "method": "nj",
+      "normalized_rf": 0.35294117647058826,
+      "replicate": 1,
+      "scenario": "genecontent"
+    },
+    {
+      "clade_f1": 0.6666666666666666,
+      "clade_precision": 0.6666666666666666,
+      "clade_recall": 0.6666666666666666,
+      "method": "upgma",
+      "normalized_rf": 0.35294117647058826,
+      "replicate": 1,
+      "scenario": "genecontent"
+    },
+    {
+      "clade_f1": 0.5882352941176471,
+      "clade_precision": 0.625,
+      "clade_recall": 0.5555555555555556,
+      "method": "grape",
+      "normalized_rf": 0.3939393939393939,
+      "replicate": 2,
+      "scenario": "genecontent"
+    },
+    {
+      "clade_f1": 0.6857142857142857,
+      "clade_precision": 0.7058823529411765,
+      "clade_recall": 0.6666666666666666,
+      "method": "nj",
+      "normalized_rf": 0.29411764705882354,
+      "replicate": 2,
+      "scenario": "genecontent"
+    },
+    {
+      "clade_f1": 0.6111111111111112,
+      "clade_precision": 0.6111111111111112,
+      "clade_recall": 0.6111111111111112,
+      "method": "upgma",
+      "normalized_rf": 0.4117647058823529,
+      "replicate": 2,
+      "scenario": "genecontent"
+    },
+    {
+      "clade_f1": 0.6666666666666666,
+      "clade_precision": 0.7333333333333333,
+      "clade_recall": 0.6111111111111112,
+      "method": "grape",
+      "normalized_rf": 0.3548387096774194,
+      "replicate": 3,
+      "scenario": "genecontent"
+    },
+    {
+      "clade_f1": 0.5142857142857143,
+      "clade_precision": 0.5294117647058824,
+      "clade_recall": 0.5,
+      "method": "nj",
+      "normalized_rf": 0.17647058823529413,
+      "replicate": 3,
+      "scenario": "genecontent"
+    },
+    {
+      "clade_f1": 0.9444444444444444,
+      "clade_precision": 0.9444444444444444,
+      "clade_recall": 0.9444444444444444,
+      "method": "upgma",
+      "normalized_rf": 0.058823529411764705,
+      "replicate": 3,
+      "scenario": "genecontent"
+    },
+    {
+      "clade_f1": 0.7647058823529411,
+      "clade_precision": 0.8125,
+      "clade_recall": 0.7222222222222222,
+      "method": "grape",
+      "normalized_rf": 0.1875,
+      "replicate": 4,
+      "scenario": "genecontent"
+    },
+    {
+      "clade_f1": 0.8571428571428571,
+      "clade_precision": 0.8823529411764706,
+      "clade_recall": 0.8333333333333334,
+      "method": "nj",
+      "normalized_rf": 0.11764705882352941,
+      "replicate": 4,
+      "scenario": "genecontent"
+    },
+    {
+      "clade_f1": 0.7777777777777778,
+      "clade_precision": 0.7777777777777778,
+      "clade_recall": 0.7777777777777778,
+      "method": "upgma",
+      "normalized_rf": 0.23529411764705882,
+      "replicate": 4,
+      "scenario": "genecontent"
+    },
+    {
+      "clade_f1": 0.7222222222222222,
+      "clade_precision": 0.7222222222222222,
+      "clade_recall": 0.7222222222222222,
+      "method": "grape",
+      "normalized_rf": 0.23529411764705882,
+      "replicate": 5,
+      "scenario": "genecontent"
+    },
+    {
+      "clade_f1": 0.6857142857142857,
+      "clade_precision": 0.7058823529411765,
+      "clade_recall": 0.6666666666666666,
+      "method": "nj",
+      "normalized_rf": 0.17647058823529413,
+      "replicate": 5,
+      "scenario": "genecontent"
+    },
+    {
+      "clade_f1": 0.7222222222222222,
+      "clade_precision": 0.7222222222222222,
+      "clade_recall": 0.7222222222222222,
+      "method": "upgma",
+      "normalized_rf": 0.29411764705882354,
+      "replicate": 5,
+      "scenario": "genecontent"
+    },
+    {
+      "clade_f1": 0.5454545454545454,
+      "clade_precision": 0.6,
+      "clade_recall": 0.5,
+      "method": "grape",
+      "normalized_rf": 0.41935483870967744,
+      "replicate": 6,
+      "scenario": "genecontent"
+    },
+    {
+      "clade_f1": 0.5714285714285715,
+      "clade_precision": 0.5882352941176471,
+      "clade_recall": 0.5555555555555556,
+      "method": "nj",
+      "normalized_rf": 0.4117647058823529,
+      "replicate": 6,
+      "scenario": "genecontent"
+    },
+    {
+      "clade_f1": 0.7222222222222222,
+      "clade_precision": 0.7222222222222222,
+      "clade_recall": 0.7222222222222222,
+      "method": "upgma",
+      "normalized_rf": 0.23529411764705882,
+      "replicate": 6,
+      "scenario": "genecontent"
+    },
+    {
+      "clade_f1": 0.7999999999999999,
+      "clade_precision": 0.8235294117647058,
+      "clade_recall": 0.7777777777777778,
+      "method": "grape",
+      "normalized_rf": 0.21212121212121213,
+      "replicate": 7,
+      "scenario": "genecontent"
+    },
+    {
+      "clade_f1": 0.7428571428571428,
+      "clade_precision": 0.7647058823529411,
+      "clade_recall": 0.7222222222222222,
+      "method": "nj",
+      "normalized_rf": 0.17647058823529413,
+      "replicate": 7,
+      "scenario": "genecontent"
+    },
+    {
+      "clade_f1": 0.7777777777777778,
+      "clade_precision": 0.7777777777777778,
+      "clade_recall": 0.7777777777777778,
+      "method": "upgma",
+      "normalized_rf": 0.17647058823529413,
+      "replicate": 7,
+      "scenario": "genecontent"
+    },
+    {
+      "clade_f1": 0.8333333333333334,
+      "clade_precision": 0.8333333333333334,
+      "clade_recall": 0.8333333333333334,
+      "method": "grape",
+      "normalized_rf": 0.11764705882352941,
+      "replicate": 8,
+      "scenario": "genecontent"
+    },
+    {
+      "clade_f1": 0.8571428571428571,
+      "clade_precision": 0.8823529411764706,
+      "clade_recall": 0.8333333333333334,
+      "method": "nj",
+      "normalized_rf": 0.11764705882352941,
+      "replicate": 8,
+      "scenario": "genecontent"
+    },
+    {
+      "clade_f1": 0.8333333333333334,
+      "clade_precision": 0.8333333333333334,
+      "clade_recall": 0.8333333333333334,
+      "method": "upgma",
+      "normalized_rf": 0.11764705882352941,
+      "replicate": 8,
+      "scenario": "genecontent"
+    },
+    {
+      "clade_f1": 0.7647058823529411,
+      "clade_precision": 0.8125,
+      "clade_recall": 0.7222222222222222,
+      "method": "grape",
+      "normalized_rf": 0.25,
+      "replicate": 9,
+      "scenario": "genecontent"
+    },
+    {
+      "clade_f1": 0.6285714285714287,
+      "clade_precision": 0.6470588235294118,
+      "clade_recall": 0.6111111111111112,
+      "method": "nj",
+      "normalized_rf": 0.11764705882352941,
+      "replicate": 9,
+      "scenario": "genecontent"
+    },
+    {
+      "clade_f1": 0.8888888888888888,
+      "clade_precision": 0.8888888888888888,
+      "clade_recall": 0.8888888888888888,
+      "method": "upgma",
+      "normalized_rf": 0.11764705882352941,
+      "replicate": 9,
+      "scenario": "genecontent"
+    },
+    {
+      "clade_f1": 0.45614035087719296,
+      "clade_precision": 0.5064935064935064,
+      "clade_recall": 0.4148936170212766,
+      "method": "grape",
+      "normalized_rf": 0.5384615384615384,
+      "replicate": 0,
+      "scenario": "stemma"
+    },
+    {
+      "clade_f1": 0.5454545454545454,
+      "clade_precision": 0.5483870967741935,
+      "clade_recall": 0.5425531914893617,
+      "method": "nj",
+      "normalized_rf": 0.3548387096774194,
+      "replicate": 0,
+      "scenario": "stemma"
+    },
+    {
+      "clade_f1": 0.3404255319148936,
+      "clade_precision": 0.3404255319148936,
+      "clade_recall": 0.3404255319148936,
+      "method": "upgma",
+      "normalized_rf": 0.6129032258064516,
+      "replicate": 0,
+      "scenario": "stemma"
+    },
+    {
+      "clade_f1": 0.4935064935064935,
+      "clade_precision": 0.5135135135135135,
+      "clade_recall": 0.475,
+      "method": "grape",
+      "normalized_rf": 0.4666666666666667,
+      "replicate": 1,
+      "scenario": "stemma"
+    },
+    {
+      "clade_f1": 0.6075949367088608,
+      "clade_precision": 0.6153846153846154,
+      "clade_recall": 0.6,
+      "method": "nj",
+      "normalized_rf": 0.3076923076923077,
+      "replicate": 1,
+      "scenario": "stemma"
+    },
+    {
+      "clade_f1": 0.275,
+      "clade_precision": 0.275,
+      "clade_recall": 0.275,
+      "method": "upgma",
+      "normalized_rf": 0.6923076923076923,
+      "replicate": 1,
+      "scenario": "stemma"
+    },
+    {
+      "clade_f1": 0.42105263157894735,
+      "clade_precision": 0.425531914893617,
+      "clade_recall": 0.4166666666666667,
+      "method": "grape",
+      "normalized_rf": 0.5268817204301075,
+      "replicate": 2,
+      "scenario": "stemma"
+    },
+    {
+      "clade_f1": 0.631578947368421,
+      "clade_precision": 0.6382978723404256,
+      "clade_recall": 0.625,
+      "method": "nj",
+      "normalized_rf": 0.2127659574468085,
+      "replicate": 2,
+      "scenario": "stemma"
+    },
+    {
+      "clade_f1": 0.5,
+      "clade_precision": 0.5,
+      "clade_recall": 0.5,
+      "method": "upgma",
+      "normalized_rf": 0.48936170212765956,
+      "replicate": 2,
+      "scenario": "stemma"
+    },
+    {
+      "clade_f1": 0.5614035087719299,
+      "clade_precision": 0.5925925925925926,
+      "clade_recall": 0.5333333333333333,
+      "method": "grape",
+      "normalized_rf": 0.38181818181818183,
+      "replicate": 3,
+      "scenario": "stemma"
+    },
+    {
+      "clade_f1": 0.6779661016949153,
+      "clade_precision": 0.6896551724137931,
+      "clade_recall": 0.6666666666666666,
+      "method": "nj",
+      "normalized_rf": 0.13793103448275862,
+      "replicate": 3,
+      "scenario": "stemma"
+    },
+    {
+      "clade_f1": 0.4666666666666667,
+      "clade_precision": 0.4666666666666667,
+      "clade_recall": 0.4666666666666667,
+      "method": "upgma",
+      "normalized_rf": 0.5172413793103449,
+      "replicate": 3,
+      "scenario": "stemma"
+    },
+    {
+      "clade_f1": 0.45714285714285713,
+      "clade_precision": 0.48484848484848486,
+      "clade_recall": 0.43243243243243246,
+      "method": "grape",
+      "normalized_rf": 0.5362318840579711,
+      "replicate": 4,
+      "scenario": "stemma"
+    },
+    {
+      "clade_f1": 0.7945205479452055,
+      "clade_precision": 0.8055555555555556,
+      "clade_recall": 0.7837837837837838,
+      "method": "nj",
+      "normalized_rf": 0.16666666666666666,
+      "replicate": 4,
+      "scenario": "stemma"
+    },
+    {
+      "clade_f1": 0.4594594594594595,
+      "clade_precision": 0.4594594594594595,
+      "clade_recall": 0.4594594594594595,
+      "method": "upgma",
+      "normalized_rf": 0.5555555555555556,
+      "replicate": 4,
+      "scenario": "stemma"
+    },
+    {
+      "clade_f1": 0.4186046511627907,
+      "clade_precision": 0.45,
+      "clade_recall": 0.391304347826087,
+      "method": "grape",
+      "normalized_rf": 0.5764705882352941,
+      "replicate": 5,
+      "scenario": "stemma"
+    },
+    {
+      "clade_f1": 0.46153846153846156,
+      "clade_precision": 0.4666666666666667,
+      "clade_recall": 0.45652173913043476,
+      "method": "nj",
+      "normalized_rf": 0.28888888888888886,
+      "replicate": 5,
+      "scenario": "stemma"
+    },
+    {
+      "clade_f1": 0.34782608695652173,
+      "clade_precision": 0.34782608695652173,
+      "clade_recall": 0.34782608695652173,
+      "method": "upgma",
+      "normalized_rf": 0.6222222222222222,
+      "replicate": 5,
+      "scenario": "stemma"
+    },
+    {
+      "clade_f1": 0.7272727272727273,
+      "clade_precision": 0.7407407407407407,
+      "clade_recall": 0.7142857142857143,
+      "method": "grape",
+      "normalized_rf": 0.24528301886792453,
+      "replicate": 6,
+      "scenario": "stemma"
+    },
+    {
+      "clade_f1": 0.8363636363636364,
+      "clade_precision": 0.8518518518518519,
+      "clade_recall": 0.8214285714285714,
+      "method": "nj",
+      "normalized_rf": 0.14814814814814814,
+      "replicate": 6,
+      "scenario": "stemma"
+    },
+    {
+      "clade_f1": 0.6428571428571429,
+      "clade_precision": 0.6428571428571429,
+      "clade_recall": 0.6428571428571429,
+      "method": "upgma",
+      "normalized_rf": 0.3333333333333333,
+      "replicate": 6,
+      "scenario": "stemma"
+    },
+    {
+      "clade_f1": 0.3098591549295775,
+      "clade_precision": 0.3235294117647059,
+      "clade_recall": 0.2972972972972973,
+      "method": "grape",
+      "normalized_rf": 0.6857142857142857,
+      "replicate": 7,
+      "scenario": "stemma"
+    },
+    {
+      "clade_f1": 0.4931506849315069,
+      "clade_precision": 0.5,
+      "clade_recall": 0.4864864864864865,
+      "method": "nj",
+      "normalized_rf": 0.25,
+      "replicate": 7,
+      "scenario": "stemma"
+    },
+    {
+      "clade_f1": 0.40540540540540543,
+      "clade_precision": 0.40540540540540543,
+      "clade_recall": 0.40540540540540543,
+      "method": "upgma",
+      "normalized_rf": 0.5833333333333334,
+      "replicate": 7,
+      "scenario": "stemma"
+    },
+    {
+      "clade_f1": 0.5714285714285715,
+      "clade_precision": 0.5806451612903226,
+      "clade_recall": 0.5625,
+      "method": "grape",
+      "normalized_rf": 0.4426229508196721,
+      "replicate": 8,
+      "scenario": "stemma"
+    },
+    {
+      "clade_f1": 0.5396825396825397,
+      "clade_precision": 0.5483870967741935,
+      "clade_recall": 0.53125,
+      "method": "nj",
+      "normalized_rf": 0.2903225806451613,
+      "replicate": 8,
+      "scenario": "stemma"
+    },
+    {
+      "clade_f1": 0.46875,
+      "clade_precision": 0.46875,
+      "clade_recall": 0.46875,
+      "method": "upgma",
+      "normalized_rf": 0.5161290322580645,
+      "replicate": 8,
+      "scenario": "stemma"
+    },
+    {
+      "clade_f1": 0.5409836065573771,
+      "clade_precision": 0.559322033898305,
+      "clade_recall": 0.5238095238095238,
+      "method": "grape",
+      "normalized_rf": 0.4380165289256198,
+      "replicate": 9,
+      "scenario": "stemma"
+    },
+    {
+      "clade_f1": 0.64,
+      "clade_precision": 0.6451612903225806,
+      "clade_recall": 0.6349206349206349,
+      "method": "nj",
+      "normalized_rf": 0.20967741935483872,
+      "replicate": 9,
+      "scenario": "stemma"
+    },
+    {
+      "clade_f1": 0.47619047619047616,
+      "clade_precision": 0.47619047619047616,
+      "clade_recall": 0.47619047619047616,
+      "method": "upgma",
+      "normalized_rf": 0.5,
+      "replicate": 9,
+      "scenario": "stemma"
+    }
+  ],
+  "replicates_per_scenario": 10,
+  "scenarios": {
+    "genecontent": [
+      "genecontent",
+      {}
+    ],
+    "lexical-baseline": [
+      "lexical",
+      {}
+    ],
+    "lexical-borrowing": [
+      "lexical",
+      {
+        "horizontal": {
+          "borrowing_rate": 0.02
+        }
+      }
+    ],
+    "lexical-relaxed-clock": [
+      "lexical",
+      {
+        "characters": {
+          "clock_sigma": 0.7
+        }
+      }
+    ],
+    "lexical-synonymy": [
+      "lexical",
+      {
+        "characters": {
+          "synonym_duration": 0.3
+        }
+      }
+    ],
+    "morphology": [
+      "morphology",
+      {}
+    ],
+    "stemma": [
+      "stemma",
+      {}
+    ]
+  },
+  "schema": "ngesh-grape-benchmark-v1",
+  "score": "GRAPE validation harness unrooted normalized RF and rooted clade precision/recall/F1",
+  "simulation": "20 taxa, 150 characters; parameters from presets and listed scenario overrides",
+  "summary": {
+    "genecontent": {
+      "grape": {
+        "clade_f1": 0.7097088532382649,
+        "clade_precision": 0.7462418300653595,
+        "clade_recall": 0.6777777777777778,
+        "normalized_rf": 0.27540286642516243
+      },
+      "nj": {
+        "clade_f1": 0.68,
+        "clade_precision": 0.7,
+        "clade_recall": 0.6611111111111111,
+        "normalized_rf": 0.21176470588235294
+      },
+      "upgma": {
+        "clade_f1": 0.7722222222222223,
+        "clade_precision": 0.7722222222222223,
+        "clade_recall": 0.7722222222222223,
+        "normalized_rf": 0.2235294117647059
+      }
+    },
+    "lexical-baseline": {
+      "grape": {
+        "clade_f1": 0.7282707804529437,
+        "clade_precision": 0.8071776018099548,
+        "clade_recall": 0.6666666666666667,
+        "normalized_rf": 0.25140901506724644
+      },
+      "nj": {
+        "clade_f1": 0.68,
+        "clade_precision": 0.7,
+        "clade_recall": 0.6611111111111111,
+        "normalized_rf": 0.18823529411764706
+      },
+      "upgma": {
+        "clade_f1": 0.6444444444444445,
+        "clade_precision": 0.6444444444444445,
+        "clade_recall": 0.6444444444444445,
+        "normalized_rf": 0.3588235294117647
+      }
+    },
+    "lexical-borrowing": {
+      "grape": {
+        "clade_f1": 0.6892049767120925,
+        "clade_precision": 0.7759752747252747,
+        "clade_recall": 0.6222222222222222,
+        "normalized_rf": 0.2833981480143883
+      },
+      "nj": {
+        "clade_f1": 0.6057142857142858,
+        "clade_precision": 0.6235294117647059,
+        "clade_recall": 0.5888888888888889,
+        "normalized_rf": 0.25882352941176473
+      },
+      "upgma": {
+        "clade_f1": 0.6166666666666667,
+        "clade_precision": 0.6166666666666667,
+        "clade_recall": 0.6166666666666667,
+        "normalized_rf": 0.38823529411764707
+      }
+    },
+    "lexical-relaxed-clock": {
+      "grape": {
+        "clade_f1": 0.5909245517400002,
+        "clade_precision": 0.6987595737595738,
+        "clade_recall": 0.5166666666666666,
+        "normalized_rf": 0.3991350749012039
+      },
+      "nj": {
+        "clade_f1": 0.5371428571428571,
+        "clade_precision": 0.5529411764705883,
+        "clade_recall": 0.5222222222222223,
+        "normalized_rf": 0.35294117647058826
+      },
+      "upgma": {
+        "clade_f1": 0.5055555555555555,
+        "clade_precision": 0.5055555555555555,
+        "clade_recall": 0.5055555555555555,
+        "normalized_rf": 0.49411764705882355
+      }
+    },
+    "lexical-synonymy": {
+      "grape": {
+        "clade_f1": 0.6905817972350231,
+        "clade_precision": 0.8086780866192631,
+        "clade_recall": 0.6055555555555555,
+        "normalized_rf": 0.28370247846332386
+      },
+      "nj": {
+        "clade_f1": 0.5942857142857143,
+        "clade_precision": 0.611764705882353,
+        "clade_recall": 0.5777777777777778,
+        "normalized_rf": 0.27058823529411763
+      },
+      "upgma": {
+        "clade_f1": 0.5666666666666667,
+        "clade_precision": 0.5666666666666667,
+        "clade_recall": 0.5666666666666667,
+        "normalized_rf": 0.4294117647058824
+      }
+    },
+    "morphology": {
+      "grape": {
+        "clade_f1": 0.685280112044818,
+        "clade_precision": 0.7205532212885154,
+        "clade_recall": 0.6555555555555556,
+        "normalized_rf": 0.28483806279109886
+      },
+      "nj": {
+        "clade_f1": 0.6285714285714286,
+        "clade_precision": 0.6470588235294118,
+        "clade_recall": 0.6111111111111112,
+        "normalized_rf": 0.3
+      },
+      "upgma": {
+        "clade_f1": 0.40555555555555556,
+        "clade_precision": 0.40555555555555556,
+        "clade_recall": 0.40555555555555556,
+        "normalized_rf": 0.5705882352941176
+      }
+    },
+    "stemma": {
+      "grape": {
+        "clade_f1": 0.49573945532284647,
+        "clade_precision": 0.5177217360035788,
+        "clade_recall": 0.47615229326723313,
+        "normalized_rf": 0.48381673639972617
+      },
+      "nj": {
+        "clade_f1": 0.6227850401688093,
+        "clade_precision": 0.6309347218083876,
+        "clade_recall": 0.614861107390594,
+        "normalized_rf": 0.2366931713002998
+      },
+      "upgma": {
+        "clade_f1": 0.4382580769450566,
+        "clade_precision": 0.4382580769450566,
+        "clade_recall": 0.4382580769450566,
+        "normalized_rf": 0.5422387476254658
+      }
+    }
+  }
+}

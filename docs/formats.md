@@ -45,7 +45,8 @@ Binary NEXUS/PHYLIP retain all original traits, even entirely absent ones. For
 lexical/morphological data, binarization creates one column per observed state;
 missing source cells become `?` across all those columns.
 
-Multistate NEXUS uses integer `TOKENS` to allow more than 62 lexical classes;
+Lexical multistate NEXUS uses integer `TOKENS` for arbitrary classes; Mk matrices
+use single-symbol STANDARD encoding with the complete model state alphabet;
 polymorphisms use braces, genuine absence uses `-`. Consumer support for integer
 TOKENS varies; binary formats are available for single-symbol consumers. PHYLIP
 uses stable `T000001` aliases because whitespace in names is not portable.

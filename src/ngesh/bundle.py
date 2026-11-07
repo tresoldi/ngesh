@@ -108,6 +108,12 @@ def _nexus(
     else:
         columns = [(i, -1) for i in range(len(groups))]
 
+    states = sorted({s for row in matrix.values() for c in row for s in c or []})
+    single_symbol = not binary and state_count is not None
+    alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    if single_symbol and max(states, default=0) >= len(alphabet):
+        raise ValueError("Mk output exceeds the 36-state single-symbol NEXUS alphabet")
+
     def token(cell: Cell, state: int) -> str:
         if cell is None:
             return "?"
@@ -117,6 +123,9 @@ def _nexus(
             return "1" if cell else "0"
         if not cell:
             return "-"
+        if single_symbol:
+            encoded = "".join(alphabet[i] for i in sorted(cell))
+            return encoded if len(cell) == 1 else "{" + encoded + "}"
         return (
             str(next(iter(cell)))
             if len(cell) == 1
@@ -125,10 +134,8 @@ def _nexus(
 
     data = [f"{_quote(t)} " + " ".join(token(matrix[t][i], s) for i, s in columns) for t in taxa]
     # TOKENS permits integer states beyond the single-symbol NEXUS alphabet.
-    states = sorted({s for row in matrix.values() for c in row for s in c or []})
-    single_symbol = not binary and state_count is not None and max(states, default=0) < 10
     symbols = (
-        "".join(str(i) for i in range(max(state_count, max(states, default=0) + 1)))
+        alphabet[: max(state_count, max(states, default=0) + 1)]
         if single_symbol
         else "01"
         if binary or presence

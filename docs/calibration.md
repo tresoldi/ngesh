@@ -219,3 +219,29 @@ and searches for the two exact morphology filenames found no accessible copies.
 The two zero-filled entries remain excluded. Supply the private stemmatology
 checkout and usable morphology matrices to complete calibration. The release
 candidate remains gated on that evidence.
+
+## Alpha4 recalibration and benchmark
+
+After the target-count, crown-height and lineage-clock corrections, the three
+available fits were rerun with the same grid and holdout procedure. Their full
+results are in `calibration/fits/*-a4.json`. The selected lexical candidate
+did not improve the current preset by the existing 10% threshold; the lexical
+default remains unchanged. The morphology and gene-content candidates improved
+the held-out summary scores by about 12% and 10%, respectively, and their
+default parameters were updated. These differences are exploratory and based on
+the same small Monte Carlo budget and holdout limitations described above.
+
+The 70-dataset GRAPE/NJ/UPGMA benchmark was rerun after selecting the alpha4
+defaults; results are in `docs/pilot/grape-benchmark-a4.json`. They supersede
+the initial benchmark for the current simulation rules. The private stemma
+calibration source and two damaged morphology matrices remain unavailable.
+
+| Alpha4 scenario | GRAPE mean RF | NJ mean RF | UPGMA mean RF |
+|---|---:|---:|---:|
+| genecontent | 0.275 | 0.212 | 0.224 |
+| lexical-baseline | 0.251 | 0.188 | 0.359 |
+| lexical-borrowing | 0.283 | 0.259 | 0.388 |
+| lexical-relaxed-clock | 0.399 | 0.353 | 0.494 |
+| lexical-synonymy | 0.284 | 0.271 | 0.429 |
+| morphology | 0.285 | 0.300 | 0.571 |
+| stemma | 0.484 | 0.237 | 0.542 |

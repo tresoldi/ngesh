@@ -34,7 +34,7 @@ core rather than preserve misleading 1.x parameter semantics.
 ## G2: stopping, loss, ancestors and copying
 
 * Yule starts with one lineage at time zero, including its first waiting time
-  (root stem). At n tips its expected height is H_(n-1)/birth. Crown-conditioned
+  (root stem). At n tips its expected height is H_n/birth under the current sampling rule. Crown-conditioned
   height has a different expectation and is not silently substituted.
 * Exact-n generation uses a time-weighted sample of intervals with n extant
   lineages, simulated until 2n lineages or a deadline. Extinct attempts without
@@ -61,7 +61,7 @@ core rather than preserve misleading 1.x parameter semantics.
   novel IDs above K. Recurrent pool draws may be silent; the event is still logged.
 * Gamma rates have mean one before invariant masking. Invariants are a separate
   mixture, so the unconditional mean is rate*(1-p_invariant). Relaxed clocks are
-  independent mean-one lognormal edge multipliers. Column indices affect labels,
+  independent mean-one lognormal lineage multipliers inherited through sampling points. Column indices affect labels,
   not the distribution of rates.
 * Long TSV deliberately cannot distinguish binary absence from missing: both
   omit rows under the consumer contract. Full observed.json and truth.json are
@@ -114,7 +114,7 @@ core rather than preserve misleading 1.x parameter semantics.
 ## G3 remaining domains
 
 * Stochastic Dollo conditions each non-root-present trait on exactly one origin:
-  its gain is uniform over total lineage-time (equivalent to a homogeneous
+  its gain is weighted by clock-scaled lineage exposure (equivalent to a
   Poisson origin process conditioned on one event). Descendants lose at mu times
   their character/clock multiplier. Trait count is fixed; we do not silently
   condition on retention in the observed tips. Invariants have no gain/loss.
@@ -257,7 +257,8 @@ tree configuration.
 
 Mk matrices use single-symbol STANDARD encoding with the complete state
 alphabet, including unobserved model states, whenever all state IDs fit in
-one digit. Integer TOKENS remain available when coding errors create larger IDs.
+one symbol. Coding errors may use up to 36 symbols; larger observed IDs fail
+explicitly instead of silently producing a TOKENS matrix.
 
 ## Review: clocks and sampling
 

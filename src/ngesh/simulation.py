@@ -25,16 +25,16 @@ PRESETS: dict[str, dict[str, Any]] = {
         "characters": {
             "model": "dollo",
             "rate": 1.0,
-            "loss_rate": 1.0,
+            "loss_rate": 3.0,
             "alpha": 0.3,
             "n_characters": 500,
-            "root_frequency": 0.03,
+            "root_frequency": 0.005,
         },
         "horizontal": {"mode": "add"},
     },
     "morphology": {
         "tree": {"crown_height": 1.0},
-        "characters": {"model": "mk", "rate": 1.0, "k": 2, "n_characters": 100, "alpha": 2.0},
+        "characters": {"model": "mk", "rate": 0.6, "k": 3, "n_characters": 100, "alpha": 2.0},
         "observation": {"coverage_a": 7.702921781245104, "coverage_b": 1.6842147553315705},
     },
     "stemma": {

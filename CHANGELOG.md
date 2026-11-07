@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.0.0a4 — review fixes
+
+- Use target-count interval sampling and distinguish crown and origin heights.
+- Preserve sampled witnesses, apply standard ascertainment after subsampling,
+  and write single-symbol Mk matrices.
+- Share lineage clocks across sampling points, weight Dollo gains by exposure,
+  label silent omissions and retry empty tip samples.
+- Refit available calibration targets and rerun the GRAPE comparison.
+
+
 ## 2.0.0a3 — 2026-11-07
 
 - Add single-origin Dollo, binary and ordered/asymmetric Mk, correlated blocks,

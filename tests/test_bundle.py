@@ -215,3 +215,14 @@ class BundleTests(unittest.TestCase):
                     json.loads((out / "params.json").read_text())["tree_sampling_attempts"]
                 )
         self.assertTrue(any(n > 1 for n in attempts))
+
+    def test_mk_error_states_stay_single_symbol(self):
+        from ngesh.bundle import _nexus
+        from ngesh.matrices import read_nexus
+
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "mk.nex"
+            expected = {"A": [frozenset({12})], "B": [frozenset({0})]}
+            _nexus(path, expected, ["C1"], binary=False, state_count=4)
+            self.assertNotIn("TOKENS", path.read_text())
+            self.assertEqual(read_nexus(path), expected)
