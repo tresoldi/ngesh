@@ -70,22 +70,16 @@ def simulate(
             "tree_sampling",
         ]
     }
-    tree = generate_tree(replace(tree_cfg, full=True, sampling=1), seed=seeds["tree"])
+    tree = generate_tree(
+        replace(tree_cfg, full=True, sampling=1, height=None, mean_height=None), seed=seeds["tree"]
+    )
     hcfg = HorizontalConfig(**(base.get("horizontal", {}) | config.get("horizontal", {})))
     ocfg = ObservationConfig(**(base.get("observation", {}) | config.get("observation", {})))
     if char_cfg.model in {"binary", "dollo"} and (ocfg.lumping or ocfg.splitting):
         raise ValueError("class lumping/splitting is not defined for binary presence/absence")
-    result = evolve(
-        tree,
-        char_cfg,
-        seed=seeds["characters"],
-        horizontal=hcfg,
-        horizontal_rng=RandomStream(seeds["horizontal"]),
-        geography_rng=RandomStream(seeds["geography"]),
-    )
     srng = RandomStream(seeds["tree_sampling"])
-    keep = {
-        n.name
+    selected = {
+        n
         for n in tree.tips()
         if n.attrs.get("sampled_tip")
         or (n.attrs.get("extinct", False) and tree_cfg.full)
@@ -94,8 +88,32 @@ def simulate(
             and (tree_cfg.sampling == 1 or srng.random() < tree_cfg.sampling)
         )
     }
-    if not keep:
+    if not selected:
         raise ValueError("tree sampling retained no observations")
+    if tree_cfg.height is not None or tree_cfg.mean_height is not None:
+        from .rng import positive
+
+        target = tree_cfg.height if tree_cfg.height is not None else tree_cfg.mean_height
+        positive(target, "rescaling target")
+        base = (
+            max(n.time for n in selected)
+            if tree_cfg.height is not None
+            else sum(n.time for n in selected) / len(selected)
+        )
+        if base <= 0:
+            raise ValueError("cannot rescale a zero-height observation tree")
+        for n in tree.traverse():
+            n.length *= target / base
+        tree.update_times()
+    result = evolve(
+        tree,
+        char_cfg,
+        seed=seeds["characters"],
+        horizontal=hcfg,
+        horizontal_rng=RandomStream(seeds["horizontal"]),
+        geography_rng=RandomStream(seeds["geography"]),
+    )
+    keep = {n.name for n in selected}
     if keep != set(result.truth):
         result.history_tree = result.tree
         result.tree = result.tree.prune(keep)

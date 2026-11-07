@@ -185,3 +185,14 @@ core rather than preserve misleading 1.x parameter semantics.
   NEXUS/PHYLIP round trips, complete simulation golden outputs under distinct
   PYTHONHASHSEED values, README doctests, all four CLI examples, Ruff and wheel/sdist
   builds. The hosted Python 3.10–3.13 CI matrix remains the cross-version check.
+
+## Post-milestone verification correction
+
+Mean-height rescaling in orchestration must reference retained observations, not
+latent extinct tips. Sampling is therefore drawn (with its independent stream)
+before evolution without pruning the history; the entire history is rescaled by
+the retained tips' height/mean, then characters evolve on that time scale. A
+regression test covers extinction, sampled ancestors and incomplete sampling.
+Ancestor sampling intensity refers to the original tree-generation time units;
+character rates refer to the final rescaled units. Published milestone tags
+remain fixed; this correction is a subsequent branch commit.

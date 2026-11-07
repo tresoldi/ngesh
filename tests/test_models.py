@@ -70,3 +70,17 @@ class TreeModelTests(unittest.TestCase):
     def test_time_stop_toml_compatible(self):
         tree = generate_tree(TreeConfig(stop="time", max_time=2), seed=91)
         self.assertTrue(all(abs(n.time - 2) < 1e-12 for n in tree.tips()))
+
+    def test_simulate_mean_rescales_observed_tips(self):
+        from ngesh import simulate
+
+        result = simulate(
+            preset="stemma",
+            seed=54,
+            config={
+                "tree": {"n_taxa": 10, "sampling": 0.6, "mean_height": 2},
+                "characters": {"n_characters": 5},
+            },
+        )
+        self.assertAlmostEqual(statistics.mean(n.time for n in result.tree.tips()), 2)
+        self.assertTrue(all(n.length >= 0 for n in result.tree.traverse()))
