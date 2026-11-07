@@ -1,7 +1,8 @@
 """Continuous-time tree models and deterministic control shapes."""
+
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 import math
 
 from .rng import RandomStream, Seed, positive
@@ -10,6 +11,7 @@ from .tree import Node, Tree
 
 @dataclass
 class TreeConfig:
+    stop: str = "count"
     birth: float = 1.0
     death: float = 0.0
     n_taxa: int | None = 50
@@ -42,6 +44,8 @@ class TreeConfig:
             positive(self.max_time, "max_time")
         if self.n_taxa is None and self.max_time is None and self.newick is None:
             raise ValueError("a stopping criterion is required")
+        if self.stop not in {"count", "time"}:
+            raise ValueError("stop must be count or time")
         if self.method not in {"fast", "standard"}:
             raise ValueError("method must be fast or standard")
         if self.shape not in {"birth_death", "balanced", "caterpillar", "newick"}:
@@ -79,9 +83,9 @@ def sample_ancestors(tree: Tree, rate: float, rng: RandomStream) -> int:
     positive(rate, "ancestor_rate", zero=True)
     if rate == 0:
         return 0
-    if tree.root.length>0:
+    if tree.root.length > 0:
         old = tree.root
-        tree.root = Node('ORIGIN')
+        tree.root = Node("ORIGIN")
         tree.root.add(old)
         tree.update_times()
     count = 0
@@ -119,8 +123,9 @@ def ancestor_internal(tree: Tree) -> Tree:
     return result
 
 
-def generate_tree(config: TreeConfig | None = None, *, seed: Seed = 0,
-                  rng: RandomStream | None = None) -> Tree:
+def generate_tree(
+    config: TreeConfig | None = None, *, seed: Seed = 0, rng: RandomStream | None = None
+) -> Tree:
     """Birth–death process, conditioned on surviving and attaining the target.
 
     Exact counts stop at the first hitting time; with a deadline, successful
@@ -129,6 +134,10 @@ def generate_tree(config: TreeConfig | None = None, *, seed: Seed = 0,
     Both method names use the same event-driven kernel in 2.x.
     """
     cfg = config or TreeConfig()
+    if cfg.stop == "time":
+        cfg = replace(cfg, n_taxa=None)
+        if cfg.max_time is None:
+            raise ValueError("time stopping requires max_time")
     cfg.validate()
     rng = rng or RandomStream(seed)
     if cfg.newick is not None:
@@ -147,13 +156,21 @@ def generate_tree(config: TreeConfig | None = None, *, seed: Seed = 0,
         tree = _birth_death(cfg, rng)
     sample_ancestors(tree, cfg.ancestor_rate, rng)
     if not cfg.full or cfg.sampling < 1:
-        keep = {n.name for n in tree.tips() if n.attrs.get("sampled_tip") or
-                (not n.attrs.get("extinct", False) and
-                 (cfg.sampling == 1 or rng.random() < cfg.sampling))}
+        keep = {
+            n.name
+            for n in tree.tips()
+            if n.attrs.get("sampled_tip")
+            or (
+                not n.attrs.get("extinct", False)
+                and (cfg.sampling == 1 or rng.random() < cfg.sampling)
+            )
+        }
         if cfg.full:
             keep.update(n.name for n in tree.tips() if n.attrs.get("extinct", False))
         if not keep:
-            raise ValueError("sampling retained no observations; change seed or sampling probability")
+            raise ValueError(
+                "sampling retained no observations; change seed or sampling probability"
+            )
         tree = tree.prune(keep)
     if cfg.height is not None:
         tree.rescale(cfg.height)
@@ -195,8 +212,13 @@ def _birth_death(cfg: TreeConfig, rng: RandomStream) -> Tree:
                     offspring = min(offspring, cfg.n_taxa - len(active))
                 for _ in range(offspring):
                     serial += 1
-                    child = node.add(Node(f"N{serial}", time=now,
-                                         attrs={"extinct": False, "copy_rate": rng.lognormal(cfg.copy_sigma)}))
+                    child = node.add(
+                        Node(
+                            f"N{serial}",
+                            time=now,
+                            attrs={"extinct": False, "copy_rate": rng.lognormal(cfg.copy_sigma)},
+                        )
+                    )
                     active.append(child)
             if cfg.n_taxa is not None and len(active) == cfg.n_taxa:
                 success = True

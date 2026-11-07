@@ -1,0 +1,79 @@
+{
+  "bibliographic_citation": "Dunn, Michael, Nicole Kruspe, and Niclas Burenhult. 2013. “Time and Place in the Prehistory of the Aslian Languages.” Human Biology 85: 383–400.",
+  "citation": "https://github.com/lexibank/dunnaslian/tree/2cbc18138908440e01a6e046cc5101e28855b344",
+  "inputs": {
+    "cognates.csv": "02136bbe16c842cca1f3394cc9782768f7fc1a6d59c9dc3c353c391a7da61aca",
+    "forms.csv": "f00622eeb5284ae7f6db374c96c28ced00cbf3321e321fb93d9b116a50aafd8b"
+  },
+  "license": "CC-BY-4.0",
+  "repository": "lexibank/dunnaslian",
+  "revision": "2cbc18138908440e01a6e046cc5101e28855b344",
+  "schema": "ngesh-target-v1",
+  "source": "cldf",
+  "source_url": "",
+  "summary": {
+    "characters": 146,
+    "class_distribution": {
+      "mean": 6.712328767123288,
+      "n": 146,
+      "quantiles": [
+        1,
+        3,
+        5,
+        7,
+        9,
+        10,
+        13
+      ]
+    },
+    "class_histogram": {
+      "1": 2,
+      "10": 14,
+      "11": 4,
+      "12": 5,
+      "13": 2,
+      "2": 5,
+      "3": 17,
+      "4": 11,
+      "5": 13,
+      "6": 21,
+      "7": 21,
+      "8": 14,
+      "9": 17
+    },
+    "coverage_distribution": {
+      "mean": 0.8403253424657534,
+      "n": 32,
+      "quantiles": [
+        0.6301369863013698,
+        0.6986301369863014,
+        0.7876712328767124,
+        0.8356164383561644,
+        0.8972602739726028,
+        0.9726027397260274,
+        0.9931506849315068
+      ]
+    },
+    "delta": 0.2292758259220575,
+    "distance_distribution": {
+      "mean": 0.634406024443202,
+      "n": 496,
+      "quantiles": [
+        0.09558823529411764,
+        0.3490566037735849,
+        0.5471698113207547,
+        0.6653543307086615,
+        0.7666666666666667,
+        0.865546218487395,
+        0.9285714285714286
+      ]
+    },
+    "missing_fraction": 0.1596746575342466,
+    "q_residual": 0.007754755834206103,
+    "quartet_sampling": "evenly_spaced_lexicographic",
+    "quartets_total": 35960,
+    "quartets_used": 1000,
+    "singleton_fraction": 0.3979591836734694,
+    "taxa": 32
+  }
+}

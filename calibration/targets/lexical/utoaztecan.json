@@ -1,0 +1,88 @@
+{
+  "bibliographic_citation": "Greenhill, Simon J., Hannah J. Haynie, Robert M. Ross, Angela M. Chira, List, Johann-Mattis, Lyle Campbell, Carlos A. Botero, and Russell D. Gray (2022): A recent northern origin for the Uto-Aztecan family. Leipzig: Max Planck Institute for Evolutionary Anthropology.",
+  "citation": "https://github.com/lexibank/utoaztecan/tree/13aaffc2f50124f3e77e6086d6a1ff5a9e5c1653",
+  "inputs": {
+    "cognates.csv": "20600fc7eafa73a1943071bb03be1c6eea2a47d386f9f05e4cc06bafb98c226c",
+    "forms.csv": "6f62d2074d3d7a0b49e4631ff871ca7d57497773855f6e5a2f6bdc97abfa024f"
+  },
+  "license": "CC-BY-4.0",
+  "repository": "lexibank/utoaztecan",
+  "revision": "13aaffc2f50124f3e77e6086d6a1ff5a9e5c1653",
+  "schema": "ngesh-target-v1",
+  "source": "cldf",
+  "source_url": null,
+  "summary": {
+    "characters": 121,
+    "class_distribution": {
+      "mean": 11.322314049586776,
+      "n": 121,
+      "quantiles": [
+        2,
+        5,
+        8,
+        11,
+        15,
+        19,
+        24
+      ]
+    },
+    "class_histogram": {
+      "10": 12,
+      "11": 10,
+      "12": 9,
+      "13": 7,
+      "14": 5,
+      "15": 5,
+      "16": 7,
+      "17": 2,
+      "18": 4,
+      "19": 3,
+      "2": 1,
+      "20": 4,
+      "21": 3,
+      "23": 1,
+      "24": 2,
+      "3": 5,
+      "4": 2,
+      "5": 5,
+      "6": 8,
+      "7": 7,
+      "8": 11,
+      "9": 8
+    },
+    "coverage_distribution": {
+      "mean": 0.9340858697843177,
+      "n": 41,
+      "quantiles": [
+        0.4793388429752066,
+        0.7355371900826446,
+        0.9256198347107438,
+        0.9834710743801653,
+        0.9917355371900827,
+        1.0,
+        1.0
+      ]
+    },
+    "delta": 0.23526319132400375,
+    "distance_distribution": {
+      "mean": 0.7561176213894781,
+      "n": 820,
+      "quantiles": [
+        0.0,
+        0.5315315315315315,
+        0.6833333333333333,
+        0.7692307692307693,
+        0.8854166666666666,
+        1.0,
+        1.0
+      ]
+    },
+    "missing_fraction": 0.06591413021568232,
+    "q_residual": 0.002535985594588097,
+    "quartet_sampling": "evenly_spaced_lexicographic",
+    "quartets_total": 101270,
+    "quartets_used": 1000,
+    "singleton_fraction": 0.5036496350364964,
+    "taxa": 41
+  }
+}

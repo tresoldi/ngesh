@@ -153,3 +153,35 @@ core rather than preserve misleading 1.x parameter semantics.
   different from the observed truth tree; transfer networks refer to that full
   history, while `truth.nwk` matches the retained observation taxa. Stem samples
   are included by introducing an explicit time-zero origin when necessary.
+
+## G7: calibration evidence and release gate
+
+* Sixteen lexical CLDF revisions were retrieved. Only derived summaries, input
+  SHA-256s, revision IDs, citations and licenses are tracked. Unjudged cells are
+  missing, and partial/alternate cognates form state sets. A 36-point grid with
+  three replicates per point, equal family weights and four fractional features
+  selects rate=.3, alpha=.7, missing=.15. Residual mismatches are published;
+  this preliminary fit is not evidence of universal language-family realism.
+* The private stemmatology source returned 404. The 640-MB gene-content and
+  6.8-GB morphological inputs are assigned to owner-side extraction per the brief.
+  Scripts operate on explicit local source formats and fail on unrecognized
+  encodings; citations/licenses must come from source metadata. No synthetic
+  numbers stand in for missing empirical targets. Ancestor/contamination rates
+  cannot be identified from a matrix alone; reference histories are needed.
+* Missing calibration blocks rc1/final, not implementation and documentation of
+  the available models. Version remains 2.0.0a3. No PyPI publishing is authorized.
+* Single-state CI uses unordered Sankoff; polymorphic data use binary membership
+  recoding with an explicit encoding flag. The ambiguous-state shortcut was
+  rejected because its minimum-step numerator can exceed its tree-step count.
+* Copying donors must predate the copy; newly born simultaneous copies and
+  sampled-ancestor continuation points are not extra copying exemplars. This
+  also prevents artificial same-time cycles in displayed networks.
+
+* Binary pairwise distances use bitsets and population counts, exactly matching
+  observed-cell Hamming distances. This avoids billions of Python cell comparisons
+  for 332-species orthogroup matrices. Extraction reuses immutable presence/absence
+  state objects and hashes large input files in streaming chunks.
+* Final local verification includes stdlib-only tests under `python -S`, actual
+  NEXUS/PHYLIP round trips, complete simulation golden outputs under distinct
+  PYTHONHASHSEED values, README doctests, all four CLI examples, Ruff and wheel/sdist
+  builds. The hosted Python 3.10–3.13 CI matrix remains the cross-version check.

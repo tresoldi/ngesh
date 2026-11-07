@@ -3,6 +3,7 @@
 Distances are time units. A node's time is its parent's time plus its length.
 Network nodes have one primary parent and optional secondary incoming edges.
 """
+
 from __future__ import annotations
 
 from dataclasses import dataclass, field
@@ -41,6 +42,32 @@ class Tree:
 
     def __post_init__(self) -> None:
         self.update_times()
+        if self.extra_edges:
+            nodes = list(self.traverse())
+            members = set(nodes)
+            incoming = {n: 0 for n in nodes}
+            outgoing = {n: list(n.children) for n in nodes}
+            for n in nodes:
+                for child in n.children:
+                    incoming[child] += 1
+            for a, b, length in self.extra_edges:
+                if a not in members or b not in members or not math.isfinite(length) or length < 0:
+                    raise ValueError("invalid secondary network edge")
+                if not math.isclose(a.time + length, b.time, abs_tol=1e-10):
+                    raise ValueError("network incoming edges disagree on node time")
+                outgoing[a].append(b)
+                incoming[b] += 1
+            ready = [n for n in nodes if incoming[n] == 0]
+            seen = 0
+            while ready:
+                n = ready.pop()
+                seen += 1
+                for child in outgoing[n]:
+                    incoming[child] -= 1
+                    if incoming[child] == 0:
+                        ready.append(child)
+            if seen != len(nodes):
+                raise ValueError("cyclic network")
 
     def traverse(self, order: str = "preorder") -> Iterator[Node]:
         if order not in {"preorder", "postorder"}:
@@ -56,8 +83,11 @@ class Tree:
                 stack.extend((child, False) for child in reversed(node.children))
 
     def tips(self, extant_only: bool = False) -> list[Node]:
-        return [n for n in self.traverse() if not n.children and
-                (not extant_only or not n.attrs.get("extinct", False))]
+        return [
+            n
+            for n in self.traverse()
+            if not n.children and (not extant_only or not n.attrs.get("extinct", False))
+        ]
 
     def update_times(self) -> None:
         for node in self.traverse():
@@ -67,7 +97,12 @@ class Tree:
 
     def alive(self, time: float) -> list[Node]:
         """Half-open edges [start,end); excludes zero-length sampled tips."""
-        return [n for n in self.traverse() if (n.parent.time if n.parent else 0.0) <= time < n.time and not n.attrs.get("sampled_tip", False)]
+        return [
+            n
+            for n in self.traverse()
+            if (n.parent.time if n.parent else 0.0) <= time < n.time
+            and not n.attrs.get("sampled_tip", False)
+        ]
 
     def distance(self, a: Node, b: Node) -> float:
         ancestors = set(a.ancestors())
@@ -111,7 +146,9 @@ class Tree:
         tips = self.tips()
         if mode not in {"height", "mean"}:
             raise ValueError("mode must be height or mean")
-        base = max(n.time for n in tips) if mode == "height" else sum(n.time for n in tips) / len(tips)
+        base = (
+            max(n.time for n in tips) if mode == "height" else sum(n.time for n in tips) / len(tips)
+        )
         if base == 0:
             raise ValueError("cannot rescale a zero-height tree")
         ratio = target / base
@@ -121,7 +158,10 @@ class Tree:
         self.update_times()
 
     def newick(self) -> str:
-        hybrid = {node: f"#H{i + 1}" for i, node in enumerate(dict.fromkeys(b for _, b, _ in self.extra_edges))}
+        hybrid = {
+            node: f"#H{i + 1}"
+            for i, node in enumerate(dict.fromkeys(b for _, b, _ in self.extra_edges))
+        }
         extra: dict[Node, list[tuple[Node, float]]] = {}
         for a, b, length in self.extra_edges:
             extra.setdefault(a, []).append((b, length))
@@ -136,7 +176,9 @@ class Tree:
             children = [rendered[c] for c in node.children]
             children.extend(hybrid[b] + ":" + format(d, ".17g") for b, d in extra.get(node, []))
             body = "(" + ",".join(children) + ")" if children else ""
-            rendered[node] = body + label(node.name) + hybrid.get(node, "") + ":" + format(node.length, ".17g")
+            rendered[node] = (
+                body + label(node.name) + hybrid.get(node, "") + ":" + format(node.length, ".17g")
+            )
         return rendered[self.root] + ";"
 
     @classmethod
@@ -177,7 +219,7 @@ class Tree:
                 if match:
                     tag = match.group()
                     if not node.name:
-                        node.name = name[:match.start()]
+                        node.name = name[: match.start()]
                     occurrences.append((node, tag))
                     if node.children or node.name:
                         if tag in hybrids:

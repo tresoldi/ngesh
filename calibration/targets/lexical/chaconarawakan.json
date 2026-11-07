@@ -1,0 +1,73 @@
+{
+  "bibliographic_citation": "Chacon, Thiago C. (2017): Arawakan and Tukanoan contacts in Northwest Amazonia prehistory. PAPIA 27(2). 237-265.",
+  "citation": "https://github.com/lexibank/chaconarawakan/tree/d7874df4a7d3de37c436017bcca9fda443641d4d",
+  "inputs": {
+    "cognates.csv": "fdaf28f3e8412b87c31de04f3bb264386eca54655dc82f7699ee1d9a7994987f",
+    "forms.csv": "f4abe65adba55e5fcb1641ba75f816a5812270de2e4a9cade63fdcc6671a2f60"
+  },
+  "license": "CC-BY-4.0",
+  "repository": "lexibank/chaconarawakan",
+  "revision": "d7874df4a7d3de37c436017bcca9fda443641d4d",
+  "schema": "ngesh-target-v1",
+  "source": "cldf",
+  "source_url": "https://github.com/lexibank/chaconarawakan/",
+  "summary": {
+    "characters": 102,
+    "class_distribution": {
+      "mean": 2.803921568627451,
+      "n": 102,
+      "quantiles": [
+        1,
+        1,
+        2,
+        3,
+        4,
+        5,
+        7
+      ]
+    },
+    "class_histogram": {
+      "1": 20,
+      "2": 29,
+      "3": 23,
+      "4": 18,
+      "5": 6,
+      "6": 5,
+      "7": 1
+    },
+    "coverage_distribution": {
+      "mean": 0.7475490196078431,
+      "n": 8,
+      "quantiles": [
+        0.11764705882352941,
+        0.12745098039215685,
+        0.8921568627450981,
+        0.9607843137254902,
+        0.9705882352941176,
+        0.9705882352941176,
+        0.9803921568627451
+      ]
+    },
+    "delta": 0.5207201098656038,
+    "distance_distribution": {
+      "mean": 0.49707141038528413,
+      "n": 28,
+      "quantiles": [
+        0.3626893939393939,
+        0.3787878787878788,
+        0.40625,
+        0.50187265917603,
+        0.5555555555555556,
+        0.5909090909090909,
+        0.6923076923076923
+      ]
+    },
+    "missing_fraction": 0.25245098039215685,
+    "q_residual": 0.0580866897143696,
+    "quartet_sampling": "evenly_spaced_lexicographic",
+    "quartets_total": 70,
+    "quartets_used": 70,
+    "singleton_fraction": 0.5244755244755245,
+    "taxa": 8
+  }
+}

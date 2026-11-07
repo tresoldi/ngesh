@@ -1,0 +1,70 @@
+{
+  "bibliographic_citation": "Mann, Noel W. 1998. A phonological reconstruction of Proto Northern Burmic. (PhD Thesis).",
+  "citation": "https://github.com/lexibank/mannburmish/tree/513edae24c395440ceb23ead61b933b1f52c6d0c",
+  "inputs": {
+    "cognates.csv": "97ca760eb0c476d3ac34c7c069aece609438f878a18a25808264826f4cc9ff0e",
+    "forms.csv": "fec94917732d04b455f4270181adb1e851cab745e983bbb34bb914973313e666"
+  },
+  "license": "CC-BY-4.0",
+  "repository": "lexibank/mannburmish",
+  "revision": "513edae24c395440ceb23ead61b933b1f52c6d0c",
+  "schema": "ngesh-target-v1",
+  "source": "cldf",
+  "source_url": "https://zenodo.org/record/3759030",
+  "summary": {
+    "characters": 391,
+    "class_distribution": {
+      "mean": 1.4757033248081841,
+      "n": 391,
+      "quantiles": [
+        1,
+        1,
+        1,
+        1,
+        2,
+        2,
+        4
+      ]
+    },
+    "class_histogram": {
+      "1": 233,
+      "2": 132,
+      "3": 24,
+      "4": 2
+    },
+    "coverage_distribution": {
+      "mean": 0.7584947022287176,
+      "n": 7,
+      "quantiles": [
+        0.4373401534526854,
+        0.47570332480818417,
+        0.80306905370844,
+        0.8542199488491049,
+        0.8567774936061381,
+        0.9232736572890026,
+        0.959079283887468
+      ]
+    },
+    "delta": 0.36989213073962995,
+    "distance_distribution": {
+      "mean": 0.17019484328394807,
+      "n": 21,
+      "quantiles": [
+        0.11889596602972399,
+        0.12571428571428572,
+        0.14705882352941177,
+        0.1793372319688109,
+        0.1942675159235669,
+        0.20408163265306123,
+        0.20682068206820683
+      ]
+    },
+    "missing_fraction": 0.24150529777128243,
+    "q_residual": 0.03177841413007533,
+    "quartet_sampling": "evenly_spaced_lexicographic",
+    "quartets_total": 35,
+    "quartets_used": 35,
+    "singleton_fraction": 0.0017331022530329288,
+    "taxa": 7
+  }
+}

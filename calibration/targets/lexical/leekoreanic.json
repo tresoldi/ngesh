@@ -1,0 +1,73 @@
+{
+  "bibliographic_citation": "Lee, Sean (2015). A Sketch of Language History in the Korean Peninsula. PLoS ONE 10(5): e0128448. doi:10.1371/journal.pone.0128448",
+  "citation": "https://github.com/lexibank/leekoreanic/tree/b2ca6413274d592ee15deb59d35ef71e4957d608",
+  "inputs": {
+    "cognates.csv": "70b1beff706cf2c12fbc73cb3cff4e189f99eefe6207d3322cc5dc8fa3c53485",
+    "forms.csv": "11c9734a931cdbb7e2fb355701eb86fc1bc872d35ae2fd34d9a4294bbd4333b8"
+  },
+  "license": "CC-BY-4.0",
+  "repository": "lexibank/leekoreanic",
+  "revision": "b2ca6413274d592ee15deb59d35ef71e4957d608",
+  "schema": "ngesh-target-v1",
+  "source": "cldf",
+  "source_url": "https://doi.org/10.1371/journal.pone.0128448",
+  "summary": {
+    "characters": 246,
+    "class_distribution": {
+      "mean": 1.556910569105691,
+      "n": 246,
+      "quantiles": [
+        1,
+        1,
+        1,
+        1,
+        2,
+        3,
+        7
+      ]
+    },
+    "class_histogram": {
+      "1": 163,
+      "2": 52,
+      "3": 17,
+      "4": 8,
+      "5": 4,
+      "6": 1,
+      "7": 1
+    },
+    "coverage_distribution": {
+      "mean": 0.6276422764227643,
+      "n": 15,
+      "quantiles": [
+        0.3130081300813008,
+        0.4186991869918699,
+        0.45528455284552843,
+        0.6300813008130082,
+        0.7154471544715447,
+        0.9308943089430894,
+        0.9959349593495935
+      ]
+    },
+    "delta": 0.325129098885913,
+    "distance_distribution": {
+      "mean": 0.16990372374278115,
+      "n": 105,
+      "quantiles": [
+        0.04,
+        0.08680555555555555,
+        0.13479052823315119,
+        0.16352201257861634,
+        0.2127659574468085,
+        0.25892857142857145,
+        0.3400673400673401
+      ]
+    },
+    "missing_fraction": 0.3723577235772358,
+    "q_residual": 0.037791637797788546,
+    "quartet_sampling": "evenly_spaced_lexicographic",
+    "quartets_total": 1365,
+    "quartets_used": 1000,
+    "singleton_fraction": 0.2193211488250653,
+    "taxa": 15
+  }
+}

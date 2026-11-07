@@ -1,0 +1,83 @@
+{
+  "bibliographic_citation": "Kolipakam, Vishnupriya, Michael Dunn, Fiona M. Jordan & Annemarie Verkerk. (2018). DravLex: A Dravidian lexical database. Max Planck Institute for Psycholinguistics, Nijmegen, The Netherlands.",
+  "citation": "https://github.com/lexibank/dravlex/tree/37578075e5ccb09c43022f7f1282125e748de84d",
+  "inputs": {
+    "cognates.csv": "3c5d64117f6e532ebfb1b71947f817bab53c1d06b348c0336f51da4ecc60a37d",
+    "forms.csv": "60e2f6db0c85625b980df75dc25beb7b845f7b661a6a5ac7c22a91dbc1e3a955"
+  },
+  "license": "CC-BY-4.0",
+  "repository": "lexibank/dravlex",
+  "revision": "37578075e5ccb09c43022f7f1282125e748de84d",
+  "schema": "ngesh-target-v1",
+  "source": "cldf",
+  "source_url": "https://zenodo.org/record/1181715",
+  "summary": {
+    "characters": 100,
+    "class_distribution": {
+      "mean": 7.78,
+      "n": 100,
+      "quantiles": [
+        1,
+        3,
+        5,
+        7,
+        10,
+        13,
+        19
+      ]
+    },
+    "class_histogram": {
+      "1": 4,
+      "10": 8,
+      "11": 7,
+      "12": 6,
+      "13": 4,
+      "14": 2,
+      "15": 2,
+      "18": 2,
+      "19": 1,
+      "2": 4,
+      "3": 8,
+      "4": 2,
+      "5": 11,
+      "6": 11,
+      "7": 13,
+      "8": 7,
+      "9": 8
+    },
+    "coverage_distribution": {
+      "mean": 0.9265,
+      "n": 20,
+      "quantiles": [
+        0.56,
+        0.64,
+        0.95,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "delta": 0.291006213309581,
+    "distance_distribution": {
+      "mean": 0.6314680316777858,
+      "n": 190,
+      "quantiles": [
+        0.20202020202020202,
+        0.4296875,
+        0.525,
+        0.65625,
+        0.7457627118644068,
+        0.8052631578947368,
+        0.8548387096774194
+      ]
+    },
+    "missing_fraction": 0.0735,
+    "q_residual": 0.005574247784698046,
+    "quartet_sampling": "evenly_spaced_lexicographic",
+    "quartets_total": 4845,
+    "quartets_used": 1000,
+    "singleton_fraction": 0.6401028277634961,
+    "taxa": 20
+  }
+}

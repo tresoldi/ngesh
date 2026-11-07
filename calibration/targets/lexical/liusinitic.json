@@ -1,0 +1,89 @@
+{
+  "bibliographic_citation": "Líu, L.; Wáng, H.; Bǎi, Y. (2007): Xiàndài Hànyǔ fāngyán héxīncí, tèzhēng cíjí 现代汉语方言核心词·特征词集 [Collection of basic vocabulary words and characteristic dialect words in modern Chinese dialects]. Nánjīng: Fènghuáng.",
+  "citation": "https://github.com/lexibank/liusinitic/tree/54f6742d9fa60315ae41b91d0d1e02f04036efb5",
+  "inputs": {
+    "cognates.csv": "60d5e8d769d9518340b849f786a23699ee80bec82246e12f10442066b577248f",
+    "forms.csv": "81ec29d5a6c587a5c700afc016cde87fc78f036199430a6803e01270579a0582"
+  },
+  "license": "CC-BY-4.0",
+  "repository": "lexibank/liusinitic",
+  "revision": "54f6742d9fa60315ae41b91d0d1e02f04036efb5",
+  "schema": "ngesh-target-v1",
+  "source": "cldf",
+  "source_url": "",
+  "summary": {
+    "characters": 203,
+    "class_distribution": {
+      "mean": 5.83743842364532,
+      "n": 203,
+      "quantiles": [
+        1,
+        1,
+        2,
+        4,
+        7,
+        13,
+        27
+      ]
+    },
+    "class_histogram": {
+      "1": 40,
+      "10": 3,
+      "11": 6,
+      "12": 4,
+      "13": 2,
+      "14": 1,
+      "15": 3,
+      "16": 2,
+      "17": 4,
+      "18": 1,
+      "2": 24,
+      "20": 1,
+      "21": 2,
+      "22": 2,
+      "24": 1,
+      "27": 2,
+      "3": 19,
+      "4": 21,
+      "5": 23,
+      "6": 8,
+      "7": 18,
+      "8": 8,
+      "9": 8
+    },
+    "coverage_distribution": {
+      "mean": 0.9997407311381903,
+      "n": 19,
+      "quantiles": [
+        0.9950738916256158,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "delta": 0.33186723607703716,
+    "distance_distribution": {
+      "mean": 0.3148786835709203,
+      "n": 171,
+      "quantiles": [
+        0.06157635467980296,
+        0.17231996246774572,
+        0.2315270935960591,
+        0.31133004926108376,
+        0.40106732348111657,
+        0.4608085808580858,
+        0.5120357338337634
+      ]
+    },
+    "missing_fraction": 0.00025926886180969663,
+    "q_residual": 0.005963568890837787,
+    "quartet_sampling": "evenly_spaced_lexicographic",
+    "quartets_total": 3876,
+    "quartets_used": 1000,
+    "singleton_fraction": 0.5628691983122363,
+    "taxa": 19
+  }
+}

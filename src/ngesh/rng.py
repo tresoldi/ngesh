@@ -5,6 +5,7 @@ Poisson: exponential arrivals in chunks of mean <= 20 (additivity).
 Normal: Box–Muller without a cached partner; beta: ratio of gammas.
 Discrete gamma: equal-probability bins, conditional means via incomplete gamma.
 """
+
 from __future__ import annotations
 
 import hashlib
@@ -21,8 +22,12 @@ def derive_seed(seed: Seed, component: str = "simulation", replicate: int = 0) -
         raise TypeError("seed must be str, int or bytes (not bool)")
     if not isinstance(replicate, int) or replicate < 0:
         raise ValueError("replicate must be a nonnegative integer")
-    parts = [type(seed).__name__.encode(), seed if isinstance(seed, bytes) else str(seed).encode(),
-             component.encode(), str(replicate).encode()]
+    parts = [
+        type(seed).__name__.encode(),
+        seed if isinstance(seed, bytes) else str(seed).encode(),
+        component.encode(),
+        str(replicate).encode(),
+    ]
     payload = b"ngesh-rng-v1" + b"".join(len(x).to_bytes(8, "big") + x for x in parts)
     return int.from_bytes(hashlib.sha256(payload).digest(), "big")
 
@@ -66,7 +71,7 @@ class RandomStream:
                 continue
             v **= 3
             u = 1 - self.random()
-            if u < 1 - 0.0331 * x ** 4 or math.log(u) < 0.5 * x * x + d * (1 - v + math.log(v)):
+            if u < 1 - 0.0331 * x**4 or math.log(u) < 0.5 * x * x + d * (1 - v + math.log(v)):
                 return scale * d * v
 
     def poisson(self, mean: float) -> int:
@@ -130,15 +135,20 @@ def gamma_categories(alpha: float, categories: int) -> list[float]:
         raise ValueError("categories must be a positive integer")
     boundaries = [0.0]
     for i in range(1, categories):
-        lo, hi = 0.0, max(1.0, alpha)
+        hi = max(1.0, alpha)
         while gamma_cdf(alpha, hi) < i / categories:
             hi *= 2
-        for _ in range(100):
-            mid = (lo + hi) / 2
-            if gamma_cdf(alpha, mid) < i / categories:
-                lo = mid
+        # Search in log-space: small-alpha quantiles can be far below 2^-100.
+        lo_log, hi_log = -744.0, math.log(hi)
+        if gamma_cdf(alpha, math.exp(lo_log)) >= i / categories:
+            boundaries.append(0.0)
+            continue
+        for _ in range(150):
+            mid_log = (lo_log + hi_log) / 2
+            if gamma_cdf(alpha, math.exp(mid_log)) < i / categories:
+                lo_log = mid_log
             else:
-                hi = mid
-        boundaries.append((lo + hi) / 2)
+                hi_log = mid_log
+        boundaries.append(math.exp((lo_log + hi_log) / 2))
     cumulative = [gamma_cdf(alpha + 1, x) for x in boundaries] + [1.0]
     return [categories * (b - a) for a, b in zip(cumulative, cumulative[1:])]

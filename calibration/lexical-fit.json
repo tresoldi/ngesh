@@ -1,0 +1,846 @@
+{
+  "best": {
+    "config": {
+      "characters": {
+        "alpha": 0.7,
+        "n_characters": 200,
+        "rate": 0.3
+      },
+      "observation": {
+        "missing": 0.15
+      },
+      "tree": {
+        "n_taxa": 50
+      }
+    },
+    "score": 0.01564769845445586,
+    "simulated_features": {
+      "classes_per_taxon": 0.1983,
+      "distance": 0.511295394270997,
+      "missing": 0.15209999999999999,
+      "singleton": 0.5571278639539545
+    }
+  },
+  "preset": "lexical",
+  "procedure": "36-point grid, equal family weights, sum squared fractional features",
+  "replicates_per_point": 3,
+  "schema": "ngesh-fit-v1",
+  "target_features": {
+    "classes_per_taxon": 0.28548105006532787,
+    "distance": 0.5289620443910973,
+    "missing": 0.13015748760973353,
+    "singleton": 0.47195992052745384
+  },
+  "target_files": [
+    "chaconarawakan.json",
+    "constenlachibchan.json",
+    "dravlex.json",
+    "dunnaslian.json",
+    "iecor.json",
+    "kitchensemitic.json",
+    "leekoreanic.json",
+    "liusinitic.json",
+    "mannburmish.json",
+    "savelyevturkic.json",
+    "sidwellbahnaric.json",
+    "syrjaenenuralic.json",
+    "tuled.json",
+    "utoaztecan.json",
+    "walworthpolynesian.json",
+    "wichmannmixezoquean.json"
+  ],
+  "trials": [
+    {
+      "config": {
+        "characters": {
+          "alpha": 0.7,
+          "n_characters": 200,
+          "rate": 0.3
+        },
+        "observation": {
+          "missing": 0.15
+        },
+        "tree": {
+          "n_taxa": 50
+        }
+      },
+      "score": 0.01564769845445586,
+      "simulated_features": {
+        "classes_per_taxon": 0.1983,
+        "distance": 0.511295394270997,
+        "missing": 0.15209999999999999,
+        "singleton": 0.5571278639539545
+      }
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 2.0,
+          "n_characters": 200,
+          "rate": 0.3
+        },
+        "observation": {
+          "missing": 0.15
+        },
+        "tree": {
+          "n_taxa": 50
+        }
+      },
+      "score": 0.020661312714057252,
+      "simulated_features": {
+        "classes_per_taxon": 0.23096666666666668,
+        "distance": 0.6421896473043601,
+        "missing": 0.15209999999999999,
+        "singleton": 0.5381983595582802
+      }
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 0.7,
+          "n_characters": 200,
+          "rate": 0.3
+        },
+        "observation": {
+          "missing": 0
+        },
+        "tree": {
+          "n_taxa": 50
+        }
+      },
+      "score": 0.026750122323071363,
+      "simulated_features": {
+        "classes_per_taxon": 0.21626666666666666,
+        "distance": 0.5084925170068028,
+        "missing": 0.0,
+        "singleton": 0.5397796692854681
+      }
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 2.0,
+          "n_characters": 200,
+          "rate": 0.3
+        },
+        "observation": {
+          "missing": 0
+        },
+        "tree": {
+          "n_taxa": 50
+        }
+      },
+      "score": 0.03352527840550905,
+      "simulated_features": {
+        "classes_per_taxon": 0.2524,
+        "distance": 0.6443591836734693,
+        "missing": 0.0,
+        "singleton": 0.5185802079209396
+      }
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 0.3,
+          "n_characters": 200,
+          "rate": 0.6
+        },
+        "observation": {
+          "missing": 0.15
+        },
+        "tree": {
+          "n_taxa": 50
+        }
+      },
+      "score": 0.03498993172416313,
+      "simulated_features": {
+        "classes_per_taxon": 0.2401,
+        "distance": 0.493626558405037,
+        "missing": 0.15209999999999999,
+        "singleton": 0.6485963312678877
+      }
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 0.7,
+          "n_characters": 200,
+          "rate": 0.6
+        },
+        "observation": {
+          "missing": 0.15
+        },
+        "tree": {
+          "n_taxa": 50
+        }
+      },
+      "score": 0.0400329824348758,
+      "simulated_features": {
+        "classes_per_taxon": 0.2912666666666667,
+        "distance": 0.6435323102414804,
+        "missing": 0.15209999999999999,
+        "singleton": 0.6344151125294137
+      }
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 0.3,
+          "n_characters": 200,
+          "rate": 0.3
+        },
+        "observation": {
+          "missing": 0.15
+        },
+        "tree": {
+          "n_taxa": 50
+        }
+      },
+      "score": 0.04312471960048366,
+      "simulated_features": {
+        "classes_per_taxon": 0.17193333333333335,
+        "distance": 0.3929877942708038,
+        "missing": 0.15209999999999999,
+        "singleton": 0.5780785573433368
+      }
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 0.3,
+          "n_characters": 200,
+          "rate": 0.6
+        },
+        "observation": {
+          "missing": 0
+        },
+        "tree": {
+          "n_taxa": 50
+        }
+      },
+      "score": 0.046351953780495114,
+      "simulated_features": {
+        "classes_per_taxon": 0.26803333333333335,
+        "distance": 0.4928312925170068,
+        "missing": 0.0,
+        "singleton": 0.6386966235939058
+      }
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 0.7,
+          "n_characters": 200,
+          "rate": 0.6
+        },
+        "observation": {
+          "missing": 0
+        },
+        "tree": {
+          "n_taxa": 50
+        }
+      },
+      "score": 0.051950590608733686,
+      "simulated_features": {
+        "classes_per_taxon": 0.32306666666666667,
+        "distance": 0.6417795918367347,
+        "missing": 0.0,
+        "singleton": 0.616421477492981
+      }
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 0.3,
+          "n_characters": 200,
+          "rate": 0.3
+        },
+        "observation": {
+          "missing": 0
+        },
+        "tree": {
+          "n_taxa": 50
+        }
+      },
+      "score": 0.05267807863288354,
+      "simulated_features": {
+        "classes_per_taxon": 0.1897666666666667,
+        "distance": 0.3938462585034014,
+        "missing": 0.0,
+        "singleton": 0.5631716975442953
+      }
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 2.0,
+          "n_characters": 200,
+          "rate": 0.1
+        },
+        "observation": {
+          "missing": 0.15
+        },
+        "tree": {
+          "n_taxa": 50
+        }
+      },
+      "score": 0.07208370969573118,
+      "simulated_features": {
+        "classes_per_taxon": 0.1011,
+        "distance": 0.33823117956986065,
+        "missing": 0.15209999999999999,
+        "singleton": 0.4369227769925651
+      }
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 2.0,
+          "n_characters": 200,
+          "rate": 0.1
+        },
+        "observation": {
+          "missing": 0
+        },
+        "tree": {
+          "n_taxa": 50
+        }
+      },
+      "score": 0.08705677245070007,
+      "simulated_features": {
+        "classes_per_taxon": 0.10846666666666666,
+        "distance": 0.3395931972789116,
+        "missing": 0.0,
+        "singleton": 0.4179122685598101
+      }
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 0.7,
+          "n_characters": 200,
+          "rate": 0.1
+        },
+        "observation": {
+          "missing": 0.15
+        },
+        "tree": {
+          "n_taxa": 50
+        }
+      },
+      "score": 0.09808660266522329,
+      "simulated_features": {
+        "classes_per_taxon": 0.09343333333333333,
+        "distance": 0.2858422472624214,
+        "missing": 0.15209999999999999,
+        "singleton": 0.4317657971091561
+      }
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 0.7,
+          "n_characters": 200,
+          "rate": 0.3
+        },
+        "observation": {
+          "missing": 0.4
+        },
+        "tree": {
+          "n_taxa": 50
+        }
+      },
+      "score": 0.10335087943103503,
+      "simulated_features": {
+        "classes_per_taxon": 0.1622,
+        "distance": 0.5055641033977589,
+        "missing": 0.40203333333333335,
+        "singleton": 0.5889587367401607
+      }
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 2.0,
+          "n_characters": 200,
+          "rate": 0.3
+        },
+        "observation": {
+          "missing": 0.4
+        },
+        "tree": {
+          "n_taxa": 50
+        }
+      },
+      "score": 0.10646796087165801,
+      "simulated_features": {
+        "classes_per_taxon": 0.1901,
+        "distance": 0.6416262469605718,
+        "missing": 0.40203333333333335,
+        "singleton": 0.5756938018370588
+      }
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 2.0,
+          "n_characters": 200,
+          "rate": 0.6
+        },
+        "observation": {
+          "missing": 0.15
+        },
+        "tree": {
+          "n_taxa": 50
+        }
+      },
+      "score": 0.10934645670989779,
+      "simulated_features": {
+        "classes_per_taxon": 0.36236666666666667,
+        "distance": 0.8104334908219799,
+        "missing": 0.15209999999999999,
+        "singleton": 0.6259969604361703
+      }
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 0.7,
+          "n_characters": 200,
+          "rate": 0.1
+        },
+        "observation": {
+          "missing": 0
+        },
+        "tree": {
+          "n_taxa": 50
+        }
+      },
+      "score": 0.11143797462166749,
+      "simulated_features": {
+        "classes_per_taxon": 0.1007,
+        "distance": 0.28740680272108843,
+        "missing": 0.0,
+        "singleton": 0.42719350678581075
+      }
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 2.0,
+          "n_characters": 200,
+          "rate": 0.6
+        },
+        "observation": {
+          "missing": 0
+        },
+        "tree": {
+          "n_taxa": 50
+        }
+      },
+      "score": 0.12482349292980283,
+      "simulated_features": {
+        "classes_per_taxon": 0.3991,
+        "distance": 0.8088721088435374,
+        "missing": 0.0,
+        "singleton": 0.6008925051711278
+      }
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 0.3,
+          "n_characters": 200,
+          "rate": 0.6
+        },
+        "observation": {
+          "missing": 0.4
+        },
+        "tree": {
+          "n_taxa": 50
+        }
+      },
+      "score": 0.1267017908429149,
+      "simulated_features": {
+        "classes_per_taxon": 0.18866666666666668,
+        "distance": 0.4842259471027275,
+        "missing": 0.40203333333333335,
+        "singleton": 0.6754567807527035
+      }
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 0.7,
+          "n_characters": 200,
+          "rate": 0.6
+        },
+        "observation": {
+          "missing": 0.4
+        },
+        "tree": {
+          "n_taxa": 50
+        }
+      },
+      "score": 0.12714805747581168,
+      "simulated_features": {
+        "classes_per_taxon": 0.22983333333333333,
+        "distance": 0.6406290076384278,
+        "missing": 0.40203333333333335,
+        "singleton": 0.6660356864786
+      }
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 0.3,
+          "n_characters": 200,
+          "rate": 0.1
+        },
+        "observation": {
+          "missing": 0.15
+        },
+        "tree": {
+          "n_taxa": 50
+        }
+      },
+      "score": 0.1274224202103304,
+      "simulated_features": {
+        "classes_per_taxon": 0.08903333333333334,
+        "distance": 0.23310563661028014,
+        "missing": 0.15209999999999999,
+        "singleton": 0.4433552543670125
+      }
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 0.3,
+          "n_characters": 200,
+          "rate": 0.3
+        },
+        "observation": {
+          "missing": 0.4
+        },
+        "tree": {
+          "n_taxa": 50
+        }
+      },
+      "score": 0.13679653448125745,
+      "simulated_features": {
+        "classes_per_taxon": 0.13996666666666668,
+        "distance": 0.3830119633065618,
+        "missing": 0.40203333333333335,
+        "singleton": 0.6148031809525077
+      }
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 0.3,
+          "n_characters": 200,
+          "rate": 0.1
+        },
+        "observation": {
+          "missing": 0
+        },
+        "tree": {
+          "n_taxa": 50
+        }
+      },
+      "score": 0.1418181714034024,
+      "simulated_features": {
+        "classes_per_taxon": 0.0956,
+        "distance": 0.2332707482993197,
+        "missing": 0.0,
+        "singleton": 0.43469003906564024
+      }
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 2.0,
+          "n_characters": 200,
+          "rate": 0.1
+        },
+        "observation": {
+          "missing": 0.4
+        },
+        "tree": {
+          "n_taxa": 50
+        }
+      },
+      "score": 0.1508542352835211,
+      "simulated_features": {
+        "classes_per_taxon": 0.08636666666666666,
+        "distance": 0.33721340738517075,
+        "missing": 0.40203333333333335,
+        "singleton": 0.44907581412718484
+      }
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 0.7,
+          "n_characters": 200,
+          "rate": 0.1
+        },
+        "observation": {
+          "missing": 0.4
+        },
+        "tree": {
+          "n_taxa": 50
+        }
+      },
+      "score": 0.17773623369304137,
+      "simulated_features": {
+        "classes_per_taxon": 0.08003333333333333,
+        "distance": 0.28124814072060655,
+        "missing": 0.40203333333333335,
+        "singleton": 0.45618602363874283
+      }
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 2.0,
+          "n_characters": 200,
+          "rate": 0.6
+        },
+        "observation": {
+          "missing": 0.4
+        },
+        "tree": {
+          "n_taxa": 50
+        }
+      },
+      "score": 0.19327344538966773,
+      "simulated_features": {
+        "classes_per_taxon": 0.28963333333333335,
+        "distance": 0.8119685400189369,
+        "missing": 0.40203333333333335,
+        "singleton": 0.6700686075602463
+      }
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 0.3,
+          "n_characters": 200,
+          "rate": 0.1
+        },
+        "observation": {
+          "missing": 0.4
+        },
+        "tree": {
+          "n_taxa": 50
+        }
+      },
+      "score": 0.20788768684053016,
+      "simulated_features": {
+        "classes_per_taxon": 0.07569999999999999,
+        "distance": 0.22918006419765355,
+        "missing": 0.40203333333333335,
+        "singleton": 0.46227040364612015
+      }
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 2.0,
+          "n_characters": 200,
+          "rate": 0.03
+        },
+        "observation": {
+          "missing": 0.15
+        },
+        "tree": {
+          "n_taxa": 50
+        }
+      },
+      "score": 0.24715929576875018,
+      "simulated_features": {
+        "classes_per_taxon": 0.045033333333333335,
+        "distance": 0.12634963257755472,
+        "missing": 0.15209999999999999,
+        "singleton": 0.3083568542639938
+      }
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 0.7,
+          "n_characters": 200,
+          "rate": 0.03
+        },
+        "observation": {
+          "missing": 0.15
+        },
+        "tree": {
+          "n_taxa": 50
+        }
+      },
+      "score": 0.2607537355274843,
+      "simulated_features": {
+        "classes_per_taxon": 0.04476666666666667,
+        "distance": 0.12088327483760856,
+        "missing": 0.15209999999999999,
+        "singleton": 0.28274954781443284
+      }
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 2.0,
+          "n_characters": 200,
+          "rate": 0.03
+        },
+        "observation": {
+          "missing": 0
+        },
+        "tree": {
+          "n_taxa": 50
+        }
+      },
+      "score": 0.2652809779718478,
+      "simulated_features": {
+        "classes_per_taxon": 0.04746666666666667,
+        "distance": 0.12699319727891156,
+        "missing": 0.0,
+        "singleton": 0.29843699513249283
+      }
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 0.3,
+          "n_characters": 200,
+          "rate": 0.03
+        },
+        "observation": {
+          "missing": 0.15
+        },
+        "tree": {
+          "n_taxa": 50
+        }
+      },
+      "score": 0.26647042824503975,
+      "simulated_features": {
+        "classes_per_taxon": 0.0451,
+        "distance": 0.10891585839981992,
+        "missing": 0.15209999999999999,
+        "singleton": 0.2937266273448547
+      }
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 0.7,
+          "n_characters": 200,
+          "rate": 0.03
+        },
+        "observation": {
+          "missing": 0
+        },
+        "tree": {
+          "n_taxa": 50
+        }
+      },
+      "score": 0.2757676464056985,
+      "simulated_features": {
+        "classes_per_taxon": 0.0469,
+        "distance": 0.1206,
+        "missing": 0.0,
+        "singleton": 0.2844867275763827
+      }
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 0.3,
+          "n_characters": 200,
+          "rate": 0.03
+        },
+        "observation": {
+          "missing": 0
+        },
+        "tree": {
+          "n_taxa": 50
+        }
+      },
+      "score": 0.27998969820961667,
+      "simulated_features": {
+        "classes_per_taxon": 0.047266666666666665,
+        "distance": 0.11011700680272109,
+        "missing": 0.0,
+        "singleton": 0.2962571355229865
+      }
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 2.0,
+          "n_characters": 200,
+          "rate": 0.03
+        },
+        "observation": {
+          "missing": 0.4
+        },
+        "tree": {
+          "n_taxa": 50
+        }
+      },
+      "score": 0.3311006900898693,
+      "simulated_features": {
+        "classes_per_taxon": 0.0402,
+        "distance": 0.12657359023025888,
+        "missing": 0.40203333333333335,
+        "singleton": 0.28459676235902504
+      }
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 0.7,
+          "n_characters": 200,
+          "rate": 0.03
+        },
+        "observation": {
+          "missing": 0.4
+        },
+        "tree": {
+          "n_taxa": 50
+        }
+      },
+      "score": 0.34168011434051343,
+      "simulated_features": {
+        "classes_per_taxon": 0.04033333333333333,
+        "distance": 0.11950228609687262,
+        "missing": 0.40203333333333335,
+        "singleton": 0.2719375663484379
+      }
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 0.3,
+          "n_characters": 200,
+          "rate": 0.03
+        },
+        "observation": {
+          "missing": 0.4
+        },
+        "tree": {
+          "n_taxa": 50
+        }
+      },
+      "score": 0.34520757427998006,
+      "simulated_features": {
+        "classes_per_taxon": 0.040466666666666665,
+        "distance": 0.10694355777040591,
+        "missing": 0.40203333333333335,
+        "singleton": 0.2898625628579571
+      }
+    }
+  ]
+}

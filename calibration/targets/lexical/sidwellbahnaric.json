@@ -1,0 +1,84 @@
+{
+  "bibliographic_citation": "Sidwell, Paul. 2015. Austroasiatic dataset for phylogenetic analysis: 2015 version. Mon-Khmer Studies (Notes, Reviews, Data-Papers) 44. lxviii-ccclvii.",
+  "citation": "https://github.com/lexibank/sidwellbahnaric/tree/be17c6e8a96d4c1e457bfa90917dd75ccb6e51af",
+  "inputs": {
+    "cognates.csv": "d749526f0ef198e156672ff7ebe1c5acb9eede39912cdcd6a44d082c524c73f9",
+    "forms.csv": "dc4f96244481277a790d8e1d10f10b1ce9543e6cc3ce355ebbbff050eb189ddd"
+  },
+  "license": "CC-By-4.0",
+  "repository": "lexibank/sidwellbahnaric",
+  "revision": "be17c6e8a96d4c1e457bfa90917dd75ccb6e51af",
+  "schema": "ngesh-target-v1",
+  "source": "cldf",
+  "source_url": "",
+  "summary": {
+    "characters": 200,
+    "class_distribution": {
+      "mean": 5.275,
+      "n": 200,
+      "quantiles": [
+        1,
+        1,
+        2,
+        4,
+        7,
+        11,
+        21
+      ]
+    },
+    "class_histogram": {
+      "1": 32,
+      "10": 7,
+      "11": 6,
+      "12": 8,
+      "13": 2,
+      "14": 3,
+      "16": 1,
+      "17": 2,
+      "18": 1,
+      "2": 29,
+      "21": 1,
+      "3": 24,
+      "4": 16,
+      "5": 22,
+      "6": 16,
+      "7": 14,
+      "8": 8,
+      "9": 8
+    },
+    "coverage_distribution": {
+      "mean": 0.895625,
+      "n": 24,
+      "quantiles": [
+        0.76,
+        0.77,
+        0.845,
+        0.935,
+        0.95,
+        0.955,
+        0.965
+      ]
+    },
+    "delta": 0.2510545966115244,
+    "distance_distribution": {
+      "mean": 0.45470755584513606,
+      "n": 276,
+      "quantiles": [
+        0.0718232044198895,
+        0.3150851581508516,
+        0.4323308270676692,
+        0.4825174825174825,
+        0.5182926829268293,
+        0.5433333333333333,
+        0.5833333333333334
+      ]
+    },
+    "missing_fraction": 0.104375,
+    "q_residual": 0.0061414666495733915,
+    "quartet_sampling": "evenly_spaced_lexicographic",
+    "quartets_total": 10626,
+    "quartets_used": 1000,
+    "singleton_fraction": 0.4976303317535545,
+    "taxa": 24
+  }
+}

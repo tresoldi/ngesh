@@ -1,0 +1,79 @@
+{
+  "bibliographic_citation": "Savelyev, Alexander and Robbeets, Martine (2020): Bayesian phylolinguistics infers the internal structure and the time-depth of the Turkic language family. Journal of Language Evolution 5.1. 39-53.",
+  "citation": "https://github.com/lexibank/savelyevturkic/tree/4a540590580f0981d1c5679668cd08578f856de2",
+  "inputs": {
+    "cognates.csv": "8e4300a4c4fb7eaf4f414a0574debad32740e1ac6ad8699273fc37f5aeccb663",
+    "forms.csv": "87cd70fd5b3432308f9c417da8b61d11ea3440d3676a30817cc04e1547862a48"
+  },
+  "license": "CC-BY-4.0",
+  "repository": "lexibank/savelyevturkic",
+  "revision": "4a540590580f0981d1c5679668cd08578f856de2",
+  "schema": "ngesh-target-v1",
+  "source": "cldf",
+  "source_url": "https://doi.org/10.1093/jole/lzz010",
+  "summary": {
+    "characters": 254,
+    "class_distribution": {
+      "mean": 3.562992125984252,
+      "n": 254,
+      "quantiles": [
+        1,
+        1,
+        2,
+        3,
+        5,
+        7,
+        13
+      ]
+    },
+    "class_histogram": {
+      "1": 55,
+      "10": 3,
+      "11": 3,
+      "12": 1,
+      "13": 1,
+      "2": 47,
+      "3": 48,
+      "4": 38,
+      "5": 18,
+      "6": 15,
+      "7": 11,
+      "8": 11,
+      "9": 3
+    },
+    "coverage_distribution": {
+      "mean": 0.9338090551181102,
+      "n": 32,
+      "quantiles": [
+        0.7322834645669292,
+        0.8582677165354331,
+        0.9212598425196851,
+        0.952755905511811,
+        0.968503937007874,
+        0.9763779527559056,
+        0.9921259842519685
+      ]
+    },
+    "delta": 0.3359096311063772,
+    "distance_distribution": {
+      "mean": 0.31500987477759573,
+      "n": 496,
+      "quantiles": [
+        0.07032348804500703,
+        0.1959366391184573,
+        0.25392670157068065,
+        0.30323054331864907,
+        0.37780112044817926,
+        0.4458695652173913,
+        0.5649779735682819
+      ]
+    },
+    "missing_fraction": 0.06619094488188976,
+    "q_residual": 0.012299848124575612,
+    "quartet_sampling": "evenly_spaced_lexicographic",
+    "quartets_total": 35960,
+    "quartets_used": 1000,
+    "singleton_fraction": 0.27071823204419887,
+    "taxa": 32
+  }
+}

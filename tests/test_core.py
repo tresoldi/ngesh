@@ -13,9 +13,12 @@ from ngesh.rng import gamma_categories
 class CoreTests(unittest.TestCase):
     def test_golden(self):
         r = RandomStream("golden")
-        result = {"seed": derive_seed("golden"), "random": [r.random() for _ in range(5)],
-                  "gamma": [r.gamma(0.7) for _ in range(4)],
-                  "poisson": [r.poisson(35) for _ in range(8)]}
+        result = {
+            "seed": derive_seed("golden"),
+            "random": [r.random() for _ in range(5)],
+            "gamma": [r.gamma(0.7) for _ in range(4)],
+            "poisson": [r.poisson(35) for _ in range(8)],
+        }
         expected = json.loads((Path(__file__).parent / "golden/core.json").read_text())
         self.assertEqual(result, expected)
 
@@ -23,8 +26,16 @@ class CoreTests(unittest.TestCase):
         outputs = []
         for value in ["1", "12345"]:
             env = dict(os.environ, PYTHONHASHSEED=value, PYTHONPATH="src")
-            outputs.append(subprocess.check_output([sys.executable, "-c",
-                "from ngesh import RandomStream; r=RandomStream('x'); print([r.gamma(2) for _ in range(8)])"], env=env))
+            outputs.append(
+                subprocess.check_output(
+                    [
+                        sys.executable,
+                        "-c",
+                        "from ngesh import RandomStream; r=RandomStream('x'); print([r.gamma(2) for _ in range(8)])",
+                    ],
+                    env=env,
+                )
+            )
         self.assertEqual(*outputs)
 
     def test_seed_types(self):
@@ -35,12 +46,14 @@ class CoreTests(unittest.TestCase):
 
     def test_moments(self):
         r = RandomStream(521)
-        samplers = [(lambda: r.exponential(2), 0.5, 0.25),
-                    (lambda: r.gamma(0.7, 2), 1.4, 2.8),
-                    (lambda: r.gamma(3, 2), 6, 12),
-                    (lambda: r.poisson(35), 35, 35),
-                    (lambda: r.beta(2, 3), 0.4, 0.04),
-                    (lambda: r.lognormal(0.5), 1, 0.2840254)]
+        samplers = [
+            (lambda: r.exponential(2), 0.5, 0.25),
+            (lambda: r.gamma(0.7, 2), 1.4, 2.8),
+            (lambda: r.gamma(3, 2), 6, 12),
+            (lambda: r.poisson(35), 35, 35),
+            (lambda: r.beta(2, 3), 0.4, 0.04),
+            (lambda: r.lognormal(0.5), 1, 0.2840254),
+        ]
         for sample, mean, variance in samplers:
             draws = [sample() for _ in range(25000)]
             self.assertAlmostEqual(statistics.mean(draws), mean, delta=0.035 * max(1, mean))
@@ -58,7 +71,7 @@ class CoreTests(unittest.TestCase):
         self.assertEqual(len(tree.alive(1)), 2)
         self.assertEqual(len(tree.alive(2)), 3)
         self.assertEqual(Tree.from_newick(tree.newick()).newick(), tree.newick())
-        pruned = tree.prune({'a b', 'C'})
+        pruned = tree.prune({"a b", "C"})
         self.assertEqual([n.time for n in pruned.tips()], [3, 3])
         pruned.rescale(2)
         self.assertEqual([n.time for n in pruned.tips()], [2, 2])
@@ -73,3 +86,29 @@ class CoreTests(unittest.TestCase):
         for text in ["(A:1,B:2)", "(A:-1,B:2);", "(A:1,B:2;;", "(A:nan,B:1);", "(A:1,B:1);trash"]:
             with self.assertRaises(ValueError):
                 Tree.from_newick(text)
+
+    def test_discrete_gamma_exponential(self):
+        import math
+
+        bins = 4
+        boundaries = [0] + [-math.log(1 - i / bins) for i in range(1, bins)]
+        cumulative = [1 - math.exp(-x) * (1 + x) for x in boundaries] + [1]
+        expected = [bins * (b - a) for a, b in zip(cumulative, cumulative[1:])]
+        rates = gamma_categories(1, bins)
+        for a, b in zip(rates, expected):
+            self.assertAlmostEqual(a, b, places=12)
+        r = RandomStream("categories")
+        draws = [rates[r.index(bins)] for _ in range(25000)]
+        self.assertAlmostEqual(statistics.mean(draws), 1, delta=0.03)
+        self.assertAlmostEqual(statistics.variance(draws), statistics.pvariance(rates), delta=0.04)
+        # Shape .01 has its first boundary below 10^-60; log-space inversion matters.
+        self.assertGreater(gamma_categories(0.01, 4)[0], 0)
+
+    def test_reject_secondary_cycle(self):
+        from ngesh import Node
+
+        root = Node("root")
+        a = root.add(Node("A", 1))
+        b = root.add(Node("B", 1))
+        with self.assertRaises(ValueError):
+            Tree(root, [(a, b, 0), (b, a, 0)])

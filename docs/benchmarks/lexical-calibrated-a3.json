@@ -1,0 +1,8 @@
+{
+  "completed": 1000,
+  "skipped": 0,
+  "wall_seconds": 320.6513402809999,
+  "cpu_seconds": 320.50882020200004,
+  "python": "3.12.14",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41"
+}

@@ -1,0 +1,74 @@
+{
+  "bibliographic_citation": "Cysouw, M., Wichmann, S., & Kamholz, D. (2006). A critique of the separation base method for genealogical subgrouping, with data from mixe-zoquean. Journal of Quantitative Linguistics, 13(2-3), 225–264. doi:10.1080/09296170600850759",
+  "citation": "https://github.com/lexibank/wichmannmixezoquean/tree/6793ec2fdfd2e47bc0bbb63c26bc60d93995f35f",
+  "inputs": {
+    "cognates.csv": "d243fa3b472f3c8f4ad930313a82e9ba1e546ead946b3d2316b8a2dd26c7836d",
+    "forms.csv": "66b67e68746579ee99c5c02492c4afa6c4c74f82bc05722b55b95ed0af369fcb"
+  },
+  "license": "CC-BY-4.0",
+  "repository": "lexibank/wichmannmixezoquean",
+  "revision": "6793ec2fdfd2e47bc0bbb63c26bc60d93995f35f",
+  "schema": "ngesh-target-v1",
+  "source": "cldf",
+  "source_url": "https://doi.org/10.1080/09296170600850759",
+  "summary": {
+    "characters": 110,
+    "class_distribution": {
+      "mean": 3.081818181818182,
+      "n": 110,
+      "quantiles": [
+        1,
+        1,
+        2,
+        3,
+        4,
+        6,
+        8
+      ]
+    },
+    "class_histogram": {
+      "1": 21,
+      "2": 32,
+      "3": 19,
+      "4": 15,
+      "5": 9,
+      "6": 9,
+      "7": 2,
+      "8": 3
+    },
+    "coverage_distribution": {
+      "mean": 0.97,
+      "n": 10,
+      "quantiles": [
+        0.8909090909090909,
+        0.9363636363636364,
+        0.9545454545454546,
+        0.9727272727272728,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "delta": 0.1832390577383896,
+    "distance_distribution": {
+      "mean": 0.4834936875209145,
+      "n": 45,
+      "quantiles": [
+        0.1683673469387755,
+        0.3235294117647059,
+        0.37383177570093457,
+        0.5612244897959183,
+        0.6,
+        0.6310679611650486,
+        0.6527777777777778
+      ]
+    },
+    "missing_fraction": 0.03,
+    "q_residual": 0.008227848181559512,
+    "quartet_sampling": "evenly_spaced_lexicographic",
+    "quartets_total": 210,
+    "quartets_used": 210,
+    "singleton_fraction": 0.41297935103244837,
+    "taxa": 10
+  }
+}

@@ -1,4 +1,5 @@
 """Standard-library phylogenetic benchmark simulation."""
+
 from .tree import Node, Tree
 from .rng import RandomStream, derive_seed
 

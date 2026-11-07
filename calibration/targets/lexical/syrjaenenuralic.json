@@ -1,0 +1,78 @@
+{
+  "bibliographic_citation": "Syrjänen, K.; Honkola, T.; Korhonen, K.; Lehtinen, J.; Vesakoski, O. &amp; Wahlber, N. Shedding more light on language classification using basic vocabularies and phylogenetic methods. Diachronica, 2013, 30, 323-352",
+  "citation": "https://github.com/lexibank/syrjaenenuralic/tree/f4b9010d5d5d9fc5208d32a75bca0e488697357d",
+  "inputs": {
+    "cognates.csv": "0d9975bbad82edccbd841a89ddde0c234ac96e37a8f362dc405352c48cc1e247",
+    "forms.csv": "032e549d9a3d8931d44206950fb66378f34890966079a61fb2cf0cb83bc8be51"
+  },
+  "license": "CC-By-4.0",
+  "repository": "lexibank/syrjaenenuralic",
+  "revision": "f4b9010d5d5d9fc5208d32a75bca0e488697357d",
+  "schema": "ngesh-target-v1",
+  "source": "cldf",
+  "source_url": "",
+  "summary": {
+    "characters": 173,
+    "class_distribution": {
+      "mean": 5.028901734104046,
+      "n": 173,
+      "quantiles": [
+        1,
+        2,
+        3,
+        5,
+        6,
+        8,
+        12
+      ]
+    },
+    "class_histogram": {
+      "1": 8,
+      "10": 6,
+      "11": 1,
+      "12": 1,
+      "2": 15,
+      "3": 24,
+      "4": 22,
+      "5": 35,
+      "6": 31,
+      "7": 17,
+      "8": 8,
+      "9": 5
+    },
+    "coverage_distribution": {
+      "mean": 0.9843104872006606,
+      "n": 7,
+      "quantiles": [
+        0.9364161849710982,
+        0.9710982658959537,
+        0.9942196531791907,
+        0.9942196531791907,
+        0.9942196531791907,
+        1.0,
+        1.0
+      ]
+    },
+    "delta": 0.13344411939380232,
+    "distance_distribution": {
+      "mean": 0.7479805456887996,
+      "n": 21,
+      "quantiles": [
+        0.22868217054263565,
+        0.4123062015503876,
+        0.747577519379845,
+        0.7784431137724551,
+        0.8683651804670913,
+        0.8799171842650103,
+        0.8904320987654321
+      ]
+    },
+    "missing_fraction": 0.01568951279933939,
+    "q_residual": 0.0008709234532298409,
+    "quartet_sampling": "evenly_spaced_lexicographic",
+    "quartets_total": 35,
+    "quartets_used": 35,
+    "singleton_fraction": 0.7103448275862069,
+    "taxa": 7
+  }
+}

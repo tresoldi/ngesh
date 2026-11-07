@@ -1,0 +1,87 @@
+{
+  "bibliographic_citation": "Walworth, Mary. (2018). Polynesian Segmented Data (Version 1) [Data set]. Zenodo. http://doi.org/10.5281/zenodo.1689909",
+  "citation": "https://github.com/lexibank/walworthpolynesian/tree/515aa7fd5210949e79b57d5dd5dfb8a8ae9644d7",
+  "inputs": {
+    "cognates.csv": "fdfcd343ebb7e6ec5a10e49adea4fbd15d83a761d42986fe1161563f7efcaab6",
+    "forms.csv": "a96e1e36c3e8097a1f8c8aaf917c89bdc6f9825f5f5c4bc0a5f8a24952634671"
+  },
+  "license": "http://creativecommons.org/licenses/by/4.0/legalcode",
+  "repository": "lexibank/walworthpolynesian",
+  "revision": "515aa7fd5210949e79b57d5dd5dfb8a8ae9644d7",
+  "schema": "ngesh-target-v1",
+  "source": "cldf",
+  "source_url": "https://zenodo.org/record/1689909",
+  "summary": {
+    "characters": 210,
+    "class_distribution": {
+      "mean": 6.933333333333334,
+      "n": 210,
+      "quantiles": [
+        1,
+        2,
+        3,
+        6,
+        9,
+        14,
+        24
+      ]
+    },
+    "class_histogram": {
+      "1": 13,
+      "10": 5,
+      "11": 6,
+      "12": 5,
+      "13": 8,
+      "14": 8,
+      "15": 7,
+      "16": 1,
+      "17": 2,
+      "18": 1,
+      "2": 20,
+      "20": 1,
+      "23": 1,
+      "24": 1,
+      "3": 25,
+      "4": 19,
+      "5": 18,
+      "6": 13,
+      "7": 15,
+      "8": 22,
+      "9": 19
+    },
+    "coverage_distribution": {
+      "mean": 0.9502304147465438,
+      "n": 31,
+      "quantiles": [
+        0.8476190476190476,
+        0.8857142857142857,
+        0.9238095238095239,
+        0.9619047619047619,
+        0.9952380952380953,
+        1.0,
+        1.0
+      ]
+    },
+    "delta": 0.3251133625642413,
+    "distance_distribution": {
+      "mean": 0.4511830129209213,
+      "n": 465,
+      "quantiles": [
+        0.22587719298245615,
+        0.35447761194029853,
+        0.3992673992673993,
+        0.454028379028379,
+        0.4966117216117216,
+        0.5512544802867384,
+        0.6231481481481481
+      ]
+    },
+    "missing_fraction": 0.04976958525345622,
+    "q_residual": 0.0047913585289944115,
+    "quartet_sampling": "evenly_spaced_lexicographic",
+    "quartets_total": 31465,
+    "quartets_used": 1000,
+    "singleton_fraction": 0.5439560439560439,
+    "taxa": 31
+  }
+}

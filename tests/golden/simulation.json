@@ -1,0 +1,24 @@
+{
+  "config": {
+    "characters": {
+      "n_characters": 5,
+      "rate": 0.4
+    },
+    "horizontal": {
+      "borrowing_rate": 1
+    },
+    "observation": {
+      "missing": 0.2
+    },
+    "tree": {
+      "n_taxa": 4,
+      "shape": "balanced"
+    }
+  },
+  "outputs": {
+    "data.tsv": "Language\tConcept\tCognateset\nT0001\tC0001\tC0001.0\nT0001\tC0002\tC0002.0\nT0001\tC0003\tC0003.0\nT0001\tC0004\tC0004.0\nT0002\tC0001\tC0001.0\nT0002\tC0002\tC0002.0\nT0002\tC0003\tC0003.0\nT0002\tC0004\tC0004.0\nT0002\tC0005\tC0005.0\nT0003\tC0001\tC0001.0\nT0003\tC0003\tC0003.6\nT0003\tC0004\tC0004.4\nT0003\tC0005\tC0005.0\nT0004\tC0001\tC0001.0\nT0004\tC0002\tC0002.0\nT0004\tC0004\tC0004.0\nT0004\tC0005\tC0005.0\n",
+    "history.tsv": "time\tkind\tdonor\trecipient\tcharacter\told\tnew\n0.047740253175291812\treplacement\t\tN2\tC0003\t[0]\t[4]\n0.049183153553715095\tborrow\tN2\tN1\tC0004\t[0]\t[0]\n0.1030201997759226\treplacement\t\tN2\tC0003\t[4]\t[5]\n0.12387937245739011\tborrow\tN2\tN1\tC0004\t[0]\t[0]\n0.13798032571553026\tborrow\tN2\tN1\tC0001\t[0]\t[0]\n0.45183167565736271\treplacement\t\tN2\tC0003\t[5]\t[6]\n0.54036105695315795\tborrow\tT0001\tT0002\tC0002\t[0]\t[0]\n0.62555474711507342\tborrow\tT0003\tT0004\tC0004\t[0]\t[0]\n0.64887937186536049\tborrow\tT0004\tT0003\tC0002\t[0]\t[0]\n0.66356113017792451\tborrow\tT0002\tT0001\tC0005\t[0]\t[0]\n0.74294445167305645\tborrow\tT0002\tT0001\tC0003\t[0]\t[0]\n0.81076548358578249\tborrow\tT0001\tT0002\tC0005\t[0]\t[0]\n0.81365891769272181\tborrow\tT0002\tT0004\tC0005\t[0]\t[0]\n0.82576002432071083\treplacement\t\tT0004\tC0003\t[6]\t[7]\n0.84338383038647569\tborrow\tT0002\tT0004\tC0001\t[0]\t[0]\n0.90461524489440304\treplacement\t\tT0003\tC0004\t[0]\t[4]\n",
+    "observed.json": "{\n  \"T0001\": [\n    [\n      0\n    ],\n    [\n      0\n    ],\n    [\n      0\n    ],\n    [\n      0\n    ],\n    null\n  ],\n  \"T0002\": [\n    [\n      0\n    ],\n    [\n      0\n    ],\n    [\n      0\n    ],\n    [\n      0\n    ],\n    [\n      0\n    ]\n  ],\n  \"T0003\": [\n    [\n      0\n    ],\n    null,\n    [\n      6\n    ],\n    [\n      4\n    ],\n    [\n      0\n    ]\n  ],\n  \"T0004\": [\n    [\n      0\n    ],\n    [\n      0\n    ],\n    null,\n    [\n      0\n    ],\n    [\n      0\n    ]\n  ]\n}\n",
+    "truth.nwk": "((T0001:0.5,T0002:0.5)N1:0.5,(T0003:0.5,T0004:0.5)N2:0.5)N0:0;\n"
+  }
+}
