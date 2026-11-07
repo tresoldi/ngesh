@@ -52,3 +52,31 @@ core rather than preserve misleading 1.x parameter semantics.
   probability. This models simultaneous extra copies, not undocumented calendar
   periods of scriptorium activity. High loss is a preset parameter, not an
   assumption that changes the process.
+
+## G3 lexical / G6 pilot
+
+* Replacements are exponential-waiting-time events per character/branch, so
+  arbitrarily many events occur and every event time is recorded in history.tsv.
+  Synonym death is another exponential clock, inherited across speciation.
+  Each concept has root ID 0, recurrent pool IDs 1..K, and monotonically allocated
+  novel IDs above K. Recurrent pool draws may be silent; the event is still logged.
+* Gamma rates have mean one before invariant masking. Invariants are a separate
+  mixture, so the unconditional mean is rate*(1-p_invariant). Relaxed clocks are
+  independent mean-one lognormal edge multipliers. Column indices affect labels,
+  not the distribution of rates.
+* Long TSV deliberately cannot distinguish binary absence from missing: both
+  omit rows under the consumer contract. Full observed.json and truth.json are
+  authoritative lossless matrices (null=missing, []=known absence). NEXUS and
+  PHYLIP retain this distinction. Every evolution event is in history.tsv;
+  horizontal events will additionally be in events.tsv.
+* Integer-token multistate NEXUS supports lexical classes beyond 62 symbols.
+  Relaxed PHYLIP uses deterministic whitespace-free aliases with a name map.
+* A manifest hashes all other files, never itself. Grids stage each replicate in
+  a temporary directory and rename on completion; resume verifies hashes, version,
+  full config, preset and seed. Conflicting or corrupt outputs fail visibly.
+* Python 3.10 lacks tomllib. Rather than add a runtime dependency or drop 3.10,
+  it uses a strict documented scalar/array/table TOML subset. Python >=3.11 uses
+  tomllib. Example configurations intentionally stay within the common subset.
+* Summary quartet scores use at most 1000 evenly spaced lexicographic quartets,
+  record their sample size, and consume no random draws. Full quartets can be
+  requested explicitly. This keeps 1000-replicate benchmarking practical.

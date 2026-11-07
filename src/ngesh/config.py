@@ -1,0 +1,88 @@
+"""TOML configuration. Python 3.11+ uses tomllib.
+
+3.10 supports the documented scalar/array/table subset with a strict local
+parser; unsupported TOML constructs fail rather than being misinterpreted.
+"""
+from __future__ import annotations
+
+import ast
+from pathlib import Path
+import re
+from typing import Any
+
+
+def toml_subset(text: str) -> dict[str, Any]:
+    """3.10 subset: bare-key tables, scalar literals and single-line arrays.
+
+    No inline tables, dates, multiline strings, quoted/dotted keys, or arrays
+    of tables. This avoids a runtime dependency solely for configuration.
+    """
+    root: dict[str, Any] = {}
+    current = root
+    def parse(value: str) -> Any:
+        value = value.strip()
+        if value in {'true','false'}:
+            return value == 'true'
+        if value.startswith('[') and value.endswith(']'):
+            # Tokenize array commas outside quoted strings/nested arrays.
+            parts, start, depth, quote, escape = [], 1, 0, '', False
+            for i,ch in enumerate(value[1:-1],1):
+                if quote:
+                    if ch == quote and not escape:
+                        quote = ''
+                    escape = ch == '\\' and not escape
+                elif ch in "\"'":
+                    quote = ch
+                elif ch == '[':
+                    depth += 1
+                elif ch == ']':
+                    depth -= 1
+                elif ch == ',' and depth == 0:
+                    parts.append(value[start:i])
+                    start = i+1
+            parts.append(value[start:-1])
+            return [parse(p) for p in parts if p.strip()]
+        if value.startswith(('"', "'")):
+            result = ast.literal_eval(value)
+            if not isinstance(result, str):
+                raise ValueError('expected TOML string')
+            return result
+        if re.fullmatch(r'[+-]?[0-9][0-9_]*(\.[0-9_]+)?([eE][+-]?[0-9_]+)?',value):
+            return float(value) if any(x in value for x in '.eE') else int(value)
+        raise ValueError(f'unsupported TOML value on Python 3.10: {value}')
+    for raw in text.splitlines():
+        # Strip comments only outside quoted strings.
+        quote, escape, end = '', False, len(raw)
+        for i,ch in enumerate(raw):
+            if quote:
+                if ch == quote and not escape:
+                    quote = ''
+                escape = ch == '\\' and not escape
+            elif ch in "\"'":
+                quote = ch
+            elif ch == '#':
+                end = i
+                break
+        line = raw[:end].strip()
+        if not line:
+            continue
+        if re.fullmatch(r'\[[A-Za-z0-9_.-]+\]',line):
+            current = root
+            for key in line[1:-1].split('.'):
+                current = current.setdefault(key,{})
+            continue
+        key, sep, value = line.partition('=')
+        key = key.strip()
+        if not sep or not re.fullmatch(r'[\w-]+',key) or key in current:
+            raise ValueError('invalid or duplicate TOML key')
+        current[key] = parse(value)
+    return root
+
+
+def load_config(path: str | Path) -> dict[str, Any]:
+    try:
+        import tomllib
+    except ImportError:
+        return toml_subset(Path(path).read_text(encoding='utf-8'))
+    with Path(path).open('rb') as handle:
+        return tomllib.load(handle)
