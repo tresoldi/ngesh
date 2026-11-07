@@ -81,3 +81,17 @@ class StatisticsTests(unittest.TestCase):
                 int(x != y) for x, y in zip(matrix[a], matrix[b]) if x is not None and y is not None
             ]
             self.assertAlmostEqual(actual, sum(expected) / len(expected))
+
+    def test_source_nexus_polymorphisms_and_interleaving(self):
+        from ngesh.matrices import read_nexus
+
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "source.nex"
+            path.write_text(
+                "#NEXUS\nBEGIN DATA; DIMENSIONS NTAX=2 NCHAR=4; FORMAT DATATYPE=STANDARD INTERLEAVE; MATRIX\nA 0(0,1)\nB 11\n\n01\n10\n; END;"
+            )
+            matrix = read_nexus(path)
+            self.assertEqual(
+                matrix["A"], [frozenset({0}), frozenset({0, 1}), frozenset({0}), frozenset({1})]
+            )
+            self.assertEqual(len(matrix), 2)

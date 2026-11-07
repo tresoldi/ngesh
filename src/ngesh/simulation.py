@@ -21,19 +21,21 @@ PRESETS: dict[str, dict[str, Any]] = {
         "observation": {"missing": 0.15},
     },
     "genecontent": {
-        "tree": {},
+        "tree": {"height": 1.0},
         "characters": {
             "model": "dollo",
             "rate": 1.0,
-            "loss_rate": 0.1,
+            "loss_rate": 1.0,
+            "alpha": 0.3,
             "n_characters": 500,
-            "root_frequency": 0.5,
+            "root_frequency": 0.03,
         },
         "horizontal": {"mode": "add"},
     },
     "morphology": {
-        "tree": {},
-        "characters": {"model": "mk", "rate": 0.2, "k": 4, "n_characters": 100, "alpha": 0.7},
+        "tree": {"height": 1.0},
+        "characters": {"model": "mk", "rate": 1.0, "k": 2, "n_characters": 100, "alpha": 2.0},
+        "observation": {"coverage_a": 7.702921781245104, "coverage_b": 1.6842147553315705},
     },
     "stemma": {
         "tree": {"birth": 1.0, "death": 0.8, "ancestor_rate": 0.2, "copy_sigma": 0.6},

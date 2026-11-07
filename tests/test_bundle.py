@@ -139,3 +139,18 @@ class BundleTests(unittest.TestCase):
                     {name: (out / name).read_text() for name in fixture["outputs"]},
                     fixture["outputs"],
                 )
+
+    def test_subset_rejects_invalid_toml(self):
+        from ngesh.config import toml_subset
+
+        for text in [
+            "x=[1,,2]",
+            "x=01",
+            "x=1__2",
+            "[a..b]\nx=1",
+            "x=1\n[x]\ny=2",
+            "x=[1,2",
+            'x="unterminated',
+        ]:
+            with self.subTest(text=text), self.assertRaises(ValueError):
+                toml_subset(text)

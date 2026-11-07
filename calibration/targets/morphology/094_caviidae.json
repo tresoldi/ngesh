@@ -1,0 +1,82 @@
+{
+  "citation": "Keating, Garwood & Sansom 2023; doi:10.1186/s12862-023-02131-z; Zenodo 6579584",
+  "extraction": {
+    "fallback_from_corrupt_member": true,
+    "gap_policy": "inapplicable and unknown both unobserved for Mk calibration",
+    "gaps_recoded": 0
+  },
+  "inputs": {
+    "Keating_et_al_sup/094_caviidae/morph/TNT/nexus_xinact.nex": "28d841ef3f82655a6aaf74e55d8e62bd2e8c46986ee4887185cd713f15c3a049"
+  },
+  "license": "CC-BY-4.0",
+  "schema": "ngesh-target-v2",
+  "source": "Keating_et_al_sup/094_caviidae/morph/TNT/nexus_xinact.nex",
+  "summary": {
+    "characters": 96,
+    "class_distribution": {
+      "mean": 2.1979166666666665,
+      "n": 96,
+      "quantiles": [
+        0,
+        2,
+        2,
+        2,
+        2,
+        3,
+        4
+      ],
+      "variance": 0.4087456597222222
+    },
+    "class_histogram": {
+      "0": 1,
+      "1": 5,
+      "2": 68,
+      "3": 18,
+      "4": 4
+    },
+    "constant_fraction": 0.052083333333333336,
+    "coverage_distribution": {
+      "mean": 0.8712121212121212,
+      "n": 11,
+      "quantiles": [
+        0.7708333333333334,
+        0.8125,
+        0.8125,
+        0.90625,
+        0.9166666666666666,
+        0.9166666666666666,
+        0.9270833333333334
+      ],
+      "variance": 0.0028265610651974278
+    },
+    "delta": 0.32422057099495083,
+    "distance_distribution": {
+      "mean": 0.48452938608117635,
+      "n": 55,
+      "quantiles": [
+        0.022988505747126436,
+        0.2727272727272727,
+        0.37037037037037035,
+        0.4418604651162791,
+        0.6470588235294118,
+        0.6986301369863014,
+        0.7638888888888888
+      ],
+      "variance": 0.031068140140567135
+    },
+    "missing_fraction": 0.12878787878787878,
+    "observed_state_count_histogram": {
+      "0": 1,
+      "1": 5,
+      "2": 68,
+      "3": 18,
+      "4": 4
+    },
+    "q_residual": 0.029041788698134962,
+    "quartet_sampling": "evenly_spaced_lexicographic",
+    "quartets_total": 330,
+    "quartets_used": 330,
+    "singleton_fraction": 0.13270142180094788,
+    "taxa": 11
+  }
+}

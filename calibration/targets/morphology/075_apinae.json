@@ -1,0 +1,78 @@
+{
+  "citation": "Keating, Garwood & Sansom 2023; doi:10.1186/s12862-023-02131-z; Zenodo 6579584",
+  "extraction": {
+    "fallback_from_corrupt_member": false,
+    "gap_policy": "inapplicable and unknown both unobserved for Mk calibration",
+    "gaps_recoded": 0
+  },
+  "inputs": {
+    "Keating_et_al_sup/075_apinae/morph/mrbayes/75_apinae_Cameron-Mardul-2009_morph_overlap.nex": "1732874b51f3160d938362ff7cc46780da34b2102b5cae465973a81cb2cfca81"
+  },
+  "license": "CC-BY-4.0",
+  "schema": "ngesh-target-v2",
+  "source": "Keating_et_al_sup/075_apinae/morph/mrbayes/75_apinae_Cameron-Mardul-2009_morph_overlap.nex",
+  "summary": {
+    "characters": 95,
+    "class_distribution": {
+      "mean": 2.2,
+      "n": 95,
+      "quantiles": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        3,
+        4
+      ],
+      "variance": 0.20210526315789473
+    },
+    "class_histogram": {
+      "2": 78,
+      "3": 15,
+      "4": 2
+    },
+    "constant_fraction": 0.0,
+    "coverage_distribution": {
+      "mean": 0.94,
+      "n": 10,
+      "quantiles": [
+        0.7263157894736842,
+        0.7368421052631579,
+        0.9789473684210527,
+        0.9894736842105263,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "variance": 0.01090415512465374
+    },
+    "delta": 0.24079315346426491,
+    "distance_distribution": {
+      "mean": 0.48628291918773064,
+      "n": 45,
+      "quantiles": [
+        0.07446808510638298,
+        0.25806451612903225,
+        0.4,
+        0.5373134328358209,
+        0.5851063829787234,
+        0.6413043478260869,
+        0.6847826086956522
+      ],
+      "variance": 0.02134896704383059
+    },
+    "missing_fraction": 0.06,
+    "observed_state_count_histogram": {
+      "2": 78,
+      "3": 15,
+      "4": 2
+    },
+    "q_residual": 0.02261547875424327,
+    "quartet_sampling": "evenly_spaced_lexicographic",
+    "quartets_total": 210,
+    "quartets_used": 210,
+    "singleton_fraction": 0.07655502392344497,
+    "taxa": 10
+  }
+}

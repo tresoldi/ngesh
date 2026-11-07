@@ -1,0 +1,76 @@
+{
+  "citation": "Keating, Garwood & Sansom 2023; doi:10.1186/s12862-023-02131-z; Zenodo 6579584",
+  "extraction": {
+    "fallback_from_corrupt_member": false,
+    "gap_policy": "inapplicable and unknown both unobserved for Mk calibration",
+    "gaps_recoded": 2
+  },
+  "inputs": {
+    "Keating_et_al_sup/097_hexactinellida/morph/mrbayes/97_Hexactinellida_Dohrmann-et-al-2017_morph_overlap.nex": "ffef1b15a197822b0e26348a676efc899640bf4027d5b62a0b8ea129adb25f04"
+  },
+  "license": "CC-BY-4.0",
+  "schema": "ngesh-target-v2",
+  "source": "Keating_et_al_sup/097_hexactinellida/morph/mrbayes/97_Hexactinellida_Dohrmann-et-al-2017_morph_overlap.nex",
+  "summary": {
+    "characters": 124,
+    "class_distribution": {
+      "mean": 1.967741935483871,
+      "n": 124,
+      "quantiles": [
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "variance": 0.031217481789802288
+    },
+    "class_histogram": {
+      "1": 4,
+      "2": 120
+    },
+    "constant_fraction": 0.03225806451612903,
+    "coverage_distribution": {
+      "mean": 0.9975518433179723,
+      "n": 56,
+      "quantiles": [
+        0.9516129032258065,
+        0.9919354838709677,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "variance": 7.181796040476531e-05
+    },
+    "delta": 0.3286935742625138,
+    "distance_distribution": {
+      "mean": 0.19011089815435003,
+      "n": 1540,
+      "quantiles": [
+        0.024193548387096774,
+        0.10483870967741936,
+        0.14516129032258066,
+        0.1935483870967742,
+        0.23387096774193547,
+        0.2661290322580645,
+        0.3870967741935484
+      ],
+      "variance": 0.00397635159336193
+    },
+    "missing_fraction": 0.0024481566820276496,
+    "observed_state_count_histogram": {
+      "1": 4,
+      "2": 120
+    },
+    "q_residual": 0.025883683278415164,
+    "quartet_sampling": "evenly_spaced_lexicographic",
+    "quartets_total": 367290,
+    "quartets_used": 1000,
+    "singleton_fraction": 0.05327868852459016,
+    "taxa": 56
+  }
+}

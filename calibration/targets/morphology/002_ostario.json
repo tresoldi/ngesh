@@ -1,0 +1,80 @@
+{
+  "citation": "Keating, Garwood & Sansom 2023; doi:10.1186/s12862-023-02131-z; Zenodo 6579584",
+  "extraction": {
+    "fallback_from_corrupt_member": false,
+    "gap_policy": "inapplicable and unknown both unobserved for Mk calibration",
+    "gaps_recoded": 0
+  },
+  "inputs": {
+    "Keating_et_al_sup/002_ostario/morph/mrbayes/2_Ostariophysi_Near-et-al-2014._morph_overlap.nex": "23c56b6c118c0b1dad97ec307b6ed8668b662ad79f8eeaf02d126d5229fc8616"
+  },
+  "license": "CC-BY-4.0",
+  "schema": "ngesh-target-v2",
+  "source": "Keating_et_al_sup/002_ostario/morph/mrbayes/2_Ostariophysi_Near-et-al-2014._morph_overlap.nex",
+  "summary": {
+    "characters": 128,
+    "class_distribution": {
+      "mean": 1.984375,
+      "n": 128,
+      "quantiles": [
+        1,
+        1,
+        2,
+        2,
+        2,
+        3,
+        4
+      ],
+      "variance": 0.390380859375
+    },
+    "class_histogram": {
+      "1": 25,
+      "2": 81,
+      "3": 21,
+      "4": 1
+    },
+    "constant_fraction": 0.1953125,
+    "coverage_distribution": {
+      "mean": 0.98125,
+      "n": 10,
+      "quantiles": [
+        0.921875,
+        0.9609375,
+        0.9765625,
+        0.9765625,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "variance": 0.000576171875
+    },
+    "delta": 0.16742577538482087,
+    "distance_distribution": {
+      "mean": 0.32767419432342954,
+      "n": 45,
+      "quantiles": [
+        0.0,
+        0.15853658536585366,
+        0.2754237288135593,
+        0.3728813559322034,
+        0.4,
+        0.424,
+        0.5
+      ],
+      "variance": 0.014674853096312104
+    },
+    "missing_fraction": 0.01875,
+    "observed_state_count_histogram": {
+      "1": 25,
+      "2": 81,
+      "3": 21,
+      "4": 1
+    },
+    "q_residual": 0.009921140649539754,
+    "quartet_sampling": "evenly_spaced_lexicographic",
+    "quartets_total": 210,
+    "quartets_used": 210,
+    "singleton_fraction": 0.15354330708661418,
+    "taxa": 10
+  }
+}

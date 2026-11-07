@@ -196,3 +196,20 @@ regression test covers extinction, sampled ancestors and incomplete sampling.
 Ancestor sampling intensity refers to the original tree-generation time units;
 character rates refer to the final rescaled units. Published milestone tags
 remain fixed; this correction is a subsequent branch commit.
+
+## Review and empirical follow-up
+
+The count stopping rule, capped last polytomy, sampled-ancestor representation,
+and single-origin Dollo interpretation remain as documented: each exposes its
+conditioning and rates. Python 3.10 retains the documented TOML subset because
+tomllib is unavailable; validation now rejects malformed subset syntax. NEXUS
+reading now handles interleaved matrices, comma-separated state sets and symbol
+ranges encountered in the public morphology data.
+
+The gene-content and morphology presets adopt the v2 candidate parameters after
+their held-out summary errors fell substantially. The lexical candidate worsened
+on its holdout, so the previous default stays. The 10% promotion threshold was
+chosen after viewing results, and results remain exploratory. The yeast holdout
+shares taxa with training; the lexical prior was already fitted to all families.
+The stemma reference repository remains unavailable; parameters for surviving
+ancestors and contamination remain uncalibrated.

@@ -1,0 +1,80 @@
+{
+  "citation": "Keating, Garwood & Sansom 2023; doi:10.1186/s12862-023-02131-z; Zenodo 6579584",
+  "extraction": {
+    "fallback_from_corrupt_member": false,
+    "gap_policy": "inapplicable and unknown both unobserved for Mk calibration",
+    "gaps_recoded": 755
+  },
+  "inputs": {
+    "Keating_et_al_sup/028_opiliones/morph/mrbayes/28_Opiliones_Garwood-et-al-2014_morph_overlap.nex": "6c1903e870cb05b52bab9a4913b1b7eaec360cfb1b198516dde961bddb7c3863"
+  },
+  "license": "CC-BY-4.0",
+  "schema": "ngesh-target-v2",
+  "source": "Keating_et_al_sup/028_opiliones/morph/mrbayes/28_Opiliones_Garwood-et-al-2014_morph_overlap.nex",
+  "summary": {
+    "characters": 158,
+    "class_distribution": {
+      "mean": 2.088607594936709,
+      "n": 158,
+      "quantiles": [
+        1,
+        2,
+        2,
+        2,
+        2,
+        3,
+        4
+      ],
+      "variance": 0.2326550232334562
+    },
+    "class_histogram": {
+      "1": 9,
+      "2": 129,
+      "3": 17,
+      "4": 3
+    },
+    "constant_fraction": 0.056962025316455694,
+    "coverage_distribution": {
+      "mean": 0.8150316455696203,
+      "n": 40,
+      "quantiles": [
+        0.6582278481012658,
+        0.7531645569620253,
+        0.7974683544303798,
+        0.8227848101265823,
+        0.8481012658227848,
+        0.8670886075949367,
+        0.8987341772151899
+      ],
+      "variance": 0.0028430690193879185
+    },
+    "delta": 0.2222644598141079,
+    "distance_distribution": {
+      "mean": 0.22596600481751503,
+      "n": 780,
+      "quantiles": [
+        0.0,
+        0.049586776859504134,
+        0.1484375,
+        0.2066115702479339,
+        0.2764227642276423,
+        0.42718446601941745,
+        0.5154639175257731
+      ],
+      "variance": 0.017175317443783398
+    },
+    "missing_fraction": 0.18496835443037973,
+    "observed_state_count_histogram": {
+      "1": 9,
+      "2": 129,
+      "3": 17,
+      "4": 3
+    },
+    "q_residual": 0.014628722714168887,
+    "quartet_sampling": "evenly_spaced_lexicographic",
+    "quartets_total": 91390,
+    "quartets_used": 1000,
+    "singleton_fraction": 0.10909090909090909,
+    "taxa": 40
+  }
+}

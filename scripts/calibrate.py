@@ -56,6 +56,7 @@ def compact_summary(matrix: Matrix, *, binary: bool = False) -> dict[str, Any]:
         return {
             "n": len(values),
             "mean": statistics.mean(values) if values else None,
+            "variance": statistics.pvariance(values) if values else None,
             "quantiles": [
                 ordered[round(q * (len(ordered) - 1))] for q in [0, 0.1, 0.25, 0.5, 0.75, 0.9, 1]
             ]
@@ -63,6 +64,20 @@ def compact_summary(matrix: Matrix, *, binary: bool = False) -> dict[str, Any]:
             else [],
         }
 
+    ncols = len(next(iter(matrix.values()))) if matrix else 0
+    constant = 0
+    for i in range(ncols):
+        cells = {row[i] for row in matrix.values() if row[i] is not None}
+        constant += bool(cells) and len(cells) == 1
+    summary["constant_fraction"] = constant / ncols if ncols else 0.0
+    if binary:
+        prevalence = [
+            sum(bool(row[i]) for row in matrix.values()) / len(matrix) for i in range(ncols)
+        ]
+        summary["prevalence_distribution"] = distribution(prevalence)
+        summary["trait_singleton_fraction"] = (
+            sum(p == 1 / len(matrix) for p in prevalence) / ncols if ncols else 0
+        )
     summary["distance_distribution"] = distribution(distances)
     summary["coverage_distribution"] = distribution(coverage)
     summary["class_distribution"] = distribution(counts)
@@ -237,7 +252,7 @@ def features(summary: dict[str, Any]) -> dict[str, float]:
     }
 
 
-def fit(targets: Path, out: Path, preset: str, replicates: int = 3) -> None:
+def fit_legacy(targets: Path, out: Path, preset: str, replicates: int = 3) -> None:
     import itertools
 
     sources = [json.loads(p.read_text()) for p in sorted(targets.glob("*.json"))]
@@ -310,12 +325,24 @@ def main() -> None:
     fitting.add_argument(
         "--preset", choices=["lexical", "stemma", "genecontent", "morphology"], required=True
     )
-    fitting.add_argument("--replicates", type=int, default=3)
+    fitting.add_argument("--replicates", type=int, default=1)
+    fitting.add_argument(
+        "--legacy",
+        action="store_true",
+        help="reproduce the alpha3 preliminary grid without holdout",
+    )
     args = parser.parse_args()
     if args.command == "fetch-lexical":
         print(json.dumps(fetch_lexical(args.work, args.out), indent=2))
     elif args.command == "fit":
-        fit(args.targets, args.out, args.preset, args.replicates)
+        if args.legacy:
+            fit_legacy(args.targets, args.out, args.preset, args.replicates)
+        else:
+            try:
+                from .fit_presets import fit
+            except ImportError:
+                from fit_presets import fit
+            fit(args.preset, args.targets, args.out, args.replicates)
     else:
         characters = None
         if args.characters:

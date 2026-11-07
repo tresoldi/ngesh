@@ -1,0 +1,63 @@
+{
+  "rule": "promote only for >=10% heldout summary-score reduction; otherwise retain preexisting preset; no holdout reselection",
+  "presets": {
+    "lexical": {
+      "promoted": false,
+      "relative_error_reduction": -0.5309673907874415,
+      "baseline": 0.023564742348624566,
+      "candidate": 0.03607685210805208,
+      "candidate_config": {
+        "characters": {
+          "alpha": 1.5,
+          "rate": 0.6
+        },
+        "observation": {
+          "coverage_a": 5.948003088260482,
+          "coverage_b": 0.6005245254900902,
+          "missing": 0.0
+        }
+      }
+    },
+    "genecontent": {
+      "promoted": true,
+      "relative_error_reduction": 0.9222356276493442,
+      "baseline": 0.2128131162625939,
+      "candidate": 0.016549278414147744,
+      "candidate_config": {
+        "characters": {
+          "alpha": 0.3,
+          "loss_rate": 1,
+          "rate": 1.0,
+          "root_frequency": 0.03
+        },
+        "observation": {
+          "missing": 0.0
+        },
+        "tree": {
+          "height": 1.0
+        }
+      }
+    },
+    "morphology": {
+      "promoted": true,
+      "relative_error_reduction": 0.38515906490421603,
+      "baseline": 0.019508728975045145,
+      "candidate": 0.011994765165546973,
+      "candidate_config": {
+        "characters": {
+          "alpha": 2,
+          "k": 2,
+          "rate": 1
+        },
+        "observation": {
+          "coverage_a": 7.702921781245104,
+          "coverage_b": 1.6842147553315705,
+          "missing": 0.0
+        },
+        "tree": {
+          "height": 1.0
+        }
+      }
+    }
+  }
+}

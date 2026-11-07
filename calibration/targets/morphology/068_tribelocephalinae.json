@@ -1,0 +1,82 @@
+{
+  "citation": "Keating, Garwood & Sansom 2023; doi:10.1186/s12862-023-02131-z; Zenodo 6579584",
+  "extraction": {
+    "fallback_from_corrupt_member": false,
+    "gap_policy": "inapplicable and unknown both unobserved for Mk calibration",
+    "gaps_recoded": 1017
+  },
+  "inputs": {
+    "Keating_et_al_sup/068_tribelocephalinae/morph/mrbayes/68_tribelocephalinae_Forthman-Weirauch-2017_morph_overlap.nex": "62f6425777b5aedc6a1492af4267f0b8d5cdab1b3bf15c61376d3468526d043a"
+  },
+  "license": "CC-BY-4.0",
+  "schema": "ngesh-target-v2",
+  "source": "Keating_et_al_sup/068_tribelocephalinae/morph/mrbayes/68_tribelocephalinae_Forthman-Weirauch-2017_morph_overlap.nex",
+  "summary": {
+    "characters": 199,
+    "class_distribution": {
+      "mean": 2.0452261306532664,
+      "n": 199,
+      "quantiles": [
+        1,
+        1,
+        2,
+        2,
+        2,
+        3,
+        5
+      ],
+      "variance": 0.3949395217292493
+    },
+    "class_histogram": {
+      "1": 27,
+      "2": 143,
+      "3": 23,
+      "4": 5,
+      "5": 1
+    },
+    "constant_fraction": 0.135678391959799,
+    "coverage_distribution": {
+      "mean": 0.759332376166547,
+      "n": 56,
+      "quantiles": [
+        0.38190954773869346,
+        0.6582914572864321,
+        0.7185929648241206,
+        0.7688442211055276,
+        0.7839195979899497,
+        0.8944723618090452,
+        0.9296482412060302
+      ],
+      "variance": 0.011113246212603371
+    },
+    "delta": 0.34368002319420404,
+    "distance_distribution": {
+      "mean": 0.2454825013671346,
+      "n": 1540,
+      "quantiles": [
+        0.0,
+        0.13333333333333333,
+        0.17880794701986755,
+        0.23076923076923078,
+        0.31451612903225806,
+        0.3805970149253731,
+        0.5039370078740157
+      ],
+      "variance": 0.00871921765070427
+    },
+    "missing_fraction": 0.24066762383345297,
+    "observed_state_count_histogram": {
+      "1": 27,
+      "2": 143,
+      "3": 23,
+      "4": 5,
+      "5": 1
+    },
+    "q_residual": 0.023698970650033586,
+    "quartet_sampling": "evenly_spaced_lexicographic",
+    "quartets_total": 367290,
+    "quartets_used": 1000,
+    "singleton_fraction": 0.07371007371007371,
+    "taxa": 56
+  }
+}

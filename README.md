@@ -6,8 +6,8 @@ presence/absence and morphological characters. Runtime and core tests use only
 the Python standard library. Python 3.10–3.13 are supported.
 
 **Current development release: 2.0.0a3.** This is a breaking rewrite of 1.2.1.
-The lexical default has a preliminary fit to 16 CLDF datasets. The other presets
-are provisional pending calibration inputs. It is not yet a release candidate.
+The lexical, gene-content and morphology defaults have preliminary empirical fits.
+The stemma preset remains provisional pending access to the reference traditions. It is not yet a release candidate.
 
 ```sh
 python -m pip install -e .

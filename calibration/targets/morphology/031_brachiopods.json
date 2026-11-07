@@ -1,0 +1,80 @@
+{
+  "citation": "Keating, Garwood & Sansom 2023; doi:10.1186/s12862-023-02131-z; Zenodo 6579584",
+  "extraction": {
+    "fallback_from_corrupt_member": false,
+    "gap_policy": "inapplicable and unknown both unobserved for Mk calibration",
+    "gaps_recoded": 0
+  },
+  "inputs": {
+    "Keating_et_al_sup/031_brachiopods/morph/mrbayes/31_Brachiopods_Bapst_2017_morph_overlap.nex": "90da9efc451418b70bc29faa7117d81ccb81684f994a40b41645420264725463"
+  },
+  "license": "CC-BY-4.0",
+  "schema": "ngesh-target-v2",
+  "source": "Keating_et_al_sup/031_brachiopods/morph/mrbayes/31_Brachiopods_Bapst_2017_morph_overlap.nex",
+  "summary": {
+    "characters": 66,
+    "class_distribution": {
+      "mean": 2.287878787878788,
+      "n": 66,
+      "quantiles": [
+        1,
+        2,
+        2,
+        2,
+        3,
+        3,
+        4
+      ],
+      "variance": 0.47773186409550045
+    },
+    "class_histogram": {
+      "1": 5,
+      "2": 41,
+      "3": 16,
+      "4": 4
+    },
+    "constant_fraction": 0.07575757575757576,
+    "coverage_distribution": {
+      "mean": 0.7651515151515151,
+      "n": 18,
+      "quantiles": [
+        0.22727272727272727,
+        0.2878787878787879,
+        0.8181818181818182,
+        0.8787878787878788,
+        0.9393939393939394,
+        0.9545454545454546,
+        1.0
+      ],
+      "variance": 0.07086649321497807
+    },
+    "delta": 0.3470471018490931,
+    "distance_distribution": {
+      "mean": 0.4828331753299886,
+      "n": 153,
+      "quantiles": [
+        0.0,
+        0.3,
+        0.3793103448275862,
+        0.46153846153846156,
+        0.6111111111111112,
+        0.7333333333333333,
+        0.8125
+      ],
+      "variance": 0.025806257813713648
+    },
+    "missing_fraction": 0.23484848484848486,
+    "observed_state_count_histogram": {
+      "1": 5,
+      "2": 41,
+      "3": 16,
+      "4": 4
+    },
+    "q_residual": 0.042043461733037836,
+    "quartet_sampling": "evenly_spaced_lexicographic",
+    "quartets_total": 3060,
+    "quartets_used": 1000,
+    "singleton_fraction": 0.09933774834437085,
+    "taxa": 18
+  }
+}

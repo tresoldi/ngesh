@@ -248,7 +248,8 @@ def write_bundle(
                 ]
             )
     horizontal_events = [e for e in evolution.events if e.donor]
-    if horizontal_events:
+    h = params.get("horizontal_config", {})
+    if horizontal_events or h.get("borrowing_rate", 0) or h.get("contamination_fraction", 0):
         from .horizontal import displayed_network
 
         (path / "network.enwk").write_text(

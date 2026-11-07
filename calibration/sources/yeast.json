@@ -1,0 +1,48 @@
+{
+  "archives": [
+    {
+      "downloaded_bytes": 83317,
+      "members": [
+        {
+          "crc32": "4f0a0e1c",
+          "name": "1_molecular_phylogenetics/1_27phylogenetic_trees/343_2408OGs.treefile",
+          "sha256": "815257d5db49e11cc8ac59bc43596951d35f67df0103a141d4e1513c8b0a6bbe",
+          "size": 19818
+        }
+      ],
+      "name": "1_molecular_phylogenetics.zip",
+      "published_checksum": "cc90dbfb476c8f624fbc29368f0b4c21",
+      "size": 1607473855
+    },
+    {
+      "downloaded_bytes": 17865812,
+      "members": [
+        {
+          "crc32": "12c12e95",
+          "name": "orthomcl_output/orthomcl_clusters.txt",
+          "sha256": "c25a598c6c89d621b6e6a8aeaf1242b0033acc996987ed296c141e0802cd328a",
+          "size": 19557346
+        },
+        {
+          "crc32": "f6b299ea",
+          "name": "orthomcl_output/orthomcl_SeqIDs_index.txt",
+          "sha256": "b7741658ab2d11eee693be1d7acc3bab2cf2e4e58afea80bef528dc47c77315a",
+          "size": 98944409
+        }
+      ],
+      "name": "4_orthomcl_output.zip",
+      "published_checksum": "695218cab5e90d632d434417c1b320fd",
+      "size": 640085788
+    }
+  ],
+  "license": {
+    "name": "CC BY 4.0",
+    "url": "https://creativecommons.org/licenses/by/4.0/",
+    "value": 1
+  },
+  "source": "https://api.figshare.com/v2/articles/5854692",
+  "species_names": {
+    "name": "343taxa_speicies-name_clade-name_color-code.txt",
+    "sha256": "858854b49c272504148c2a7d23d3a5cc5bb361690ae7367d954d859b5c12bf2a"
+  }
+}

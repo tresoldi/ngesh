@@ -1,0 +1,84 @@
+{
+  "citation": "Keating, Garwood & Sansom 2023; doi:10.1186/s12862-023-02131-z; Zenodo 6579584",
+  "extraction": {
+    "fallback_from_corrupt_member": false,
+    "gap_policy": "inapplicable and unknown both unobserved for Mk calibration",
+    "gaps_recoded": 4402
+  },
+  "inputs": {
+    "Keating_et_al_sup/051_chiroptera/morph/mrbayes/51_Chiroptera_Davalos-et-al-2014_morph_overlap.nex": "aee0d50fa87badd9c525efa42bf9c2e90a1c8e56d92bb15b4ebff22663f90e0e"
+  },
+  "license": "CC-BY-4.0",
+  "schema": "ngesh-target-v2",
+  "source": "Keating_et_al_sup/051_chiroptera/morph/mrbayes/51_Chiroptera_Davalos-et-al-2014_morph_overlap.nex",
+  "summary": {
+    "characters": 278,
+    "class_distribution": {
+      "mean": 2.4748201438848922,
+      "n": 278,
+      "quantiles": [
+        1,
+        2,
+        2,
+        2,
+        3,
+        4,
+        6
+      ],
+      "variance": 0.7026033849179649
+    },
+    "class_histogram": {
+      "1": 15,
+      "2": 154,
+      "3": 80,
+      "4": 21,
+      "5": 7,
+      "6": 1
+    },
+    "constant_fraction": 0.0539568345323741,
+    "coverage_distribution": {
+      "mean": 0.8132881929750317,
+      "n": 85,
+      "quantiles": [
+        0.5,
+        0.7302158273381295,
+        0.7589928057553957,
+        0.8273381294964028,
+        0.8848920863309353,
+        0.9028776978417267,
+        0.920863309352518
+      ],
+      "variance": 0.007370104314845403
+    },
+    "delta": 0.30102600603637714,
+    "distance_distribution": {
+      "mean": 0.38126415525458357,
+      "n": 3570,
+      "quantiles": [
+        0.01990049751243781,
+        0.23923444976076555,
+        0.3194444444444444,
+        0.4044943820224719,
+        0.4482758620689655,
+        0.480225988700565,
+        0.6044776119402985
+      ],
+      "variance": 0.009005564201673248
+    },
+    "missing_fraction": 0.18671180702496826,
+    "observed_state_count_histogram": {
+      "1": 15,
+      "2": 154,
+      "3": 80,
+      "4": 21,
+      "5": 7,
+      "6": 1
+    },
+    "q_residual": 0.016138296902550982,
+    "quartet_sampling": "evenly_spaced_lexicographic",
+    "quartets_total": 2024785,
+    "quartets_used": 1000,
+    "singleton_fraction": 0.055232558139534885,
+    "taxa": 85
+  }
+}

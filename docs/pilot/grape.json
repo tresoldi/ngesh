@@ -1,0 +1,425 @@
+{
+  "cases": [
+    {
+      "case": "lexical-11",
+      "config": {
+        "characters": {
+          "n_characters": 200
+        },
+        "tree": {
+          "n_taxa": 20
+        }
+      },
+      "consumer_exit": 0,
+      "elapsed_seconds": 0.11067223899954115,
+      "expected_empty_rejection": false,
+      "inferred_taxa": 20,
+      "observed_taxa": 20,
+      "preset": "lexical",
+      "seed": 11,
+      "transfers": 0,
+      "tree_sha256": "6290117aeb57fd426244695c3eed058eaa70b049794a023d775ba6a3f286e8f1",
+      "tsv_taxa": 20,
+      "unrepresented_taxa": []
+    },
+    {
+      "case": "lexical-23",
+      "config": {
+        "characters": {
+          "n_characters": 200
+        },
+        "tree": {
+          "n_taxa": 20
+        }
+      },
+      "consumer_exit": 0,
+      "elapsed_seconds": 0.11805053100033547,
+      "expected_empty_rejection": false,
+      "inferred_taxa": 20,
+      "observed_taxa": 20,
+      "preset": "lexical",
+      "seed": 23,
+      "transfers": 0,
+      "tree_sha256": "1e6b6ab6fd625c7a976cb910a93a12616bf76e53ebc92677abf78c789c20c26f",
+      "tsv_taxa": 20,
+      "unrepresented_taxa": []
+    },
+    {
+      "case": "lexical-47",
+      "config": {
+        "characters": {
+          "n_characters": 200
+        },
+        "tree": {
+          "n_taxa": 20
+        }
+      },
+      "consumer_exit": 0,
+      "elapsed_seconds": 0.11293901799945161,
+      "expected_empty_rejection": false,
+      "inferred_taxa": 20,
+      "observed_taxa": 20,
+      "preset": "lexical",
+      "seed": 47,
+      "transfers": 0,
+      "tree_sha256": "bb7acdf726ddf732effba53467f366e959de618142c8712c9af5adc50f0f2d8d",
+      "tsv_taxa": 20,
+      "unrepresented_taxa": []
+    },
+    {
+      "case": "stemma-11",
+      "config": {
+        "characters": {
+          "n_characters": 200
+        },
+        "tree": {
+          "n_taxa": 20
+        }
+      },
+      "consumer_exit": 0,
+      "elapsed_seconds": 0.18892477800000052,
+      "expected_empty_rejection": false,
+      "inferred_taxa": 29,
+      "observed_taxa": 29,
+      "preset": "stemma",
+      "seed": 11,
+      "transfers": 0,
+      "tree_sha256": "c89fe9e374abca0a28bd5e16333c274b03a1e05f9465ae36acd4cfa24562ceb2",
+      "tsv_taxa": 29,
+      "unrepresented_taxa": []
+    },
+    {
+      "case": "stemma-23",
+      "config": {
+        "characters": {
+          "n_characters": 200
+        },
+        "tree": {
+          "n_taxa": 20
+        }
+      },
+      "consumer_exit": 0,
+      "elapsed_seconds": 0.5505755190006312,
+      "expected_empty_rejection": false,
+      "inferred_taxa": 41,
+      "observed_taxa": 41,
+      "preset": "stemma",
+      "seed": 23,
+      "transfers": 0,
+      "tree_sha256": "d8655366a329486394b1475b725bf3b568625609a39f513e9d40dec41dde5230",
+      "tsv_taxa": 41,
+      "unrepresented_taxa": []
+    },
+    {
+      "case": "stemma-47",
+      "config": {
+        "characters": {
+          "n_characters": 200
+        },
+        "tree": {
+          "n_taxa": 20
+        }
+      },
+      "consumer_exit": 0,
+      "elapsed_seconds": 0.2633777959999861,
+      "expected_empty_rejection": false,
+      "inferred_taxa": 28,
+      "observed_taxa": 28,
+      "preset": "stemma",
+      "seed": 47,
+      "transfers": 0,
+      "tree_sha256": "381147b1dd3ad63bef254e4f43503e49c5a3f3aa684c910e075c1da7aa0b26ac",
+      "tsv_taxa": 28,
+      "unrepresented_taxa": []
+    },
+    {
+      "case": "genecontent-11",
+      "config": {
+        "characters": {
+          "n_characters": 200
+        },
+        "tree": {
+          "n_taxa": 20
+        }
+      },
+      "consumer_exit": 0,
+      "elapsed_seconds": 0.0845217939995564,
+      "expected_empty_rejection": false,
+      "inferred_taxa": 20,
+      "observed_taxa": 20,
+      "preset": "genecontent",
+      "seed": 11,
+      "transfers": 0,
+      "tree_sha256": "625d0dbaa39bf5a1220c1d2cba99547d30507c9c0e23c596a4282679e1d3d2d7",
+      "tsv_taxa": 20,
+      "unrepresented_taxa": []
+    },
+    {
+      "case": "genecontent-23",
+      "config": {
+        "characters": {
+          "n_characters": 200
+        },
+        "tree": {
+          "n_taxa": 20
+        }
+      },
+      "consumer_exit": 0,
+      "elapsed_seconds": 0.1351211470000635,
+      "expected_empty_rejection": false,
+      "inferred_taxa": 20,
+      "observed_taxa": 20,
+      "preset": "genecontent",
+      "seed": 23,
+      "transfers": 0,
+      "tree_sha256": "059a3787b7a19bbe8a0af53289b65f4e0d62ce5be44731b0a10280dbf4cbfd39",
+      "tsv_taxa": 20,
+      "unrepresented_taxa": []
+    },
+    {
+      "case": "genecontent-47",
+      "config": {
+        "characters": {
+          "n_characters": 200
+        },
+        "tree": {
+          "n_taxa": 20
+        }
+      },
+      "consumer_exit": 0,
+      "elapsed_seconds": 0.10603876500044862,
+      "expected_empty_rejection": false,
+      "inferred_taxa": 20,
+      "observed_taxa": 20,
+      "preset": "genecontent",
+      "seed": 47,
+      "transfers": 0,
+      "tree_sha256": "e8059cdc3b783e7fad5a5298f3faa24432fab6295d57536a45be0704a576b9e5",
+      "tsv_taxa": 20,
+      "unrepresented_taxa": []
+    },
+    {
+      "case": "morphology-11",
+      "config": {
+        "characters": {
+          "n_characters": 200
+        },
+        "tree": {
+          "n_taxa": 20
+        }
+      },
+      "consumer_exit": 0,
+      "elapsed_seconds": 0.09181803499996022,
+      "expected_empty_rejection": false,
+      "inferred_taxa": 20,
+      "observed_taxa": 20,
+      "preset": "morphology",
+      "seed": 11,
+      "transfers": 0,
+      "tree_sha256": "1a35a9c378917c5aa257b98e12cad30ca996b668b9845e08e1c8579bd63f4e04",
+      "tsv_taxa": 20,
+      "unrepresented_taxa": []
+    },
+    {
+      "case": "morphology-23",
+      "config": {
+        "characters": {
+          "n_characters": 200
+        },
+        "tree": {
+          "n_taxa": 20
+        }
+      },
+      "consumer_exit": 0,
+      "elapsed_seconds": 0.09799207299965929,
+      "expected_empty_rejection": false,
+      "inferred_taxa": 20,
+      "observed_taxa": 20,
+      "preset": "morphology",
+      "seed": 23,
+      "transfers": 0,
+      "tree_sha256": "2e8716507eb4dbcbcdfef947daa0b959beaa05283c883e762e5d12feb933d582",
+      "tsv_taxa": 20,
+      "unrepresented_taxa": []
+    },
+    {
+      "case": "morphology-47",
+      "config": {
+        "characters": {
+          "n_characters": 200
+        },
+        "tree": {
+          "n_taxa": 20
+        }
+      },
+      "consumer_exit": 0,
+      "elapsed_seconds": 0.10689178600023297,
+      "expected_empty_rejection": false,
+      "inferred_taxa": 20,
+      "observed_taxa": 20,
+      "preset": "morphology",
+      "seed": 47,
+      "transfers": 0,
+      "tree_sha256": "353c9ddee42b97add395fa53c97ced29d93d0b39a948e7239286b3cac26a4844",
+      "tsv_taxa": 20,
+      "unrepresented_taxa": []
+    },
+    {
+      "case": "lexical-transfer",
+      "config": {
+        "characters": {
+          "clock_sigma": 0.7,
+          "n_characters": 200,
+          "synonym_duration": 0.3
+        },
+        "horizontal": {
+          "borrowing_rate": 0.05,
+          "distance": "geography"
+        },
+        "tree": {
+          "n_taxa": 20
+        }
+      },
+      "consumer_exit": 0,
+      "elapsed_seconds": 0.14998527300031128,
+      "expected_empty_rejection": false,
+      "inferred_taxa": 20,
+      "observed_taxa": 20,
+      "preset": "lexical",
+      "seed": 59,
+      "transfers": 179,
+      "tree_sha256": "726de39c05ccbb315e0afe5bba33d17cdab3e89958fa9d084403ef3f9a76a01f",
+      "tsv_taxa": 20,
+      "unrepresented_taxa": []
+    },
+    {
+      "case": "stemma-contamination",
+      "config": {
+        "characters": {
+          "n_characters": 200
+        },
+        "horizontal": {
+          "contamination_blocks": true,
+          "contamination_fraction": 0.15
+        },
+        "tree": {
+          "n_taxa": 20
+        }
+      },
+      "consumer_exit": 0,
+      "elapsed_seconds": 0.8380233040006715,
+      "expected_empty_rejection": false,
+      "inferred_taxa": 51,
+      "observed_taxa": 51,
+      "preset": "stemma",
+      "seed": 61,
+      "transfers": 5520,
+      "tree_sha256": "ef10bfdcf97e2ae75acec8cb97defad12e6b20def637cdfe6ee37ebc0f8fed7e",
+      "tsv_taxa": 51,
+      "unrepresented_taxa": []
+    },
+    {
+      "case": "stemma-selection",
+      "config": {
+        "characters": {
+          "n_characters": 200
+        },
+        "observation": {
+          "block_missing": 0.2,
+          "selection": 0.85
+        },
+        "tree": {
+          "n_taxa": 20
+        }
+      },
+      "consumer_exit": 0,
+      "elapsed_seconds": 0.2349299310008064,
+      "expected_empty_rejection": false,
+      "inferred_taxa": 34,
+      "observed_taxa": 34,
+      "preset": "stemma",
+      "seed": 67,
+      "transfers": 0,
+      "tree_sha256": "107058679c12ebed1a0bbd9801b4adbcc9ec78de4127ab336ad8db28682555f7",
+      "tsv_taxa": 34,
+      "unrepresented_taxa": []
+    },
+    {
+      "case": "gene-transfer",
+      "config": {
+        "characters": {
+          "n_characters": 200
+        },
+        "horizontal": {
+          "borrowing_rate": 0.02,
+          "mode": "add"
+        },
+        "tree": {
+          "n_taxa": 20
+        }
+      },
+      "consumer_exit": 0,
+      "elapsed_seconds": 0.12616412000079436,
+      "expected_empty_rejection": false,
+      "inferred_taxa": 20,
+      "observed_taxa": 20,
+      "preset": "genecontent",
+      "seed": 71,
+      "transfers": 21,
+      "tree_sha256": "22be3de5271369a0cbe537efc4f86fe19e9a8fe0da27cd1a3fae5a146456b84d",
+      "tsv_taxa": 20,
+      "unrepresented_taxa": []
+    },
+    {
+      "case": "unrepresented-taxa",
+      "config": {
+        "characters": {
+          "n_characters": 200
+        },
+        "observation": {
+          "missing": 1.0
+        },
+        "tree": {
+          "n_taxa": 20
+        }
+      },
+      "consumer_exit": 1,
+      "elapsed_seconds": 0.05306111299978511,
+      "expected_empty_rejection": true,
+      "inferred_taxa": 0,
+      "observed_taxa": 20,
+      "preset": "lexical",
+      "seed": 73,
+      "transfers": 0,
+      "tree_sha256": null,
+      "tsv_taxa": 0,
+      "unrepresented_taxa": [
+        "T0001",
+        "T0002",
+        "T0003",
+        "T0004",
+        "T0005",
+        "T0006",
+        "T0007",
+        "T0008",
+        "T0009",
+        "T0010",
+        "T0011",
+        "T0012",
+        "T0013",
+        "T0014",
+        "T0015",
+        "T0016",
+        "T0017",
+        "T0018",
+        "T0019",
+        "T0020"
+      ]
+    }
+  ],
+  "consumer": "GRAPE native C99",
+  "consumer_revision": "74fec5d78aeb4317253025d8cf05903bd1c6105f",
+  "consumer_tests": "ctest: 2/2 passed",
+  "purpose": "integration only; no inference accuracy or model tuning claim",
+  "schema": "ngesh-consumer-pilot-v1"
+}

@@ -1,10 +1,9 @@
 # Realism calibration: evidence and remaining work
 
-Status: lexical has a **preliminary coarse grid fit**. Stemma, gene content and
-morphology have implemented simulators and extraction tools, but **no empirical
-fit is claimed**. Their inputs are unavailable in this session. This prevents
-claiming completion of G7 or advancing to 2.0.0rc1/2.0.0 final. No release was
-published to PyPI.
+Status: lexical, gene content and morphology have preliminary empirical fits.
+Stemma calibration remains blocked by the inaccessible private reference repository.
+Two morphology matrices in the published archive contain only NUL bytes. These
+limitations prevent completion of G7 and advancing to 2.0.0rc1/2.0.0 final.
 
 ## Reproducible inputs
 
@@ -50,14 +49,13 @@ before freezing final-release defaults.
 | Missing fraction | 0.13016 | 0.15210 |
 | Classes per group / taxon count | 0.28548 | 0.19830 |
 
-## Real and simulated distributions
+## Initial alpha3 comparison (historical)
 
 `calibration/simulated.json` contains five independent simulations of each preset,
 including distance/coverage/class quantiles and quartet scores. These comparison
 replicates are separate from the fitting replicates. Quantiles summarize per-cell,
 per-taxon or per-pair distributions within each dataset, not uncertainty intervals
-for fitted parameters. Unknown real distributions are marked pending, not
-replaced by synthetic targets.
+for fitted parameters. At the time of this initial comparison, the biological targets had not yet been extracted; see the subsequent v2 results below.
 
 | Preset | Real pairwise-distance quantiles (min, p10, p25, p50, p75, p90, max) | Simulated quantiles (five-replicate mean) |
 |---|---|---|
@@ -104,52 +102,6 @@ known artificial-tradition provenance are also required to estimate observed
 ancestor and contamination rates; matrices alone cannot identify these rates.
 Those parameter fits remain pending rather than reporting arbitrary estimates.
 
-**Gene content:** Shen et al. (2018), *Tempo and mode of genome evolution in the
-budding yeast subphylum*, Cell 175:1533,
-[doi:10.1016/j.cell.2018.10.023](https://doi.org/10.1016/j.cell.2018.10.023).
-[Figshare article 5854692](https://figshare.com/articles/dataset/5854692) includes
-`4_orthomcl_output.zip` (~640 MB) and `1_molecular_phylogenetics.zip`. The owner
-can download and extract these outside version control. Find the OrthoMCL groups
-file and confirm its species/gene identifier convention. The extraction script
-requires an explicit species separator (default `|`) and fails if it is absent:
-
-```sh
-python scripts/calibrate.py extract orthogroups work/yeast/groups.txt --separator '|' --citation 'Shen et al. 2018; figshare 5854692; exact file' --license 'COPY FROM FIGSHARE METADATA' --out calibration/targets/genecontent/yeast.json
-```
-
-Each line must be `group: species|gene species|gene ...`. If source IDs use a
-separate mapping, apply that documented mapping before extraction; do not guess
-species from arbitrary prefixes. Check the resulting taxa against the 332-species
-tree and document exclusions. Absent orthogroups are known zero, not missing.
-Use the tree for validation of low-transfer defaults after extraction.
-
-**Morphology:** Keating, Garwood & Sansom (2023), *Phylogenetic congruence, conflict
-and consilience between molecular and morphological data*, BMC Ecology and
-Evolution 23:30,
-[doi:10.1186/s12862-023-02131-z](https://doi.org/10.1186/s12862-023-02131-z).
-[Zenodo 10.5281/zenodo.6579584](https://doi.org/10.5281/zenodo.6579584),
-`Keating_et_al_sup.zip` (~6.8 GB), contains 32 paired metazoan datasets. The owner
-runs extraction locally. Use only the morphological STANDARD matrices; the reader
-rejects DNA/RNA/protein/mixed matrices. If a STANDARD matrix includes multiple
-partitions, specify the 1-based inclusive morphology range:
-
-```sh
-python scripts/calibrate.py extract nexus work/keating/morphology.nex --characters 1:152 --citation 'Keating et al. 2023; Zenodo 6579584; exact dataset' --license 'COPY FROM ZENODO METADATA' --out calibration/targets/morphology/DATASET.json
-```
-
-Omit `--characters` if all columns are morphological. Check each source's ordered
-characters, polymorphisms and inapplicable-state encoding before extraction.
-`?` is missing; `-` is treated as known empty/inapplicable under ngesh's generic
-contract, so recode it to `?` first if the source defines it as unknown. Molecular
-partitions must never enter these targets. Record any recoding alongside input
-hashes and citations. The script accepts extracted matrices rather than silently
-unpacking or loading multi-gigabyte archives into RAM.
-
-Source license values above are deliberately placeholders requiring inspection
-of the attached archive metadata. No license or real-data statistics are invented.
-Once these targets and reference trees exist, extend/fit the domain-specific
-parameter grids, compare held-out distributions and advance through rc1 review.
-
 ## Performance evidence
 
 The pilot `2.0.0a1` run wrote all 1000 bundles with 50 taxa, 200 concepts, full
@@ -165,3 +117,61 @@ in **320.65 s wall / 320.51 s CPU (5.34 minutes)** on the same runtime. See
 metadata additions; model parameters, dimensions, quartet limit and core process
 were the same. Each run is a single sequential process; there are no worker pools
 in the benchmark simulator.
+
+## Subsequent held-out calibration and GRAPE pilot
+
+The v2 fitting procedure uses dataset-level holdouts for lexical and morphology,
+and a deterministic 20% character holdout on the same 332 yeast taxa. The latter
+is not an independent biological-family validation. Equal family weights and a
+150-character simulation budget limit domination by large datasets. Training
+coverage mean and within-family variance determine Beta coverage parameters.
+The previous lexical fit used all 16 families, including the later v2 holdouts,
+so its comparison is not an independent test of that earlier fit.
+
+| Preset | Previous held-out error | Candidate held-out error | Decision |
+|---|---:|---:|---|
+| Lexical | 0.02356 | 0.03608 | Retain prior default |
+| Gene content | 0.21281 | 0.01655 | Adopt candidate |
+| Morphology | 0.01951 | 0.01199 | Adopt candidate |
+
+These are mean squared differences of documented descriptive features, not
+accuracy estimates for a phylogenetic method. The promotion rule required at
+least 10% reduction; it was recorded after seeing the results. No alternative
+candidate was selected using the holdout. One fitting replicate and three
+validation replicates give a coarse, preliminary result. The prior lexical
+default was fitted to all families; its baseline is not independent. Borrowing,
+contamination and absolute historical rates cannot be identified from these
+statistics alone. Complete trials, splits, seeds, simulated distributions and
+source hashes are in `calibration/fits/`.
+
+The yeast target contains 193,052 reported orthogroups with at least one of
+332 ingroup species; 11 published outgroups are excluded using the supplied
+species roster. Unclustered genes are not represented. Simulations are projected
+to groups present in at least one taxon for calibration; exported simulations
+retain unobserved traits. Morphological targets cover 30 of 32 datasets: the
+Caviidae matrix was recovered from the archive's TNT-derived NEXUS file; the
+lemur and osteogloss matrices and their alternate files contain only NUL bytes.
+For Mk calibration, inapplicable gaps are treated as unobserved.
+
+The public archives were accessed with validated HTTP byte ranges. Only selected
+members were downloaded; zip CRCs and member SHA-256 hashes were checked. The
+published whole-archive checksums were recorded but not verified. Reproduce with:
+
+```sh
+python scripts/source_archives.py yeast --work work/sources
+python scripts/source_archives.py morphology --work work/sources
+python scripts/extract_public.py yeast --root work/sources/yeast --out calibration/targets/genecontent
+python scripts/extract_public.py morphology --root work/sources/morphology --out calibration/targets/morphology
+python scripts/fit_presets.py --preset genecontent --targets calibration/targets/genecontent --out calibration/fits/genecontent-v2.json
+python scripts/fit_presets.py --preset morphology --targets calibration/targets/morphology --out calibration/fits/morphology-v2.json
+python scripts/fit_presets.py --preset lexical --targets calibration/targets/lexical --out calibration/fits/lexical-v2.json
+```
+
+The GRAPE native CLI at revision `74fec5d78aeb4317253025d8cf05903bd1c6105f`
+passed its two native tests and all 17 integration cases, including the expected
+rejection of an entirely empty TSV. The pilot verifies roster preservation for
+represented taxa, deterministic fixed-seed output, transfer donor lifetimes and
+network parsing; it does not measure inference accuracy. Reports are in
+`docs/pilot/`, and `scripts/grape_pilot.py` reproduces the checks with a separately
+built GRAPE executable. A taxon with no TSV rows is not visible to GRAPE; use the
+bundle's observed matrix and taxon roster to detect such omissions.

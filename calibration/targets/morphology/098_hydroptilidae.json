@@ -1,0 +1,82 @@
+{
+  "citation": "Keating, Garwood & Sansom 2023; doi:10.1186/s12862-023-02131-z; Zenodo 6579584",
+  "extraction": {
+    "fallback_from_corrupt_member": false,
+    "gap_policy": "inapplicable and unknown both unobserved for Mk calibration",
+    "gaps_recoded": 542
+  },
+  "inputs": {
+    "Keating_et_al_sup/098_hydroptilidae/morph/mrbayes/98_Hydroptilidae_Santos-et-al-2016_morph_overlap.nex": "e3bbd6c0d34b6e1e71288f856f8b9dc5266f1caaf3116eb08c270b4bbb71723c"
+  },
+  "license": "CC-BY-4.0",
+  "schema": "ngesh-target-v2",
+  "source": "Keating_et_al_sup/098_hydroptilidae/morph/mrbayes/98_Hydroptilidae_Santos-et-al-2016_morph_overlap.nex",
+  "summary": {
+    "characters": 114,
+    "class_distribution": {
+      "mean": 2.1403508771929824,
+      "n": 114,
+      "quantiles": [
+        1,
+        2,
+        2,
+        2,
+        2,
+        3,
+        5
+      ],
+      "variance": 0.24345952600800247
+    },
+    "class_histogram": {
+      "1": 2,
+      "2": 98,
+      "3": 11,
+      "4": 2,
+      "5": 1
+    },
+    "constant_fraction": 0.017543859649122806,
+    "coverage_distribution": {
+      "mean": 0.7886247877758914,
+      "n": 62,
+      "quantiles": [
+        0.543859649122807,
+        0.6578947368421053,
+        0.7017543859649122,
+        0.8070175438596491,
+        0.868421052631579,
+        0.9122807017543859,
+        0.9385964912280702
+      ],
+      "variance": 0.010017250164863023
+    },
+    "delta": 0.3373144105385119,
+    "distance_distribution": {
+      "mean": 0.23683519639286935,
+      "n": 1891,
+      "quantiles": [
+        0.0,
+        0.13333333333333333,
+        0.17647058823529413,
+        0.22666666666666666,
+        0.3,
+        0.35294117647058826,
+        0.4626865671641791
+      ],
+      "variance": 0.007641014691533136
+    },
+    "missing_fraction": 0.21137521222410866,
+    "observed_state_count_histogram": {
+      "1": 2,
+      "2": 98,
+      "3": 11,
+      "4": 2,
+      "5": 1
+    },
+    "q_residual": 0.037677110210905466,
+    "quartet_sampling": "evenly_spaced_lexicographic",
+    "quartets_total": 557845,
+    "quartets_used": 1000,
+    "singleton_fraction": 0.0778688524590164,
+    "taxa": 62
+  }
+}

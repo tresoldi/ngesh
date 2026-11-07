@@ -33,7 +33,7 @@ def toml_subset(text: str) -> dict[str, Any]:
                 if quote:
                     if ch == quote and not escape:
                         quote = ""
-                    escape = ch == "\\" and not escape
+                    escape = quote == '"' and ch == "\\" and not escape
                 elif ch in "\"'":
                     quote = ch
                 elif ch == "[":
@@ -44,14 +44,24 @@ def toml_subset(text: str) -> dict[str, Any]:
                     parts.append(value[start:i])
                     start = i + 1
             parts.append(value[start:-1])
-            return [parse(p) for p in parts if p.strip()]
+            if quote or depth != 0:
+                raise ValueError("unclosed TOML array value")
+            if len(parts) == 1 and not parts[0].strip():
+                return []
+            if not parts[-1].strip():
+                parts.pop()
+            if any(not p.strip() for p in parts):
+                raise ValueError("empty TOML array element")
+            return [parse(p) for p in parts]
         if value.startswith(('"', "'")):
             if value.startswith("'"):
                 if not value.endswith("'") or "'" in value[1:-1]:
                     raise ValueError("invalid literal TOML string")
                 return value[1:-1]
             return json.loads(value)
-        if re.fullmatch(r"[+-]?[0-9][0-9_]*(\.[0-9_]+)?([eE][+-]?[0-9_]+)?", value):
+        if re.fullmatch(
+            r"[+-]?(?:0|[1-9](?:_?\d)*)(?:\.\d(?:_?\d)*)?(?:[eE][+-]?\d(?:_?\d)*)?", value
+        ):
             return float(value) if any(x in value for x in ".eE") else int(value)
         raise ValueError(f"unsupported TOML value on Python 3.10: {value}")
 
@@ -62,7 +72,7 @@ def toml_subset(text: str) -> dict[str, Any]:
             if quote:
                 if ch == quote and not escape:
                     quote = ""
-                escape = ch == "\\" and not escape
+                escape = quote == '"' and ch == "\\" and not escape
             elif ch in "\"'":
                 quote = ch
             elif ch == "#":
@@ -77,11 +87,15 @@ def toml_subset(text: str) -> dict[str, Any]:
             tables.add(line)
             current = root
             for key in line[1:-1].split("."):
+                if not re.fullmatch(r"[A-Za-z0-9_-]+", key) or not isinstance(current, dict):
+                    raise ValueError("invalid TOML table")
+                if key in current and not isinstance(current[key], dict):
+                    raise ValueError("TOML table conflicts with a scalar")
                 current = current.setdefault(key, {})
             continue
         key, sep, value = line.partition("=")
         key = key.strip()
-        if not sep or not re.fullmatch(r"[\w-]+", key) or key in current:
+        if not sep or not re.fullmatch(r"[A-Za-z0-9_-]+", key) or key in current:
             raise ValueError("invalid or duplicate TOML key")
         current[key] = parse(value)
     return root

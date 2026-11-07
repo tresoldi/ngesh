@@ -1,0 +1,94 @@
+{
+  "citation": "Keating, Garwood & Sansom 2023; doi:10.1186/s12862-023-02131-z; Zenodo 6579584",
+  "extraction": {
+    "fallback_from_corrupt_member": false,
+    "gap_policy": "inapplicable and unknown both unobserved for Mk calibration",
+    "gaps_recoded": 62904
+  },
+  "inputs": {
+    "Keating_et_al_sup/004_mammals/morph/mrbayes/4_mammaliformes_Lee-2016_morph_overlap.nex": "4856be89abf0fa46f65441495a8dec06dae22dd61af76e518edee049320f384f"
+  },
+  "license": "CC-BY-4.0",
+  "schema": "ngesh-target-v2",
+  "source": "Keating_et_al_sup/004_mammals/morph/mrbayes/4_mammaliformes_Lee-2016_morph_overlap.nex",
+  "summary": {
+    "characters": 4541,
+    "class_distribution": {
+      "mean": 2.1255230125523012,
+      "n": 4541,
+      "quantiles": [
+        0,
+        1,
+        2,
+        2,
+        2,
+        3,
+        10
+      ],
+      "variance": 0.703909245286322
+    },
+    "class_histogram": {
+      "0": 88,
+      "1": 467,
+      "10": 3,
+      "2": 3112,
+      "3": 672,
+      "4": 135,
+      "5": 36,
+      "6": 12,
+      "7": 9,
+      "8": 3,
+      "9": 4
+    },
+    "constant_fraction": 0.10328121559127945,
+    "coverage_distribution": {
+      "mean": 0.6064504083567113,
+      "n": 46,
+      "quantiles": [
+        0.19819423034573883,
+        0.47192248403435366,
+        0.5496586654921823,
+        0.6276150627615062,
+        0.7060118916538207,
+        0.7168024664170888,
+        0.7791235410702488
+      ],
+      "variance": 0.013973694509939192
+    },
+    "delta": 0.3459750076109951,
+    "distance_distribution": {
+      "mean": 0.33974071646274867,
+      "n": 1035,
+      "quantiles": [
+        0.03519962201748169,
+        0.29149442565451583,
+        0.3199829931972789,
+        0.34310042574505384,
+        0.3681716833890747,
+        0.3909866017052375,
+        0.45124439004487965
+      ],
+      "variance": 0.0023114724806348953
+    },
+    "missing_fraction": 0.3935495916432887,
+    "observed_state_count_histogram": {
+      "0": 88,
+      "1": 467,
+      "10": 3,
+      "2": 3112,
+      "3": 672,
+      "4": 135,
+      "5": 36,
+      "6": 12,
+      "7": 9,
+      "8": 3,
+      "9": 4
+    },
+    "q_residual": 0.0048437251988552865,
+    "quartet_sampling": "evenly_spaced_lexicographic",
+    "quartets_total": 163185,
+    "quartets_used": 1000,
+    "singleton_fraction": 0.10298383754662246,
+    "taxa": 46
+  }
+}

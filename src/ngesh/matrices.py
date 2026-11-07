@@ -28,7 +28,11 @@ def _cells(
             result.append(frozenset())
         else:
             raw = piece[1:-1] if piece.startswith(("{", "(")) else piece
-            values = raw.split() if tokens else list(raw.replace(" ", ""))
+            values = (
+                re.split(r"[\s,]+", raw.strip())
+                if tokens
+                else list(raw.replace(" ", "").replace(",", ""))
+            )
             states = set()
             for value in values:
                 if tokens:
@@ -47,6 +51,8 @@ def read_nexus(
     path: str | Path, *, presence: bool = False, characters: list[int] | None = None
 ) -> Matrix:
     text = Path(path).read_text(encoding="utf-8-sig")
+    if "\x00" in text:
+        raise ValueError("NEXUS input contains NUL bytes")
     text = re.sub(r"\[[\s\S]*?\]", "", text)
     block = re.search(r"\bmatrix\b([\s\S]*?);", text, re.I)
     if not block:
@@ -64,9 +70,20 @@ def read_nexus(
         if sym
         else list("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz")
     )
+    if not tokens and sym and "~" in sym.group(1):
+        expanded = re.sub(
+            r"([0-9A-Za-z])~([0-9A-Za-z])",
+            lambda m: "".join(chr(i) for i in range(ord(m[1]), ord(m[2]) + 1)),
+            sym.group(1),
+        )
+        if "~" in expanded:
+            raise ValueError("unsupported NEXUS symbol range")
+        symbols = list(expanded.replace(" ", ""))
     miss = re.search(r"missing\s*=\s*(\S)", options, re.I)
     gap = re.search(r"gap\s*=\s*(\S)", options, re.I)
     dimensions = re.search(r"\bnchar\s*=\s*(\d+)", text, re.I)
+    taxon_dimension = re.search(r"\bntax\s*=\s*(\d+)", text, re.I)
+    ntax = int(taxon_dimension.group(1)) if taxon_dimension else None
     result: Matrix = {}
     taxa_order = []
     continuation = 0
@@ -84,7 +101,11 @@ def read_nexus(
             name = match.group(1)
             name = name[1:-1].replace("''", "'") if name.startswith("'") else name
             data = match.group(2)
-            if name not in result:
+            if name not in result and ntax is not None and len(result) == ntax:
+                name = taxa_order[continuation % len(taxa_order)]
+                continuation += 1
+                data = line
+            elif name not in result:
                 taxa_order.append(name)
                 result[name] = []
         elif taxa_order:
@@ -107,6 +128,8 @@ def read_nexus(
     widths = {len(row) for row in result.values()}
     if len(widths) != 1 or (dimensions and widths != {int(dimensions.group(1))}):
         raise ValueError("NEXUS matrix dimensions do not match")
+    if ntax is not None and len(result) != ntax:
+        raise ValueError("NEXUS taxon count does not match")
     if characters is not None:
         result = {t: [row[i] for i in characters] for t, row in result.items()}
     return result

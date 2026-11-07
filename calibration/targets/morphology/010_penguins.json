@@ -1,0 +1,84 @@
+{
+  "citation": "Keating, Garwood & Sansom 2023; doi:10.1186/s12862-023-02131-z; Zenodo 6579584",
+  "extraction": {
+    "fallback_from_corrupt_member": false,
+    "gap_policy": "inapplicable and unknown both unobserved for Mk calibration",
+    "gaps_recoded": 67
+  },
+  "inputs": {
+    "Keating_et_al_sup/010_penguins/morph/mrbayes/10_Penguins_Gavryushkina-et-al-2016_morph_overlap.nex": "80514fa4844c57a4866123de1388bc77ae0ae61f8bc4c0908a5f2f6e6709e83b"
+  },
+  "license": "CC-BY-4.0",
+  "schema": "ngesh-target-v2",
+  "source": "Keating_et_al_sup/010_penguins/morph/mrbayes/10_Penguins_Gavryushkina-et-al-2016_morph_overlap.nex",
+  "summary": {
+    "characters": 252,
+    "class_distribution": {
+      "mean": 1.7301587301587302,
+      "n": 252,
+      "quantiles": [
+        1,
+        1,
+        1,
+        2,
+        2,
+        3,
+        6
+      ],
+      "variance": 0.7446460065507684
+    },
+    "class_histogram": {
+      "1": 120,
+      "2": 93,
+      "3": 29,
+      "4": 8,
+      "5": 1,
+      "6": 1
+    },
+    "constant_fraction": 0.47619047619047616,
+    "coverage_distribution": {
+      "mean": 0.949874686716792,
+      "n": 19,
+      "quantiles": [
+        0.876984126984127,
+        0.9087301587301587,
+        0.9126984126984127,
+        0.9642857142857143,
+        0.9722222222222222,
+        0.9761904761904762,
+        0.9920634920634921
+      ],
+      "variance": 0.001100984150713738
+    },
+    "delta": 0.20396818123764107,
+    "distance_distribution": {
+      "mean": 0.19550832778737015,
+      "n": 171,
+      "quantiles": [
+        0.004524886877828055,
+        0.030864197530864196,
+        0.11041666666666666,
+        0.2301255230125523,
+        0.2557603686635945,
+        0.3072033898305085,
+        0.3438818565400844
+      ],
+      "variance": 0.00941237590067922
+    },
+    "missing_fraction": 0.05012531328320802,
+    "observed_state_count_histogram": {
+      "1": 120,
+      "2": 93,
+      "3": 29,
+      "4": 8,
+      "5": 1,
+      "6": 1
+    },
+    "q_residual": 0.01025186310920554,
+    "quartet_sampling": "evenly_spaced_lexicographic",
+    "quartets_total": 3876,
+    "quartets_used": 1000,
+    "singleton_fraction": 0.06651376146788991,
+    "taxa": 19
+  }
+}

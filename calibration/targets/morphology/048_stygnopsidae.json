@@ -1,0 +1,82 @@
+{
+  "citation": "Keating, Garwood & Sansom 2023; doi:10.1186/s12862-023-02131-z; Zenodo 6579584",
+  "extraction": {
+    "fallback_from_corrupt_member": false,
+    "gap_policy": "inapplicable and unknown both unobserved for Mk calibration",
+    "gaps_recoded": 0
+  },
+  "inputs": {
+    "Keating_et_al_sup/048_stygnopsidae/morph/mrbayes/48_Stygnopsidae_Cruz-Lopez-Francke-2017_morph_overlap.nex": "830850360d7aac86dd1c7bb53c62629bdd7780dc11b34cf868082f5fabb367d3"
+  },
+  "license": "CC-BY-4.0",
+  "schema": "ngesh-target-v2",
+  "source": "Keating_et_al_sup/048_stygnopsidae/morph/mrbayes/48_Stygnopsidae_Cruz-Lopez-Francke-2017_morph_overlap.nex",
+  "summary": {
+    "characters": 72,
+    "class_distribution": {
+      "mean": 2.4583333333333335,
+      "n": 72,
+      "quantiles": [
+        2,
+        2,
+        2,
+        2,
+        3,
+        3,
+        6
+      ],
+      "variance": 0.5538194444444444
+    },
+    "class_histogram": {
+      "2": 46,
+      "3": 22,
+      "4": 2,
+      "5": 1,
+      "6": 1
+    },
+    "constant_fraction": 0.0,
+    "coverage_distribution": {
+      "mean": 0.8993055555555556,
+      "n": 44,
+      "quantiles": [
+        0.3611111111111111,
+        0.625,
+        0.9166666666666666,
+        0.9583333333333334,
+        0.9861111111111112,
+        1.0,
+        1.0
+      ],
+      "variance": 0.026007689744668914
+    },
+    "delta": 0.24220253491152244,
+    "distance_distribution": {
+      "mean": 0.34397039628528847,
+      "n": 946,
+      "quantiles": [
+        0.0,
+        0.16,
+        0.26666666666666666,
+        0.36231884057971014,
+        0.4444444444444444,
+        0.5,
+        0.5571428571428572
+      ],
+      "variance": 0.016863556750290703
+    },
+    "missing_fraction": 0.10069444444444445,
+    "observed_state_count_histogram": {
+      "2": 46,
+      "3": 22,
+      "4": 2,
+      "5": 1,
+      "6": 1
+    },
+    "q_residual": 0.02533486500171603,
+    "quartet_sampling": "evenly_spaced_lexicographic",
+    "quartets_total": 135751,
+    "quartets_used": 1000,
+    "singleton_fraction": 0.062146892655367235,
+    "taxa": 44
+  }
+}

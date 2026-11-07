@@ -1,0 +1,96 @@
+{
+  "citation": "Shen et al. 2018; doi:10.1016/j.cell.2018.10.023; figshare 5854692",
+  "extraction": {
+    "conditioning": "at least one ingroup member in a reported OrthoMCL cluster; unclustered genes unavailable",
+    "excluded_outgroups": 11,
+    "outgroup_only_groups_removed": 40426
+  },
+  "inputs": {
+    "343_2408OGs.treefile": "815257d5db49e11cc8ac59bc43596951d35f67df0103a141d4e1513c8b0a6bbe",
+    "orthomcl_SeqIDs_index.txt": "b7741658ab2d11eee693be1d7acc3bab2cf2e4e58afea80bef528dc47c77315a",
+    "orthomcl_clusters.txt": "c25a598c6c89d621b6e6a8aeaf1242b0033acc996987ed296c141e0802cd328a",
+    "species_names.txt": "858854b49c272504148c2a7d23d3a5cc5bb361690ae7367d954d859b5c12bf2a"
+  },
+  "license": "CC-BY-4.0",
+  "schema": "ngesh-target-v2",
+  "source": "4_orthomcl_output.zip and 1_molecular_phylogenetics.zip",
+  "split": "train",
+  "split_rule": "cluster index modulo 5: zero held out, other four training",
+  "summary": {
+    "characters": 154441,
+    "class_distribution": {
+      "mean": 1,
+      "n": 154441,
+      "quantiles": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "variance": 0
+    },
+    "class_histogram": {
+      "1": 154441
+    },
+    "coverage_distribution": {
+      "mean": 1.0,
+      "n": 332,
+      "quantiles": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "variance": 0.0
+    },
+    "delta": 0.16602591278102835,
+    "distance_distribution": {
+      "mean": 0.019393656240108456,
+      "n": 54946,
+      "quantiles": [
+        0.0025964607843772056,
+        0.011862135054810576,
+        0.01693850726167274,
+        0.019075245563030543,
+        0.02186595528389482,
+        0.025168187204175057,
+        0.06155748797275335
+      ],
+      "variance": 3.12377602224343e-05
+    },
+    "missing_fraction": 0.0,
+    "prevalence_distribution": {
+      "mean": 0.02692762230018357,
+      "n": 154441,
+      "quantiles": [
+        0.0030120481927710845,
+        0.0030120481927710845,
+        0.0030120481927710845,
+        0.0030120481927710845,
+        0.0030120481927710845,
+        0.012048192771084338,
+        1.0
+      ],
+      "variance": 0.01653490465100262
+    },
+    "q_residual": 0.000848591956577485,
+    "quartet_sampling": "evenly_spaced_lexicographic",
+    "quartets_total": 497123935,
+    "quartets_used": 1000,
+    "reference_tree_ci_sample": {
+      "characters_used": 512,
+      "ci": 0.5907514450867052,
+      "minimum_steps": 511,
+      "tree_steps": 865
+    },
+    "singleton_fraction": 0.7719193737414287,
+    "taxa": 332,
+    "trait_singleton_fraction": 0.7719193737414287
+  }
+}

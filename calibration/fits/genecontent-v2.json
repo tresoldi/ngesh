@@ -1,0 +1,1609 @@
+{
+  "best": {
+    "config": {
+      "characters": {
+        "alpha": 0.3,
+        "loss_rate": 1,
+        "rate": 1.0,
+        "root_frequency": 0.03
+      },
+      "observation": {
+        "missing": 0.0
+      },
+      "tree": {
+        "height": 1.0
+      }
+    },
+    "score": 0.011076713604661068
+  },
+  "coverage_method": "mean and within-family variance matched on training targets only",
+  "fit_kind": "character holdout on shared taxa",
+  "fitting_subset": [
+    "yeast-train.json"
+  ],
+  "heldout_baseline": {
+    "datasets": [
+      {
+        "score": 0.2128131162625939,
+        "simulated_features": {
+          "delta": 0.3396163713498472,
+          "distance": 0.22010061070439074,
+          "prevalence_mean": 0.2978124764445503,
+          "prevalence_q75": 0.6174698795180723,
+          "prevalence_q90": 0.7259036144578314,
+          "trait_singletons": 0.2743603210010549
+        },
+        "summaries": [
+          {
+            "characters": 137,
+            "class_distribution": {
+              "mean": 1,
+              "n": 137,
+              "quantiles": [
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1
+              ],
+              "variance": 0
+            },
+            "class_histogram": {
+              "1": 137
+            },
+            "constant_fraction": 0.0,
+            "coverage_distribution": {
+              "mean": 1.0,
+              "n": 332,
+              "quantiles": [
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "variance": 0.0
+            },
+            "delta": 0.32487610736918465,
+            "distance_distribution": {
+              "mean": 0.22229017952862015,
+              "n": 54946,
+              "quantiles": [
+                0.0,
+                0.15328467153284672,
+                0.20437956204379562,
+                0.23357664233576642,
+                0.25547445255474455,
+                0.27007299270072993,
+                0.35036496350364965
+              ],
+              "variance": 0.0025876999225790077
+            },
+            "missing_fraction": 0.0,
+            "prevalence_distribution": {
+              "mean": 0.3220912848474189,
+              "n": 137,
+              "quantiles": [
+                0.0030120481927710845,
+                0.0030120481927710845,
+                0.0030120481927710845,
+                0.14759036144578314,
+                0.6686746987951807,
+                0.7590361445783133,
+                0.8765060240963856
+              ],
+              "variance": 0.10753817367520765
+            },
+            "q_residual": 0.026222970301204244,
+            "quartet_sampling": "evenly_spaced_lexicographic",
+            "quartets_total": 497123935,
+            "quartets_used": 1000,
+            "singleton_fraction": 0.27007299270072993,
+            "taxa": 332,
+            "trait_singleton_fraction": 0.27007299270072993
+          },
+          {
+            "characters": 129,
+            "class_distribution": {
+              "mean": 1,
+              "n": 129,
+              "quantiles": [
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1
+              ],
+              "variance": 0
+            },
+            "class_histogram": {
+              "1": 129
+            },
+            "constant_fraction": 0.0,
+            "coverage_distribution": {
+              "mean": 1.0,
+              "n": 332,
+              "quantiles": [
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "variance": 0.0
+            },
+            "delta": 0.3413157500737996,
+            "distance_distribution": {
+              "mean": 0.20355136558317863,
+              "n": 54946,
+              "quantiles": [
+                0.0,
+                0.13178294573643412,
+                0.17829457364341086,
+                0.20930232558139536,
+                0.24031007751937986,
+                0.26356589147286824,
+                0.35658914728682173
+              ],
+              "variance": 0.0027395466746042473
+            },
+            "missing_fraction": 0.0,
+            "prevalence_distribution": {
+              "mean": 0.23019986924441954,
+              "n": 129,
+              "quantiles": [
+                0.0030120481927710845,
+                0.0030120481927710845,
+                0.0030120481927710845,
+                0.02108433734939759,
+                0.5030120481927711,
+                0.6596385542168675,
+                0.8403614457831325
+              ],
+              "variance": 0.07573875991410282
+            },
+            "q_residual": 0.030318096817122445,
+            "quartet_sampling": "evenly_spaced_lexicographic",
+            "quartets_total": 497123935,
+            "quartets_used": 1000,
+            "singleton_fraction": 0.2713178294573643,
+            "taxa": 332,
+            "trait_singleton_fraction": 0.2713178294573643
+          },
+          {
+            "characters": 142,
+            "class_distribution": {
+              "mean": 1,
+              "n": 142,
+              "quantiles": [
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1
+              ],
+              "variance": 0
+            },
+            "class_histogram": {
+              "1": 142
+            },
+            "constant_fraction": 0.0,
+            "coverage_distribution": {
+              "mean": 1.0,
+              "n": 332,
+              "quantiles": [
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "variance": 0.0
+            },
+            "delta": 0.35265725660655733,
+            "distance_distribution": {
+              "mean": 0.23446028700137345,
+              "n": 54946,
+              "quantiles": [
+                0.0,
+                0.1619718309859155,
+                0.19718309859154928,
+                0.24647887323943662,
+                0.2746478873239437,
+                0.3028169014084507,
+                0.3873239436619718
+              ],
+              "variance": 0.0033641136799771472
+            },
+            "missing_fraction": 0.0,
+            "prevalence_distribution": {
+              "mean": 0.34114627524181235,
+              "n": 142,
+              "quantiles": [
+                0.0030120481927710845,
+                0.0030120481927710845,
+                0.0030120481927710845,
+                0.29819277108433734,
+                0.6807228915662651,
+                0.7590361445783133,
+                0.8734939759036144
+              ],
+              "variance": 0.10788845347163277
+            },
+            "q_residual": 0.026639051588207962,
+            "quartet_sampling": "evenly_spaced_lexicographic",
+            "quartets_total": 497123935,
+            "quartets_used": 1000,
+            "singleton_fraction": 0.28169014084507044,
+            "taxa": 332,
+            "trait_singleton_fraction": 0.28169014084507044
+          }
+        ],
+        "target": "yeast-heldout.json",
+        "target_features": {
+          "delta": 0.17602246570360222,
+          "distance": 0.019396967213892963,
+          "prevalence_mean": 0.02692487595613086,
+          "prevalence_q75": 0.0030120481927710845,
+          "prevalence_q90": 0.012048192771084338,
+          "trait_singletons": 0.7736655357281603
+        }
+      }
+    ],
+    "score": 0.2128131162625939
+  },
+  "heldout_selected": {
+    "datasets": [
+      {
+        "score": 0.016549278414147744,
+        "simulated_features": {
+          "delta": 0.06933333333333336,
+          "distance": 0.02388710665489821,
+          "prevalence_mean": 0.03259795633650052,
+          "prevalence_q75": 0.01104417670682731,
+          "prevalence_q90": 0.024096385542168676,
+          "trait_singletons": 0.47760628441476466
+        },
+        "summaries": [
+          {
+            "characters": 138,
+            "class_distribution": {
+              "mean": 1,
+              "n": 138,
+              "quantiles": [
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1
+              ],
+              "variance": 0
+            },
+            "class_histogram": {
+              "1": 138
+            },
+            "constant_fraction": 0.007246376811594203,
+            "coverage_distribution": {
+              "mean": 1.0,
+              "n": 332,
+              "quantiles": [
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "variance": 0.0
+            },
+            "delta": 0.02800000000000002,
+            "distance_distribution": {
+              "mean": 0.026320571923844068,
+              "n": 54946,
+              "quantiles": [
+                0.0,
+                0.007246376811594203,
+                0.014492753623188406,
+                0.028985507246376812,
+                0.036231884057971016,
+                0.043478260869565216,
+                0.07246376811594203
+              ],
+              "variance": 0.00018976800598643378
+            },
+            "missing_fraction": 0.0,
+            "prevalence_distribution": {
+              "mean": 0.028614457831325303,
+              "n": 138,
+              "quantiles": [
+                0.0030120481927710845,
+                0.0030120481927710845,
+                0.0030120481927710845,
+                0.006024096385542169,
+                0.012048192771084338,
+                0.02710843373493976,
+                1.0
+              ],
+              "variance": 0.014675024087970532
+            },
+            "q_residual": 0.0009095622544597491,
+            "quartet_sampling": "evenly_spaced_lexicographic",
+            "quartets_total": 497123935,
+            "quartets_used": 1000,
+            "singleton_fraction": 0.4855072463768116,
+            "taxa": 332,
+            "trait_singleton_fraction": 0.4855072463768116
+          },
+          {
+            "characters": 142,
+            "class_distribution": {
+              "mean": 1,
+              "n": 142,
+              "quantiles": [
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1
+              ],
+              "variance": 0
+            },
+            "class_histogram": {
+              "1": 142
+            },
+            "constant_fraction": 0.014084507042253521,
+            "coverage_distribution": {
+              "mean": 1.0,
+              "n": 332,
+              "quantiles": [
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "variance": 0.0
+            },
+            "delta": 0.14100000000000004,
+            "distance_distribution": {
+              "mean": 0.02875512090487818,
+              "n": 54946,
+              "quantiles": [
+                0.0,
+                0.014084507042253521,
+                0.02112676056338028,
+                0.028169014084507043,
+                0.035211267605633804,
+                0.04929577464788732,
+                0.08450704225352113
+              ],
+              "variance": 0.0001952345173523553
+            },
+            "missing_fraction": 0.0,
+            "prevalence_distribution": {
+              "mean": 0.04002630239266927,
+              "n": 142,
+              "quantiles": [
+                0.0030120481927710845,
+                0.0030120481927710845,
+                0.0030120481927710845,
+                0.006024096385542169,
+                0.012048192771084338,
+                0.02710843373493976,
+                1.0
+              ],
+              "variance": 0.024089942961978004
+            },
+            "q_residual": 0.03382766485800406,
+            "quartet_sampling": "evenly_spaced_lexicographic",
+            "quartets_total": 497123935,
+            "quartets_used": 1000,
+            "singleton_fraction": 0.44366197183098594,
+            "taxa": 332,
+            "trait_singleton_fraction": 0.44366197183098594
+          },
+          {
+            "characters": 137,
+            "class_distribution": {
+              "mean": 1,
+              "n": 137,
+              "quantiles": [
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1
+              ],
+              "variance": 0
+            },
+            "class_histogram": {
+              "1": 137
+            },
+            "constant_fraction": 0.014598540145985401,
+            "coverage_distribution": {
+              "mean": 1.0,
+              "n": 332,
+              "quantiles": [
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "variance": 0.0
+            },
+            "delta": 0.03900000000000001,
+            "distance_distribution": {
+              "mean": 0.016585627135972385,
+              "n": 54946,
+              "quantiles": [
+                0.0,
+                0.0,
+                0.0072992700729927005,
+                0.014598540145985401,
+                0.021897810218978103,
+                0.0364963503649635,
+                0.072992700729927
+              ],
+              "variance": 0.00014621805368930454
+            },
+            "missing_fraction": 0.0,
+            "prevalence_distribution": {
+              "mean": 0.02915310878550699,
+              "n": 137,
+              "quantiles": [
+                0.0030120481927710845,
+                0.0030120481927710845,
+                0.0030120481927710845,
+                0.0030120481927710845,
+                0.009036144578313253,
+                0.018072289156626505,
+                1.0
+              ],
+              "variance": 0.020035369819781632
+            },
+            "q_residual": 8.226489672135244e-33,
+            "quartet_sampling": "evenly_spaced_lexicographic",
+            "quartets_total": 497123935,
+            "quartets_used": 1000,
+            "singleton_fraction": 0.5036496350364964,
+            "taxa": 332,
+            "trait_singleton_fraction": 0.5036496350364964
+          }
+        ],
+        "target": "yeast-heldout.json",
+        "target_features": {
+          "delta": 0.17602246570360222,
+          "distance": 0.019396967213892963,
+          "prevalence_mean": 0.02692487595613086,
+          "prevalence_q75": 0.0030120481927710845,
+          "prevalence_q90": 0.012048192771084338,
+          "trait_singletons": 0.7736655357281603
+        }
+      }
+    ],
+    "score": 0.016549278414147744
+  },
+  "heldout_targets": [
+    "yeast-heldout.json"
+  ],
+  "limitations": [
+    "coarse grid, finite Monte Carlo budget; no accuracy claim",
+    "marginal summaries do not identify borrowing, contamination or absolute historical rates",
+    "Beta coverage captures incomplete applicability/attestation, not its causal mechanism"
+  ],
+  "maximum_simulated_characters": 150,
+  "preexisting_preset": {
+    "characters": {
+      "loss_rate": 0.1,
+      "model": "dollo",
+      "n_characters": 500,
+      "rate": 1.0,
+      "root_frequency": 0.5
+    },
+    "horizontal": {
+      "mode": "add"
+    },
+    "tree": {}
+  },
+  "preset": "genecontent",
+  "replicates_per_fit": 1,
+  "replicates_per_validation": 3,
+  "schema": "ngesh-fit-v2",
+  "seed_master": "ngesh-fit-v2",
+  "selection_features": [
+    "distance",
+    "delta",
+    "prevalence_mean",
+    "prevalence_q75",
+    "prevalence_q90",
+    "trait_singletons"
+  ],
+  "training_selected": {
+    "datasets": [
+      {
+        "score": 0.015221569653445819,
+        "simulated_features": {
+          "delta": 0.07961111111111115,
+          "distance": 0.025275867286030457,
+          "prevalence_mean": 0.03504926565359787,
+          "prevalence_q75": 0.010040160642570281,
+          "prevalence_q90": 0.03413654618473896,
+          "trait_singletons": 0.4834335876889068
+        },
+        "summaries": [
+          {
+            "characters": 143,
+            "class_distribution": {
+              "mean": 1,
+              "n": 143,
+              "quantiles": [
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1
+              ],
+              "variance": 0
+            },
+            "class_histogram": {
+              "1": 143
+            },
+            "constant_fraction": 0.006993006993006993,
+            "coverage_distribution": {
+              "mean": 1.0,
+              "n": 332,
+              "quantiles": [
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "variance": 0.0
+            },
+            "delta": 0.034333333333333355,
+            "distance_distribution": {
+              "mean": 0.02490671705901204,
+              "n": 54946,
+              "quantiles": [
+                0.0,
+                0.006993006993006993,
+                0.013986013986013986,
+                0.02097902097902098,
+                0.03496503496503497,
+                0.04195804195804196,
+                0.08391608391608392
+              ],
+              "variance": 0.00017078958100111033
+            },
+            "missing_fraction": 0.0,
+            "prevalence_distribution": {
+              "mean": 0.02209537450501306,
+              "n": 143,
+              "quantiles": [
+                0.0030120481927710845,
+                0.0030120481927710845,
+                0.0030120481927710845,
+                0.006024096385542169,
+                0.009036144578313253,
+                0.030120481927710843,
+                1.0
+              ],
+              "variance": 0.009191320517042988
+            },
+            "q_residual": 0.005675804749907981,
+            "quartet_sampling": "evenly_spaced_lexicographic",
+            "quartets_total": 497123935,
+            "quartets_used": 1000,
+            "singleton_fraction": 0.48951048951048953,
+            "taxa": 332,
+            "trait_singleton_fraction": 0.48951048951048953
+          },
+          {
+            "characters": 140,
+            "class_distribution": {
+              "mean": 1,
+              "n": 140,
+              "quantiles": [
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1
+              ],
+              "variance": 0
+            },
+            "class_histogram": {
+              "1": 140
+            },
+            "constant_fraction": 0.007142857142857143,
+            "coverage_distribution": {
+              "mean": 1.0,
+              "n": 332,
+              "quantiles": [
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "variance": 0.0
+            },
+            "delta": 0.09050000000000001,
+            "distance_distribution": {
+              "mean": 0.023218250646088887,
+              "n": 54946,
+              "quantiles": [
+                0.0,
+                0.007142857142857143,
+                0.014285714285714285,
+                0.02142857142857143,
+                0.02857142857142857,
+                0.04285714285714286,
+                0.09285714285714286
+              ],
+              "variance": 0.0001893933784986495
+            },
+            "missing_fraction": 0.0,
+            "prevalence_distribution": {
+              "mean": 0.03569277108433735,
+              "n": 140,
+              "quantiles": [
+                0.0030120481927710845,
+                0.0030120481927710845,
+                0.0030120481927710845,
+                0.006024096385542169,
+                0.009036144578313253,
+                0.024096385542168676,
+                1.0
+              ],
+              "variance": 0.022844639098562925
+            },
+            "q_residual": 0.012871342494520686,
+            "quartet_sampling": "evenly_spaced_lexicographic",
+            "quartets_total": 497123935,
+            "quartets_used": 1000,
+            "singleton_fraction": 0.4714285714285714,
+            "taxa": 332,
+            "trait_singleton_fraction": 0.4714285714285714
+          },
+          {
+            "characters": 141,
+            "class_distribution": {
+              "mean": 1,
+              "n": 141,
+              "quantiles": [
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1
+              ],
+              "variance": 0
+            },
+            "class_histogram": {
+              "1": 141
+            },
+            "constant_fraction": 0.0070921985815602835,
+            "coverage_distribution": {
+              "mean": 1.0,
+              "n": 332,
+              "quantiles": [
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "variance": 0.0
+            },
+            "delta": 0.11400000000000006,
+            "distance_distribution": {
+              "mean": 0.02770263415299044,
+              "n": 54946,
+              "quantiles": [
+                0.0,
+                0.0070921985815602835,
+                0.014184397163120567,
+                0.028368794326241134,
+                0.03546099290780142,
+                0.04964539007092199,
+                0.0851063829787234
+              ],
+              "variance": 0.00022681659416622606
+            },
+            "missing_fraction": 0.0,
+            "prevalence_distribution": {
+              "mean": 0.04735965137144322,
+              "n": 141,
+              "quantiles": [
+                0.0030120481927710845,
+                0.0030120481927710845,
+                0.0030120481927710845,
+                0.006024096385542169,
+                0.012048192771084338,
+                0.04819277108433735,
+                1.0
+              ],
+              "variance": 0.03130711855149111
+            },
+            "q_residual": 0.005767695358481121,
+            "quartet_sampling": "evenly_spaced_lexicographic",
+            "quartets_total": 497123935,
+            "quartets_used": 1000,
+            "singleton_fraction": 0.48936170212765956,
+            "taxa": 332,
+            "trait_singleton_fraction": 0.48936170212765956
+          }
+        ],
+        "target": "yeast-train.json",
+        "target_features": {
+          "delta": 0.16602591278102835,
+          "distance": 0.019393656240108456,
+          "prevalence_mean": 0.02692762230018357,
+          "prevalence_q75": 0.0030120481927710845,
+          "prevalence_q90": 0.012048192771084338,
+          "trait_singletons": 0.7719193737414287
+        }
+      }
+    ],
+    "score": 0.015221569653445819
+  },
+  "training_targets": [
+    "yeast-train.json"
+  ],
+  "trials": [
+    {
+      "config": {
+        "characters": {
+          "alpha": 0.3,
+          "loss_rate": 1,
+          "rate": 1.0,
+          "root_frequency": 0.03
+        },
+        "observation": {
+          "missing": 0.0
+        },
+        "tree": {
+          "height": 1.0
+        }
+      },
+      "score": 0.011076713604661068
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 3,
+          "loss_rate": 3,
+          "rate": 1.0,
+          "root_frequency": 0.03
+        },
+        "observation": {
+          "missing": 0.0
+        },
+        "tree": {
+          "height": 1.0
+        }
+      },
+      "score": 0.011680073223080713
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 0.3,
+          "loss_rate": 0.1,
+          "rate": 1.0,
+          "root_frequency": 0
+        },
+        "observation": {
+          "missing": 0.0
+        },
+        "tree": {
+          "height": 1.0
+        }
+      },
+      "score": 0.012169689220511353
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 0.3,
+          "loss_rate": 3,
+          "rate": 1.0,
+          "root_frequency": 0
+        },
+        "observation": {
+          "missing": 0.0
+        },
+        "tree": {
+          "height": 1.0
+        }
+      },
+      "score": 0.012287197632862292
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 0.3,
+          "loss_rate": 1,
+          "rate": 1.0,
+          "root_frequency": 0
+        },
+        "observation": {
+          "missing": 0.0
+        },
+        "tree": {
+          "height": 1.0
+        }
+      },
+      "score": 0.012967462910908107
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 0.3,
+          "loss_rate": 3,
+          "rate": 1.0,
+          "root_frequency": 0.005
+        },
+        "observation": {
+          "missing": 0.0
+        },
+        "tree": {
+          "height": 1.0
+        }
+      },
+      "score": 0.013572862701278587
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 0.3,
+          "loss_rate": 3,
+          "rate": 1.0,
+          "root_frequency": 0.01
+        },
+        "observation": {
+          "missing": 0.0
+        },
+        "tree": {
+          "height": 1.0
+        }
+      },
+      "score": 0.013572862701278587
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 0.3,
+          "loss_rate": 1,
+          "rate": 1.0,
+          "root_frequency": 0.005
+        },
+        "observation": {
+          "missing": 0.0
+        },
+        "tree": {
+          "height": 1.0
+        }
+      },
+      "score": 0.013863229485171385
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 0.3,
+          "loss_rate": 1,
+          "rate": 1.0,
+          "root_frequency": 0.01
+        },
+        "observation": {
+          "missing": 0.0
+        },
+        "tree": {
+          "height": 1.0
+        }
+      },
+      "score": 0.013863229485171385
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 0.3,
+          "loss_rate": 0.1,
+          "rate": 1.0,
+          "root_frequency": 0.005
+        },
+        "observation": {
+          "missing": 0.0
+        },
+        "tree": {
+          "height": 1.0
+        }
+      },
+      "score": 0.01420128620157204
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 0.3,
+          "loss_rate": 0.1,
+          "rate": 1.0,
+          "root_frequency": 0.01
+        },
+        "observation": {
+          "missing": 0.0
+        },
+        "tree": {
+          "height": 1.0
+        }
+      },
+      "score": 0.01420128620157204
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 0.3,
+          "loss_rate": 0.3,
+          "rate": 1.0,
+          "root_frequency": 0
+        },
+        "observation": {
+          "missing": 0.0
+        },
+        "tree": {
+          "height": 1.0
+        }
+      },
+      "score": 0.014205554600489993
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 0.3,
+          "loss_rate": 0.3,
+          "rate": 1.0,
+          "root_frequency": 0.005
+        },
+        "observation": {
+          "missing": 0.0
+        },
+        "tree": {
+          "height": 1.0
+        }
+      },
+      "score": 0.01427239401781515
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 0.3,
+          "loss_rate": 0.3,
+          "rate": 1.0,
+          "root_frequency": 0.01
+        },
+        "observation": {
+          "missing": 0.0
+        },
+        "tree": {
+          "height": 1.0
+        }
+      },
+      "score": 0.01427239401781515
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 1,
+          "loss_rate": 3,
+          "rate": 1.0,
+          "root_frequency": 0.03
+        },
+        "observation": {
+          "missing": 0.0
+        },
+        "tree": {
+          "height": 1.0
+        }
+      },
+      "score": 0.014282865878916895
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 0.3,
+          "loss_rate": 0.3,
+          "rate": 1.0,
+          "root_frequency": 0.03
+        },
+        "observation": {
+          "missing": 0.0
+        },
+        "tree": {
+          "height": 1.0
+        }
+      },
+      "score": 0.01463704539803475
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 0.3,
+          "loss_rate": 0.1,
+          "rate": 1.0,
+          "root_frequency": 0.03
+        },
+        "observation": {
+          "missing": 0.0
+        },
+        "tree": {
+          "height": 1.0
+        }
+      },
+      "score": 0.014777360530428945
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 1,
+          "loss_rate": 3,
+          "rate": 1.0,
+          "root_frequency": 0.01
+        },
+        "observation": {
+          "missing": 0.0
+        },
+        "tree": {
+          "height": 1.0
+        }
+      },
+      "score": 0.015161656277447888
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 0.3,
+          "loss_rate": 3,
+          "rate": 1.0,
+          "root_frequency": 0.03
+        },
+        "observation": {
+          "missing": 0.0
+        },
+        "tree": {
+          "height": 1.0
+        }
+      },
+      "score": 0.015213317123291414
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 1,
+          "loss_rate": 3,
+          "rate": 1.0,
+          "root_frequency": 0
+        },
+        "observation": {
+          "missing": 0.0
+        },
+        "tree": {
+          "height": 1.0
+        }
+      },
+      "score": 0.016784492710826066
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 1,
+          "loss_rate": 3,
+          "rate": 1.0,
+          "root_frequency": 0.005
+        },
+        "observation": {
+          "missing": 0.0
+        },
+        "tree": {
+          "height": 1.0
+        }
+      },
+      "score": 0.016784492710826066
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 3,
+          "loss_rate": 1,
+          "rate": 1.0,
+          "root_frequency": 0.01
+        },
+        "observation": {
+          "missing": 0.0
+        },
+        "tree": {
+          "height": 1.0
+        }
+      },
+      "score": 0.01686041170201727
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 3,
+          "loss_rate": 1,
+          "rate": 1.0,
+          "root_frequency": 0.03
+        },
+        "observation": {
+          "missing": 0.0
+        },
+        "tree": {
+          "height": 1.0
+        }
+      },
+      "score": 0.017356803696618926
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 3,
+          "loss_rate": 3,
+          "rate": 1.0,
+          "root_frequency": 0
+        },
+        "observation": {
+          "missing": 0.0
+        },
+        "tree": {
+          "height": 1.0
+        }
+      },
+      "score": 0.017656718869868426
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 3,
+          "loss_rate": 3,
+          "rate": 1.0,
+          "root_frequency": 0.005
+        },
+        "observation": {
+          "missing": 0.0
+        },
+        "tree": {
+          "height": 1.0
+        }
+      },
+      "score": 0.017656718869868426
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 3,
+          "loss_rate": 0.3,
+          "rate": 1.0,
+          "root_frequency": 0.03
+        },
+        "observation": {
+          "missing": 0.0
+        },
+        "tree": {
+          "height": 1.0
+        }
+      },
+      "score": 0.01826474432922926
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 1,
+          "loss_rate": 1,
+          "rate": 1.0,
+          "root_frequency": 0.03
+        },
+        "observation": {
+          "missing": 0.0
+        },
+        "tree": {
+          "height": 1.0
+        }
+      },
+      "score": 0.01846957894602824
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 1,
+          "loss_rate": 1,
+          "rate": 1.0,
+          "root_frequency": 0.01
+        },
+        "observation": {
+          "missing": 0.0
+        },
+        "tree": {
+          "height": 1.0
+        }
+      },
+      "score": 0.019157572958899752
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 3,
+          "loss_rate": 3,
+          "rate": 1.0,
+          "root_frequency": 0.01
+        },
+        "observation": {
+          "missing": 0.0
+        },
+        "tree": {
+          "height": 1.0
+        }
+      },
+      "score": 0.01931391634264545
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 3,
+          "loss_rate": 0.1,
+          "rate": 1.0,
+          "root_frequency": 0.03
+        },
+        "observation": {
+          "missing": 0.0
+        },
+        "tree": {
+          "height": 1.0
+        }
+      },
+      "score": 0.019834312247673472
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 1,
+          "loss_rate": 0.1,
+          "rate": 1.0,
+          "root_frequency": 0.03
+        },
+        "observation": {
+          "missing": 0.0
+        },
+        "tree": {
+          "height": 1.0
+        }
+      },
+      "score": 0.02023941278833436
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 3,
+          "loss_rate": 0.1,
+          "rate": 1.0,
+          "root_frequency": 0
+        },
+        "observation": {
+          "missing": 0.0
+        },
+        "tree": {
+          "height": 1.0
+        }
+      },
+      "score": 0.020309654787391936
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 3,
+          "loss_rate": 0.1,
+          "rate": 1.0,
+          "root_frequency": 0.005
+        },
+        "observation": {
+          "missing": 0.0
+        },
+        "tree": {
+          "height": 1.0
+        }
+      },
+      "score": 0.020309654787391936
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 3,
+          "loss_rate": 0.3,
+          "rate": 1.0,
+          "root_frequency": 0.01
+        },
+        "observation": {
+          "missing": 0.0
+        },
+        "tree": {
+          "height": 1.0
+        }
+      },
+      "score": 0.020555820276727484
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 3,
+          "loss_rate": 0.1,
+          "rate": 1.0,
+          "root_frequency": 0.01
+        },
+        "observation": {
+          "missing": 0.0
+        },
+        "tree": {
+          "height": 1.0
+        }
+      },
+      "score": 0.020589082431309354
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 3,
+          "loss_rate": 0.3,
+          "rate": 1.0,
+          "root_frequency": 0
+        },
+        "observation": {
+          "missing": 0.0
+        },
+        "tree": {
+          "height": 1.0
+        }
+      },
+      "score": 0.02130533944722573
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 3,
+          "loss_rate": 0.3,
+          "rate": 1.0,
+          "root_frequency": 0.005
+        },
+        "observation": {
+          "missing": 0.0
+        },
+        "tree": {
+          "height": 1.0
+        }
+      },
+      "score": 0.02130533944722573
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 1,
+          "loss_rate": 0.3,
+          "rate": 1.0,
+          "root_frequency": 0.01
+        },
+        "observation": {
+          "missing": 0.0
+        },
+        "tree": {
+          "height": 1.0
+        }
+      },
+      "score": 0.021548614835240728
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 1,
+          "loss_rate": 0.1,
+          "rate": 1.0,
+          "root_frequency": 0
+        },
+        "observation": {
+          "missing": 0.0
+        },
+        "tree": {
+          "height": 1.0
+        }
+      },
+      "score": 0.02162487448852387
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 1,
+          "loss_rate": 0.1,
+          "rate": 1.0,
+          "root_frequency": 0.005
+        },
+        "observation": {
+          "missing": 0.0
+        },
+        "tree": {
+          "height": 1.0
+        }
+      },
+      "score": 0.02162487448852387
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 3,
+          "loss_rate": 1,
+          "rate": 1.0,
+          "root_frequency": 0
+        },
+        "observation": {
+          "missing": 0.0
+        },
+        "tree": {
+          "height": 1.0
+        }
+      },
+      "score": 0.021965518920904183
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 3,
+          "loss_rate": 1,
+          "rate": 1.0,
+          "root_frequency": 0.005
+        },
+        "observation": {
+          "missing": 0.0
+        },
+        "tree": {
+          "height": 1.0
+        }
+      },
+      "score": 0.021965518920904183
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 1,
+          "loss_rate": 1,
+          "rate": 1.0,
+          "root_frequency": 0
+        },
+        "observation": {
+          "missing": 0.0
+        },
+        "tree": {
+          "height": 1.0
+        }
+      },
+      "score": 0.022065091584928084
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 1,
+          "loss_rate": 1,
+          "rate": 1.0,
+          "root_frequency": 0.005
+        },
+        "observation": {
+          "missing": 0.0
+        },
+        "tree": {
+          "height": 1.0
+        }
+      },
+      "score": 0.022065091584928084
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 1,
+          "loss_rate": 0.3,
+          "rate": 1.0,
+          "root_frequency": 0.03
+        },
+        "observation": {
+          "missing": 0.0
+        },
+        "tree": {
+          "height": 1.0
+        }
+      },
+      "score": 0.022841879731197376
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 1,
+          "loss_rate": 0.3,
+          "rate": 1.0,
+          "root_frequency": 0
+        },
+        "observation": {
+          "missing": 0.0
+        },
+        "tree": {
+          "height": 1.0
+        }
+      },
+      "score": 0.02300864421273016
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 1,
+          "loss_rate": 0.3,
+          "rate": 1.0,
+          "root_frequency": 0.005
+        },
+        "observation": {
+          "missing": 0.0
+        },
+        "tree": {
+          "height": 1.0
+        }
+      },
+      "score": 0.02300864421273016
+    },
+    {
+      "config": {
+        "characters": {
+          "alpha": 1,
+          "loss_rate": 0.1,
+          "rate": 1.0,
+          "root_frequency": 0.01
+        },
+        "observation": {
+          "missing": 0.0
+        },
+        "tree": {
+          "height": 1.0
+        }
+      },
+      "score": 0.023661421524573078
+    }
+  ]
+}

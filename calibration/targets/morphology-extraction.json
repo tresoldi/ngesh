@@ -1,0 +1,166 @@
+[
+  {
+    "dataset": "001_tetrao",
+    "source": "Keating_et_al_sup/001_tetrao/morph/mrbayes/1_Tetraodontiformes_Arcila-et-al-2015_morph_overlap.nex",
+    "status": "extracted"
+  },
+  {
+    "dataset": "002_ostario",
+    "source": "Keating_et_al_sup/002_ostario/morph/mrbayes/2_Ostariophysi_Near-et-al-2014._morph_overlap.nex",
+    "status": "extracted"
+  },
+  {
+    "dataset": "003_mollusc",
+    "source": "Keating_et_al_sup/003_mollusc/morph/mrbayes/3_Molluscs_Parry-et-al-2017_morph_overlap.nex",
+    "status": "extracted"
+  },
+  {
+    "dataset": "004_mammals",
+    "source": "Keating_et_al_sup/004_mammals/morph/mrbayes/4_mammaliformes_Lee-2016_morph_overlap.nex",
+    "status": "extracted"
+  },
+  {
+    "dataset": "005_lemurs",
+    "member": "Keating_et_al_sup/005_lemurs/morph/mrbayes/5_Lemurs_Herrera-Davalos-2016_morph_overlap.nex",
+    "reason": "archive member is entirely NUL bytes; no valid morphological fallback",
+    "sha256": "d889f47498f64263085c8cd12cbd190732afff28f505ac945f660be5ff80d594",
+    "status": "excluded"
+  },
+  {
+    "dataset": "010_penguins",
+    "source": "Keating_et_al_sup/010_penguins/morph/mrbayes/10_Penguins_Gavryushkina-et-al-2016_morph_overlap.nex",
+    "status": "extracted"
+  },
+  {
+    "dataset": "012_hemiptera",
+    "source": "Keating_et_al_sup/012_hemiptera/morph/mrbayes/12_Hemiptera_Vea-and-Grimaldi-2016_morph_overlap.nex",
+    "status": "extracted"
+  },
+  {
+    "dataset": "014_hymenoptera",
+    "source": "Keating_et_al_sup/014_hymenoptera/morph/mrbayes/14_Hymenoptera_Ronquist-et-al-2012.morph_overlap.nex",
+    "status": "extracted"
+  },
+  {
+    "dataset": "016_osteogloss",
+    "member": "Keating_et_al_sup/016_osteogloss/morph/mrbayes/16_Osteoglossiformes_Lavoue-2016_morph_overlap.nex",
+    "reason": "archive member is entirely NUL bytes; no valid morphological fallback",
+    "sha256": "48d333bc8f8276507933fcd1970f864316863f4d0ba1a1a6c82f9e93e57ab544",
+    "status": "excluded"
+  },
+  {
+    "dataset": "020_mysticeti",
+    "source": "Keating_et_al_sup/020_mysticeti/morph/mrbayes/20_Mysticeti_Marx-Fordyce-2015_morph_overlap.nex",
+    "status": "extracted"
+  },
+  {
+    "dataset": "022_arthropods",
+    "source": "Keating_et_al_sup/022_arthropods/morph/mrbayes/22_Arthropods_Lee-et-al-2013_morph_overlap.nex",
+    "status": "extracted"
+  },
+  {
+    "dataset": "023_squamata",
+    "source": "Keating_et_al_sup/023_squamata/morph/mrbayes/23_Squamata_Wiens-et-al-2010_morph_overlap.nex",
+    "status": "extracted"
+  },
+  {
+    "dataset": "024_serpentes",
+    "source": "Keating_et_al_sup/024_serpentes/morph/mrbayes/24_Serpentes_Harrington-Reeder-2016_morph_overlap.nex",
+    "status": "extracted"
+  },
+  {
+    "dataset": "026_palpimanoidea",
+    "source": "Keating_et_al_sup/026_palpimanoidea/morph/mrbayes/26_palpimanoidea_Wood-et-al-2012._morph_overlap.nex",
+    "status": "extracted"
+  },
+  {
+    "dataset": "027_formicidae",
+    "source": "Keating_et_al_sup/027_formicidae/morph/mrbayes/27_formicidae_Price-et-al-2016_Morph_overlap.nex",
+    "status": "extracted"
+  },
+  {
+    "dataset": "028_opiliones",
+    "source": "Keating_et_al_sup/028_opiliones/morph/mrbayes/28_Opiliones_Garwood-et-al-2014_morph_overlap.nex",
+    "status": "extracted"
+  },
+  {
+    "dataset": "029_cetaceans",
+    "source": "Keating_et_al_sup/029_cetaceans/morph/mrbayes/29_Cetaceans_Geisler-et-al-2011_morph_overlap.nex",
+    "status": "extracted"
+  },
+  {
+    "dataset": "030_malacostracans",
+    "source": "Keating_et_al_sup/030_malacostracans/morph/mrbayes/30_malacostracans_Jenner-et-al-2009_morph_overlap.nex",
+    "status": "extracted"
+  },
+  {
+    "dataset": "031_brachiopods",
+    "source": "Keating_et_al_sup/031_brachiopods/morph/mrbayes/31_Brachiopods_Bapst_2017_morph_overlap.nex",
+    "status": "extracted"
+  },
+  {
+    "dataset": "038_fabriciidae",
+    "source": "Keating_et_al_sup/038_fabriciidae/morph/mrbayes/38_Fabriciidae_Huang-et-al-2011_morph_overlap.nex",
+    "status": "extracted"
+  },
+  {
+    "dataset": "048_stygnopsidae",
+    "source": "Keating_et_al_sup/048_stygnopsidae/morph/mrbayes/48_Stygnopsidae_Cruz-Lopez-Francke-2017_morph_overlap.nex",
+    "status": "extracted"
+  },
+  {
+    "dataset": "051_chiroptera",
+    "source": "Keating_et_al_sup/051_chiroptera/morph/mrbayes/51_Chiroptera_Davalos-et-al-2014_morph_overlap.nex",
+    "status": "extracted"
+  },
+  {
+    "dataset": "055_hydrophilinae",
+    "source": "Keating_et_al_sup/055_hydrophilinae/morph/mrbayes/55_Hydrophilinae_Short-et-al-2017_morph_overlap.nex",
+    "status": "extracted"
+  },
+  {
+    "dataset": "068_tribelocephalinae",
+    "source": "Keating_et_al_sup/068_tribelocephalinae/morph/mrbayes/68_tribelocephalinae_Forthman-Weirauch-2017_morph_overlap.nex",
+    "status": "extracted"
+  },
+  {
+    "dataset": "075_apinae",
+    "source": "Keating_et_al_sup/075_apinae/morph/mrbayes/75_apinae_Cameron-Mardul-2009_morph_overlap.nex",
+    "status": "extracted"
+  },
+  {
+    "dataset": "078_biblidinae",
+    "source": "Keating_et_al_sup/078_biblidinae/morph/mrbayes/78_biblidinae_Garzon-Orduna-et-al-2013_morph_overlap.nex",
+    "status": "extracted"
+  },
+  {
+    "dataset": "094_caviidae",
+    "source": "Keating_et_al_sup/094_caviidae/morph/TNT/nexus_xinact.nex",
+    "status": "extracted"
+  },
+  {
+    "dataset": "095_abrotrichini",
+    "source": "Keating_et_al_sup/095_abrotrichini/morph/mrbayes/95_Abrotrichini_Teta-et-al-2017_morph_overlap.nex",
+    "status": "extracted"
+  },
+  {
+    "dataset": "097_hexactinellida",
+    "source": "Keating_et_al_sup/097_hexactinellida/morph/mrbayes/97_Hexactinellida_Dohrmann-et-al-2017_morph_overlap.nex",
+    "status": "extracted"
+  },
+  {
+    "dataset": "098_hydroptilidae",
+    "source": "Keating_et_al_sup/098_hydroptilidae/morph/mrbayes/98_Hydroptilidae_Santos-et-al-2016_morph_overlap.nex",
+    "status": "extracted"
+  },
+  {
+    "dataset": "099_nephilidae",
+    "source": "Keating_et_al_sup/099_nephilidae/morph/mrbayes/99_nephilidae_Kuntner-et-al-2013_morph_overlap.nex",
+    "status": "extracted"
+  },
+  {
+    "dataset": "104_actinopterygii",
+    "source": "Keating_et_al_sup/104_actinopterygii/morph/mrbayes/104_actinopterygii_Giles-et-al-2017_morph_overlap.nex",
+    "status": "extracted"
+  }
+]

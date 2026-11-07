@@ -1,0 +1,80 @@
+{
+  "citation": "Keating, Garwood & Sansom 2023; doi:10.1186/s12862-023-02131-z; Zenodo 6579584",
+  "extraction": {
+    "fallback_from_corrupt_member": false,
+    "gap_policy": "inapplicable and unknown both unobserved for Mk calibration",
+    "gaps_recoded": 2081
+  },
+  "inputs": {
+    "Keating_et_al_sup/003_mollusc/morph/mrbayes/3_Molluscs_Parry-et-al-2017_morph_overlap.nex": "247d899650d1d19b6b2459caf45e4c088f4ba054ed943ebb1b07cc00ca8e1ba3"
+  },
+  "license": "CC-BY-4.0",
+  "schema": "ngesh-target-v2",
+  "source": "Keating_et_al_sup/003_mollusc/morph/mrbayes/3_Molluscs_Parry-et-al-2017_morph_overlap.nex",
+  "summary": {
+    "characters": 134,
+    "class_distribution": {
+      "mean": 1.7761194029850746,
+      "n": 134,
+      "quantiles": [
+        0,
+        1,
+        2,
+        2,
+        2,
+        2,
+        3
+      ],
+      "variance": 0.2334595678324794
+    },
+    "class_histogram": {
+      "0": 1,
+      "1": 31,
+      "2": 99,
+      "3": 3
+    },
+    "constant_fraction": 0.23134328358208955,
+    "coverage_distribution": {
+      "mean": 0.5572811617587737,
+      "n": 37,
+      "quantiles": [
+        0.30597014925373134,
+        0.3582089552238806,
+        0.5149253731343284,
+        0.5746268656716418,
+        0.6343283582089553,
+        0.664179104477612,
+        0.8134328358208955
+      ],
+      "variance": 0.017686037503248344
+    },
+    "delta": 0.21037118658044382,
+    "distance_distribution": {
+      "mean": 0.2855386437110311,
+      "n": 666,
+      "quantiles": [
+        0.0,
+        0.05333333333333334,
+        0.2013888888888889,
+        0.29464285714285715,
+        0.37777777777777777,
+        0.48717948717948717,
+        0.675
+      ],
+      "variance": 0.020896356616918264
+    },
+    "missing_fraction": 0.4427188382412263,
+    "observed_state_count_histogram": {
+      "0": 1,
+      "1": 31,
+      "2": 99,
+      "3": 3
+    },
+    "q_residual": 0.02677215963815724,
+    "quartet_sampling": "evenly_spaced_lexicographic",
+    "quartets_total": 66045,
+    "quartets_used": 1000,
+    "singleton_fraction": 0.12184873949579832,
+    "taxa": 37
+  }
+}
