@@ -244,3 +244,11 @@ Taxa are sampled before ascertainment so the filters apply to the actual output.
 The singleton filter now removes parsimony-uninformative columns: at least two
 states must each occur in two or more retained taxa. For binary traits, absence
 is an observed state. Polymorphic cells contribute each recorded state once.
+
+## Crown and origin scales
+
+Presets now use crown_height=1, measured from the most recent common ancestor
+of the retained observations. origin_height measures from time zero. Legacy
+height remains an alias for origin_height; explicit user scaling overrides the
+preset. The full history is rescaled and the selected scale is recorded in the
+tree configuration.

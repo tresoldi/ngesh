@@ -16,12 +16,12 @@ from .observation import ObservationConfig, observe
 
 PRESETS: dict[str, dict[str, Any]] = {
     "lexical": {
-        "tree": {},
+        "tree": {"crown_height": 1.0},
         "characters": {"model": "lexical", "rate": 0.3, "alpha": 0.7},
         "observation": {"missing": 0.15},
     },
     "genecontent": {
-        "tree": {"height": 1.0},
+        "tree": {"crown_height": 1.0},
         "characters": {
             "model": "dollo",
             "rate": 1.0,
@@ -33,12 +33,18 @@ PRESETS: dict[str, dict[str, Any]] = {
         "horizontal": {"mode": "add"},
     },
     "morphology": {
-        "tree": {"height": 1.0},
+        "tree": {"crown_height": 1.0},
         "characters": {"model": "mk", "rate": 1.0, "k": 2, "n_characters": 100, "alpha": 2.0},
         "observation": {"coverage_a": 7.702921781245104, "coverage_b": 1.6842147553315705},
     },
     "stemma": {
-        "tree": {"birth": 1.0, "death": 0.8, "ancestor_rate": 0.2, "copy_sigma": 0.6},
+        "tree": {
+            "birth": 1.0,
+            "death": 0.8,
+            "ancestor_rate": 0.2,
+            "copy_sigma": 0.6,
+            "crown_height": 1.0,
+        },
         "characters": {"model": "textual", "rate": 0.2, "p_parallel": 0.2, "omission_rate": 0.05},
     },
 }
@@ -58,7 +64,15 @@ def simulate(
     if unknown:
         raise ValueError(f"unknown configuration sections: {sorted(unknown)}")
     base = PRESETS[preset]
-    tree_cfg = TreeConfig(**(base.get("tree", {}) | config.get("tree", {})))
+    tree_options = dict(base.get("tree", {}))
+    supplied_tree = config.get("tree", {})
+    if any(
+        supplied_tree.get(k) is not None
+        for k in ("height", "mean_height", "crown_height", "origin_height")
+    ):
+        for k in ("height", "mean_height", "crown_height", "origin_height"):
+            tree_options.pop(k, None)
+    tree_cfg = TreeConfig(**(tree_options | supplied_tree))
     tree_cfg.validate()
     char_cfg = CharacterConfig(**(base.get("characters", {}) | config.get("characters", {})))
     seeds = {
@@ -73,7 +87,16 @@ def simulate(
         ]
     }
     tree = generate_tree(
-        replace(tree_cfg, full=True, sampling=1, height=None, mean_height=None), seed=seeds["tree"]
+        replace(
+            tree_cfg,
+            full=True,
+            sampling=1,
+            height=None,
+            mean_height=None,
+            crown_height=None,
+            origin_height=None,
+        ),
+        seed=seeds["tree"],
     )
     hcfg = HorizontalConfig(**(base.get("horizontal", {}) | config.get("horizontal", {})))
     ocfg = ObservationConfig(**(base.get("observation", {}) | config.get("observation", {})))
@@ -92,16 +115,28 @@ def simulate(
     ]
     if not selected:
         raise ValueError("tree sampling retained no observations")
-    if tree_cfg.height is not None or tree_cfg.mean_height is not None:
+    scaling = [
+        ("crown", tree_cfg.crown_height),
+        ("origin", tree_cfg.origin_height),
+        ("origin", tree_cfg.height),
+        ("mean", tree_cfg.mean_height),
+    ]
+    for mode, target in scaling:
+        if target is None:
+            continue
         from .rng import positive
 
-        target = tree_cfg.height if tree_cfg.height is not None else tree_cfg.mean_height
         positive(target, "rescaling target")
-        base = (
-            max(n.time for n in selected)
-            if tree_cfg.height is not None
-            else sum(n.time for n in selected) / len(selected)
-        )
+        if mode == "crown":
+            common = set(selected[0].ancestors())
+            for tip in selected[1:]:
+                common.intersection_update(tip.ancestors())
+            crown = next(n for n in selected[0].ancestors() if n in common)
+            base = max(n.time for n in selected) - crown.time
+        elif mode == "origin":
+            base = max(n.time for n in selected)
+        else:
+            base = sum(n.time for n in selected) / len(selected)
         if base <= 0:
             raise ValueError("cannot rescale a zero-height observation tree")
         for n in tree.traverse():

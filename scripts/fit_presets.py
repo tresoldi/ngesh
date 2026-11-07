@@ -137,7 +137,7 @@ def fit(
     elif preset == "morphology":
         candidates = [
             {
-                "tree": {"height": 1.0},
+                "tree": {"crown_height": 1.0},
                 "characters": {"rate": r, "alpha": a, "k": k},
                 "observation": nuisance,
             }
@@ -146,7 +146,7 @@ def fit(
     elif preset == "genecontent":
         candidates = [
             {
-                "tree": {"height": 1.0},
+                "tree": {"crown_height": 1.0},
                 "characters": {"rate": 1.0, "loss_rate": loss, "root_frequency": root, "alpha": a},
                 "observation": nuisance,
             }

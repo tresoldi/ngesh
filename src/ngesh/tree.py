@@ -152,11 +152,20 @@ class Tree:
         if not math.isfinite(target) or target <= 0:
             raise ValueError("target must be finite and positive")
         tips = self.tips()
-        if mode not in {"height", "mean"}:
-            raise ValueError("mode must be height or mean")
-        base = (
-            max(n.time for n in tips) if mode == "height" else sum(n.time for n in tips) / len(tips)
-        )
+        if mode not in {"height", "mean", "crown"}:
+            raise ValueError("mode must be height, mean or crown")
+        if mode == "crown":
+            common = set(tips[0].ancestors())
+            for tip in tips[1:]:
+                common.intersection_update(tip.ancestors())
+            crown = next(n for n in tips[0].ancestors() if n in common)
+            base = max(n.time for n in tips) - crown.time
+        else:
+            base = (
+                max(n.time for n in tips)
+                if mode == "height"
+                else sum(n.time for n in tips) / len(tips)
+            )
         if base == 0:
             raise ValueError("cannot rescale a zero-height tree")
         ratio = target / base

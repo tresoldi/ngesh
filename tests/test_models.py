@@ -109,3 +109,25 @@ class TreeModelTests(unittest.TestCase):
         for seed in range(100):
             tree = generate_tree(TreeConfig(n_taxa=20, death=0.5), seed=seed)
             self.assertTrue(all(tip.length > 0 for tip in tree.tips()))
+
+    def test_crown_and_origin_height(self):
+        from ngesh import simulate
+
+        for seed in range(20):
+            tree = simulate(
+                seed=seed, config={"tree": {"n_taxa": 20}, "characters": {"n_characters": 2}}
+            ).tree
+            tips = tree.tips()
+            common = set(tips[0].ancestors())
+            for tip in tips[1:]:
+                common.intersection_update(tip.ancestors())
+            crown = next(n for n in tips[0].ancestors() if n in common)
+            self.assertAlmostEqual(max(n.time for n in tips) - crown.time, 1)
+            tree = simulate(
+                seed=seed,
+                config={
+                    "tree": {"n_taxa": 20, "origin_height": 2},
+                    "characters": {"n_characters": 2},
+                },
+            ).tree
+            self.assertAlmostEqual(max(n.time for n in tree.tips()), 2)

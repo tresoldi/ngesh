@@ -24,6 +24,8 @@ class TreeConfig:
     method: str = "fast"
     shape: str = "birth_death"
     newick: str | None = None
+    crown_height: float | None = None
+    origin_height: float | None = None
     height: float | None = None
     mean_height: float | None = None
     max_attempts: int = 1000
@@ -51,8 +53,14 @@ class TreeConfig:
             raise ValueError("method must be fast or standard")
         if self.shape not in {"birth_death", "balanced", "caterpillar", "newick"}:
             raise ValueError("unknown tree shape")
-        if self.height is not None and self.mean_height is not None:
-            raise ValueError("choose height or mean_height")
+        if (
+            sum(
+                v is not None
+                for v in (self.height, self.mean_height, self.crown_height, self.origin_height)
+            )
+            > 1
+        ):
+            raise ValueError("choose one height scaling")
         if self.max_attempts < 1 or self.max_lineages < 2:
             raise ValueError("simulation limits must be positive")
 
@@ -178,6 +186,10 @@ def generate_tree(
                 "sampling retained no observations; change seed or sampling probability"
             )
         tree = tree.prune(keep)
+    if cfg.crown_height is not None:
+        tree.rescale(cfg.crown_height, "crown")
+    if cfg.origin_height is not None:
+        tree.rescale(cfg.origin_height, "height")
     if cfg.height is not None:
         tree.rescale(cfg.height)
     if cfg.mean_height is not None:
