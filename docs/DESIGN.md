@@ -213,3 +213,11 @@ chosen after viewing results, and results remain exploratory. The yeast holdout
 shares taxa with training; the lexical prior was already fitted to all families.
 The stemma reference repository remains unavailable; parameters for surviving
 ancestors and contamination remain uncalibrated.
+
+## Benchmark and release review
+
+The 70-dataset comparison uses the consumer's own validation/scoring code and
+its NJ and UPGMA implementations. It is a smoke-scale comparison across seven
+scenarios, not a statistically powered contest or a calibration objective.
+Stemma parameters remain provisional and the morphology source has two damaged
+matrices. The rc1 gate therefore remains unmet; no release-candidate tag is made.

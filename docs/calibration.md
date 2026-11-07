@@ -175,3 +175,47 @@ network parsing; it does not measure inference accuracy. Reports are in
 `docs/pilot/`, and `scripts/grape_pilot.py` reproduces the checks with a separately
 built GRAPE executable. A taxon with no TSV rows is not visible to GRAPE; use the
 bundle's observed matrix and taxon roster to detect such omissions.
+
+## Exploratory inference benchmark
+
+A fixed 70-dataset benchmark used ten replicates in each of seven scenarios:
+four lexical conditions (baseline, borrowing, synonymy and relaxed clock), gene
+content, morphology and stemma. Each simulation used 20 target taxa and 150
+characters; stemma can additionally produce sampled ancestors. GRAPE's native
+`adjusted`/Louvain/fixed configuration was compared with neighbour joining and
+UPGMA using GRAPE's own validation harness and its default `max_dist` missing
+policy. The table shows mean **unrooted normalized Robinson–Foulds distance**
+(lower is better) against the primary truth tree. Full replicate values and
+rooted clade scores are in `docs/pilot/grape-benchmark.json`.
+
+| Scenario | GRAPE | NJ | UPGMA |
+|---|---:|---:|---:|
+| genecontent | 0.232 | 0.206 | 0.235 |
+| lexical-baseline | 0.197 | 0.176 | 0.218 |
+| lexical-borrowing | 0.214 | 0.182 | 0.229 |
+| lexical-relaxed-clock | 0.328 | 0.276 | 0.418 |
+| lexical-synonymy | 0.199 | 0.200 | 0.253 |
+| morphology | 0.319 | 0.329 | 0.653 |
+| stemma | 0.297 | 0.163 | 0.258 |
+
+This is a small exploratory exercise, not a performance or significance claim.
+All methods receive the same sparse TSV; in particular gene-content absences and
+missing cells are conflated in that interface. The reference for a reticulating
+simulation is its primary tree, not a network score. Stemma results use an
+uncalibrated preset. All represented taxa were checked against the truth before
+scoring. The external GRAPE harness uses ETE3, NumPy, SciPy, NetworkX, Biopython
+and six as development dependencies; none are ngesh runtime dependencies.
+
+Reproduce with a checkout of GRAPE at the revision recorded in the JSON, built
+with CMake as in its README, and its validation dependencies installed:
+
+```sh
+python scripts/grape_benchmark.py --grape work/grape --replicates 10 --out work/grape-benchmark.json
+```
+
+Source recovery checks: the connected GitHub account again returned 404 for
+`evotext/stemmatology`; Zenodo's versions endpoint lists only record 6579584,
+and searches for the two exact morphology filenames found no accessible copies.
+The two zero-filled entries remain excluded. Supply the private stemmatology
+checkout and usable morphology matrices to complete calibration. The release
+candidate remains gated on that evidence.
