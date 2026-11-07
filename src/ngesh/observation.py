@@ -121,15 +121,33 @@ def observe(
                     )
                 mapped.add(new)
             row[i] = frozenset(mapped)
+    if cfg.taxon_sampling < 1:
+        keep = {t for t in sorted(data) if rng.random() < cfg.taxon_sampling}
+        if not keep:
+            raise ValueError("taxon subsampling removed every observation")
+        for t in sorted(set(data) - keep):
+            log.append({"kind": "taxon_sampling", "taxon": t})
+        data = {t: row for t, row in data.items() if t in keep}
+        tree = evolution.tree.prune(keep)
+    else:
+        tree = evolution.tree
     retained = []
     for i in range(n):
         frequency: dict[int, int] = {}
         cells = {row[i] for row in data.values() if row[i] is not None}
         for row in data.values():
-            for state in row[i] or []:
+            cell = row[i]
+            if cell is None:
+                continue
+            states = (
+                ({1} if cell else {0})
+                if evolution.config.model in {"binary", "dollo"}
+                else (cell or {-1})
+            )
+            for state in states:
                 frequency[state] = frequency.get(state, 0) + 1
         invariant = len(cells) <= 1
-        singleton = any(v == 1 for v in frequency.values())
+        singleton = sum(v >= 2 for v in frequency.values()) < 2
         if (cfg.remove_invariant and invariant) or (cfg.remove_singleton and singleton):
             log.append(
                 {
@@ -143,14 +161,4 @@ def observe(
             retained.append(i)
     # Preserve unfiltered truth separately; only observed columns are filtered.
     data = {t: [row[i] for i in retained] for t, row in data.items()}
-    if cfg.taxon_sampling < 1:
-        keep = {t for t in sorted(data) if rng.random() < cfg.taxon_sampling}
-        if not keep:
-            raise ValueError("taxon subsampling removed every observation")
-        for t in sorted(set(data) - keep):
-            log.append({"kind": "taxon_sampling", "taxon": t})
-        data = {t: row for t, row in data.items() if t in keep}
-        tree = evolution.tree.prune(keep)
-    else:
-        tree = evolution.tree
     return Observed(data, tree, log, retained)

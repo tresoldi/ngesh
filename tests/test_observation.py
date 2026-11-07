@@ -56,3 +56,38 @@ class ObservationTests(unittest.TestCase):
                     present = {i for i, c in enumerate(obs.matrix[child.name]) if c}
                     self.assertLessEqual(present, allowed)
                 stack.extend(child.children)
+
+    def test_filters_after_taxon_sampling(self):
+        from ngesh import simulate
+
+        for seed in range(5):
+            result = simulate(
+                preset="morphology",
+                seed=seed,
+                config={"tree": {"n_taxa": 30}, "characters": {"n_characters": 80}},
+            )
+            obs = observe(
+                result,
+                ObservationConfig(remove_invariant=True, remove_singleton=True, taxon_sampling=0.3),
+                rng=RandomStream(seed),
+            )
+            for i in range(len(obs.retained_groups)):
+                cells = [row[i] for row in obs.matrix.values() if row[i] is not None]
+                self.assertGreater(len(set(cells)), 1)
+                frequencies = {}
+                for cell in cells:
+                    for state in cell or {-1}:
+                        frequencies[state] = frequencies.get(state, 0) + 1
+                self.assertGreaterEqual(sum(v >= 2 for v in frequencies.values()), 2)
+
+    def test_binary_absence_is_a_state(self):
+        from ngesh.characters import Evolution, CharacterConfig
+
+        tree = control_tree(4)
+        names = [n.name for n in tree.tips()]
+        truth = {name: [frozenset({1}) if i < 2 else frozenset()] for i, name in enumerate(names)}
+        result = Evolution(
+            tree, CharacterConfig(model="binary", n_characters=1), ["C1"], truth, [], [1], {}
+        )
+        obs = observe(result, ObservationConfig(remove_singleton=True), rng=RandomStream(2))
+        self.assertEqual(obs.retained_groups, [0])

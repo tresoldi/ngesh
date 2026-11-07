@@ -112,7 +112,7 @@ probability; splitting assigns a fresh per-cell state. These class-label errors
 are undefined for binary presence/absence and are rejected there.
 
 `remove_invariant` removes constant observed state sets; `remove_singleton`
-removes groups containing any state observed in only one taxon. All decisions
+removes parsimony-uninformative groups unless at least two states each occur in two or more taxa; binary absence counts as a state. All decisions
 are logged. `taxon_sampling` is Bernoulli subsampling with consistent truth-tree
 pruning. A run that loses every taxon fails explicitly.
 

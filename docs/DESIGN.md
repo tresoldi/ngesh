@@ -237,3 +237,10 @@ ancestor of its former sister. Pruning clears its sampled-tip marker; the
 internal encoder only converts zero-length samples attached to sampled ancestor
 nodes. Both alternate encodings are emitted whenever ancestor sampling was
 configured, including when all sampled ancestors became terminal.
+
+## Ascertainment after subsampling
+
+Taxa are sampled before ascertainment so the filters apply to the actual output.
+The singleton filter now removes parsimony-uninformative columns: at least two
+states must each occur in two or more retained taxa. For binary traits, absence
+is an observed state. Polymorphic cells contribute each recorded state once.
