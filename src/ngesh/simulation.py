@@ -78,7 +78,7 @@ def simulate(
     if char_cfg.model in {"binary", "dollo"} and (ocfg.lumping or ocfg.splitting):
         raise ValueError("class lumping/splitting is not defined for binary presence/absence")
     srng = RandomStream(seeds["tree_sampling"])
-    selected = {
+    selected = [
         n
         for n in tree.tips()
         if n.attrs.get("sampled_tip")
@@ -87,7 +87,7 @@ def simulate(
             not n.attrs.get("extinct", False)
             and (tree_cfg.sampling == 1 or srng.random() < tree_cfg.sampling)
         )
-    }
+    ]
     if not selected:
         raise ValueError("tree sampling retained no observations")
     if tree_cfg.height is not None or tree_cfg.mean_height is not None:

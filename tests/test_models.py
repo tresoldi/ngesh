@@ -84,3 +84,18 @@ class TreeModelTests(unittest.TestCase):
         )
         self.assertAlmostEqual(statistics.mean(n.time for n in result.tree.tips()), 2)
         self.assertTrue(all(n.length >= 0 for n in result.tree.traverse()))
+
+    def test_rescaling_reproducible_across_processes(self):
+        import os
+        import subprocess
+        import sys
+
+        code = "from ngesh import simulate; print(simulate(preset='stemma', seed=54, config={'tree':{'n_taxa':10,'sampling':.6,'mean_height':2},'characters':{'n_characters':5}}).tree.newick())"
+        outputs = [
+            subprocess.check_output(
+                [sys.executable, "-c", code],
+                env=dict(os.environ, PYTHONPATH="src", PYTHONHASHSEED=value),
+            )
+            for value in ["1", "999"]
+        ]
+        self.assertEqual(outputs[0], outputs[1])

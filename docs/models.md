@@ -31,7 +31,10 @@ The simulator evolves characters on the full history before pruning observations
 `shape` may be `balanced`, `caterpillar`, `birth_death`, or `newick` with `newick`
 text. Controls have unit height; balanced splits differ by at most one tip.
 `height` rescales origin height; `mean_height` rescales mean observed tip time.
-They are mutually exclusive. Pruning preserves absolute observation times.
+They are mutually exclusive. Rescaling uses the retained observation times while
+scaling the entire latent history. Birth/death and ancestor sampling rates refer
+to the original generation units; character rates refer to rescaled time units.
+Pruning preserves absolute observation times.
 
 ## Character processes
 
