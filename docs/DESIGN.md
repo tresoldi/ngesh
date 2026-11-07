@@ -258,3 +258,12 @@ tree configuration.
 Mk matrices use single-symbol STANDARD encoding with the complete state
 alphabet, including unobserved model states, whenever all state IDs fit in
 one digit. Integer TOKENS remain available when coding errors create larger IDs.
+
+## Review: clocks and sampling
+
+Sampled-ancestor splits inherit the continuing lineage multiplier. Dollo gains
+are drawn from lineage exposure weighted by the same branch clock used by
+losses; the character-wide rate cancels in the conditional one-gain choice.
+Repeated omissions of an absent locus are logged as omission_silent. Empty
+Bernoulli tip samples are retried, with a bounded attempt count recorded in
+params.json. Zero-probability sampling can fail after the explicit bound.

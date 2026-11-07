@@ -14,13 +14,13 @@ polytomies have 2+Poisson(polytomy) children. `copy_sigma` gives mean-one
 lognormal birth-rate multipliers to each new lineage. With `burst_probability`,
 a birth has Poisson(`burst_mean`) extra children.
 
-`n_taxa` stops at the first exact extant count. At the final birth, offspring are
-capped to that count. `max_time` additionally rejects histories that fail to hit
-the count by the deadline. Use `stop="time"` and `max_time` for time-only
+`n_taxa` uses a time-weighted sample of periods with the target count, from a
+history simulated until twice that count or `max_time`. Pure Yule without a
+deadline uses an equivalent exponential terminal extension. Use `stop="time"` and `max_time` for time-only
 simulation (CLI: `ngesh tree --time-only --max-time 3`). Failed/extinct histories
 are retried up to `max_attempts`; populations are bounded by `max_lineages`.
 With no death, the expected exact-n origin height is
-E[H_n] = sum(k=1..n-1) 1/(k λ). This includes the first stem waiting time.
+E[H_n] = sum(k=1..n) 1/(k λ). This includes the first stem waiting time.
 
 `full` retains extinct tips. Extant tips are independently sampled with
 probability `sampling` (ρ). `ancestor_rate` samples points along lineage-time as
@@ -30,7 +30,8 @@ The simulator evolves characters on the full history before pruning observations
 
 `shape` may be `balanced`, `caterpillar`, `birth_death`, or `newick` with `newick`
 text. Controls have unit height; balanced splits differ by at most one tip.
-`height` rescales origin height; `mean_height` rescales mean observed tip time.
+`crown_height` rescales the retained crown age; `origin_height` and the legacy
+`height` alias rescale origin height; `mean_height` rescales mean observed tip time.
 They are mutually exclusive. Rescaling uses the retained observation times while
 scaling the entire latent history. Birth/death and ancestor sampling rates refer
 to the original generation units; character rates refer to rescaled time units.
@@ -55,7 +56,7 @@ borrowing or synonymy, multistate characters have CI=1 on their truth tree.
 
 **Gene content.** `model="dollo"` gives each trait initial presence probability
 `root_frequency`. Non-root-present, noninvariant traits have exactly one origin,
-uniform over total lineage-time: this is a homogeneous origin process conditioned
+weighted by relaxed-clock lineage exposure: this is a homogeneous origin process conditioned
 on one gain. Losses have intensity loss_rate×r_c×L_b. Traits may disappear entirely;
 there is no hidden retention ascertainment. `model="binary"` instead has repeated
 0→1 gains at gain_rate×r_c×L_b and 1→0 losses at loss_rate×r_c×L_b. Its equilibrium

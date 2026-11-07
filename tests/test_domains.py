@@ -97,3 +97,42 @@ class DomainTests(unittest.TestCase):
                 )
                 self.assertGreaterEqual(len(result.truth), 8)
                 self.assertTrue((Path(tmp) / preset / "data.multi.nex").exists())
+
+    def test_dollo_gain_follows_branch_clock(self):
+        from unittest.mock import patch
+        from ngesh.rng import RandomStream
+
+        tree = Tree.from_newick("(A:1,B:1)R:0;")
+        cfg = CharacterConfig(
+            model="dollo", n_characters=2000, rate=1, loss_rate=0, root_frequency=0, clock_sigma=1
+        )
+        with patch.object(RandomStream, "lognormal", side_effect=[1, 1, 9]):
+            result = evolve(tree, cfg, seed=8)
+        gains = [e for e in result.events if e.kind == "gain"]
+        self.assertAlmostEqual(
+            sum(e.recipient == "B" for e in gains) / len(gains), 0.9, delta=0.025
+        )
+
+    def test_absent_omissions_are_marked_silent(self):
+        result = evolve(
+            control_tree(3),
+            CharacterConfig(model="textual", n_characters=8, rate=2, omission_rate=10),
+            seed=4,
+        )
+        self.assertTrue(any(e.kind == "omission_silent" for e in result.events))
+        self.assertTrue(
+            all(not e.old and not e.new for e in result.events if e.kind == "omission_silent")
+        )
+
+    def test_sampled_ancestor_shares_clock(self):
+        from ngesh.models import sample_ancestors
+        from ngesh.rng import RandomStream
+
+        tree = control_tree(5)
+        sample_ancestors(tree, 3, RandomStream(3))
+        result = evolve(tree, CharacterConfig(n_characters=5, clock_sigma=1), seed=2)
+        for node in tree.traverse():
+            if node.parent and node.parent.attrs.get("sampled_ancestor"):
+                self.assertEqual(
+                    result.branch_rates[node.name], result.branch_rates[node.parent.name]
+                )

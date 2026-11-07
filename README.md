@@ -5,7 +5,7 @@ benchmarking. It supports lexical cognate classes, manuscript readings, gene
 presence/absence and morphological characters. Runtime and core tests use only
 the Python standard library. Python 3.10–3.13 are supported.
 
-**Current development release: 2.0.0a3.** This is a breaking rewrite of 1.2.1.
+**Current development release: 2.0.0a4.** This is a breaking rewrite of 1.2.1.
 The lexical, gene-content and morphology defaults have preliminary empirical fits.
 The stemma preset remains provisional pending access to the reference traditions. It is not yet a release candidate.
 

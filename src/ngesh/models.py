@@ -170,22 +170,24 @@ def generate_tree(
         tree = _birth_death(cfg, rng)
     sample_ancestors(tree, cfg.ancestor_rate, rng)
     if not cfg.full or cfg.sampling < 1:
-        keep = {
-            n.name
-            for n in tree.tips()
-            if n.attrs.get("sampled_tip")
-            or (
-                not n.attrs.get("extinct", False)
-                and (cfg.sampling == 1 or rng.random() < cfg.sampling)
-            )
-        }
-        if cfg.full:
-            keep.update(n.name for n in tree.tips() if n.attrs.get("extinct", False))
-        if not keep:
-            raise ValueError(
-                "sampling retained no observations; change seed or sampling probability"
-            )
+        for sampling_attempts in range(1, cfg.max_attempts + 1):
+            keep = {
+                n.name
+                for n in tree.tips()
+                if n.attrs.get("sampled_tip")
+                or (
+                    not n.attrs.get("extinct", False)
+                    and (cfg.sampling == 1 or rng.random() < cfg.sampling)
+                )
+            }
+            if cfg.full:
+                keep.update(n.name for n in tree.tips() if n.attrs.get("extinct", False))
+            if keep:
+                break
+        else:
+            raise ValueError("sampling retained no observations within max_attempts")
         tree = tree.prune(keep)
+        tree.root.attrs["sampling_attempts"] = sampling_attempts
     if cfg.crown_height is not None:
         tree.rescale(cfg.crown_height, "crown")
     if cfg.origin_height is not None:

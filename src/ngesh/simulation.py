@@ -103,18 +103,21 @@ def simulate(
     if char_cfg.model in {"binary", "dollo"} and (ocfg.lumping or ocfg.splitting):
         raise ValueError("class lumping/splitting is not defined for binary presence/absence")
     srng = RandomStream(seeds["tree_sampling"])
-    selected = [
-        n
-        for n in tree.tips()
-        if n.attrs.get("sampled_tip")
-        or (n.attrs.get("extinct", False) and tree_cfg.full)
-        or (
-            not n.attrs.get("extinct", False)
-            and (tree_cfg.sampling == 1 or srng.random() < tree_cfg.sampling)
-        )
-    ]
-    if not selected:
-        raise ValueError("tree sampling retained no observations")
+    for sampling_attempts in range(1, tree_cfg.max_attempts + 1):
+        selected = [
+            n
+            for n in tree.tips()
+            if n.attrs.get("sampled_tip")
+            or (n.attrs.get("extinct", False) and tree_cfg.full)
+            or (
+                not n.attrs.get("extinct", False)
+                and (tree_cfg.sampling == 1 or srng.random() < tree_cfg.sampling)
+            )
+        ]
+        if selected:
+            break
+    else:
+        raise ValueError("tree sampling retained no observations within max_attempts")
     scaling = [
         ("crown", tree_cfg.crown_height),
         ("origin", tree_cfg.origin_height),
@@ -173,6 +176,7 @@ def simulate(
                 "derived_seeds": seeds,
                 "rng_integer_seeds": {c: derive_seed(value) for c, value in seeds.items()},
                 "tree_config": asdict(tree_cfg),
+                "tree_sampling_attempts": sampling_attempts,
                 "horizontal_config": asdict(hcfg),
                 "observation_config": asdict(ocfg),
                 "config": config,

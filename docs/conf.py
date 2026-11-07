@@ -19,7 +19,7 @@ sys.path.insert(0, os.path.abspath('../src'))
 
 project = 'ngesh'
 copyright = '2019-2026, Tiago Tresoldi'
-release = '2.0.0a3'
+release = '2.0.0a4'
 author = 'Tiago Tresoldi'
 
 

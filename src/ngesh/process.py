@@ -44,7 +44,12 @@ def run_process(
     if len({n.name for n in tree.traverse()}) != len(list(tree.traverse())):
         raise ValueError("lineage names must be unique")
     nodes = list(tree.traverse())
-    branch_rates = {n.name: rng.lognormal(cfg.clock_sigma) for n in nodes}
+    branch_rates = {}
+    for n in nodes:
+        if n.parent and (n.parent.attrs.get("sampled_ancestor") or n.attrs.get("sampled_tip")):
+            branch_rates[n.name] = branch_rates[n.parent.name]
+        else:
+            branch_rates[n.name] = rng.lognormal(cfg.clock_sigma)
     counters = [cfg.pool_size] * count
     states: dict[Node, list[frozenset[int]]] = {}
     deadlines: dict[Node, list[dict[int, float]]] = {}
@@ -145,18 +150,18 @@ def run_process(
         ]
 
     if cfg.model == "dollo":
-        lengths = [n.length for n in nodes]
+        lengths = [n.length * branch_rates[n.name] for n in nodes]
         total_length = sum(lengths)
         for c in range(count):
             if root_cells[c] or not rates[c] or not total_length:
                 continue
             draw = rng.random() * total_length
-            for node in nodes:
-                if draw < node.length:
-                    t = (node.parent.time if node.parent else 0) + draw
+            for node, weight in zip(nodes, lengths):
+                if draw < weight:
+                    t = (node.parent.time if node.parent else 0) + draw / branch_rates[node.name]
                     queue(t, 4, "gain", node, c)
                     break
-                draw -= node.length
+                draw -= weight
 
     def schedule_block(t: float, node: Node, b: int) -> None:
         rate = shared[b] * branch_rates[node.name]
@@ -305,7 +310,16 @@ def run_process(
         ):
             states[node][c] = frozenset()
             deadlines[node][c].clear()
-            events.append(Event(t, node.name, c, tuple(sorted(old)), (), "omission"))
+            events.append(
+                Event(
+                    t,
+                    node.name,
+                    c,
+                    tuple(sorted(old)),
+                    (),
+                    "omission" if old else "omission_silent",
+                )
+            )
             schedule_change(t, node, c)
             continue
         if kind == "expire":

@@ -195,3 +195,23 @@ class BundleTests(unittest.TestCase):
             self.assertNotIn("TOKENS", text)
             self.assertIn('SYMBOLS="0123"', text)
             self.assertEqual(read_nexus(out / "data.multi.nex"), read_matrix(out / "observed.json"))
+
+    def test_empty_tip_draw_is_retried_and_recorded(self):
+        from ngesh import simulate
+
+        attempts = []
+        with tempfile.TemporaryDirectory() as tmp:
+            for seed in range(8):
+                out = Path(tmp) / str(seed)
+                simulate(
+                    seed=seed,
+                    config={
+                        "tree": {"n_taxa": 4, "sampling": 0.1, "origin_height": 1},
+                        "characters": {"n_characters": 5},
+                    },
+                    out=out,
+                )
+                attempts.append(
+                    json.loads((out / "params.json").read_text())["tree_sampling_attempts"]
+                )
+        self.assertTrue(any(n > 1 for n in attempts))
