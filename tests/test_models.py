@@ -29,7 +29,7 @@ class TreeModelTests(unittest.TestCase):
             max(t.time for t in generate_tree(TreeConfig(n_taxa=n), seed=i).tips())
             for i in range(1800)
         ]
-        expected = sum(1 / k for k in range(1, n))
+        expected = sum(1 / k for k in range(1, n + 1))
         self.assertAlmostEqual(statistics.mean(heights), expected, delta=0.09)
 
     def test_sampling(self):
@@ -99,3 +99,8 @@ class TreeModelTests(unittest.TestCase):
             for value in ["1", "999"]
         ]
         self.assertEqual(outputs[0], outputs[1])
+
+    def test_yule_count_has_positive_terminal_lengths(self):
+        for seed in range(100):
+            tree = generate_tree(TreeConfig(n_taxa=20), seed=seed)
+            self.assertTrue(all(tip.length > 0 for tip in tree.tips()))

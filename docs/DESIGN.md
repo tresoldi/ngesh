@@ -221,3 +221,12 @@ its NJ and UPGMA implementations. It is a smoke-scale comparison across seven
 scenarios, not a statistically powered contest or a calibration objective.
 Stemma parameters remain provisional and the morphology source has two damaged
 matrices. The rc1 gate therefore remains unmet; no release-candidate tag is made.
+
+## Review follow-up: Yule count stopping (partial)
+
+The earlier first-hitting-time assumption produces zero-length terminal
+branches. For constant-rate Yule trees without a deadline or polytomies, we now extend the first n-lineage
+interval by an independent exponential wait of rate n*birth. This gives mean
+origin height H_n/birth and positive terminal edges. This correction does not
+implement the general sampling approach for birth-death or relaxed copying;
+those models still require a full GSA implementation before release.

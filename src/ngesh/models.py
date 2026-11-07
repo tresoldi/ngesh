@@ -221,6 +221,19 @@ def _birth_death(cfg: TreeConfig, rng: RandomStream) -> Tree:
                     )
                     active.append(child)
             if cfg.n_taxa is not None and len(active) == cfg.n_taxa:
+                # For a pure Yule process, sampling through the entire n-lineage
+                # interval has the same distribution as extending by Exp(n*birth).
+                if (
+                    cfg.death == 0
+                    and cfg.copy_sigma == 0
+                    and cfg.polytomy == 0
+                    and cfg.burst_probability == 0
+                    and cfg.max_time is None
+                ):
+                    extension = rng.exponential(len(active) * cfg.birth)
+                    if cfg.max_time is not None and now + extension > cfg.max_time:
+                        break
+                    now += extension
                 success = True
                 break
             if len(active) > cfg.max_lineages:
