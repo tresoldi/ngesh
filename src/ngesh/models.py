@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, replace
 import math
+import copy
 
 from .rng import RandomStream, Seed, positive
 from .tree import Node, Tree
@@ -128,8 +129,8 @@ def generate_tree(
 ) -> Tree:
     """Birth–death process, conditioned on surviving and attaining the target.
 
-    Exact counts stop at the first hitting time; with a deadline, successful
-    trajectories must reach that count before the deadline. Time-only runs are
+    Exact counts use time-weighted sampling from intervals with n lineages,
+    simulated until twice the target or a specified deadline. Time-only runs are
     conditioned on at least two extant tips. Extinction causes bounded retries.
     Both method names use the same event-driven kernel in 2.x.
     """
@@ -186,10 +187,38 @@ def _birth_death(cfg: TreeConfig, rng: RandomStream) -> Tree:
         now, serial = 0.0, 0
         root.attrs["copy_rate"] = rng.lognormal(cfg.copy_sigma)
         success = False
+        candidate = None
+        duration = 0.0
+        # Simulate to a larger target and sample proportionally to time spent
+        # with exactly n lineages (GSA). The pure-Yule shortcut is exact.
+        shortcut = (
+            cfg.n_taxa is not None
+            and cfg.death == 0
+            and cfg.copy_sigma == 0
+            and cfg.polytomy == 0
+            and cfg.burst_probability == 0
+            and cfg.max_time is None
+        )
+        threshold = 2 * cfg.n_taxa if cfg.n_taxa is not None else None
         while active:
             rates = [cfg.birth * n.attrs["copy_rate"] + cfg.death for n in active]
             total = sum(rates)
             wait = rng.exponential(total)
+            interval = min(wait, max(0.0, cfg.max_time - now)) if cfg.max_time is not None else wait
+            if (
+                cfg.n_taxa is not None
+                and not shortcut
+                and len(active) == cfg.n_taxa
+                and interval > 0
+            ):
+                duration += interval
+                if rng.random() < interval / duration:
+                    selected_time = now + rng.random() * interval
+                    snapshot, selected = copy.deepcopy((root, active))
+                    for lineage in selected:
+                        lineage.length = selected_time - lineage.time
+                        lineage.attrs["extinct"] = False
+                    candidate = snapshot
             if cfg.max_time is not None and now + wait >= cfg.max_time:
                 now = cfg.max_time
                 success = cfg.n_taxa is None and len(active) >= 2
@@ -208,8 +237,6 @@ def _birth_death(cfg: TreeConfig, rng: RandomStream) -> Tree:
                 offspring = 2 + rng.poisson(cfg.polytomy)
                 if cfg.burst_probability and rng.random() < cfg.burst_probability:
                     offspring += rng.poisson(cfg.burst_mean)
-                if cfg.n_taxa is not None:
-                    offspring = min(offspring, cfg.n_taxa - len(active))
                 for _ in range(offspring):
                     serial += 1
                     child = node.add(
@@ -220,24 +247,24 @@ def _birth_death(cfg: TreeConfig, rng: RandomStream) -> Tree:
                         )
                     )
                     active.append(child)
-            if cfg.n_taxa is not None and len(active) == cfg.n_taxa:
-                # For a pure Yule process, sampling through the entire n-lineage
-                # interval has the same distribution as extending by Exp(n*birth).
-                if (
-                    cfg.death == 0
-                    and cfg.copy_sigma == 0
-                    and cfg.polytomy == 0
-                    and cfg.burst_probability == 0
-                    and cfg.max_time is None
-                ):
-                    extension = rng.exponential(len(active) * cfg.birth)
-                    if cfg.max_time is not None and now + extension > cfg.max_time:
-                        break
-                    now += extension
+            if shortcut and len(active) == cfg.n_taxa:
+                now += rng.exponential(len(active) * cfg.birth)
                 success = True
+                break
+            if threshold is not None and len(active) >= threshold:
                 break
             if len(active) > cfg.max_lineages:
                 raise RuntimeError("max_lineages exceeded; reduce rates or time horizon")
+        if (
+            not shortcut
+            and cfg.n_taxa is not None
+            and candidate is not None
+            and (active or cfg.max_time is not None)
+        ):
+            tree = Tree(candidate)
+            for i, node in enumerate(tree.tips(), 1):
+                node.name = f"T{i:04d}"
+            return tree
         if not success:
             continue
         for node in active:

@@ -104,3 +104,8 @@ class TreeModelTests(unittest.TestCase):
         for seed in range(100):
             tree = generate_tree(TreeConfig(n_taxa=20), seed=seed)
             self.assertTrue(all(tip.length > 0 for tip in tree.tips()))
+
+    def test_birth_death_count_has_positive_terminal_lengths(self):
+        for seed in range(100):
+            tree = generate_tree(TreeConfig(n_taxa=20, death=0.5), seed=seed)
+            self.assertTrue(all(tip.length > 0 for tip in tree.tips()))

@@ -36,14 +36,13 @@ core rather than preserve misleading 1.x parameter semantics.
 * Yule starts with one lineage at time zero, including its first waiting time
   (root stem). At n tips its expected height is H_(n-1)/birth. Crown-conditioned
   height has a different expectation and is not silently substituted.
-* Exact-n generation ends at the first hitting time. n plus a deadline means
-  reaching n **by** that time, with rejection of extinct/late attempts. Time-only
+* Exact-n generation uses a time-weighted sample of intervals with n extant
+  lineages, simulated until 2n lineages or a deadline. Extinct attempts without
+  a valid sampled interval are retried. Time-only
   generation conditions on >=2 surviving lineages. Limits bound failed attempts
   and explosive populations. Standard and fast names share one correct kernel.
-* Polytomies add Poisson(lambda) offspring to a binary birth. At the final birth
-  offspring are capped to the remaining tip budget: the exact-n model therefore
-  has a truncated final polytomy. Rejection of overshoots was an alternative, but
-  biases the entire trajectory rather than just its stated stopping transition.
+* Polytomies add Poisson(lambda) offspring to a binary birth. Overshoots are not
+  truncated; the process can revisit n after subsequent deaths.
 * Sampling is Bernoulli(rho) per extant tip, after evolution. Fossil/manuscript
   observations are a Poisson process per lineage-time, split into a continuation
   and a zero-length sampled tip. Loss later in time does not erase earlier samples.
@@ -227,6 +226,6 @@ matrices. The rc1 gate therefore remains unmet; no release-candidate tag is made
 The earlier first-hitting-time assumption produces zero-length terminal
 branches. For constant-rate Yule trees without a deadline or polytomies, we now extend the first n-lineage
 interval by an independent exponential wait of rate n*birth. This gives mean
-origin height H_n/birth and positive terminal edges. This correction does not
-implement the general sampling approach for birth-death or relaxed copying;
-those models still require a full GSA implementation before release.
+origin height H_n/birth and positive terminal edges. Birth-death and relaxed-copying histories now use time-weighted reservoir
+sampling across all n-lineage intervals before reaching 2n or the deadline.
+Extinct attempts without reaching the threshold are retried.
