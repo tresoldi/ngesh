@@ -1,0 +1,19 @@
+[tree]
+n_taxa = 20
+death = 0.8
+ancestor_rate = 0.2
+copy_sigma = 0.6
+burst_probability = 0.1
+burst_mean = 3.0
+[characters]
+n_characters = 100
+rate = 0.2
+p_parallel = 0.2
+omission_rate = 0.05
+[horizontal]
+contamination_fraction = 0.05
+contamination_blocks = true
+[observation]
+coverage_a = 4.0
+coverage_b = 1.0
+block_missing = 0.1

@@ -67,8 +67,7 @@ class Tree:
 
     def alive(self, time: float) -> list[Node]:
         """Half-open edges [start,end); excludes zero-length sampled tips."""
-        return [n for n in self.traverse() if n.parent is not None and
-                n.parent.time <= time < n.time and not n.attrs.get("sampled_tip", False)]
+        return [n for n in self.traverse() if (n.parent.time if n.parent else 0.0) <= time < n.time and not n.attrs.get("sampled_tip", False)]
 
     def distance(self, a: Node, b: Node) -> float:
         ancestors = set(a.ancestors())

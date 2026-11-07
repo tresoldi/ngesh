@@ -1,0 +1,11 @@
+# These common-subset TOML examples work on Python 3.10 as well as 3.11+.
+[tree]
+n_taxa = 50
+birth = 1.0
+[characters]
+n_characters = 200
+rate = 0.3
+alpha = 0.7
+categories = 4
+[observation]
+missing = 0.15

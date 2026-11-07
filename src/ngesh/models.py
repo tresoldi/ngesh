@@ -79,6 +79,11 @@ def sample_ancestors(tree: Tree, rate: float, rng: RandomStream) -> int:
     positive(rate, "ancestor_rate", zero=True)
     if rate == 0:
         return 0
+    if tree.root.length>0:
+        old = tree.root
+        tree.root = Node('ORIGIN')
+        tree.root.add(old)
+        tree.update_times()
     count = 0
     for end in list(tree.traverse()):
         parent = end.parent

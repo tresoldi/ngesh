@@ -111,3 +111,45 @@ core rather than preserve misleading 1.x parameter semantics.
   indices; original full truth remains available while observed columns are mapped.
 * The sampled-ancestor internal encoding restores the observation's original label
   after removing its zero-length tip; lineage IDs in history remain unique.
+
+## G3 remaining domains
+
+* Stochastic Dollo conditions each non-root-present trait on exactly one origin:
+  its gain is uniform over total lineage-time (equivalent to a homogeneous
+  Poisson origin process conditioned on one event). Descendants lose at mu times
+  their character/clock multiplier. Trait count is fixed; we do not silently
+  condition on retention in the observed tips. Invariants have no gain/loss.
+* **Acceptance correction:** ordinary binary Fitch CI need not equal one under
+  Dollo with repeated losses. A single origin followed by two independent losses
+  is valid Dollo evolution but can require >1 unordered-parsimony step. Tests
+  therefore check single-origin histories, valid losses, and CI=1 for the
+  no-loss special case. Requiring CI=1 with nonzero repeated loss would change the
+  requested stochastic Dollo model into an incompatible infinite-sites model.
+* Binary Mk uses 0->1 gain_rate and 1->0 loss_rate, times the shared rate/clock.
+  Uniformization uses max(gain,loss) and silent proposals, preserving exact
+  transition probabilities even when transfers change the state mid-branch.
+* Unordered symmetric k-state Mk has off-diagonal rates rate/(k-1); ordered Mk
+  keeps only adjacent edges with that same rate, giving lower exit rates at the
+  endpoints and uniform equilibrium. An explicit asymmetric matrix supplies
+  nonnegative off-diagonal rates and zero diagonal; row sums determine exits.
+  Root state is zero; equilibrium is an outcome, not a hidden root assumption.
+* Mk correlated blocks use shared uniformization proposals at rho times the
+  smallest proposal rate in the block; independent residual clocks keep each
+  character's marginal generator exactly unchanged. Each shared proposal draws
+  individual transitions, including silent proposals. This exposes dependence
+  without inflating marginal rates.
+* Textual replacement uses the lexical innovation mechanism plus recurrent easy
+  readings. Omission is a separate competing hazard, omission_rate times the
+  per-character rate. The empty state is genuine absence; later copying error
+  can restore a reading. Binary coding lump/split is rejected: its semantics
+  concern class labels, not the biological presence indicator.
+* Presets remain provisional until fitted to real target summaries; no empirical
+  support is implied by these starting parameter values.
+
+* Evolution is run on the full lineage history before incomplete extant sampling
+  and extinction pruning. Otherwise removed tips would incorrectly disappear as
+  potential donors and change the process. A separate sampling stream determines
+  retained extant observations. `history_tree.nwk` preserves latent lineages when
+  different from the observed truth tree; transfer networks refer to that full
+  history, while `truth.nwk` matches the retained observation taxa. Stem samples
+  are included by introducing an explicit time-zero origin when necessary.

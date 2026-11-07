@@ -41,6 +41,19 @@ def run_process(tree: Tree, cfg: CharacterConfig, rng: RandomStream,
     events: list[Event] = []
     heap: list[tuple[float,int,int,str,Node,int,Any]] = []
     serial = 0
+    q = cfg.rate_matrix or [[(1/(cfg.k-1) if i!=j and (not cfg.ordered or abs(i-j)==1) else 0.0)
+                            for j in range(cfg.k)] for i in range(cfg.k)]
+    qmax = max(map(sum,q))
+    shared: dict[int,float] = {}
+    if cfg.model=='mk' and cfg.block_correlation:
+        for b in range(0,count,cfg.block_size):
+            shared[b] = min(rates[b:b+cfg.block_size])*qmax*cfg.block_correlation
+    root_cells = []
+    for i in range(count):
+        if cfg.model in {'dollo','binary'}:
+            root_cells.append(frozenset({1}) if rng.random()<cfg.root_frequency else frozenset())
+        else:
+            root_cells.append(frozenset({0}))
 
     def queue(t: float, priority: int, kind: str, node: Node, char: int = -1, value: Any = None) -> None:
         nonlocal serial
@@ -48,7 +61,16 @@ def run_process(tree: Tree, cfg: CharacterConfig, rng: RandomStream,
         heapq.heappush(heap,(t,priority,serial,kind,node,char,value))
 
     def schedule_change(t: float, node: Node, c: int) -> None:
-        rate = rates[c] * branch_rates[node.name]
+        base = rates[c]
+        if cfg.model=='dollo':
+            base *= cfg.loss_rate
+        elif cfg.model=='binary':
+            base *= max(cfg.loss_rate,cfg.gain_rate)
+        elif cfg.model=='mk':
+            base = base*qmax-shared.get((c//cfg.block_size)*cfg.block_size,0)
+        elif cfg.model=='textual':
+            base *= 1+cfg.omission_rate
+        rate = base * branch_rates[node.name]
         if rate:
             when = t + rng.exponential(rate)
             if when < node.time:
@@ -93,6 +115,36 @@ def run_process(tree: Tree, cfg: CharacterConfig, rng: RandomStream,
             cumulative.append(total)
         return candidates[min(bisect.bisect_right(cumulative,hrng.random()*total),len(candidates)-1)]
 
+    if cfg.model=='dollo':
+        lengths = [n.length for n in nodes]
+        total_length = sum(lengths)
+        for c in range(count):
+            if root_cells[c] or not rates[c] or not total_length:
+                continue
+            draw = rng.random()*total_length
+            for node in nodes:
+                if draw < node.length:
+                    t = (node.parent.time if node.parent else 0) + draw
+                    queue(t,4,'gain',node,c)
+                    break
+                draw -= node.length
+
+    def schedule_block(t: float, node: Node, b: int) -> None:
+        rate = shared[b]*branch_rates[node.name]
+        if rate:
+            when = t+rng.exponential(rate)
+            if when<node.time:
+                queue(when,4,'block',node,b)
+
+    def mk_transition(old: frozenset[int]) -> frozenset[int]:
+        current = next(iter(old))
+        draw = rng.random()*qmax
+        for new,rate in enumerate(q[current]):
+            if draw<rate:
+                return frozenset({new})
+            draw -= rate
+        return old
+
     for node in nodes:
         start = node.parent.time if node.parent else 0.0
         # Starts at a split must follow parent completion, including zero edges.
@@ -101,10 +153,12 @@ def run_process(tree: Tree, cfg: CharacterConfig, rng: RandomStream,
         if node.time > start:
             queue(node.time,0,'end',node)
     while heap:
+        if len(events)>cfg.max_events:
+            raise RuntimeError('max_events exceeded; reduce rates or increase explicit limit')
         t,_,_,kind,node,c,value = heapq.heappop(heap)
         if kind == 'start':
             if node.parent is None:
-                states[node] = [frozenset({0}) for _ in rates]
+                states[node] = root_cells[:]
                 deadlines[node] = [{} for _ in rates]
                 positions[node] = (0,0,t)
             else:
@@ -120,6 +174,8 @@ def run_process(tree: Tree, cfg: CharacterConfig, rng: RandomStream,
                         if when < node.time:
                             queue(when,3,'expire',node,i,state)
                 schedule_borrow(t,node)
+                for b in shared:
+                    schedule_block(t,node,b)
                 if horizontal.contamination_fraction and node.parent and len(node.parent.children)>1:
                     queue(t,2,'contaminate',node)
             continue
@@ -150,7 +206,47 @@ def run_process(tree: Tree, cfg: CharacterConfig, rng: RandomStream,
             if kind == 'borrow':
                 schedule_borrow(t,node)
             continue
+        if kind=='block':
+            for i in range(c,min(c+cfg.block_size,count)):
+                old = states[node][i]
+                new = mk_transition(old)
+                if new!=old:
+                    states[node][i] = new
+                    events.append(Event(t,node.name,i,tuple(sorted(old)),tuple(sorted(new)),'correlated_change'))
+            schedule_block(t,node,c)
+            continue
         old = states[node][c]
+        if kind=='gain':
+            new = frozenset({1})
+            states[node][c] = new
+            events.append(Event(t,node.name,c,tuple(sorted(old)),(1,),'gain'))
+            continue
+        if kind=='change' and cfg.model in {'binary','dollo','mk'}:
+            if cfg.model=='mk':
+                new = mk_transition(old)
+                event_kind = 'mk_change'
+            else:
+                if cfg.model=='binary':
+                    actual = cfg.loss_rate if old else cfg.gain_rate
+                    if rng.random()*max(cfg.loss_rate,cfg.gain_rate)>=actual:
+                        schedule_change(t,node,c)
+                        continue
+                if cfg.model=='dollo' and not old:
+                    schedule_change(t,node,c)
+                    continue
+                new = frozenset() if old else frozenset({1})
+                event_kind = 'loss' if old else 'gain'
+            states[node][c] = new
+            if new!=old:
+                events.append(Event(t,node.name,c,tuple(sorted(old)),tuple(sorted(new)),event_kind))
+            schedule_change(t,node,c)
+            continue
+        if kind=='change' and cfg.model=='textual' and rng.random()<cfg.omission_rate/(1+cfg.omission_rate):
+            states[node][c] = frozenset()
+            deadlines[node][c].clear()
+            events.append(Event(t,node.name,c,tuple(sorted(old)),(),'omission'))
+            schedule_change(t,node,c)
+            continue
         if kind == 'expire':
             if deadlines[node][c].get(value) != t:
                 continue

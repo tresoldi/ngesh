@@ -78,12 +78,12 @@ def _quote(text: str) -> str:
     return "'" + text.replace("'", "''") + "'"
 
 
-def _nexus(path: Path, matrix: Matrix, groups: list[str], *, binary: bool) -> list[tuple[int, int]]:
+def _nexus(path: Path, matrix: Matrix, groups: list[str], *, binary: bool, presence: bool = False) -> list[tuple[int, int]]:
     taxa = sorted(matrix)
     columns: list[tuple[int, int]] = []
     if binary:
         for i in range(len(groups)):
-            states = sorted({s for row in matrix.values() for s in row[i] or []})
+            states = [1] if presence else sorted({s for row in matrix.values() for s in row[i] or []})
             columns.extend((i, s) for s in states)
     else:
         columns = [(i, -1) for i in range(len(groups))]
@@ -92,13 +92,15 @@ def _nexus(path: Path, matrix: Matrix, groups: list[str], *, binary: bool) -> li
             return '?'
         if binary:
             return '1' if state in cell else '0'
+        if presence:
+            return '1' if cell else '0'
         if not cell:
             return '-'
         return str(next(iter(cell))) if len(cell) == 1 else '{' + ' '.join(map(str, sorted(cell))) + '}'
     data = [f"{_quote(t)} " + ' '.join(token(matrix[t][i], s) for i, s in columns) for t in taxa]
     # TOKENS permits integer states beyond the single-symbol NEXUS alphabet.
     states = sorted({s for row in matrix.values() for c in row for s in c or []})
-    symbols = '01' if binary else ' '.join(map(str, states or [0]))
+    symbols = '01' if binary or presence else ' '.join(map(str, states or [0]))
     fmt = 'DATATYPE=STANDARD ' + ('' if binary else 'TOKENS ') + f'SYMBOLS="{symbols}" MISSING=? GAP=-;'
     text = ['#NEXUS', 'BEGIN DATA;', f'DIMENSIONS NTAX={len(taxa)} NCHAR={len(columns)};',
             'FORMAT ' + fmt, 'MATRIX', *data, ';', 'END;']
@@ -123,6 +125,8 @@ def write_bundle(directory: str | Path, evolution: Evolution, *, params: dict[st
     groups = evolution.groups if retained_groups is None else [evolution.groups[i] for i in retained_groups]
     binary = evolution.config.model in {'dollo', 'binary'}
     (path / 'truth.nwk').write_text(tree.newick() + '\n', encoding='utf-8')
+    if evolution.history_tree is not None:
+        (path / 'history_tree.nwk').write_text(evolution.history_tree.newick() + '\n',encoding='utf-8')
     if any(n.attrs.get('sampled_ancestor') for n in tree.traverse()):
         (path / 'truth_sa_leaves.nwk').write_text(tree.newick() + '\n', encoding='utf-8')
         (path / 'truth_sa_internal.nwk').write_text(ancestor_internal(tree).newick() + '\n', encoding='utf-8')
@@ -130,8 +134,8 @@ def write_bundle(directory: str | Path, evolution: Evolution, *, params: dict[st
     (path / 'truth.json').write_text(json_text(matrix_json(evolution.truth)), encoding='utf-8')
     (path / 'observed.json').write_text(json_text(matrix_json(data)), encoding='utf-8')
     (path / 'observations.json').write_text(json_text(observation_log or []), encoding='utf-8')
-    columns = _nexus(path / 'data.bin.nex', data, groups, binary=True)
-    _nexus(path / 'data.multi.nex', data, groups, binary=False)
+    columns = _nexus(path / 'data.bin.nex', data, groups, binary=True, presence=binary)
+    _nexus(path / 'data.multi.nex', data, groups, binary=False, presence=binary)
     # PHYLIP relaxed names are whitespace-free; map names to stable IDs explicitly.
     aliases = {t:f'T{i:06d}' for i,t in enumerate(sorted(data),1)}
     rows = []
@@ -154,7 +158,7 @@ def write_bundle(directory: str | Path, evolution: Evolution, *, params: dict[st
     horizontal_events = [e for e in evolution.events if e.donor]
     if horizontal_events:
         from .horizontal import displayed_network
-        (path / 'network.enwk').write_text(displayed_network(evolution.tree,horizontal_events).newick() + '\n',encoding='utf-8')
+        (path / 'network.enwk').write_text(displayed_network(evolution.history_tree or evolution.tree,horizontal_events).newick() + '\n',encoding='utf-8')
         with (path / 'events.tsv').open('w',encoding='utf-8',newline='') as handle:
             writer = csv.writer(handle,delimiter='\t',lineterminator='\n')
             writer.writerow(['time','kind','donor','recipient','character','old','new'])

@@ -1,0 +1,11 @@
+[tree]
+n_taxa = 30
+[characters]
+model = "mk"
+n_characters = 100
+rate = 0.2
+k = 4
+ordered = false
+alpha = 0.7
+block_size = 5
+block_correlation = 0.2

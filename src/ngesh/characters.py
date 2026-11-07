@@ -24,14 +24,25 @@ class CharacterConfig:
     pool_size: int = 3
     synonym_duration: float = 0.0
 
+    gain_rate: float = 0.1
+    loss_rate: float = 0.1
+    root_frequency: float = 0.5
+    k: int = 2
+    ordered: bool = False
+    rate_matrix: list[list[float]] | None = None
+    block_size: int = 1
+    block_correlation: float = 0.0
+    omission_rate: float = 0.0
+    max_events: int = 1000000
+
     def validate(self) -> None:
-        if self.model != "lexical":
+        if self.model not in {"lexical","textual","dollo","binary","mk"}:
             raise ValueError("unknown character model")
         if not isinstance(self.n_characters, int) or self.n_characters < 1:
             raise ValueError("n_characters must be a positive integer")
-        for name in ["rate", "clock_sigma", "synonym_duration"]:
+        for name in ["rate", "clock_sigma", "synonym_duration", "gain_rate", "loss_rate", "omission_rate"]:
             positive(getattr(self, name), name, zero=True)
-        for name in ["invariant", "p_parallel"]:
+        for name in ["invariant", "p_parallel", "root_frequency", "block_correlation"]:
             if not 0 <= getattr(self, name) <= 1:
                 raise ValueError(f"{name} must be in [0,1]")
         if self.alpha is not None:
@@ -40,6 +51,27 @@ class CharacterConfig:
             raise ValueError("categories must be a nonnegative integer")
         if self.categories and self.alpha is None:
             raise ValueError("categories require alpha")
+        if not 2 <= self.k <= 6 or not isinstance(self.k,int):
+            raise ValueError('k must be an integer from 2 to 6')
+        if not isinstance(self.block_size,int) or self.block_size<1:
+            raise ValueError('block_size must be a positive integer')
+        if self.max_events<1:
+            raise ValueError('max_events must be positive')
+        if self.synonym_duration and self.model not in {'lexical','textual'}:
+            raise ValueError('synonymy is only defined for lexical/textual characters')
+        if self.block_correlation and self.model!='mk':
+            raise ValueError('correlated blocks are only defined for Mk')
+        if self.rate_matrix is not None:
+            if self.model!='mk' or len(self.rate_matrix)!=self.k or any(len(row)!=self.k for row in self.rate_matrix):
+                raise ValueError('rate_matrix must be a k by k Mk matrix')
+            for i,row in enumerate(self.rate_matrix):
+                for j,value in enumerate(row):
+                    if i!=j:
+                        positive(value,'off-diagonal rate',zero=True)
+                    elif value!=0:
+                        raise ValueError('supply zero diagonal; exit rates are computed')
+            if max(map(sum,self.rate_matrix))<=0:
+                raise ValueError('Mk rate matrix must allow changes')
         if self.pool_size < 1:
             raise ValueError("pool_size must be positive")
 
@@ -65,6 +97,7 @@ class Evolution:
     rates: list[float]
     branch_rates: dict[str, float]
     all_states: Matrix = field(default_factory=dict, repr=False)
+    history_tree: Tree | None = field(default=None, repr=False)
 
 
 def character_rates(cfg: CharacterConfig, rng: RandomStream) -> list[float]:

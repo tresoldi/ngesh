@@ -1,0 +1,12 @@
+[tree]
+n_taxa = 50
+[characters]
+model = "dollo"
+n_characters = 500
+rate = 1.0
+loss_rate = 0.1
+root_frequency = 0.5
+[horizontal]
+borrowing_rate = 0.001
+mode = "add"
+scale = 1.0
