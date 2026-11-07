@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "Please cite the original JOSS publication when using ngesh."
+title: "Ngesh: a Python library for synthetic phylogenetic data"
+version: 2.0.0a3
+type: software
+authors:
+  - family-names: Tresoldi
+    given-names: Tiago
+    orcid: 'https://orcid.org/0000-0002-2863-1467'
+repository-code: 'https://github.com/tresoldi/ngesh'
+license: MIT
+doi: 10.21105/joss.03173
+preferred-citation:
+  type: article
+  title: "Ngesh: a Python library for synthetic phylogenetic data"
+  authors:
+    - family-names: Tresoldi
+      given-names: Tiago
+  journal: Journal of Open Source Software
+  year: 2021
+  volume: 6
+  issue: 66
+  start: 3173
+  doi: 10.21105/joss.03173

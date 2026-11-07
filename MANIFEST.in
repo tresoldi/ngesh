@@ -1,7 +1,6 @@
-include README.md
-include AUTHORS.md
-include CONTRIBUTING.md
-include LICENSE
-include CODE_OF_CONDUCT.md
-include requirements.txt
-include examples/*
+include README.md AUTHORS.md CONTRIBUTING.md LICENSE CODE_OF_CONDUCT.md CITATION.cff CHANGELOG.md
+recursive-include examples *.toml *.md
+recursive-include docs *.md *.json
+recursive-include calibration *.json
+recursive-include scripts *.py
+recursive-include tests *.py *.json

@@ -1,5 +1,27 @@
 # Changelog
 
+## 2.0.0a3 — 2026-11-07
+
+- Add single-origin Dollo, binary and ordered/asymmetric Mk, correlated blocks,
+  textual errors and omissions, manuscript and other domain presets.
+- Evolve full lineage histories before pruning observations.
+- Add empirical lexical summaries and calibration extraction/fitting tools.
+- Calibration for stemma, gene content and morphology awaits external inputs;
+  2.0.0rc1 and 2.0.0 final are not claimed or published.
+
+## 2.0.0a2 — 2026-11-07
+
+- Add chronological borrowing, Brownian geography and copying contamination.
+- Add missingness, nested selection, coding error, ascertainment and subsampling.
+
+## 2.0.0a1 — 2026-11-07
+
+- Replace ETE3/NumPy core with standard-library timed trees and stable private RNGs.
+- Add exact-count birth–death, sampled ancestors and control trees.
+- Add timed lexical evolution, gamma rates, bundles, CLI and resumable grids.
+- Remove incompatible 1.x APIs and INI configuration; require Python >=3.10.
+
+
 Version 1.2:
   - Added exact number of leaves as stop criterion
 
