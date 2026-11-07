@@ -109,6 +109,7 @@ def ancestor_internal(tree: Tree) -> Tree:
         new.attrs = dict(old.attrs)
     for node in list(result.traverse()):
         if node.attrs.get("sampled_tip") and node.parent:
+            node.parent.name = node.name
             node.parent.children.remove(node)
     return result
 

@@ -109,7 +109,8 @@ def _nexus(path: Path, matrix: Matrix, groups: list[str], *, binary: bool) -> li
 def write_bundle(directory: str | Path, evolution: Evolution, *, params: dict[str, Any],
                  observed: Matrix | None = None, truth_tree: Tree | None = None,
                  observation_log: list[dict[str, Any]] | None = None,
-                 include_ci: bool = True, max_quartets: int = 1000) -> dict[str, Any]:
+                 include_ci: bool = True, max_quartets: int = 1000,
+                 retained_groups: list[int] | None = None) -> dict[str, Any]:
     """Write files, then params.json last as the completion manifest.
 
     Files are deterministic; manifest does not hash itself (no recursive hash).
@@ -119,7 +120,7 @@ def write_bundle(directory: str | Path, evolution: Evolution, *, params: dict[st
     path.mkdir(parents=True, exist_ok=False)
     data = evolution.truth if observed is None else observed
     tree = truth_tree or evolution.tree
-    groups = evolution.groups
+    groups = evolution.groups if retained_groups is None else [evolution.groups[i] for i in retained_groups]
     binary = evolution.config.model in {'dollo', 'binary'}
     (path / 'truth.nwk').write_text(tree.newick() + '\n', encoding='utf-8')
     if any(n.attrs.get('sampled_ancestor') for n in tree.traverse()):
@@ -142,13 +143,23 @@ def write_bundle(directory: str | Path, evolution: Evolution, *, params: dict[st
                 'binary_columns':[{'group':groups[i], 'state':s} for i,s in columns],
                 'model':evolution.config.model, 'morphology_partition':list(range(1,len(groups)+1)) if evolution.config.model == 'mk' else [],
                 'ordered':getattr(evolution.config, 'ordered', False),
+                'retained_group_indices':retained_groups,
                 'encoding':'TSV omits absent and missing cells; observed.json distinguishes [] and null. Binary present=1.'}
     (path / 'columns.json').write_text(json_text(metadata), encoding='utf-8')
     with (path / 'history.tsv').open('w',encoding='utf-8',newline='') as handle:
         writer = csv.writer(handle,delimiter='\t',lineterminator='\n')
         writer.writerow(['time','kind','donor','recipient','character','old','new'])
         for e in evolution.events:
-            writer.writerow([format(e.time,'.17g'),e.kind,e.donor,e.recipient,groups[e.character],json.dumps(e.old),json.dumps(e.new)])
+            writer.writerow([format(e.time,'.17g'),e.kind,e.donor,e.recipient,evolution.groups[e.character],json.dumps(e.old),json.dumps(e.new)])
+    horizontal_events = [e for e in evolution.events if e.donor]
+    if horizontal_events:
+        from .horizontal import displayed_network
+        (path / 'network.enwk').write_text(displayed_network(evolution.tree,horizontal_events).newick() + '\n',encoding='utf-8')
+        with (path / 'events.tsv').open('w',encoding='utf-8',newline='') as handle:
+            writer = csv.writer(handle,delimiter='\t',lineterminator='\n')
+            writer.writerow(['time','kind','donor','recipient','character','old','new'])
+            for e in horizontal_events:
+                writer.writerow([format(e.time,'.17g'),e.kind,e.donor,e.recipient,evolution.groups[e.character],json.dumps(e.old),json.dumps(e.new)])
     summary = summarize(data, tree, binary=binary, max_quartets=max_quartets, include_ci=include_ci)
     (path / 'summary.json').write_text(json_text(summary), encoding='utf-8')
     manifest = dict(params, version=__version__, character_config=asdict(evolution.config),

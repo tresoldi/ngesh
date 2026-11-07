@@ -80,3 +80,34 @@ core rather than preserve misleading 1.x parameter semantics.
 * Summary quartet scores use at most 1000 evenly spaced lexicographic quartets,
   record their sample size, and consume no random draws. Full quartets can be
   requested explicitly. This keeps 1000-replicate benchmarking practical.
+
+## G4/G5: chronological processes and observation
+
+* One chronological scheduler handles births/edge starts, state changes, synonym
+  deaths and transfers. Independent and borrowing runs use the identical kernel;
+  the horizontal stream is separate, so a zero rate is exactly identical.
+  Borrowing proposals have intensity b per character per lineage-time. Proposals
+  with no eligible donor are skipped, so recorded event intensity is b only while
+  another lineage is alive. Silent transfers are retained in the log.
+* Donor weights are exp(-d/scale), normalized after subtracting the minimum
+  distance to prevent underflow. Tree distance uses the two lineages at event time.
+  Geography is two independent Brownian coordinates with SD diffusion*sqrt(dt);
+  chronological queries simulate increments, with children inheriting the parental
+  position. Geography has its own stream and does not perturb character events.
+* Synonym deadlines are inherited at splits. An incoming transferred reading is
+  established (its donor's future synonym deadlines are not inherited). Replace
+  resets the cell; add unions it. This is a chosen transmission model, rather than
+  a claim that all borrowed synonyms retain identical lifetimes.
+* Contamination occurs on newly copied branches, draws a contemporaneous second
+  exemplar excluding siblings, and replaces either Bernoulli(f) scattered loci
+  or one contiguous block of round(f*L) loci. A transfer network splits edges at
+  event times; secondary edges have length zero. It is an event display, not a
+  probabilistic network with inferred inheritance probabilities.
+* Missing cells use null, true selection/omission uses the empty set. Selection
+  masks are inherited and can only shrink, explicitly generating nested item
+  collections. Coverage is one Beta(a,b) draw per taxon. Block missingness is one
+  contiguous block per taxon. Lumping maps each class globally to an earlier class;
+  splitting creates new per-cell labels. Ascertainment records removed column
+  indices; original full truth remains available while observed columns are mapped.
+* The sampled-ancestor internal encoding restores the observation's original label
+  after removing its zero-length tip; lineage IDs in history remain unique.
