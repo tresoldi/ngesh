@@ -175,3 +175,23 @@ class BundleTests(unittest.TestCase):
                 self.assertEqual(
                     expected, {n.name for n in internal.traverse() if n.name in expected}
                 )
+
+    def test_mk_nexus_declares_full_symbols_without_tokens(self):
+        from ngesh import simulate
+        from ngesh.matrices import read_nexus
+
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp) / "mk"
+            simulate(
+                preset="morphology",
+                seed=7,
+                config={
+                    "tree": {"n_taxa": 5},
+                    "characters": {"n_characters": 8, "k": 4, "rate": 0},
+                },
+                out=out,
+            )
+            text = (out / "data.multi.nex").read_text()
+            self.assertNotIn("TOKENS", text)
+            self.assertIn('SYMBOLS="0123"', text)
+            self.assertEqual(read_nexus(out / "data.multi.nex"), read_matrix(out / "observed.json"))

@@ -89,7 +89,13 @@ def _quote(text: str) -> str:
 
 
 def _nexus(
-    path: Path, matrix: Matrix, groups: list[str], *, binary: bool, presence: bool = False
+    path: Path,
+    matrix: Matrix,
+    groups: list[str],
+    *,
+    binary: bool,
+    presence: bool = False,
+    state_count: int | None = None,
 ) -> list[tuple[int, int]]:
     taxa = sorted(matrix)
     columns: list[tuple[int, int]] = []
@@ -120,10 +126,17 @@ def _nexus(
     data = [f"{_quote(t)} " + " ".join(token(matrix[t][i], s) for i, s in columns) for t in taxa]
     # TOKENS permits integer states beyond the single-symbol NEXUS alphabet.
     states = sorted({s for row in matrix.values() for c in row for s in c or []})
-    symbols = "01" if binary or presence else " ".join(map(str, states or [0]))
+    single_symbol = not binary and state_count is not None and max(states, default=0) < 10
+    symbols = (
+        "".join(str(i) for i in range(max(state_count, max(states, default=0) + 1)))
+        if single_symbol
+        else "01"
+        if binary or presence
+        else " ".join(map(str, states or [0]))
+    )
     fmt = (
         "DATATYPE=STANDARD "
-        + ("" if binary else "TOKENS ")
+        + ("" if binary or single_symbol else "TOKENS ")
         + f'SYMBOLS="{symbols}" MISSING=? GAP=-;'
     )
     text = [
@@ -202,7 +215,14 @@ def write_bundle(
     (path / "observed.json").write_text(json_text(matrix_json(data)), encoding="utf-8")
     (path / "observations.json").write_text(json_text(observation_log or []), encoding="utf-8")
     columns = _nexus(path / "data.bin.nex", data, groups, binary=True, presence=binary)
-    _nexus(path / "data.multi.nex", data, groups, binary=False, presence=binary)
+    _nexus(
+        path / "data.multi.nex",
+        data,
+        groups,
+        binary=False,
+        presence=binary,
+        state_count=evolution.config.k if evolution.config.model == "mk" else None,
+    )
     if evolution.config.model == "mk" and groups:
         with (path / "data.multi.nex").open("a", encoding="utf-8") as handle:
             handle.write(f"BEGIN SETS;\nCHARSET morphology = 1-{len(groups)};\nEND;\n")

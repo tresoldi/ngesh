@@ -252,3 +252,9 @@ of the retained observations. origin_height measures from time zero. Legacy
 height remains an alias for origin_height; explicit user scaling overrides the
 preset. The full history is rescaled and the selected scale is recorded in the
 tree configuration.
+
+## Mk NEXUS interoperability
+
+Mk matrices use single-symbol STANDARD encoding with the complete state
+alphabet, including unobserved model states, whenever all state IDs fit in
+one digit. Integer TOKENS remain available when coding errors create larger IDs.
