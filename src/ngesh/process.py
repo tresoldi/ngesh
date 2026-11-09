@@ -7,9 +7,9 @@ import heapq
 import math
 from typing import Any
 
-from .characters import CharacterConfig, Event, Evolution, character_rates
+from .characters import CharacterConfig, Episode, Event, Evolution, character_rates
 from .horizontal import HorizontalConfig
-from .rng import RandomStream
+from .rng import RandomStream, derive_seed
 from .tree import Node, Tree
 
 
@@ -58,6 +58,11 @@ def run_process(
     events: list[Event] = []
     heap: list[tuple[float, int, int, str, Node, int, Any]] = []
     serial = 0
+    episodes: list[Episode] = []
+    episode_partners: list[Node] = []
+    # Episodes use their own stream, derived without drawing from the others,
+    # so a zero episode rate leaves every other output unchanged.
+    erng = RandomStream(derive_seed(hrng.integer_seed, "episodes"))
     q = cfg.rate_matrix or [
         [
             (1 / (cfg.k - 1) if i != j and (not cfg.ordered or abs(i - j) == 1) else 0.0)
@@ -107,6 +112,19 @@ def run_process(
             if when < node.time:
                 queue(when, 5, "borrow", node)
 
+    def schedule_episode(t: float, node: Node) -> None:
+        if horizontal.episode_rate:
+            when = t + erng.exponential(horizontal.episode_rate)
+            if when < node.time:
+                queue(when, 6, "episode", node)
+
+    def schedule_contact(t: float, node: Node, index: int) -> None:
+        rate = horizontal.episode_intensity * count
+        if rate:
+            when = t + erng.exponential(rate)
+            if when < episodes[index].end:
+                queue(when, 5, "contact", node, -1, index)
+
     def position(node: Node, t: float) -> tuple[float, float]:
         x, y, last = positions[node]
         if t > last:
@@ -117,7 +135,9 @@ def run_process(
             positions[node] = x, y, t
         return x, y
 
-    def choose_donor(node: Node, t: float, copying: bool = False) -> Node | None:
+    def choose_donor(
+        node: Node, t: float, copying: bool = False, stream: RandomStream | None = None
+    ) -> Node | None:
         candidates = sorted(
             (
                 n
@@ -145,9 +165,8 @@ def run_process(
         for weight in weights:
             total += weight
             cumulative.append(total)
-        return candidates[
-            min(bisect.bisect_right(cumulative, hrng.random() * total), len(candidates) - 1)
-        ]
+        draw = (stream or hrng).random()
+        return candidates[min(bisect.bisect_right(cumulative, draw * total), len(candidates) - 1)]
 
     if cfg.model == "dollo":
         lengths = [n.length * branch_rates[n.name] for n in nodes]
@@ -208,6 +227,7 @@ def run_process(
                         if when < node.time:
                             queue(when, 3, "expire", node, i, state)
                 schedule_borrow(t, node)
+                schedule_episode(t, node)
                 for b in shared:
                     schedule_block(t, node, b)
                 if (
@@ -222,6 +242,57 @@ def run_process(
             active.discard(node)
             if horizontal.distance == "geography":
                 position(node, t)
+            continue
+        if kind == "episode":
+            partner = choose_donor(node, t, stream=erng)
+            if partner is not None:
+                # Contact is between two populations: it continues through splits,
+                # with each side's living descendants, until its drawn end or until
+                # one side has no living lineage.
+                end = t + erng.exponential(1 / horizontal.episode_duration)
+                episodes.append(
+                    Episode(f"E{len(episodes) + 1:05d}", node.name, partner.name, t, end)
+                )
+                episode_partners.append(partner)
+                schedule_contact(t, node, len(episodes) - 1)
+            schedule_episode(t, node)
+            continue
+        if kind == "contact":
+            episode = episodes[value]
+            sides = [
+                sorted((n for n in active if founder in n.ancestors()), key=lambda n: n.name)
+                for founder in (node, episode_partners[value])
+            ]
+            if sides[0] and sides[1] and t < episode.end:
+                first = sides[0][erng.index(len(sides[0]))]
+                second = sides[1][erng.index(len(sides[1]))]
+                if horizontal.episode_symmetric and erng.random() < 0.5:
+                    recipient, donor = second, first
+                else:
+                    recipient, donor = first, second
+                i = erng.index(count)
+                old = states[recipient][i]
+                new = states[donor][i]
+                if horizontal.mode == "add":
+                    new = old | new
+                states[recipient][i] = new
+                deadlines[recipient][i] = {}
+                episode.transfers += 1
+                events.append(
+                    Event(
+                        t,
+                        recipient.name,
+                        i,
+                        tuple(sorted(old)),
+                        tuple(sorted(new)),
+                        "contact",
+                        donor.name,
+                        episode.id,
+                    )
+                )
+                schedule_contact(t, node, value)
+            elif t < episode.end:
+                episode.end = t  # one side has no living lineage: the episode is over
             continue
         if kind in {"borrow", "contaminate"}:
             donor = choose_donor(node, t, copying=kind == "contaminate")
@@ -361,4 +432,5 @@ def run_process(
         rates,
         branch_rates,
         all_states,
+        episodes=episodes,
     )

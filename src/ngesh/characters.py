@@ -106,6 +106,19 @@ class Event:
     new: tuple[int, ...]
     kind: str = "replacement"
     donor: str = ""
+    episode: str = ""
+
+
+@dataclass
+class Episode:
+    """A contact episode: sustained transfer between two contemporaneous lineages."""
+
+    id: str
+    initiator: str
+    partner: str
+    start: float
+    end: float
+    transfers: int = 0
 
 
 @dataclass
@@ -119,6 +132,7 @@ class Evolution:
     branch_rates: dict[str, float]
     all_states: Matrix = field(default_factory=dict, repr=False)
     history_tree: Tree | None = field(default=None, repr=False)
+    episodes: list[Episode] = field(default_factory=list, repr=False)
 
 
 def character_rates(cfg: CharacterConfig, rng: RandomStream) -> list[float]:

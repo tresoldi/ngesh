@@ -278,7 +278,13 @@ def write_bundle(
             )
     horizontal_events = [e for e in evolution.events if e.donor]
     h = params.get("horizontal_config", {})
-    if horizontal_events or h.get("borrowing_rate", 0) or h.get("contamination_fraction", 0):
+    with_episodes = bool(h.get("episode_rate", 0)) or bool(evolution.episodes)
+    if (
+        horizontal_events
+        or h.get("borrowing_rate", 0)
+        or h.get("contamination_fraction", 0)
+        or with_episodes
+    ):
         from .horizontal import displayed_network
 
         (path / "network.enwk").write_text(
@@ -288,17 +294,32 @@ def write_bundle(
         )
         with (path / "events.tsv").open("w", encoding="utf-8", newline="") as handle:
             writer = csv.writer(handle, delimiter="\t", lineterminator="\n")
-            writer.writerow(["time", "kind", "donor", "recipient", "character", "old", "new"])
+            header = ["time", "kind", "donor", "recipient", "character", "old", "new"]
+            writer.writerow(header + (["episode"] if with_episodes else []))
             for e in horizontal_events:
+                row = [
+                    format(e.time, ".17g"),
+                    e.kind,
+                    e.donor,
+                    e.recipient,
+                    evolution.groups[e.character],
+                    json.dumps(e.old),
+                    json.dumps(e.new),
+                ]
+                writer.writerow(row + ([e.episode] if with_episodes else []))
+    if with_episodes:
+        with (path / "episodes.tsv").open("w", encoding="utf-8", newline="") as handle:
+            writer = csv.writer(handle, delimiter="\t", lineterminator="\n")
+            writer.writerow(["episode", "initiator", "partner", "start", "end", "transfers"])
+            for ep in evolution.episodes:
                 writer.writerow(
                     [
-                        format(e.time, ".17g"),
-                        e.kind,
-                        e.donor,
-                        e.recipient,
-                        evolution.groups[e.character],
-                        json.dumps(e.old),
-                        json.dumps(e.new),
+                        ep.id,
+                        ep.initiator,
+                        ep.partner,
+                        format(ep.start, ".17g"),
+                        format(ep.end, ".17g"),
+                        ep.transfers,
                     ]
                 )
     summary = summarize(data, tree, binary=binary, max_quartets=max_quartets, include_ci=include_ci)
