@@ -17,7 +17,8 @@ JSON with sorted keys make checksums reproducible. `params.json` is written last
 | `lineages.json` | Full lineage lifetimes, parent IDs, extinction and sampling flags |
 | `columns.json` | Group ordering, observed taxon names, state-column mapping, PHYLIP aliases |
 | `history.tsv` | Every evolutionary event, including silent events |
-| `events.tsv`, `network.enwk` | Horizontal events and displayed event network, when any occurred |
+| `events.tsv`, `network.enwk` | Horizontal events and displayed event network, when any occurred; with contact episodes, `events.tsv` gains an `episode` column (empty for non-episode events) and contact transfers have kind `contact` |
+| `episodes.tsv` | With `episode_rate > 0`: one row per contact episode (`episode`, `initiator`, `partner`, `start`, `end`, `transfers`); initiator and partner are the founding lineages, and transfers involve their living descendants |
 | `observations.json` | Separate observation and ascertainment log |
 | `summary.json` | Descriptive statistics and quartet sampling information |
 | `params.json` | Effective parameters, seeds, version, rates and file hashes |

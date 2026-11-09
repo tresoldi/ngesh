@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Add contact episodes (`episode_rate`, `episode_duration`, `episode_intensity`,
+  `episode_symmetric`): sustained transfer between two populations that
+  continues through splits, logged in `episodes.tsv` and in an `episode` column of
+  `events.tsv`. A zero rate reproduces earlier outputs exactly.
+
 - Generate deep histories without recursion: the GSA snapshot in
   `_birth_death` copies the tree iteratively (`tree.copy_subtree`) instead of
   `copy.deepcopy`, which raised `RecursionError` for some 100-taxon stemma

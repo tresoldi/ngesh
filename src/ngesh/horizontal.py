@@ -19,10 +19,16 @@ class HorizontalConfig:
     mode: str = "replace"
     contamination_fraction: float = 0.0
     contamination_blocks: bool = False
+    # Contact episodes: sustained exchange between two contemporaneous lineages.
+    episode_rate: float = 0.0  # onsets per lineage per unit time
+    episode_duration: float = 0.2  # mean duration (exponential), time units
+    episode_intensity: float = 0.5  # transfers per character per unit time during an episode
+    episode_symmetric: bool = True  # each transfer goes either way, else partner -> initiator
 
     def validate(self) -> None:
-        for name in ["borrowing_rate", "diffusion"]:
+        for name in ["borrowing_rate", "diffusion", "episode_rate", "episode_intensity"]:
             positive(getattr(self, name), name, zero=True)
+        positive(self.episode_duration, "episode_duration")
         positive(self.scale, "scale")
         if self.distance not in {"patristic", "geography"}:
             raise ValueError("distance must be patristic or geography")

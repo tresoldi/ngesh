@@ -100,6 +100,34 @@ exemplar exists at copying time and is not the recipient or its new sibling.
 When no second exemplar exists, there is no contamination. Multiple loci share
 one reticulation edge when transferred together.
 
+**Contact episodes** model sustained exchange between two populations, as
+opposed to independent one-word borrowings.
+- **Onsets:** each lineage starts episodes as a Poisson process with rate
+  `episode_rate`. The partner is drawn from the contemporaneous lineages with
+  the same kernel as borrowing (`distance`, `scale`).
+- **Duration:** Exponential with mean `episode_duration`.
+- **Transfers:** at rate `episode_intensity` per character per unit time.
+  Each transfer copies one random character's state from a living lineage on
+  one side to a living lineage on the other.
+- **Sides:** the two sides of an episode are the *living descendants* of the
+  initiator and of the partner, so contact continues through splits. Because
+  the founders are distinct and contemporaneous, the two sides never overlap.
+- **End:** an episode ends at its drawn end time, or earlier when one side has
+  no living lineage. An episode still running at the present keeps its drawn
+  end time.
+- **Direction:** with `episode_symmetric` each transfer picks its direction
+  with probability ½; otherwise transfers go from the partner's side to the
+  initiator's.
+- **Semantics:** transfers follow `mode` (replace or add) and reset synonym
+  deadlines, like borrowing.
+- **Reproducibility:** episodes use their own stream, derived from the
+  horizontal seed without drawing from it, so `episode_rate=0` reproduces
+  earlier outputs exactly.
+
+Most episode transfers are silent when partners are close relatives (they
+share most states). Use a small `scale`, or `distance="geography"` with large
+`diffusion`, to obtain contact between distant lineages.
+
 ## Observation
 
 Observation has an independent stream and leaves truth unchanged. `missing` is

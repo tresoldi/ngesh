@@ -278,3 +278,26 @@ preset at 100 taxa). `tree.copy_subtree` copies nodes iteratively, deep-copying
 only each node's attribute dictionary, so outputs for every seed are unchanged
 (golden files pass). `Tree.from_newick` now uses an explicit stack, with the
 same grammar and error messages. Writing and traversal were already iterative.
+
+
+## Contact episodes
+
+Independent per-character borrowing cannot represent sustained contact, the usual
+situation for languages and contaminated textual traditions, and it gives
+detection methods nothing to aggregate. An episode joins two contemporaneous
+founding lineages.
+- **Sides:** the living descendants of each founder, so contact continues
+  through splits. Truncating at the founders' lineage ends made episodes as
+  short as the branches: a mean of 0.05 against 0.2 configured at 40 taxa.
+- **Partner choice:** the borrowing kernel, so the same `distance` and `scale`
+  apply.
+- **Transfers:** a Poisson process during the episode, each pairing a random
+  living lineage on each side.
+- **Ground truth:** every episode and transfer is logged.
+- **Reproducibility:** the episode stream is derived from the horizontal
+  stream's integer seed and draws nothing when the rate is zero, so outputs
+  without episodes are byte-identical.
+- **Alternatives rejected:**
+  - Per-pair onset rates over all contemporaneous pairs: quadratic in
+    lineages, and harder to parameterise.
+  - Inheriting an episode by only one child: an arbitrary choice.
