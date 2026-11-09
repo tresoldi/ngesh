@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+- Generate deep histories without recursion: the GSA snapshot in
+  `_birth_death` copies the tree iteratively (`tree.copy_subtree`) instead of
+  `copy.deepcopy`, which raised `RecursionError` for some 100-taxon stemma
+  histories; `Tree.from_newick` parses with an explicit stack, so nesting depth
+  is no longer bounded by the recursion limit. Outputs are unchanged.
+
 ## 2.0.0a4 — review fixes
 
 - Use target-count interval sampling and distinguish crown and origin heights.

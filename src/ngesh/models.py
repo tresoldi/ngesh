@@ -4,10 +4,10 @@ from __future__ import annotations
 
 from dataclasses import dataclass, replace
 import math
-import copy
+
 
 from .rng import RandomStream, Seed, positive
-from .tree import Node, Tree
+from .tree import Node, Tree, copy_subtree
 
 
 @dataclass
@@ -233,7 +233,8 @@ def _birth_death(cfg: TreeConfig, rng: RandomStream) -> Tree:
                 duration += interval
                 if rng.random() < interval / duration:
                     selected_time = now + rng.random() * interval
-                    snapshot, selected = copy.deepcopy((root, active))
+                    snapshot, mapping = copy_subtree(root)
+                    selected = [mapping[n] for n in active]
                     for lineage in selected:
                         lineage.length = selected_time - lineage.time
                         lineage.attrs["extinct"] = False
