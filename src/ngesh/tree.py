@@ -35,6 +35,31 @@ class Node:
             node = node.parent
 
 
+def copy_subtree(root: Node) -> tuple[Node, dict[Node, Node]]:
+    """Iteratively copy the tree below ``root``; return the copy and an old-to-new map.
+
+    Unlike ``copy.deepcopy`` this does not recurse through parent and child
+    links, so it works for histories of any depth. Attribute dictionaries are
+    deep-copied per node.
+    """
+    import copy
+
+    mapping: dict[Node, Node] = {}
+    stack = [root]
+    while stack:
+        old = stack.pop()
+        new = Node(old.name, old.length, old.time, copy.deepcopy(old.attrs))
+        mapping[old] = new
+        if old.parent is not None and old is not root:
+            parent = mapping[old.parent]
+            new.parent = parent
+        stack.extend(reversed(old.children))
+    # attach children in their original order
+    for old, new in mapping.items():
+        new.children = [mapping[c] for c in old.children]
+    return mapping[root], mapping
+
+
 @dataclass
 class Tree:
     root: Node
@@ -210,18 +235,8 @@ class Tree:
         hybrids: dict[str, Node] = {}
         occurrences: list[tuple[Node, str]] = []
 
-        def parse() -> Node:
+        def annotate(node: Node) -> None:
             nonlocal pos
-            node = Node()
-            if pos < len(tokens) and tokens[pos] == "(":
-                pos += 1
-                node.add(parse())
-                while pos < len(tokens) and tokens[pos] == ",":
-                    pos += 1
-                    node.add(parse())
-                if pos >= len(tokens) or tokens[pos] != ")":
-                    raise ValueError("unclosed Newick clade")
-                pos += 1
             if pos < len(tokens) and tokens[pos] not in "(),:;":
                 name = tokens[pos]
                 pos += 1
@@ -251,12 +266,37 @@ class Tree:
                 except (ValueError, IndexError) as error:
                     raise ValueError("invalid Newick length") from error
                 pos += 1
-            return node
 
-        try:
-            root = parse()
-        except RecursionError as error:
-            raise ValueError("Newick nesting exceeds parser limit") from error
+        # Explicit-stack parser: nesting depth is limited only by memory.
+        open_clades: list[Node] = []
+        root: Node | None = None
+        expect_node = True
+        while True:
+            if expect_node:
+                node = Node()
+                if open_clades:
+                    open_clades[-1].add(node)
+                else:
+                    root = node
+                if pos < len(tokens) and tokens[pos] == "(":
+                    pos += 1
+                    open_clades.append(node)
+                    continue
+                annotate(node)
+                expect_node = False
+                continue
+            token = tokens[pos] if pos < len(tokens) else None
+            if token == "," and open_clades:
+                pos += 1
+                expect_node = True
+            elif token == ")" and open_clades:
+                pos += 1
+                annotate(open_clades.pop())
+            else:
+                break
+        if open_clades:
+            raise ValueError("unclosed Newick clade")
+        assert root is not None
         if pos != len(tokens) - 1 or tokens[pos] != ";":
             raise ValueError("Newick must end with one semicolon")
         for node, tag in occurrences:

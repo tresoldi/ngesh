@@ -268,3 +268,13 @@ losses; the character-wide rate cancels in the conditional one-gain choice.
 Repeated omissions of an absent locus are logged as omission_silent. Empty
 Bernoulli tip samples are retried, with a bounded attempt count recorded in
 params.json. Zero-probability sampling can fail after the explicit bound.
+
+
+## Deep histories
+
+`copy.deepcopy` of the GSA snapshot recursed through parent and child links and
+raised `RecursionError` for high-extinction histories (seen with the stemma
+preset at 100 taxa). `tree.copy_subtree` copies nodes iteratively, deep-copying
+only each node's attribute dictionary, so outputs for every seed are unchanged
+(golden files pass). `Tree.from_newick` now uses an explicit stack, with the
+same grammar and error messages. Writing and traversal were already iterative.
