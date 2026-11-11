@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- Record where contact episodes' copied readings sit in the observed data:
+  `episode_cells.tsv` (carriers, holders, donor-side holders per episode and
+  character), and `effective` and `carriers` columns in `episodes.tsv`. The
+  founders' living descendants miss most episodes when donor lines are lost, as
+  in manuscript traditions. Runs without episodes are unchanged.
+
 - Add contact episodes (`episode_rate`, `episode_duration`, `episode_intensity`,
   `episode_symmetric`): sustained transfer between two populations that
   continues through splits, logged in `episodes.tsv` and in an `episode` column of
