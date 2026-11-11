@@ -139,3 +139,89 @@ def test_validation():
     for bad in [{"episode_rate": -1}, {"episode_duration": 0}, {"episode_intensity": -0.1}]:
         with pytest.raises(ValueError):
             HorizontalConfig(**bad).validate()
+
+
+def latest_events(path):
+    """(lineage, character) -> latest history event at that lineage."""
+    out = {}
+    for r in rows(path / "history.tsv"):
+        key = (r["recipient"], r["character"])
+        if key not in out or float(r["time"]) >= float(out[key]["time"]):
+            out[key] = r
+    return out
+
+
+def observed(path):
+    cells = {}
+    for r in rows(path / "data.tsv"):
+        cells.setdefault(r["Language"], {}).setdefault(r["Concept"], set()).add(r["Cognateset"])
+    return cells
+
+
+def test_episode_cells_locate_copied_readings():
+    with tempfile.TemporaryDirectory() as tmp:
+        checked = 0
+        for seed in range(4):
+            out = run(tmp, f"cells-{seed}", EPISODES, n_taxa=16, n_characters=80)
+            lineages = {x["id"]: x for x in json.loads((out / "lineages.json").read_text())}
+            episodes = {r["episode"]: r for r in rows(out / "episodes.tsv")}
+            cells = rows(out / "episode_cells.tsv")
+            latest = latest_events(out)
+            events = {
+                (r["time"], r["recipient"], r["character"]): r for r in rows(out / "events.tsv")
+            }
+            data = observed(out)
+            carriers = {}
+            for row in cells:
+                ep, char = row["episode"], row["character"]
+                carr = row["carriers"].split(",")
+                holders = [t for t in row["holders"].split(",") if t]
+                donor_side = [t for t in row["donor_side"].split(",") if t]
+                assert carr and not set(carr) & set(holders)
+                assert set(donor_side) <= set(holders)
+                for t in carr:
+                    # the latest event at this character along t's lineage is an effective transfer of ep
+                    node, last = t, None
+                    while node is not None:
+                        e = latest.get((node, char))
+                        if e is not None and (
+                            last is None or float(e["time"]) > float(last["time"])
+                        ):
+                            last = e
+                        node = lineages[node]["parent"]
+                    assert last["kind"] == "contact" and last["old"] != last["new"]
+                    assert events[(last["time"], last["recipient"], char)]["episode"] == ep
+                    checked += 1
+                carriers.setdefault(ep, set()).update(carr)
+            for ep, r in episodes.items():
+                assert int(r["effective"]) <= int(r["transfers"])
+                assert int(r["carriers"]) == len(carriers.get(ep, ()))
+            assert all(set(r["holders"].split(",")) - {""} <= set(data) for r in cells)
+        assert checked > 0
+
+
+def test_lost_donor_lines_leave_holders_without_donor_side():
+    """In manuscript traditions most exemplars are lost: readings copied from a lost line are
+    still shared with surviving witnesses, which donor_side alone would miss."""
+    with tempfile.TemporaryDirectory() as tmp:
+        holders_only = 0
+        for seed in range(3):
+            out = Path(tmp) / f"stemma-{seed}"
+            simulate(
+                preset="stemma",
+                seed=f"lost-donor-{seed}",
+                config={
+                    "tree": {"n_taxa": 30, "ancestor_rate": 0.0},
+                    "characters": {"n_characters": 200},
+                    "horizontal": {
+                        **EPISODES,
+                        "episode_rate": 0.6,
+                        "episode_intensity": 3.0,
+                        "scale": 100.0,
+                    },
+                },
+                out=out,
+            )
+            for r in rows(out / "episode_cells.tsv"):
+                holders_only += bool(r["holders"]) and not r["donor_side"]
+        assert holders_only > 0

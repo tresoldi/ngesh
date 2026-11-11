@@ -293,7 +293,16 @@ founding lineages.
   apply.
 - **Transfers:** a Poisson process during the episode, each pairing a random
   living lineage on each side.
-- **Ground truth:** every episode and transfer is logged.
+- **Ground truth:** every episode and transfer is logged. `episode_cells.tsv`
+  also records where the copied readings sit in the observed data: carriers
+  (witnesses holding a reading through an effective transfer) and holders (the
+  other witnesses with that reading).
+  - The founders' living descendants are not enough as the episode's sides.
+    Most transfers copy a state the recipient already has, and donor lines are
+    often lost, especially in manuscript traditions.
+  - In a 40-witness stemma run, 11–19% of transfers changed a state.
+    Ground-truth zones built from donor-side descendants dropped most real
+    episodes: half the detections counted as false carried copied readings.
 - **Reproducibility:** the episode stream is derived from the horizontal
   stream's integer seed and draws nothing when the rate is zero, so outputs
   without episodes are byte-identical.

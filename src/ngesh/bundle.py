@@ -308,9 +308,32 @@ def write_bundle(
                 ]
                 writer.writerow(row + ([e.episode] if with_episodes else []))
     if with_episodes:
+        from .horizontal import episode_cells
+
+        cells = episode_cells(
+            lineage_tree, evolution.events, evolution.episodes, data, retained_groups
+        )
+        effective: dict[str, int] = {}
+        for e in horizontal_events:
+            if e.episode and e.old != e.new:
+                effective[e.episode] = effective.get(e.episode, 0) + 1
+        carriers: dict[str, set[str]] = {}
+        for row in cells:
+            carriers.setdefault(row["episode"], set()).update(row["carriers"])
         with (path / "episodes.tsv").open("w", encoding="utf-8", newline="") as handle:
             writer = csv.writer(handle, delimiter="\t", lineterminator="\n")
-            writer.writerow(["episode", "initiator", "partner", "start", "end", "transfers"])
+            writer.writerow(
+                [
+                    "episode",
+                    "initiator",
+                    "partner",
+                    "start",
+                    "end",
+                    "transfers",
+                    "effective",
+                    "carriers",
+                ]
+            )
             for ep in evolution.episodes:
                 writer.writerow(
                     [
@@ -320,6 +343,22 @@ def write_bundle(
                         format(ep.start, ".17g"),
                         format(ep.end, ".17g"),
                         ep.transfers,
+                        effective.get(ep.id, 0),
+                        len(carriers.get(ep.id, ())),
+                    ]
+                )
+        with (path / "episode_cells.tsv").open("w", encoding="utf-8", newline="") as handle:
+            writer = csv.writer(handle, delimiter="\t", lineterminator="\n")
+            writer.writerow(["episode", "character", "states", "carriers", "holders", "donor_side"])
+            for row in cells:
+                writer.writerow(
+                    [
+                        row["episode"],
+                        groups[row["character"]],
+                        json.dumps(row["states"]),
+                        ",".join(row["carriers"]),
+                        ",".join(row["holders"]),
+                        ",".join(row["donor_side"]),
                     ]
                 )
     summary = summarize(data, tree, binary=binary, max_quartets=max_quartets, include_ci=include_ci)

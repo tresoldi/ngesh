@@ -18,7 +18,8 @@ JSON with sorted keys make checksums reproducible. `params.json` is written last
 | `columns.json` | Group ordering, observed taxon names, state-column mapping, PHYLIP aliases |
 | `history.tsv` | Every evolutionary event, including silent events |
 | `events.tsv`, `network.enwk` | Horizontal events and displayed event network, when any occurred; with contact episodes, `events.tsv` gains an `episode` column (empty for non-episode events) and contact transfers have kind `contact` |
-| `episodes.tsv` | With `episode_rate > 0`: one row per contact episode (`episode`, `initiator`, `partner`, `start`, `end`, `transfers`); initiator and partner are the founding lineages, and transfers involve their living descendants |
+| `episodes.tsv` | With `episode_rate > 0`: one row per contact episode (`episode`, `initiator`, `partner`, `start`, `end`, `transfers`, `effective`, `carriers`); initiator and partner are the founding lineages, and transfers involve their living descendants; `effective` counts transfers that changed the recipient's state, `carriers` the observed witnesses that still hold a copied reading |
+| `episode_cells.tsv` | With `episode_rate > 0`: where each episode's copied readings sit in the observed data, one row per episode and character (`episode`, `character`, `states`, `carriers`, `holders`, `donor_side`). Carriers hold a copied state through an effective transfer of that episode (the latest event at that character along their lineage); holders are the other observed witnesses with a copied state; donor_side are the holders descending from the founder on the donor's side. Donor lines are often lost, so use carriers and holders as the two sides of an episode |
 | `observations.json` | Separate observation and ascertainment log |
 | `summary.json` | Descriptive statistics and quartet sampling information |
 | `params.json` | Effective parameters, seeds, version, rates and file hashes |

@@ -115,6 +115,10 @@ opposed to independent one-word borrowings.
 - **End:** an episode ends at its drawn end time, or earlier when one side has
   no living lineage. An episode still running at the present keeps its drawn
   end time.
+- **Ground truth in the observed data:** `episode_cells.tsv` lists, per
+  episode and character, the witnesses that carry a copied reading and the
+  other witnesses that hold it. `episodes.tsv` counts the effective transfers
+  (those that changed a state) and the carrier witnesses.
 - **Direction:** with `episode_symmetric` each transfer picks its direction
   with probability ½; otherwise transfers go from the partner's side to the
   initiator's.
